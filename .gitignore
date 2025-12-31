@@ -1,0 +1,55 @@
+# Lean 4 build artifacts
+.lake/
+lake-manifest.json
+*.olean
+*.ilean
+*.trace
+*.c
+*.hash
+*.o
+*.so
+*.dylib
+build/
+lakefile.olean
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.mypy_cache/
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+*.coverage
+.coverage
+htmlcov/
+
+# Agda artifacts
+*.agdai
+MAlonzo/
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS files
+Thumbs.db
+.Spotlight-V100
+.Trashes
+
+# Log files
+*.log
+*.out
+experiment_results.log
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
