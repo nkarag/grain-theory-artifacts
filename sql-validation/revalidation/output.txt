@@ -1,0 +1,1187 @@
+psql:revalidation.sql:14: NOTICE:  schema "revalidation" already exists, skipping
+CREATE SCHEMA
+SET
+ setseed 
+---------
+ 
+(1 row)
+
+DROP TABLE
+CREATE TABLE
+========================================================
+Grain Formula Revalidation — 100 Examples
+========================================================
+
+── Main Theorem (22 examples) ──
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 999
+CREATE TABLE
+INSERT 0 999
+psql:revalidation.sql:165: NOTICE:  Ex 1: rows=999 | paper(a, b, c): uniq=t min=f rem=b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 999
+CREATE TABLE
+INSERT 0 999
+psql:revalidation.sql:291: NOTICE:  Ex 2: rows=999 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:417: NOTICE:  Ex 3: rows=1000 | paper(a, b, c): uniq=t min=f rem=b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 999
+CREATE TABLE
+INSERT 0 999
+psql:revalidation.sql:543: NOTICE:  Ex 4: rows=999 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 940
+CREATE TABLE
+INSERT 0 940
+psql:revalidation.sql:669: NOTICE:  Ex 5: rows=940 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 470
+CREATE TABLE
+INSERT 0 470
+psql:revalidation.sql:795: NOTICE:  Ex 6: rows=470 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 900
+INSERT 0 899
+CREATE TABLE
+INSERT 0 899
+psql:revalidation.sql:921: NOTICE:  Ex 7: rows=899 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:1047: NOTICE:  Ex 8: rows=1000 | paper(a, b, c): uniq=t min=f rem=b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 235
+CREATE TABLE
+INSERT 0 235
+psql:revalidation.sql:1173: NOTICE:  Ex 9: rows=235 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:1299: NOTICE:  Ex 28: rows=1000 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 500
+CREATE TABLE
+INSERT 0 500
+psql:revalidation.sql:1425: NOTICE:  Ex 29: rows=500 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 200
+CREATE TABLE
+INSERT 0 200
+psql:revalidation.sql:1551: NOTICE:  Ex 30: rows=200 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 100
+INSERT 0 100
+CREATE TABLE
+INSERT 0 100
+psql:revalidation.sql:1677: NOTICE:  Ex 31: rows=100 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 50
+INSERT 0 50
+CREATE TABLE
+INSERT 0 50
+psql:revalidation.sql:1803: NOTICE:  Ex 32: rows=50 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:1929: NOTICE:  Ex 33: rows=1000 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 500
+CREATE TABLE
+INSERT 0 500
+psql:revalidation.sql:2055: NOTICE:  Ex 34: rows=500 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 200
+CREATE TABLE
+INSERT 0 200
+psql:revalidation.sql:2181: NOTICE:  Ex 35: rows=200 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 100
+INSERT 0 100
+CREATE TABLE
+INSERT 0 100
+psql:revalidation.sql:2307: NOTICE:  Ex 36: rows=100 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 50
+INSERT 0 50
+CREATE TABLE
+INSERT 0 50
+psql:revalidation.sql:2433: NOTICE:  Ex 37: rows=50 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:2559: NOTICE:  Ex 38: rows=1000 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 500
+CREATE TABLE
+INSERT 0 500
+psql:revalidation.sql:2685: NOTICE:  Ex 39: rows=500 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 200
+CREATE TABLE
+INSERT 0 200
+psql:revalidation.sql:2811: NOTICE:  Ex 40: rows=200 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+── Incomparable Grains (16 examples) ──
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 940
+CREATE TABLE
+INSERT 0 940
+psql:revalidation.sql:2940: NOTICE:  Ex 10: rows=940 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1175
+CREATE TABLE
+INSERT 0 1176
+psql:revalidation.sql:3067: NOTICE:  Ex 11: rows=1176 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 470
+CREATE TABLE
+INSERT 0 470
+psql:revalidation.sql:3194: NOTICE:  Ex 12: rows=470 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1880
+CREATE TABLE
+INSERT 0 1881
+psql:revalidation.sql:3321: NOTICE:  Ex 13: rows=1881 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 2350
+CREATE TABLE
+INSERT 0 2617
+psql:revalidation.sql:3448: NOTICE:  Ex 14: rows=2617 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 4700
+CREATE TABLE
+INSERT 0 10218
+psql:revalidation.sql:3575: NOTICE:  Ex 15: rows=10218 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 900
+INSERT 0 1410
+CREATE TABLE
+INSERT 0 1413
+psql:revalidation.sql:3702: NOTICE:  Ex 16: rows=1413 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 235
+CREATE TABLE
+INSERT 0 235
+psql:revalidation.sql:3829: NOTICE:  Ex 17: rows=235 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 9400
+CREATE TABLE
+INSERT 0 40351
+psql:revalidation.sql:3956: NOTICE:  Ex 18: rows=40351 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 10000
+psql:revalidation.sql:4083: NOTICE:  Ex 86: rows=10000 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 5000
+psql:revalidation.sql:4210: NOTICE:  Ex 87: rows=5000 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 20000
+psql:revalidation.sql:4337: NOTICE:  Ex 88: rows=20000 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 5000
+psql:revalidation.sql:4464: NOTICE:  Ex 89: rows=5000 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 40000
+psql:revalidation.sql:4591: NOTICE:  Ex 90: rows=40000 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 5000
+psql:revalidation.sql:4718: NOTICE:  Ex 91: rows=5000 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 10000
+psql:revalidation.sql:4845: NOTICE:  Ex 92: rows=10000 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+── Natural Join (17 examples) ──
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 940
+CREATE TABLE
+INSERT 0 1049
+psql:revalidation.sql:4974: NOTICE:  Ex 19: rows=1049 | paper(a, b, c, d): uniq=t min=f rem=b, c | corrected(a, b, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1175
+CREATE TABLE
+INSERT 0 1175
+psql:revalidation.sql:5101: NOTICE:  Ex 20: rows=1175 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 470
+CREATE TABLE
+INSERT 0 1019
+psql:revalidation.sql:5228: NOTICE:  Ex 21: rows=1019 | paper(a, b, c, d): uniq=t min=f rem=b, c | corrected(a, b, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1880
+CREATE TABLE
+INSERT 0 1880
+psql:revalidation.sql:5355: NOTICE:  Ex 22: rows=1880 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 2350
+CREATE TABLE
+INSERT 0 2350
+psql:revalidation.sql:5482: NOTICE:  Ex 23: rows=2350 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 4700
+CREATE TABLE
+INSERT 0 4700
+psql:revalidation.sql:5609: NOTICE:  Ex 24: rows=4700 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 900
+INSERT 0 1410
+CREATE TABLE
+INSERT 0 1410
+psql:revalidation.sql:5736: NOTICE:  Ex 25: rows=1410 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 235
+CREATE TABLE
+INSERT 0 1021
+psql:revalidation.sql:5863: NOTICE:  Ex 26: rows=1021 | paper(a, b, c, d): uniq=t min=f rem=b, c | corrected(a, b, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 9400
+CREATE TABLE
+INSERT 0 9400
+psql:revalidation.sql:5990: NOTICE:  Ex 27: rows=9400 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 940
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:6116: NOTICE:  Ex 93: rows=1000 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:6242: NOTICE:  Ex 94: rows=1000 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 470
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:6368: NOTICE:  Ex 95: rows=1000 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:6494: NOTICE:  Ex 96: rows=1000 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:6620: NOTICE:  Ex 97: rows=1000 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 235
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:6746: NOTICE:  Ex 98: rows=1000 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:6872: NOTICE:  Ex 99: rows=1000 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 900
+INSERT 0 900
+CREATE TABLE
+INSERT 0 900
+psql:revalidation.sql:6998: NOTICE:  Ex 100: rows=900 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+── Equal Grains (20 examples) ──
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:7126: NOTICE:  Ex 41: rows=1000 | paper(g1): uniq=t min=t rem=- | corrected(g1): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 500
+CREATE TABLE
+INSERT 0 500
+psql:revalidation.sql:7252: NOTICE:  Ex 42: rows=500 | paper(g1): uniq=t min=t rem=- | corrected(g1): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 200
+CREATE TABLE
+INSERT 0 200
+psql:revalidation.sql:7378: NOTICE:  Ex 43: rows=200 | paper(g1): uniq=t min=t rem=- | corrected(g1): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 100
+INSERT 0 100
+CREATE TABLE
+INSERT 0 100
+psql:revalidation.sql:7504: NOTICE:  Ex 44: rows=100 | paper(g1): uniq=t min=t rem=- | corrected(g1): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 20000
+psql:revalidation.sql:7631: NOTICE:  Ex 45: rows=20000 | paper(g2_r1, g2_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g2_r2, g1): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 25000
+psql:revalidation.sql:7758: NOTICE:  Ex 46: rows=25000 | paper(g2_r1, g2_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g2_r2, g1): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 10000
+psql:revalidation.sql:7885: NOTICE:  Ex 47: rows=10000 | paper(g2_r1, g2_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g2_r2, g1): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:8011: NOTICE:  Ex 48: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:8137: NOTICE:  Ex 49: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:8263: NOTICE:  Ex 50: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 100000
+psql:revalidation.sql:8391: NOTICE:  Ex 51: rows=100000 | paper(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 50000
+psql:revalidation.sql:8519: NOTICE:  Ex 52: rows=50000 | paper(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 10000
+psql:revalidation.sql:8646: NOTICE:  Ex 53: rows=10000 | paper(g3_r1, g3_r2, g1, g2): uniq=t min=t rem=- | corrected(g3_r1, g3_r2, g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 5000
+psql:revalidation.sql:8773: NOTICE:  Ex 54: rows=5000 | paper(g3_r1, g3_r2, g1, g2): uniq=t min=t rem=- | corrected(g3_r1, g3_r2, g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:8899: NOTICE:  Ex 55: rows=1000 | paper(g1, g2, g3): uniq=t min=t rem=- | corrected(g1, g2, g3): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:9025: NOTICE:  Ex 56: rows=1000 | paper(g1, g2, g3): uniq=t min=t rem=- | corrected(g1, g2, g3): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 200000
+psql:revalidation.sql:9154: NOTICE:  Ex 57: rows=200000 | paper(g2_r1, g3_r1, g4_r1, g2_r2, g3_r2, g4_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g3_r1, g4_r1, g2_r2, g3_r2, g4_r2, g1): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 40000
+psql:revalidation.sql:9282: NOTICE:  Ex 58: rows=40000 | paper(g3_r1, g4_r1, g3_r2, g4_r2, g1, g2): uniq=t min=t rem=- | corrected(g3_r1, g4_r1, g3_r2, g4_r2, g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 8000
+psql:revalidation.sql:9409: NOTICE:  Ex 59: rows=8000 | paper(g4_r1, g4_r2, g1, g2, g3): uniq=t min=t rem=- | corrected(g4_r1, g4_r2, g1, g2, g3): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:9535: NOTICE:  Ex 60: rows=1000 | paper(g1, g2, g3, g4): uniq=t min=t rem=- | corrected(g1, g2, g3, g4): uniq=t min=t
+DO
+── Ordered Grains (25 examples) ──
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 50
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:9663: NOTICE:  Ex 61: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 40
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:9789: NOTICE:  Ex 62: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 100
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:9915: NOTICE:  Ex 63: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 25
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:10041: NOTICE:  Ex 64: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 20
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:10167: NOTICE:  Ex 65: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 200
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:10293: NOTICE:  Ex 66: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 10
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:10419: NOTICE:  Ex 67: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 900
+INSERT 0 30
+CREATE TABLE
+INSERT 0 900
+psql:revalidation.sql:10545: NOTICE:  Ex 68: rows=900 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 50
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:10671: NOTICE:  Ex 69: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 100
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:10797: NOTICE:  Ex 70: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 20000
+CREATE TABLE
+INSERT 0 20000
+psql:revalidation.sql:10924: NOTICE:  Ex 71: rows=20000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 12500
+CREATE TABLE
+INSERT 0 12500
+psql:revalidation.sql:11051: NOTICE:  Ex 72: rows=12500 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 2000
+CREATE TABLE
+INSERT 0 2000
+psql:revalidation.sql:11178: NOTICE:  Ex 73: rows=2000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 100
+INSERT 0 4000
+CREATE TABLE
+INSERT 0 4000
+psql:revalidation.sql:11305: NOTICE:  Ex 74: rows=4000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 50
+INSERT 0 2500
+CREATE TABLE
+INSERT 0 2500
+psql:revalidation.sql:11432: NOTICE:  Ex 75: rows=2500 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 5000
+CREATE TABLE
+INSERT 0 5000
+psql:revalidation.sql:11559: NOTICE:  Ex 76: rows=5000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 50000
+CREATE TABLE
+INSERT 0 50000
+psql:revalidation.sql:11686: NOTICE:  Ex 77: rows=50000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 6000
+CREATE TABLE
+INSERT 0 6000
+psql:revalidation.sql:11813: NOTICE:  Ex 78: rows=6000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 10000
+CREATE TABLE
+INSERT 0 10000
+psql:revalidation.sql:11940: NOTICE:  Ex 79: rows=10000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 10000
+CREATE TABLE
+INSERT 0 10000
+psql:revalidation.sql:12067: NOTICE:  Ex 80: rows=10000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 100
+INSERT 0 2000
+CREATE TABLE
+INSERT 0 2000
+psql:revalidation.sql:12194: NOTICE:  Ex 81: rows=2000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 5000
+CREATE TABLE
+INSERT 0 5000
+psql:revalidation.sql:12321: NOTICE:  Ex 82: rows=5000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 5000
+CREATE TABLE
+INSERT 0 5000
+psql:revalidation.sql:12448: NOTICE:  Ex 83: rows=5000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 5000
+CREATE TABLE
+INSERT 0 5000
+psql:revalidation.sql:12575: NOTICE:  Ex 84: rows=5000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 50
+INSERT 0 5000
+CREATE TABLE
+INSERT 0 5000
+psql:revalidation.sql:12702: NOTICE:  Ex 85: rows=5000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+
+========================================================
+SUMMARY REPORT
+========================================================
+
+psql:revalidation.sql:12768: NOTICE:  
+psql:revalidation.sql:12768: NOTICE:  Total examples:        100
+psql:revalidation.sql:12768: NOTICE:    Case A:              73
+psql:revalidation.sql:12768: NOTICE:    Case B:              27
+psql:revalidation.sql:12768: NOTICE:    No data (0 rows):    0
+psql:revalidation.sql:12768: NOTICE:    Errors:              0
+psql:revalidation.sql:12768: NOTICE:  
+psql:revalidation.sql:12768: NOTICE:  ── PAPER FORMULA (Theorem 6.1) ──
+psql:revalidation.sql:12768: NOTICE:    Uniqueness pass:     100/100
+psql:revalidation.sql:12768: NOTICE:    Minimality pass:     73/100
+psql:revalidation.sql:12768: NOTICE:    Minimality FAIL:     27  (all should be Case B)
+psql:revalidation.sql:12768: NOTICE:  
+psql:revalidation.sql:12768: NOTICE:  ── CORRECTED FORMULA ──
+psql:revalidation.sql:12768: NOTICE:    Uniqueness pass:     100/100
+psql:revalidation.sql:12768: NOTICE:    Minimality pass:     100/100
+psql:revalidation.sql:12768: NOTICE:  
+psql:revalidation.sql:12768: NOTICE:  ✓ VALIDATION CONFIRMED:
+psql:revalidation.sql:12768: NOTICE:    Paper formula fails minimality on ALL 27 Case B examples
+psql:revalidation.sql:12768: NOTICE:    Corrected formula passes uniqueness + minimality on ALL 100 examples
+DO
+
+── Case B: Paper formula minimality failures ──
+ example_id |                 description                  | result_rows | paper_grain | paper_removable | corrected_grain 
+------------+----------------------------------------------+-------------+-------------+-----------------+-----------------
+          1 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v1] |         999 | a, b, c     | b, c            | a, c
+          2 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v2] |         999 | a, b, c     | a, b, c         | a, c
+          3 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v3] |        1000 | a, b, c     | b, c            | a, c
+          4 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v4] |         999 | a, b, c     | a, b, c         | a, c
+          5 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v5] |         940 | a, b, c     | a, b, c         | a, c
+          6 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v6] |         470 | a, b, c     | a, b, c         | a, c
+          7 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v7] |         899 | a, b, c     | a, b, c         | a, c
+          8 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v8] |        1000 | a, b, c     | b, c            | a, c
+          9 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v9] |         235 | a, b, c     | a, b, c         | a, c
+         10 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v1]   |         940 | a, b, c, d  | a, b, c         | a, c, d
+         11 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v2]   |        1176 | a, b, c, d  | a, b            | a, c, d
+         12 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v3]   |         470 | a, b, c, d  | a, b, c         | a, c, d
+         13 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v4]   |        1881 | a, b, c, d  | a, b            | a, c, d
+         14 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v5]   |        2617 | a, b, c, d  | a, b            | a, c, d
+         15 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v6]   |       10218 | a, b, c, d  | a, b            | a, c, d
+         16 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v7]   |        1413 | a, b, c, d  | a, b            | a, c, d
+         17 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v8]   |         235 | a, b, c, d  | a, b, c         | a, c, d
+         18 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v9]   |       40351 | a, b, c, d  | a, b            | a, c, d
+         19 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v1]   |        1049 | a, b, c, d  | b, c            | a, b, d
+         20 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v2]   |        1175 | a, b, c, d  | a, b, c         | a, b, d
+         21 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v3]   |        1019 | a, b, c, d  | b, c            | a, b, d
+         22 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v4]   |        1880 | a, b, c, d  | a, b, c         | a, b, d
+         23 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v5]   |        2350 | a, b, c, d  | a, b, c         | a, b, d
+         24 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v6]   |        4700 | a, b, c, d  | a, b, c         | a, b, d
+         25 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v7]   |        1410 | a, b, c, d  | a, b, c         | a, b, d
+         26 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v8]   |        1021 | a, b, c, d  | b, c            | a, b, d
+         27 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v9]   |        9400 | a, b, c, d  | a, b, c         | a, b, d
+(27 rows)
+
+
+── Any unexpected results (errors, Case A minimality failures, etc.) ──
+ example_id | category | case_type | description | result_rows | paper_grain | paper_unique | paper_minimal | paper_removable | corrected_grain | corrected_unique | corrected_minimal 
+------------+----------+-----------+-------------+-------------+-------------+--------------+---------------+-----------------+-----------------+------------------+-------------------
+(0 rows)
+
+
+========================================================
+Revalidation Complete
+========================================================
