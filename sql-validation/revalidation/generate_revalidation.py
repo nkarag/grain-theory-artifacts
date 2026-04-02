@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 """
-Grain Formula Revalidation — 100 Examples
+Grain Formula Revalidation — 350 Examples
 ==========================================
 
 Generates SQL to test both the paper's Theorem 6.1 formula and the corrected
-formula across 100 equi-join examples.
+formula across 350 equi-join examples.
 
 For each example, tests:
   1. Paper's grain formula: uniqueness (should PASS) + minimality
   2. Corrected formula:     uniqueness (should PASS) + minimality (should PASS)
 
 Expected results:
-  - Case A examples (73): both formulas identical → both pass uniqueness & minimality
-  - Case B examples (27): paper passes uniqueness but FAILS minimality;
-                           corrected passes both
+  - Case A examples (200): both formulas identical → both pass uniqueness & minimality
+  - Case B examples (150): paper passes uniqueness but FAILS minimality;
+                            corrected passes both
 
 Usage:
     python3 generate_revalidation.py > revalidation.sql
@@ -223,146 +223,168 @@ def make_case_a_natjoin(eid, suffix, g_ranges):
     )
 
 
+def gen_2col_range_pairs(n):
+    """Generate n distinct ([a,b],[a,b]) range pairs for 2-column grains."""
+    bases = [5, 8, 10, 15, 20, 25, 30, 40, 50, 75, 100, 150, 200]
+    pairs = []
+    for a in bases:
+        for b in bases:
+            if a * b >= 25:  # enough data for meaningful tests
+                pairs.append(([a, b], [a, b]))
+    return pairs[:n]
+
+
+def gen_3col_ranges(n):
+    """Generate n distinct [a,b,c] ranges for 3-column grains."""
+    bases = [3, 4, 5, 6, 8, 10, 12, 15, 20, 25]
+    ranges = []
+    for a in bases:
+        for b in bases:
+            for c in bases:
+                if a * b * c >= 50 and a * b * c <= 5000:
+                    ranges.append([a, b, c])
+    return ranges[:n]
+
+
 def build_examples():
-    """Build all 100 examples."""
+    """Build all 350 examples (150 Case B + 200 Case A)."""
     examples = []
     eid = 1
 
-    # ── CASE B: Main Theorem (9 examples) ──
-    range_sets = [
-        ([50, 20], [50, 20]),
-        ([40, 25], [40, 25]),
-        ([100, 10], [100, 10]),
-        ([25, 40], [25, 40]),
-        ([20, 50], [20, 50]),
-        ([10, 100], [10, 100]),
-        ([30, 30], [30, 30]),
-        ([200, 5], [200, 5]),
-        ([5, 200], [5, 200]),
-    ]
-    for i, (r1r, r2r) in enumerate(range_sets):
+    # ═══════════════════════════════════════════════════════════════════
+    # CASE B: 150 examples (50 per pattern)
+    # ═══════════════════════════════════════════════════════════════════
+
+    b_ranges = gen_2col_range_pairs(50)
+
+    # ── CASE B: Main Theorem (50 examples) ──
+    for i, (r1r, r2r) in enumerate(b_ranges):
         examples.append(make_case_b_main(eid, f'v{i+1}', r1r, r2r))
         eid += 1
 
-    # ── CASE B: Incomparable Grains (9 examples) ──
-    for i, (r1r, r2r) in enumerate(range_sets):
+    # ── CASE B: Incomparable Grains (50 examples) ──
+    for i, (r1r, r2r) in enumerate(b_ranges):
         examples.append(make_case_b_incomp(eid, f'v{i+1}', r1r, r2r))
         eid += 1
 
-    # ── CASE B: Natural Join (9 examples) ──
-    for i, (r1r, r2r) in enumerate(range_sets):
+    # ── CASE B: Natural Join (50 examples) ──
+    for i, (r1r, r2r) in enumerate(b_ranges):
         examples.append(make_case_b_natjoin(eid, f'v{i+1}', r1r, r2r))
         eid += 1
 
-    # ── CASE A: Main Theorem (13 examples) ──
-    a_ranges = [
-        ([1000], [50, 20]),
-        ([500], [25, 20]),
-        ([200], [100, 10]),
-        ([100], [50, 20]),
-        ([50], [50, 20]),
-        ([1000], [100, 10]),
-        ([500], [50, 20]),
-        ([200], [200, 5]),
-        ([100], [100, 10]),
-        ([50], [25, 40]),
-        ([1000], [25, 40]),
-        ([500], [100, 10]),
-        ([200], [50, 20]),
+    # ═══════════════════════════════════════════════════════════════════
+    # CASE A: 200 examples
+    # ═══════════════════════════════════════════════════════════════════
+
+    # ── CASE A: Main Theorem (30 examples) ──
+    # G1=(a) coarser, G2=(a,b) finer, Jk=(a,b). Both formulas give grain=(a).
+    a_main_r1 = [50, 100, 200, 500, 1000, 50, 100, 200, 500, 1000,
+                 50, 100, 200, 500, 1000, 50, 100, 200, 500, 1000,
+                 50, 100, 200, 500, 1000, 50, 100, 200, 500, 1000]
+    a_main_r2 = [
+        [50, 20], [25, 20], [100, 10], [50, 20], [50, 20],
+        [25, 40], [100, 10], [200, 5], [100, 10], [25, 40],
+        [40, 25], [30, 30], [10, 100], [200, 5], [10, 100],
+        [20, 50], [50, 20], [40, 25], [30, 30], [200, 5],
+        [10, 100], [75, 10], [15, 50], [25, 40], [100, 10],
+        [30, 30], [20, 50], [50, 20], [40, 25], [75, 10],
     ]
-    for i, (r1r, r2r) in enumerate(a_ranges):
-        examples.append(make_case_a_main(eid, f'v{i+1}', r1r, r2r))
+    for i in range(30):
+        examples.append(make_case_a_main(
+            eid, f'v{i+1}', [a_main_r1[i]], a_main_r2[i]))
         eid += 1
 
-    # ── CASE A: Equal Grains (20 examples) ──
+    # ── CASE A: Equal Grains (50 examples) ──
     eq_configs = [
-        (1, 1, [1000]), (1, 1, [500]), (1, 1, [200]), (1, 1, [100]),
+        # |G|=1, |Jk|=1 (6 examples)
+        (1, 1, [1000]), (1, 1, [500]), (1, 1, [200]),
+        (1, 1, [100]), (1, 1, [50]), (1, 1, [750]),
+        # |G|=2, |Jk|=1 (8 examples)
         (2, 1, [50, 20]), (2, 1, [40, 25]), (2, 1, [100, 10]),
+        (2, 1, [25, 40]), (2, 1, [20, 50]), (2, 1, [75, 10]),
+        (2, 1, [30, 30]), (2, 1, [10, 100]),
+        # |G|=2, |Jk|=2 (6 examples)
         (2, 2, [50, 20]), (2, 2, [40, 25]), (2, 2, [100, 10]),
-        (3, 1, [10, 10, 10]), (3, 1, [20, 10, 5]),
-        (3, 2, [10, 10, 10]), (3, 2, [20, 10, 5]),
+        (2, 2, [25, 40]), (2, 2, [20, 50]), (2, 2, [30, 30]),
+        # |G|=3, |Jk|=1 (6 examples)
+        (3, 1, [10, 10, 10]), (3, 1, [20, 10, 5]), (3, 1, [5, 10, 20]),
+        (3, 1, [15, 8, 8]), (3, 1, [8, 15, 8]), (3, 1, [10, 5, 20]),
+        # |G|=3, |Jk|=2 (6 examples)
+        (3, 2, [10, 10, 10]), (3, 2, [20, 10, 5]), (3, 2, [5, 10, 20]),
+        (3, 2, [15, 8, 8]), (3, 2, [10, 5, 20]), (3, 2, [8, 8, 15]),
+        # |G|=3, |Jk|=3 (4 examples)
         (3, 3, [10, 10, 10]), (3, 3, [20, 10, 5]),
-        (4, 1, [5, 5, 5, 8]), (4, 2, [5, 5, 5, 8]),
-        (4, 3, [5, 5, 5, 8]), (4, 4, [5, 5, 5, 8]),
+        (3, 3, [5, 10, 20]), (3, 3, [8, 8, 15]),
+        # |G|=4, |Jk|=1 (4 examples)
+        (4, 1, [5, 5, 5, 8]), (4, 1, [8, 5, 5, 5]),
+        (4, 1, [5, 8, 5, 5]), (4, 1, [4, 4, 6, 10]),
+        # |G|=4, |Jk|=2 (4 examples)
+        (4, 2, [5, 5, 5, 8]), (4, 2, [8, 5, 5, 5]),
+        (4, 2, [4, 4, 6, 10]), (4, 2, [5, 8, 5, 5]),
+        # |G|=4, |Jk|=3 (3 examples)
+        (4, 3, [5, 5, 5, 8]), (4, 3, [4, 4, 6, 10]), (4, 3, [8, 5, 5, 5]),
+        # |G|=4, |Jk|=4 (3 examples)
+        (4, 4, [5, 5, 5, 8]), (4, 4, [4, 4, 6, 10]), (4, 4, [8, 5, 5, 5]),
     ]
     for i, (gs, js, gr) in enumerate(eq_configs):
         examples.append(make_case_a_equal(eid, f'v{i+1}', gs, js, gr))
         eid += 1
 
-    # ── CASE A: Ordered Grains (25 examples) ──
-    ord_ranges = [
-        ([50, 20], [1000]),
-        ([40, 25], [500]),
-        ([100, 10], [200]),
-        ([25, 40], [100]),
-        ([20, 50], [50]),
-        ([200, 5], [1000]),
-        ([10, 100], [500]),
-        ([30, 30], [200]),
-        ([50, 20], [500]),
-        ([100, 10], [1000]),
-        # Reversed: coarser R1, finer R2 — still Case A
-        ([1000], [50, 20]),
-        ([500], [40, 25]),
-        ([200], [100, 10]),
-        ([100], [25, 40]),
-        ([50], [20, 50]),
-        ([1000], [200, 5]),
-        ([500], [10, 100]),
-        ([200], [30, 30]),
-        ([500], [50, 20]),
-        ([1000], [100, 10]),
-        ([100], [50, 20]),
-        ([200], [40, 25]),
-        ([500], [100, 10]),
-        ([1000], [200, 5]),
-        ([50], [10, 100]),
+    # ── CASE A: Ordered Grains (55 examples) ──
+    # Normal: R1 finer (2-col grain), R2 coarser (1-col grain)
+    ord_fine = [
+        [50, 20], [40, 25], [100, 10], [25, 40], [20, 50],
+        [200, 5], [10, 100], [30, 30], [50, 20], [100, 10],
+        [75, 10], [15, 50], [8, 100], [40, 25], [20, 30],
+        [60, 15], [25, 25], [10, 50], [50, 10], [30, 20],
+        [100, 5], [5, 200], [80, 10], [15, 40], [35, 25],
     ]
-    for i, (r1r, r2r) in enumerate(ord_ranges):
-        if i < 10:
-            # Normal: R1 finer (r1r=multi), R2 coarser (r2r=single)
-            examples.append(make_case_a_ordered(eid, f'v{i+1}', r1r, r2r))
-        else:
-            # Reversed: R1 coarser (r1r=single), R2 finer (r2r=multi)
-            # Swap args so g_ranges_fine=r2r (multi) and g_ranges_coarse=r1r (single)
-            examples.append(make_case_a_ordered(eid, f'v{i+1}', r2r, r1r, reversed=True))
+    ord_coarse = [
+        [1000], [500], [200], [100], [50],
+        [1000], [500], [200], [500], [1000],
+        [750], [500], [200], [100], [300],
+        [600], [500], [200], [500], [300],
+        [500], [1000], [800], [400], [200],
+    ]
+    for i in range(25):
+        examples.append(make_case_a_ordered(
+            eid, f'v{i+1}', ord_fine[i], ord_coarse[i]))
         eid += 1
 
-    # ── CASE A: Incomparable Grains, comparable Jk-portions (7 examples) ──
-    ia_ranges = [
-        [10, 10, 10],
-        [20, 10, 5],
-        [5, 10, 20],
-        [10, 20, 5],
-        [5, 5, 40],
-        [40, 5, 5],
-        [10, 10, 10],
+    # Reversed: R1 coarser (1-col grain), R2 finer (2-col grain)
+    for i in range(25):
+        examples.append(make_case_a_ordered(
+            eid, f'v{i+26}', ord_fine[i], ord_coarse[i], reversed=True))
+        eid += 1
+
+    # Mixed cardinality reversed (5 more)
+    extra_rev = [
+        ([30, 30], [900]), ([15, 60], [450]),
+        ([50, 15], [375]), ([20, 40], [400]), ([10, 80], [800]),
     ]
+    for i, (fine, coarse) in enumerate(extra_rev):
+        examples.append(make_case_a_ordered(
+            eid, f'v{i+51}', fine, coarse, reversed=True))
+        eid += 1
+
+    # ── CASE A: Incomparable Grains, comparable Jk-portions (30 examples) ──
+    ia_ranges = gen_3col_ranges(30)
     for i, gr in enumerate(ia_ranges):
         examples.append(make_case_a_incomp(eid, f'v{i+1}', gr))
         eid += 1
 
-    # ── CASE A: Natural Join, comparable Jk-portions (8 examples) ──
-    nj_ranges = [
-        [50, 20],
-        [40, 25],
-        [100, 10],
-        [25, 40],
-        [20, 50],
-        [200, 5],
-        [10, 100],
-        [30, 30],
-    ]
-    for i, gr in enumerate(nj_ranges):
+    # ── CASE A: Natural Join, comparable Jk-portions (35 examples) ──
+    nj_base_ranges = gen_2col_range_pairs(35)
+    for i, (gr, _) in enumerate(nj_base_ranges):
         examples.append(make_case_a_natjoin(eid, f'v{i+1}', gr))
         eid += 1
 
     # Verify count
     n_b = sum(1 for e in examples if e.case_type == 'B')
     n_a = sum(1 for e in examples if e.case_type == 'A')
-    assert len(examples) == 100, f"Expected 100 examples, got {len(examples)}"
-    assert n_b == 27, f"Expected 27 Case B, got {n_b}"
-    assert n_a == 73, f"Expected 73 Case A, got {n_a}"
+    assert len(examples) == 350, f"Expected 350 examples, got {len(examples)}"
+    assert n_b == 150, f"Expected 150 Case B, got {n_b}"
+    assert n_a == 200, f"Expected 200 Case A, got {n_a}"
 
     return examples
 
@@ -657,7 +679,7 @@ def generate_full_sql(examples):
     parts = []
 
     parts.append("""-- ==========================================================================
--- Grain Formula Revalidation: Paper vs Corrected Formula (100 Examples)
+-- Grain Formula Revalidation: Paper vs Corrected Formula (350 Examples)
 -- ==========================================================================
 --
 -- Tests Theorem 6.1 from the PODS 2027 paper against the corrected formula.
@@ -665,8 +687,8 @@ def generate_full_sql(examples):
 --   1. Paper grain tested for uniqueness and minimality
 --   2. Corrected grain tested for uniqueness and minimality
 --
--- Expected: paper formula fails minimality on Case B examples (27/100);
---           corrected formula passes both uniqueness and minimality on all 100.
+-- Expected: paper formula fails minimality on Case B examples (150/350);
+--           corrected formula passes both uniqueness and minimality on all 350.
 -- ==========================================================================
 
 CREATE SCHEMA IF NOT EXISTS revalidation;
@@ -691,7 +713,7 @@ CREATE TABLE revalidation.test_results (
 );
 
 \\echo '========================================================'
-\\echo 'Grain Formula Revalidation — 100 Examples'
+\\echo 'Grain Formula Revalidation — 350 Examples'
 \\echo '========================================================'
 \\echo ''
 """)

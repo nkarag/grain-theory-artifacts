@@ -9,104 +9,104 @@ SET
 DROP TABLE
 CREATE TABLE
 ========================================================
-Grain Formula Revalidation — 100 Examples
+Grain Formula Revalidation — 350 Examples
 ========================================================
 
-── Main Theorem (22 examples) ──
+── Main Theorem (80 examples) ──
 DROP TABLE
 DROP TABLE
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 999
+INSERT 0 25
+INSERT 0 25
 CREATE TABLE
-INSERT 0 999
-psql:revalidation.sql:165: NOTICE:  Ex 1: rows=999 | paper(a, b, c): uniq=t min=f rem=b, c | corrected(a, c): uniq=t min=t
+INSERT 0 25
+psql:revalidation.sql:165: NOTICE:  Ex 1: rows=25 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 999
+INSERT 0 40
+INSERT 0 40
 CREATE TABLE
-INSERT 0 999
-psql:revalidation.sql:291: NOTICE:  Ex 2: rows=999 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+INSERT 0 40
+psql:revalidation.sql:291: NOTICE:  Ex 2: rows=40 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
+INSERT 0 50
+INSERT 0 49
 CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:417: NOTICE:  Ex 3: rows=1000 | paper(a, b, c): uniq=t min=f rem=b, c | corrected(a, c): uniq=t min=t
+INSERT 0 49
+psql:revalidation.sql:417: NOTICE:  Ex 3: rows=49 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 999
+INSERT 0 75
+INSERT 0 75
 CREATE TABLE
-INSERT 0 999
-psql:revalidation.sql:543: NOTICE:  Ex 4: rows=999 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+INSERT 0 75
+psql:revalidation.sql:543: NOTICE:  Ex 4: rows=75 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 940
+INSERT 0 100
+INSERT 0 99
 CREATE TABLE
-INSERT 0 940
-psql:revalidation.sql:669: NOTICE:  Ex 5: rows=940 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+INSERT 0 99
+psql:revalidation.sql:669: NOTICE:  Ex 5: rows=99 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 470
+INSERT 0 125
+INSERT 0 125
 CREATE TABLE
-INSERT 0 470
-psql:revalidation.sql:795: NOTICE:  Ex 6: rows=470 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+INSERT 0 125
+psql:revalidation.sql:795: NOTICE:  Ex 6: rows=125 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 900
-INSERT 0 899
+INSERT 0 150
+INSERT 0 149
 CREATE TABLE
-INSERT 0 899
-psql:revalidation.sql:921: NOTICE:  Ex 7: rows=899 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+INSERT 0 149
+psql:revalidation.sql:921: NOTICE:  Ex 7: rows=149 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
+INSERT 0 200
+INSERT 0 199
 CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:1047: NOTICE:  Ex 8: rows=1000 | paper(a, b, c): uniq=t min=f rem=b, c | corrected(a, c): uniq=t min=t
+INSERT 0 199
+psql:revalidation.sql:1047: NOTICE:  Ex 8: rows=199 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
+INSERT 0 250
 INSERT 0 235
 CREATE TABLE
 INSERT 0 235
@@ -117,11 +117,11 @@ DROP TABLE
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
+INSERT 0 375
+INSERT 0 235
 CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:1299: NOTICE:  Ex 28: rows=1000 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+INSERT 0 235
+psql:revalidation.sql:1299: NOTICE:  Ex 10: rows=235 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
@@ -129,10 +129,87 @@ DROP TABLE
 CREATE TABLE
 CREATE TABLE
 INSERT 0 500
-INSERT 0 500
+INSERT 0 235
 CREATE TABLE
-INSERT 0 500
-psql:revalidation.sql:1425: NOTICE:  Ex 29: rows=500 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+INSERT 0 235
+psql:revalidation.sql:1425: NOTICE:  Ex 11: rows=235 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 750
+INSERT 0 235
+CREATE TABLE
+INSERT 0 235
+psql:revalidation.sql:1551: NOTICE:  Ex 12: rows=235 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 235
+CREATE TABLE
+INSERT 0 235
+psql:revalidation.sql:1677: NOTICE:  Ex 13: rows=235 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 40
+INSERT 0 40
+CREATE TABLE
+INSERT 0 40
+psql:revalidation.sql:1803: NOTICE:  Ex 14: rows=40 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 64
+INSERT 0 64
+CREATE TABLE
+INSERT 0 64
+psql:revalidation.sql:1929: NOTICE:  Ex 15: rows=64 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 80
+INSERT 0 80
+CREATE TABLE
+INSERT 0 80
+psql:revalidation.sql:2055: NOTICE:  Ex 16: rows=80 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 120
+INSERT 0 120
+CREATE TABLE
+INSERT 0 120
+psql:revalidation.sql:2181: NOTICE:  Ex 17: rows=120 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 160
+INSERT 0 159
+CREATE TABLE
+INSERT 0 159
+psql:revalidation.sql:2307: NOTICE:  Ex 18: rows=159 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
@@ -140,21 +217,87 @@ DROP TABLE
 CREATE TABLE
 CREATE TABLE
 INSERT 0 200
-INSERT 0 200
+INSERT 0 199
 CREATE TABLE
-INSERT 0 200
-psql:revalidation.sql:1551: NOTICE:  Ex 30: rows=200 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+INSERT 0 199
+psql:revalidation.sql:2433: NOTICE:  Ex 19: rows=199 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 100
-INSERT 0 100
+INSERT 0 240
+INSERT 0 239
 CREATE TABLE
-INSERT 0 100
-psql:revalidation.sql:1677: NOTICE:  Ex 31: rows=100 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+INSERT 0 239
+psql:revalidation.sql:2559: NOTICE:  Ex 20: rows=239 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 320
+INSERT 0 319
+CREATE TABLE
+INSERT 0 319
+psql:revalidation.sql:2685: NOTICE:  Ex 21: rows=319 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 400
+INSERT 0 376
+CREATE TABLE
+INSERT 0 376
+psql:revalidation.sql:2811: NOTICE:  Ex 22: rows=376 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 600
+INSERT 0 376
+CREATE TABLE
+INSERT 0 376
+psql:revalidation.sql:2937: NOTICE:  Ex 23: rows=376 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 800
+INSERT 0 376
+CREATE TABLE
+INSERT 0 376
+psql:revalidation.sql:3063: NOTICE:  Ex 24: rows=376 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 329
+CREATE TABLE
+INSERT 0 329
+psql:revalidation.sql:3189: NOTICE:  Ex 25: rows=329 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 236
+CREATE TABLE
+INSERT 0 236
+psql:revalidation.sql:3315: NOTICE:  Ex 26: rows=236 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
@@ -162,43 +305,21 @@ DROP TABLE
 CREATE TABLE
 CREATE TABLE
 INSERT 0 50
-INSERT 0 50
+INSERT 0 49
 CREATE TABLE
-INSERT 0 50
-psql:revalidation.sql:1803: NOTICE:  Ex 32: rows=50 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+INSERT 0 49
+psql:revalidation.sql:3441: NOTICE:  Ex 27: rows=49 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
+INSERT 0 80
+INSERT 0 80
 CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:1929: NOTICE:  Ex 33: rows=1000 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 500
-INSERT 0 500
-CREATE TABLE
-INSERT 0 500
-psql:revalidation.sql:2055: NOTICE:  Ex 34: rows=500 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 200
-INSERT 0 200
-CREATE TABLE
-INSERT 0 200
-psql:revalidation.sql:2181: NOTICE:  Ex 35: rows=200 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+INSERT 0 80
+psql:revalidation.sql:3567: NOTICE:  Ex 28: rows=80 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
@@ -206,46 +327,275 @@ DROP TABLE
 CREATE TABLE
 CREATE TABLE
 INSERT 0 100
+INSERT 0 99
+CREATE TABLE
+INSERT 0 99
+psql:revalidation.sql:3693: NOTICE:  Ex 29: rows=99 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 150
+INSERT 0 149
+CREATE TABLE
+INSERT 0 149
+psql:revalidation.sql:3819: NOTICE:  Ex 30: rows=149 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 199
+CREATE TABLE
+INSERT 0 199
+psql:revalidation.sql:3945: NOTICE:  Ex 31: rows=199 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 250
+INSERT 0 249
+CREATE TABLE
+INSERT 0 249
+psql:revalidation.sql:4071: NOTICE:  Ex 32: rows=249 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 300
+INSERT 0 299
+CREATE TABLE
+INSERT 0 299
+psql:revalidation.sql:4197: NOTICE:  Ex 33: rows=299 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 400
+INSERT 0 399
+CREATE TABLE
+INSERT 0 399
+psql:revalidation.sql:4323: NOTICE:  Ex 34: rows=399 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 470
+CREATE TABLE
+INSERT 0 470
+psql:revalidation.sql:4449: NOTICE:  Ex 35: rows=470 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 750
+INSERT 0 470
+CREATE TABLE
+INSERT 0 470
+psql:revalidation.sql:4575: NOTICE:  Ex 36: rows=470 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 470
+CREATE TABLE
+INSERT 0 470
+psql:revalidation.sql:4701: NOTICE:  Ex 37: rows=470 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 329
+CREATE TABLE
+INSERT 0 329
+psql:revalidation.sql:4827: NOTICE:  Ex 38: rows=329 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 236
+CREATE TABLE
+INSERT 0 236
+psql:revalidation.sql:4953: NOTICE:  Ex 39: rows=236 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 75
+INSERT 0 75
+CREATE TABLE
+INSERT 0 75
+psql:revalidation.sql:5079: NOTICE:  Ex 40: rows=75 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 120
+INSERT 0 120
+CREATE TABLE
+INSERT 0 120
+psql:revalidation.sql:5205: NOTICE:  Ex 41: rows=120 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 150
+INSERT 0 149
+CREATE TABLE
+INSERT 0 149
+psql:revalidation.sql:5331: NOTICE:  Ex 42: rows=149 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 225
+INSERT 0 225
+CREATE TABLE
+INSERT 0 225
+psql:revalidation.sql:5457: NOTICE:  Ex 43: rows=225 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 300
+INSERT 0 299
+CREATE TABLE
+INSERT 0 299
+psql:revalidation.sql:5583: NOTICE:  Ex 44: rows=299 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 375
+INSERT 0 375
+CREATE TABLE
+INSERT 0 375
+psql:revalidation.sql:5709: NOTICE:  Ex 45: rows=375 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 450
+INSERT 0 449
+CREATE TABLE
+INSERT 0 449
+psql:revalidation.sql:5835: NOTICE:  Ex 46: rows=449 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 600
+INSERT 0 599
+CREATE TABLE
+INSERT 0 599
+psql:revalidation.sql:5961: NOTICE:  Ex 47: rows=599 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 750
+INSERT 0 705
+CREATE TABLE
+INSERT 0 705
+psql:revalidation.sql:6087: NOTICE:  Ex 48: rows=705 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 637
+CREATE TABLE
+INSERT 0 637
+psql:revalidation.sql:6213: NOTICE:  Ex 49: rows=637 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 471
+CREATE TABLE
+INSERT 0 471
+psql:revalidation.sql:6339: NOTICE:  Ex 50: rows=471 | paper(a, b, c): uniq=t min=f rem=a, b, c | corrected(a, c): uniq=t min=t
+DO
+psql:revalidation.sql:6343: NOTICE:  table "r1_ex151" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:6344: NOTICE:  table "r2_ex151" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:6345: NOTICE:  table "result_ex151" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 50
+INSERT 0 50
+CREATE TABLE
+INSERT 0 50
+psql:revalidation.sql:6465: NOTICE:  Ex 151: rows=50 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:6469: NOTICE:  table "r1_ex152" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:6470: NOTICE:  table "r2_ex152" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:6471: NOTICE:  table "result_ex152" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 100
 INSERT 0 100
 CREATE TABLE
 INSERT 0 100
-psql:revalidation.sql:2307: NOTICE:  Ex 36: rows=100 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+psql:revalidation.sql:6591: NOTICE:  Ex 152: rows=100 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
 DO
+psql:revalidation.sql:6595: NOTICE:  table "r1_ex153" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:6596: NOTICE:  table "r2_ex153" does not exist, skipping
 DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 50
-INSERT 0 50
-CREATE TABLE
-INSERT 0 50
-psql:revalidation.sql:2433: NOTICE:  Ex 37: rows=50 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
-CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:2559: NOTICE:  Ex 38: rows=1000 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 500
-INSERT 0 500
-CREATE TABLE
-INSERT 0 500
-psql:revalidation.sql:2685: NOTICE:  Ex 39: rows=500 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
+psql:revalidation.sql:6597: NOTICE:  table "result_ex153" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -253,52 +603,518 @@ INSERT 0 200
 INSERT 0 200
 CREATE TABLE
 INSERT 0 200
-psql:revalidation.sql:2811: NOTICE:  Ex 40: rows=200 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+psql:revalidation.sql:6717: NOTICE:  Ex 153: rows=200 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
 DO
-── Incomparable Grains (16 examples) ──
+psql:revalidation.sql:6721: NOTICE:  table "r1_ex154" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:6722: NOTICE:  table "r2_ex154" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:6723: NOTICE:  table "result_ex154" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 500
+CREATE TABLE
+INSERT 0 500
+psql:revalidation.sql:6843: NOTICE:  Ex 154: rows=500 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:6847: NOTICE:  table "r1_ex155" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:6848: NOTICE:  table "r2_ex155" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:6849: NOTICE:  table "result_ex155" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
 INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:6969: NOTICE:  Ex 155: rows=1000 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:6973: NOTICE:  table "r1_ex156" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:6974: NOTICE:  table "r2_ex156" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:6975: NOTICE:  table "result_ex156" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 50
+INSERT 0 50
+CREATE TABLE
+INSERT 0 50
+psql:revalidation.sql:7095: NOTICE:  Ex 156: rows=50 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:7099: NOTICE:  table "r1_ex157" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:7100: NOTICE:  table "r2_ex157" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:7101: NOTICE:  table "result_ex157" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 100
+INSERT 0 100
+CREATE TABLE
+INSERT 0 100
+psql:revalidation.sql:7221: NOTICE:  Ex 157: rows=100 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:7225: NOTICE:  table "r1_ex158" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:7226: NOTICE:  table "r2_ex158" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:7227: NOTICE:  table "result_ex158" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 200
+CREATE TABLE
+INSERT 0 200
+psql:revalidation.sql:7347: NOTICE:  Ex 158: rows=200 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:7351: NOTICE:  table "r1_ex159" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:7352: NOTICE:  table "r2_ex159" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:7353: NOTICE:  table "result_ex159" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 500
+CREATE TABLE
+INSERT 0 500
+psql:revalidation.sql:7473: NOTICE:  Ex 159: rows=500 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:7477: NOTICE:  table "r1_ex160" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:7478: NOTICE:  table "r2_ex160" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:7479: NOTICE:  table "result_ex160" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:7599: NOTICE:  Ex 160: rows=1000 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:7603: NOTICE:  table "r1_ex161" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:7604: NOTICE:  table "r2_ex161" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:7605: NOTICE:  table "result_ex161" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 50
+INSERT 0 50
+CREATE TABLE
+INSERT 0 50
+psql:revalidation.sql:7725: NOTICE:  Ex 161: rows=50 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:7729: NOTICE:  table "r1_ex162" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:7730: NOTICE:  table "r2_ex162" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:7731: NOTICE:  table "result_ex162" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 100
+INSERT 0 100
+CREATE TABLE
+INSERT 0 100
+psql:revalidation.sql:7851: NOTICE:  Ex 162: rows=100 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:7855: NOTICE:  table "r1_ex163" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:7856: NOTICE:  table "r2_ex163" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:7857: NOTICE:  table "result_ex163" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 200
+CREATE TABLE
+INSERT 0 200
+psql:revalidation.sql:7977: NOTICE:  Ex 163: rows=200 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:7981: NOTICE:  table "r1_ex164" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:7982: NOTICE:  table "r2_ex164" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:7983: NOTICE:  table "result_ex164" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 500
+CREATE TABLE
+INSERT 0 500
+psql:revalidation.sql:8103: NOTICE:  Ex 164: rows=500 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:8107: NOTICE:  table "r1_ex165" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:8108: NOTICE:  table "r2_ex165" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:8109: NOTICE:  table "result_ex165" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:8229: NOTICE:  Ex 165: rows=1000 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:8233: NOTICE:  table "r1_ex166" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:8234: NOTICE:  table "r2_ex166" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:8235: NOTICE:  table "result_ex166" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 50
+INSERT 0 50
+CREATE TABLE
+INSERT 0 50
+psql:revalidation.sql:8355: NOTICE:  Ex 166: rows=50 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:8359: NOTICE:  table "r1_ex167" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:8360: NOTICE:  table "r2_ex167" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:8361: NOTICE:  table "result_ex167" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 100
+INSERT 0 100
+CREATE TABLE
+INSERT 0 100
+psql:revalidation.sql:8481: NOTICE:  Ex 167: rows=100 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:8485: NOTICE:  table "r1_ex168" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:8486: NOTICE:  table "r2_ex168" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:8487: NOTICE:  table "result_ex168" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 200
+CREATE TABLE
+INSERT 0 200
+psql:revalidation.sql:8607: NOTICE:  Ex 168: rows=200 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:8611: NOTICE:  table "r1_ex169" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:8612: NOTICE:  table "r2_ex169" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:8613: NOTICE:  table "result_ex169" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 500
+CREATE TABLE
+INSERT 0 500
+psql:revalidation.sql:8733: NOTICE:  Ex 169: rows=500 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:8737: NOTICE:  table "r1_ex170" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:8738: NOTICE:  table "r2_ex170" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:8739: NOTICE:  table "result_ex170" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:8859: NOTICE:  Ex 170: rows=1000 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:8863: NOTICE:  table "r1_ex171" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:8864: NOTICE:  table "r2_ex171" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:8865: NOTICE:  table "result_ex171" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 50
+INSERT 0 50
+CREATE TABLE
+INSERT 0 50
+psql:revalidation.sql:8985: NOTICE:  Ex 171: rows=50 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:8989: NOTICE:  table "r1_ex172" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:8990: NOTICE:  table "r2_ex172" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:8991: NOTICE:  table "result_ex172" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 100
+INSERT 0 100
+CREATE TABLE
+INSERT 0 100
+psql:revalidation.sql:9111: NOTICE:  Ex 172: rows=100 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:9115: NOTICE:  table "r1_ex173" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:9116: NOTICE:  table "r2_ex173" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:9117: NOTICE:  table "result_ex173" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 200
+CREATE TABLE
+INSERT 0 200
+psql:revalidation.sql:9237: NOTICE:  Ex 173: rows=200 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:9241: NOTICE:  table "r1_ex174" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:9242: NOTICE:  table "r2_ex174" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:9243: NOTICE:  table "result_ex174" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 500
+CREATE TABLE
+INSERT 0 500
+psql:revalidation.sql:9363: NOTICE:  Ex 174: rows=500 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:9367: NOTICE:  table "r1_ex175" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:9368: NOTICE:  table "r2_ex175" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:9369: NOTICE:  table "result_ex175" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:9489: NOTICE:  Ex 175: rows=1000 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:9493: NOTICE:  table "r1_ex176" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:9494: NOTICE:  table "r2_ex176" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:9495: NOTICE:  table "result_ex176" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 50
+INSERT 0 50
+CREATE TABLE
+INSERT 0 50
+psql:revalidation.sql:9615: NOTICE:  Ex 176: rows=50 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:9619: NOTICE:  table "r1_ex177" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:9620: NOTICE:  table "r2_ex177" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:9621: NOTICE:  table "result_ex177" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 100
+INSERT 0 100
+CREATE TABLE
+INSERT 0 100
+psql:revalidation.sql:9741: NOTICE:  Ex 177: rows=100 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:9745: NOTICE:  table "r1_ex178" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:9746: NOTICE:  table "r2_ex178" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:9747: NOTICE:  table "result_ex178" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 200
+CREATE TABLE
+INSERT 0 200
+psql:revalidation.sql:9867: NOTICE:  Ex 178: rows=200 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:9871: NOTICE:  table "r1_ex179" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:9872: NOTICE:  table "r2_ex179" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:9873: NOTICE:  table "result_ex179" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 500
+CREATE TABLE
+INSERT 0 500
+psql:revalidation.sql:9993: NOTICE:  Ex 179: rows=500 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+psql:revalidation.sql:9997: NOTICE:  table "r1_ex180" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:9998: NOTICE:  table "r2_ex180" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:9999: NOTICE:  table "result_ex180" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:10119: NOTICE:  Ex 180: rows=1000 | paper(a): uniq=t min=t rem=- | corrected(a): uniq=t min=t
+DO
+── Incomparable Grains (80 examples) ──
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 25
+INSERT 0 125
+CREATE TABLE
+INSERT 0 125
+psql:revalidation.sql:10248: NOTICE:  Ex 51: rows=125 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 40
+INSERT 0 320
+CREATE TABLE
+INSERT 0 320
+psql:revalidation.sql:10375: NOTICE:  Ex 52: rows=320 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 50
+INSERT 0 470
+CREATE TABLE
+INSERT 0 480
+psql:revalidation.sql:10502: NOTICE:  Ex 53: rows=480 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 75
+INSERT 0 705
+CREATE TABLE
+INSERT 0 705
+psql:revalidation.sql:10629: NOTICE:  Ex 54: rows=705 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 100
 INSERT 0 940
 CREATE TABLE
-INSERT 0 940
-psql:revalidation.sql:2940: NOTICE:  Ex 10: rows=940 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
+INSERT 0 947
+psql:revalidation.sql:10756: NOTICE:  Ex 55: rows=947 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
+INSERT 0 125
 INSERT 0 1175
 CREATE TABLE
-INSERT 0 1176
-psql:revalidation.sql:3067: NOTICE:  Ex 11: rows=1176 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+INSERT 0 1175
+psql:revalidation.sql:10883: NOTICE:  Ex 56: rows=1175 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 470
+INSERT 0 150
+INSERT 0 1410
 CREATE TABLE
-INSERT 0 470
-psql:revalidation.sql:3194: NOTICE:  Ex 12: rows=470 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
+INSERT 0 1429
+psql:revalidation.sql:11010: NOTICE:  Ex 57: rows=1429 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
+INSERT 0 200
 INSERT 0 1880
 CREATE TABLE
-INSERT 0 1881
-psql:revalidation.sql:3321: NOTICE:  Ex 13: rows=1881 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+INSERT 0 1890
+psql:revalidation.sql:11137: NOTICE:  Ex 58: rows=1890 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 250
+INSERT 0 2350
+CREATE TABLE
+INSERT 0 2587
+psql:revalidation.sql:11264: NOTICE:  Ex 59: rows=2587 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 375
+INSERT 0 3525
+CREATE TABLE
+INSERT 0 6197
+psql:revalidation.sql:11391: NOTICE:  Ex 60: rows=6197 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 4700
+CREATE TABLE
+INSERT 0 10222
+psql:revalidation.sql:11518: NOTICE:  Ex 61: rows=10222 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 750
+INSERT 0 7050
+CREATE TABLE
+INSERT 0 22781
+psql:revalidation.sql:11645: NOTICE:  Ex 62: rows=22781 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
@@ -306,10 +1122,263 @@ DROP TABLE
 CREATE TABLE
 CREATE TABLE
 INSERT 0 1000
+INSERT 0 9400
+CREATE TABLE
+INSERT 0 40409
+psql:revalidation.sql:11772: NOTICE:  Ex 63: rows=40409 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 40
+INSERT 0 200
+CREATE TABLE
+INSERT 0 200
+psql:revalidation.sql:11899: NOTICE:  Ex 64: rows=200 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 64
+INSERT 0 376
+CREATE TABLE
+INSERT 0 376
+psql:revalidation.sql:12026: NOTICE:  Ex 65: rows=376 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 80
+INSERT 0 470
+CREATE TABLE
+INSERT 0 470
+psql:revalidation.sql:12153: NOTICE:  Ex 66: rows=470 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 120
+INSERT 0 705
+CREATE TABLE
+INSERT 0 705
+psql:revalidation.sql:12280: NOTICE:  Ex 67: rows=705 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 160
+INSERT 0 940
+CREATE TABLE
+INSERT 0 947
+psql:revalidation.sql:12407: NOTICE:  Ex 68: rows=947 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 1175
+CREATE TABLE
+INSERT 0 1183
+psql:revalidation.sql:12534: NOTICE:  Ex 69: rows=1183 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 240
+INSERT 0 1410
+CREATE TABLE
+INSERT 0 1419
+psql:revalidation.sql:12661: NOTICE:  Ex 70: rows=1419 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 320
+INSERT 0 1880
+CREATE TABLE
+INSERT 0 1892
+psql:revalidation.sql:12788: NOTICE:  Ex 71: rows=1892 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 400
 INSERT 0 2350
 CREATE TABLE
-INSERT 0 2617
-psql:revalidation.sql:3448: NOTICE:  Ex 14: rows=2617 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+INSERT 0 2604
+psql:revalidation.sql:12915: NOTICE:  Ex 72: rows=2604 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 600
+INSERT 0 3525
+CREATE TABLE
+INSERT 0 6134
+psql:revalidation.sql:13042: NOTICE:  Ex 73: rows=6134 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 800
+INSERT 0 4700
+CREATE TABLE
+INSERT 0 10220
+psql:revalidation.sql:13169: NOTICE:  Ex 74: rows=10220 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 7050
+CREATE TABLE
+INSERT 0 22108
+psql:revalidation.sql:13296: NOTICE:  Ex 75: rows=22108 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 9400
+CREATE TABLE
+INSERT 0 40256
+psql:revalidation.sql:13423: NOTICE:  Ex 76: rows=40256 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 50
+INSERT 0 235
+CREATE TABLE
+INSERT 0 240
+psql:revalidation.sql:13550: NOTICE:  Ex 77: rows=240 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 80
+INSERT 0 376
+CREATE TABLE
+INSERT 0 376
+psql:revalidation.sql:13677: NOTICE:  Ex 78: rows=376 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 100
+INSERT 0 470
+CREATE TABLE
+INSERT 0 476
+psql:revalidation.sql:13804: NOTICE:  Ex 79: rows=476 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 150
+INSERT 0 705
+CREATE TABLE
+INSERT 0 714
+psql:revalidation.sql:13931: NOTICE:  Ex 80: rows=714 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 940
+CREATE TABLE
+INSERT 0 951
+psql:revalidation.sql:14058: NOTICE:  Ex 81: rows=951 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 250
+INSERT 0 1175
+CREATE TABLE
+INSERT 0 1178
+psql:revalidation.sql:14185: NOTICE:  Ex 82: rows=1178 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 300
+INSERT 0 1410
+CREATE TABLE
+INSERT 0 1423
+psql:revalidation.sql:14312: NOTICE:  Ex 83: rows=1423 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 400
+INSERT 0 1880
+CREATE TABLE
+INSERT 0 1895
+psql:revalidation.sql:14439: NOTICE:  Ex 84: rows=1895 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 2350
+CREATE TABLE
+INSERT 0 2618
+psql:revalidation.sql:14566: NOTICE:  Ex 85: rows=2618 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 750
+INSERT 0 3525
+CREATE TABLE
+INSERT 0 6158
+psql:revalidation.sql:14693: NOTICE:  Ex 86: rows=6158 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
@@ -319,163 +1388,129 @@ CREATE TABLE
 INSERT 0 1000
 INSERT 0 4700
 CREATE TABLE
-INSERT 0 10218
-psql:revalidation.sql:3575: NOTICE:  Ex 15: rows=10218 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+INSERT 0 10223
+psql:revalidation.sql:14820: NOTICE:  Ex 87: rows=10223 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 900
+INSERT 0 1000
+INSERT 0 7050
+CREATE TABLE
+INSERT 0 22054
+psql:revalidation.sql:14947: NOTICE:  Ex 88: rows=22054 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 9400
+CREATE TABLE
+INSERT 0 40374
+psql:revalidation.sql:15074: NOTICE:  Ex 89: rows=40374 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 75
+INSERT 0 235
+CREATE TABLE
+INSERT 0 235
+psql:revalidation.sql:15201: NOTICE:  Ex 90: rows=235 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 120
+INSERT 0 376
+CREATE TABLE
+INSERT 0 376
+psql:revalidation.sql:15328: NOTICE:  Ex 91: rows=376 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 150
+INSERT 0 470
+CREATE TABLE
+INSERT 0 476
+psql:revalidation.sql:15455: NOTICE:  Ex 92: rows=476 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 225
+INSERT 0 705
+CREATE TABLE
+INSERT 0 705
+psql:revalidation.sql:15582: NOTICE:  Ex 93: rows=705 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 300
+INSERT 0 940
+CREATE TABLE
+INSERT 0 946
+psql:revalidation.sql:15709: NOTICE:  Ex 94: rows=946 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 375
+INSERT 0 1175
+CREATE TABLE
+INSERT 0 1175
+psql:revalidation.sql:15836: NOTICE:  Ex 95: rows=1175 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 450
 INSERT 0 1410
 CREATE TABLE
 INSERT 0 1413
-psql:revalidation.sql:3702: NOTICE:  Ex 16: rows=1413 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+psql:revalidation.sql:15963: NOTICE:  Ex 96: rows=1413 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 235
-CREATE TABLE
-INSERT 0 235
-psql:revalidation.sql:3829: NOTICE:  Ex 17: rows=235 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, c, d): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 9400
-CREATE TABLE
-INSERT 0 40351
-psql:revalidation.sql:3956: NOTICE:  Ex 18: rows=40351 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
-CREATE TABLE
-INSERT 0 10000
-psql:revalidation.sql:4083: NOTICE:  Ex 86: rows=10000 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
-CREATE TABLE
-INSERT 0 5000
-psql:revalidation.sql:4210: NOTICE:  Ex 87: rows=5000 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
-CREATE TABLE
-INSERT 0 20000
-psql:revalidation.sql:4337: NOTICE:  Ex 88: rows=20000 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
-CREATE TABLE
-INSERT 0 5000
-psql:revalidation.sql:4464: NOTICE:  Ex 89: rows=5000 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
-CREATE TABLE
-INSERT 0 40000
-psql:revalidation.sql:4591: NOTICE:  Ex 90: rows=40000 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
-CREATE TABLE
-INSERT 0 5000
-psql:revalidation.sql:4718: NOTICE:  Ex 91: rows=5000 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
-CREATE TABLE
-INSERT 0 10000
-psql:revalidation.sql:4845: NOTICE:  Ex 92: rows=10000 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
-DO
-── Natural Join (17 examples) ──
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 940
-CREATE TABLE
-INSERT 0 1049
-psql:revalidation.sql:4974: NOTICE:  Ex 19: rows=1049 | paper(a, b, c, d): uniq=t min=f rem=b, c | corrected(a, b, d): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1175
-CREATE TABLE
-INSERT 0 1175
-psql:revalidation.sql:5101: NOTICE:  Ex 20: rows=1175 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 470
-CREATE TABLE
-INSERT 0 1019
-psql:revalidation.sql:5228: NOTICE:  Ex 21: rows=1019 | paper(a, b, c, d): uniq=t min=f rem=b, c | corrected(a, b, d): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
+INSERT 0 600
 INSERT 0 1880
 CREATE TABLE
-INSERT 0 1880
-psql:revalidation.sql:5355: NOTICE:  Ex 22: rows=1880 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+INSERT 0 1887
+psql:revalidation.sql:16090: NOTICE:  Ex 97: rows=1887 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
+DO
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 750
+INSERT 0 2350
+CREATE TABLE
+INSERT 0 2643
+psql:revalidation.sql:16217: NOTICE:  Ex 98: rows=2643 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
@@ -483,10 +1518,10 @@ DROP TABLE
 CREATE TABLE
 CREATE TABLE
 INSERT 0 1000
-INSERT 0 2350
+INSERT 0 3525
 CREATE TABLE
-INSERT 0 2350
-psql:revalidation.sql:5482: NOTICE:  Ex 23: rows=2350 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+INSERT 0 6082
+psql:revalidation.sql:16344: NOTICE:  Ex 99: rows=6082 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
 DO
 DROP TABLE
 DROP TABLE
@@ -496,166 +1531,1191 @@ CREATE TABLE
 INSERT 0 1000
 INSERT 0 4700
 CREATE TABLE
-INSERT 0 4700
-psql:revalidation.sql:5609: NOTICE:  Ex 24: rows=4700 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+INSERT 0 10236
+psql:revalidation.sql:16471: NOTICE:  Ex 100: rows=10236 | paper(a, b, c, d): uniq=t min=f rem=a, b | corrected(a, c, d): uniq=t min=t
 DO
+psql:revalidation.sql:16475: NOTICE:  table "r1_ex286" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:16476: NOTICE:  table "r2_ex286" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:16477: NOTICE:  table "result_ex286" does not exist, skipping
 DROP TABLE
 CREATE TABLE
+CREATE TABLE
+INSERT 0 54
+INSERT 0 54
+CREATE TABLE
+INSERT 0 324
+psql:revalidation.sql:16598: NOTICE:  Ex 286: rows=324 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:16602: NOTICE:  table "r1_ex287" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:16603: NOTICE:  table "r2_ex287" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:16604: NOTICE:  table "result_ex287" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 72
+INSERT 0 72
+CREATE TABLE
+INSERT 0 576
+psql:revalidation.sql:16725: NOTICE:  Ex 287: rows=576 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:16729: NOTICE:  table "r1_ex288" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:16730: NOTICE:  table "r2_ex288" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:16731: NOTICE:  table "result_ex288" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 90
+INSERT 0 90
 CREATE TABLE
 INSERT 0 900
-INSERT 0 1410
-CREATE TABLE
-INSERT 0 1410
-psql:revalidation.sql:5736: NOTICE:  Ex 25: rows=1410 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+psql:revalidation.sql:16852: NOTICE:  Ex 288: rows=900 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
 DO
+psql:revalidation.sql:16856: NOTICE:  table "r1_ex289" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:16857: NOTICE:  table "r2_ex289" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:16858: NOTICE:  table "result_ex289" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 235
+INSERT 0 108
+INSERT 0 108
 CREATE TABLE
-INSERT 0 1021
-psql:revalidation.sql:5863: NOTICE:  Ex 26: rows=1021 | paper(a, b, c, d): uniq=t min=f rem=b, c | corrected(a, b, d): uniq=t min=t
+INSERT 0 1296
+psql:revalidation.sql:16979: NOTICE:  Ex 289: rows=1296 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
 DO
+psql:revalidation.sql:16983: NOTICE:  table "r1_ex290" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:16984: NOTICE:  table "r2_ex290" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:16985: NOTICE:  table "result_ex290" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 9400
+INSERT 0 135
+INSERT 0 135
 CREATE TABLE
-INSERT 0 9400
-psql:revalidation.sql:5990: NOTICE:  Ex 27: rows=9400 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+INSERT 0 2025
+psql:revalidation.sql:17106: NOTICE:  Ex 290: rows=2025 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
 DO
+psql:revalidation.sql:17110: NOTICE:  table "r1_ex291" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:17111: NOTICE:  table "r2_ex291" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:17112: NOTICE:  table "result_ex291" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 940
+INSERT 0 180
+INSERT 0 180
 CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:6116: NOTICE:  Ex 93: rows=1000 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+INSERT 0 3600
+psql:revalidation.sql:17233: NOTICE:  Ex 291: rows=3600 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
 DO
+psql:revalidation.sql:17237: NOTICE:  table "r1_ex292" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:17238: NOTICE:  table "r2_ex292" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:17239: NOTICE:  table "result_ex292" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
+INSERT 0 225
+INSERT 0 225
 CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:6242: NOTICE:  Ex 94: rows=1000 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+INSERT 0 5625
+psql:revalidation.sql:17360: NOTICE:  Ex 292: rows=5625 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
 DO
+psql:revalidation.sql:17364: NOTICE:  table "r1_ex293" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:17365: NOTICE:  table "r2_ex293" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:17366: NOTICE:  table "result_ex293" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
+INSERT 0 60
+INSERT 0 60
+CREATE TABLE
+INSERT 0 300
+psql:revalidation.sql:17487: NOTICE:  Ex 293: rows=300 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:17491: NOTICE:  table "r1_ex294" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:17492: NOTICE:  table "r2_ex294" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:17493: NOTICE:  table "result_ex294" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 72
+INSERT 0 72
+CREATE TABLE
+INSERT 0 432
+psql:revalidation.sql:17614: NOTICE:  Ex 294: rows=432 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:17618: NOTICE:  table "r1_ex295" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:17619: NOTICE:  table "r2_ex295" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:17620: NOTICE:  table "result_ex295" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 96
+INSERT 0 96
+CREATE TABLE
+INSERT 0 768
+psql:revalidation.sql:17741: NOTICE:  Ex 295: rows=768 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:17745: NOTICE:  table "r1_ex296" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:17746: NOTICE:  table "r2_ex296" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:17747: NOTICE:  table "result_ex296" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 120
+INSERT 0 120
+CREATE TABLE
+INSERT 0 1200
+psql:revalidation.sql:17868: NOTICE:  Ex 296: rows=1200 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:17872: NOTICE:  table "r1_ex297" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:17873: NOTICE:  table "r2_ex297" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:17874: NOTICE:  table "result_ex297" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 144
+INSERT 0 144
+CREATE TABLE
+INSERT 0 1728
+psql:revalidation.sql:17995: NOTICE:  Ex 297: rows=1728 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:17999: NOTICE:  table "r1_ex298" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:18000: NOTICE:  table "r2_ex298" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:18001: NOTICE:  table "result_ex298" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 180
+INSERT 0 180
+CREATE TABLE
+INSERT 0 2700
+psql:revalidation.sql:18122: NOTICE:  Ex 298: rows=2700 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:18126: NOTICE:  table "r1_ex299" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:18127: NOTICE:  table "r2_ex299" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:18128: NOTICE:  table "result_ex299" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 240
+INSERT 0 240
+CREATE TABLE
+INSERT 0 4800
+psql:revalidation.sql:18249: NOTICE:  Ex 299: rows=4800 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:18253: NOTICE:  table "r1_ex300" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:18254: NOTICE:  table "r2_ex300" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:18255: NOTICE:  table "result_ex300" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 300
+INSERT 0 300
+CREATE TABLE
+INSERT 0 7500
+psql:revalidation.sql:18376: NOTICE:  Ex 300: rows=7500 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:18380: NOTICE:  table "r1_ex301" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:18381: NOTICE:  table "r2_ex301" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:18382: NOTICE:  table "result_ex301" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 60
+INSERT 0 60
+CREATE TABLE
+INSERT 0 240
+psql:revalidation.sql:18503: NOTICE:  Ex 301: rows=240 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:18507: NOTICE:  table "r1_ex302" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:18508: NOTICE:  table "r2_ex302" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:18509: NOTICE:  table "result_ex302" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 75
+INSERT 0 75
+CREATE TABLE
+INSERT 0 375
+psql:revalidation.sql:18630: NOTICE:  Ex 302: rows=375 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:18634: NOTICE:  table "r1_ex303" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:18635: NOTICE:  table "r2_ex303" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:18636: NOTICE:  table "result_ex303" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 90
+INSERT 0 90
+CREATE TABLE
+INSERT 0 540
+psql:revalidation.sql:18757: NOTICE:  Ex 303: rows=540 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:18761: NOTICE:  table "r1_ex304" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:18762: NOTICE:  table "r2_ex304" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:18763: NOTICE:  table "result_ex304" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 120
+INSERT 0 120
+CREATE TABLE
+INSERT 0 960
+psql:revalidation.sql:18884: NOTICE:  Ex 304: rows=960 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:18888: NOTICE:  table "r1_ex305" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:18889: NOTICE:  table "r2_ex305" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:18890: NOTICE:  table "result_ex305" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 150
+INSERT 0 150
+CREATE TABLE
+INSERT 0 1500
+psql:revalidation.sql:19011: NOTICE:  Ex 305: rows=1500 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:19015: NOTICE:  table "r1_ex306" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:19016: NOTICE:  table "r2_ex306" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:19017: NOTICE:  table "result_ex306" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 180
+INSERT 0 180
+CREATE TABLE
+INSERT 0 2160
+psql:revalidation.sql:19138: NOTICE:  Ex 306: rows=2160 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:19142: NOTICE:  table "r1_ex307" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:19143: NOTICE:  table "r2_ex307" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:19144: NOTICE:  table "result_ex307" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 225
+INSERT 0 225
+CREATE TABLE
+INSERT 0 3375
+psql:revalidation.sql:19265: NOTICE:  Ex 307: rows=3375 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:19269: NOTICE:  table "r1_ex308" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:19270: NOTICE:  table "r2_ex308" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:19271: NOTICE:  table "result_ex308" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 300
+INSERT 0 300
+CREATE TABLE
+INSERT 0 6000
+psql:revalidation.sql:19392: NOTICE:  Ex 308: rows=6000 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:19396: NOTICE:  table "r1_ex309" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:19397: NOTICE:  table "r2_ex309" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:19398: NOTICE:  table "result_ex309" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 375
+INSERT 0 375
+CREATE TABLE
+INSERT 0 9375
+psql:revalidation.sql:19519: NOTICE:  Ex 309: rows=9375 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:19523: NOTICE:  table "r1_ex310" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:19524: NOTICE:  table "r2_ex310" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:19525: NOTICE:  table "result_ex310" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 54
+INSERT 0 54
+CREATE TABLE
+INSERT 0 162
+psql:revalidation.sql:19646: NOTICE:  Ex 310: rows=162 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:19650: NOTICE:  table "r1_ex311" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:19651: NOTICE:  table "r2_ex311" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:19652: NOTICE:  table "result_ex311" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 72
+INSERT 0 72
+CREATE TABLE
+INSERT 0 288
+psql:revalidation.sql:19773: NOTICE:  Ex 311: rows=288 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:19777: NOTICE:  table "r1_ex312" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:19778: NOTICE:  table "r2_ex312" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:19779: NOTICE:  table "result_ex312" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 90
+INSERT 0 90
+CREATE TABLE
+INSERT 0 450
+psql:revalidation.sql:19900: NOTICE:  Ex 312: rows=450 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:19904: NOTICE:  table "r1_ex313" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:19905: NOTICE:  table "r2_ex313" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:19906: NOTICE:  table "result_ex313" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 108
+INSERT 0 108
+CREATE TABLE
+INSERT 0 648
+psql:revalidation.sql:20027: NOTICE:  Ex 313: rows=648 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:20031: NOTICE:  table "r1_ex314" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:20032: NOTICE:  table "r2_ex314" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:20033: NOTICE:  table "result_ex314" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 144
+INSERT 0 144
+CREATE TABLE
+INSERT 0 1152
+psql:revalidation.sql:20154: NOTICE:  Ex 314: rows=1152 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+psql:revalidation.sql:20158: NOTICE:  table "r1_ex315" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:20159: NOTICE:  table "r2_ex315" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:20160: NOTICE:  table "result_ex315" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 180
+INSERT 0 180
+CREATE TABLE
+INSERT 0 1800
+psql:revalidation.sql:20281: NOTICE:  Ex 315: rows=1800 | paper(a, b, c, d): uniq=t min=t rem=- | corrected(a, b, c, d): uniq=t min=t
+DO
+── Natural Join (85 examples) ──
+psql:revalidation.sql:20287: NOTICE:  table "r1_ex101" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:20288: NOTICE:  table "r2_ex101" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:20289: NOTICE:  table "result_ex101" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 25
+INSERT 0 125
+CREATE TABLE
+INSERT 0 125
+psql:revalidation.sql:20410: NOTICE:  Ex 101: rows=125 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:20414: NOTICE:  table "r1_ex102" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:20415: NOTICE:  table "r2_ex102" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:20416: NOTICE:  table "result_ex102" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 40
+INSERT 0 320
+CREATE TABLE
+INSERT 0 320
+psql:revalidation.sql:20537: NOTICE:  Ex 102: rows=320 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:20541: NOTICE:  table "r1_ex103" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:20542: NOTICE:  table "r2_ex103" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:20543: NOTICE:  table "result_ex103" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 50
 INSERT 0 470
 CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:6368: NOTICE:  Ex 95: rows=1000 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+INSERT 0 470
+psql:revalidation.sql:20664: NOTICE:  Ex 103: rows=470 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
 DO
+psql:revalidation.sql:20668: NOTICE:  table "r1_ex104" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:20669: NOTICE:  table "r2_ex104" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:20670: NOTICE:  table "result_ex104" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
+INSERT 0 75
+INSERT 0 705
 CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:6494: NOTICE:  Ex 96: rows=1000 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+INSERT 0 705
+psql:revalidation.sql:20791: NOTICE:  Ex 104: rows=705 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
 DO
+psql:revalidation.sql:20795: NOTICE:  table "r1_ex105" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:20796: NOTICE:  table "r2_ex105" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:20797: NOTICE:  table "result_ex105" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
+INSERT 0 100
+INSERT 0 940
 CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:6620: NOTICE:  Ex 97: rows=1000 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+INSERT 0 940
+psql:revalidation.sql:20918: NOTICE:  Ex 105: rows=940 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
 DO
+psql:revalidation.sql:20922: NOTICE:  table "r1_ex106" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:20923: NOTICE:  table "r2_ex106" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:20924: NOTICE:  table "result_ex106" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 125
+INSERT 0 1175
+CREATE TABLE
+INSERT 0 1175
+psql:revalidation.sql:21045: NOTICE:  Ex 106: rows=1175 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:21049: NOTICE:  table "r1_ex107" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:21050: NOTICE:  table "r2_ex107" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:21051: NOTICE:  table "result_ex107" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 150
+INSERT 0 1410
+CREATE TABLE
+INSERT 0 1410
+psql:revalidation.sql:21172: NOTICE:  Ex 107: rows=1410 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:21176: NOTICE:  table "r1_ex108" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:21177: NOTICE:  table "r2_ex108" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:21178: NOTICE:  table "result_ex108" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 1880
+CREATE TABLE
+INSERT 0 1880
+psql:revalidation.sql:21299: NOTICE:  Ex 108: rows=1880 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:21303: NOTICE:  table "r1_ex109" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:21304: NOTICE:  table "r2_ex109" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:21305: NOTICE:  table "result_ex109" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 250
+INSERT 0 2350
+CREATE TABLE
+INSERT 0 2350
+psql:revalidation.sql:21426: NOTICE:  Ex 109: rows=2350 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:21430: NOTICE:  table "r1_ex110" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:21431: NOTICE:  table "r2_ex110" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:21432: NOTICE:  table "result_ex110" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 375
+INSERT 0 3525
+CREATE TABLE
+INSERT 0 3525
+psql:revalidation.sql:21553: NOTICE:  Ex 110: rows=3525 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:21557: NOTICE:  table "r1_ex111" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:21558: NOTICE:  table "r2_ex111" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:21559: NOTICE:  table "result_ex111" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 4700
+CREATE TABLE
+INSERT 0 4700
+psql:revalidation.sql:21680: NOTICE:  Ex 111: rows=4700 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:21684: NOTICE:  table "r1_ex112" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:21685: NOTICE:  table "r2_ex112" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:21686: NOTICE:  table "result_ex112" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 750
+INSERT 0 7050
+CREATE TABLE
+INSERT 0 7050
+psql:revalidation.sql:21807: NOTICE:  Ex 112: rows=7050 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:21811: NOTICE:  table "r1_ex113" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:21812: NOTICE:  table "r2_ex113" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:21813: NOTICE:  table "result_ex113" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
 INSERT 0 1000
+INSERT 0 9400
+CREATE TABLE
+INSERT 0 9400
+psql:revalidation.sql:21934: NOTICE:  Ex 113: rows=9400 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:21938: NOTICE:  table "r1_ex114" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:21939: NOTICE:  table "r2_ex114" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:21940: NOTICE:  table "result_ex114" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 40
+INSERT 0 200
+CREATE TABLE
+INSERT 0 200
+psql:revalidation.sql:22061: NOTICE:  Ex 114: rows=200 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:22065: NOTICE:  table "r1_ex115" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:22066: NOTICE:  table "r2_ex115" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:22067: NOTICE:  table "result_ex115" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 64
+INSERT 0 376
+CREATE TABLE
+INSERT 0 376
+psql:revalidation.sql:22188: NOTICE:  Ex 115: rows=376 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:22192: NOTICE:  table "r1_ex116" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:22193: NOTICE:  table "r2_ex116" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:22194: NOTICE:  table "result_ex116" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 80
+INSERT 0 470
+CREATE TABLE
+INSERT 0 470
+psql:revalidation.sql:22315: NOTICE:  Ex 116: rows=470 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:22319: NOTICE:  table "r1_ex117" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:22320: NOTICE:  table "r2_ex117" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:22321: NOTICE:  table "result_ex117" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 120
+INSERT 0 705
+CREATE TABLE
+INSERT 0 705
+psql:revalidation.sql:22442: NOTICE:  Ex 117: rows=705 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:22446: NOTICE:  table "r1_ex118" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:22447: NOTICE:  table "r2_ex118" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:22448: NOTICE:  table "result_ex118" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 160
+INSERT 0 940
+CREATE TABLE
+INSERT 0 940
+psql:revalidation.sql:22569: NOTICE:  Ex 118: rows=940 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:22573: NOTICE:  table "r1_ex119" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:22574: NOTICE:  table "r2_ex119" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:22575: NOTICE:  table "result_ex119" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 1175
+CREATE TABLE
+INSERT 0 1175
+psql:revalidation.sql:22696: NOTICE:  Ex 119: rows=1175 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:22700: NOTICE:  table "r1_ex120" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:22701: NOTICE:  table "r2_ex120" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:22702: NOTICE:  table "result_ex120" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 240
+INSERT 0 1410
+CREATE TABLE
+INSERT 0 1410
+psql:revalidation.sql:22823: NOTICE:  Ex 120: rows=1410 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:22827: NOTICE:  table "r1_ex121" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:22828: NOTICE:  table "r2_ex121" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:22829: NOTICE:  table "result_ex121" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 320
+INSERT 0 1880
+CREATE TABLE
+INSERT 0 1880
+psql:revalidation.sql:22950: NOTICE:  Ex 121: rows=1880 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:22954: NOTICE:  table "r1_ex122" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:22955: NOTICE:  table "r2_ex122" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:22956: NOTICE:  table "result_ex122" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 400
+INSERT 0 2350
+CREATE TABLE
+INSERT 0 2350
+psql:revalidation.sql:23077: NOTICE:  Ex 122: rows=2350 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:23081: NOTICE:  table "r1_ex123" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:23082: NOTICE:  table "r2_ex123" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:23083: NOTICE:  table "result_ex123" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 600
+INSERT 0 3525
+CREATE TABLE
+INSERT 0 3525
+psql:revalidation.sql:23204: NOTICE:  Ex 123: rows=3525 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:23208: NOTICE:  table "r1_ex124" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:23209: NOTICE:  table "r2_ex124" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:23210: NOTICE:  table "result_ex124" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 800
+INSERT 0 4700
+CREATE TABLE
+INSERT 0 4700
+psql:revalidation.sql:23331: NOTICE:  Ex 124: rows=4700 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:23335: NOTICE:  table "r1_ex125" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:23336: NOTICE:  table "r2_ex125" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:23337: NOTICE:  table "result_ex125" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 7050
+CREATE TABLE
+INSERT 0 7050
+psql:revalidation.sql:23458: NOTICE:  Ex 125: rows=7050 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:23462: NOTICE:  table "r1_ex126" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:23463: NOTICE:  table "r2_ex126" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:23464: NOTICE:  table "result_ex126" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 9400
+CREATE TABLE
+INSERT 0 9400
+psql:revalidation.sql:23585: NOTICE:  Ex 126: rows=9400 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:23589: NOTICE:  table "r1_ex127" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:23590: NOTICE:  table "r2_ex127" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:23591: NOTICE:  table "result_ex127" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 50
 INSERT 0 235
 CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:6746: NOTICE:  Ex 98: rows=1000 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+INSERT 0 235
+psql:revalidation.sql:23712: NOTICE:  Ex 127: rows=235 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
 DO
+psql:revalidation.sql:23716: NOTICE:  table "r1_ex128" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:23717: NOTICE:  table "r2_ex128" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:23718: NOTICE:  table "result_ex128" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
+INSERT 0 80
+INSERT 0 376
 CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:6872: NOTICE:  Ex 99: rows=1000 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+INSERT 0 376
+psql:revalidation.sql:23839: NOTICE:  Ex 128: rows=376 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
 DO
+psql:revalidation.sql:23843: NOTICE:  table "r1_ex129" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:23844: NOTICE:  table "r2_ex129" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:23845: NOTICE:  table "result_ex129" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 900
-INSERT 0 900
+INSERT 0 100
+INSERT 0 470
 CREATE TABLE
-INSERT 0 900
-psql:revalidation.sql:6998: NOTICE:  Ex 100: rows=900 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+INSERT 0 470
+psql:revalidation.sql:23966: NOTICE:  Ex 129: rows=470 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
 DO
-── Equal Grains (20 examples) ──
+psql:revalidation.sql:23970: NOTICE:  table "r1_ex130" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:23971: NOTICE:  table "r2_ex130" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:23972: NOTICE:  table "result_ex130" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
+INSERT 0 150
+INSERT 0 705
 CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:7126: NOTICE:  Ex 41: rows=1000 | paper(g1): uniq=t min=t rem=- | corrected(g1): uniq=t min=t
+INSERT 0 705
+psql:revalidation.sql:24093: NOTICE:  Ex 130: rows=705 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
 DO
+psql:revalidation.sql:24097: NOTICE:  table "r1_ex131" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:24098: NOTICE:  table "r2_ex131" does not exist, skipping
 DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 500
-INSERT 0 500
-CREATE TABLE
-INSERT 0 500
-psql:revalidation.sql:7252: NOTICE:  Ex 42: rows=500 | paper(g1): uniq=t min=t rem=- | corrected(g1): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
+psql:revalidation.sql:24099: NOTICE:  table "result_ex131" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
 INSERT 0 200
-INSERT 0 200
+INSERT 0 940
 CREATE TABLE
-INSERT 0 200
-psql:revalidation.sql:7378: NOTICE:  Ex 43: rows=200 | paper(g1): uniq=t min=t rem=- | corrected(g1): uniq=t min=t
+INSERT 0 940
+psql:revalidation.sql:24220: NOTICE:  Ex 131: rows=940 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
 DO
+psql:revalidation.sql:24224: NOTICE:  table "r1_ex132" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:24225: NOTICE:  table "r2_ex132" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:24226: NOTICE:  table "result_ex132" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 250
+INSERT 0 1175
+CREATE TABLE
+INSERT 0 1175
+psql:revalidation.sql:24347: NOTICE:  Ex 132: rows=1175 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:24351: NOTICE:  table "r1_ex133" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:24352: NOTICE:  table "r2_ex133" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:24353: NOTICE:  table "result_ex133" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 300
+INSERT 0 1410
+CREATE TABLE
+INSERT 0 1410
+psql:revalidation.sql:24474: NOTICE:  Ex 133: rows=1410 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:24478: NOTICE:  table "r1_ex134" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:24479: NOTICE:  table "r2_ex134" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:24480: NOTICE:  table "result_ex134" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 400
+INSERT 0 1880
+CREATE TABLE
+INSERT 0 1880
+psql:revalidation.sql:24601: NOTICE:  Ex 134: rows=1880 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:24605: NOTICE:  table "r1_ex135" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:24606: NOTICE:  table "r2_ex135" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:24607: NOTICE:  table "result_ex135" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 2350
+CREATE TABLE
+INSERT 0 2350
+psql:revalidation.sql:24728: NOTICE:  Ex 135: rows=2350 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:24732: NOTICE:  table "r1_ex136" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:24733: NOTICE:  table "r2_ex136" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:24734: NOTICE:  table "result_ex136" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 750
+INSERT 0 3525
+CREATE TABLE
+INSERT 0 3525
+psql:revalidation.sql:24855: NOTICE:  Ex 136: rows=3525 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:24859: NOTICE:  table "r1_ex137" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:24860: NOTICE:  table "r2_ex137" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:24861: NOTICE:  table "result_ex137" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 4700
+CREATE TABLE
+INSERT 0 4700
+psql:revalidation.sql:24982: NOTICE:  Ex 137: rows=4700 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:24986: NOTICE:  table "r1_ex138" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:24987: NOTICE:  table "r2_ex138" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:24988: NOTICE:  table "result_ex138" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 7050
+CREATE TABLE
+INSERT 0 7050
+psql:revalidation.sql:25109: NOTICE:  Ex 138: rows=7050 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:25113: NOTICE:  table "r1_ex139" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:25114: NOTICE:  table "r2_ex139" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:25115: NOTICE:  table "result_ex139" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 9400
+CREATE TABLE
+INSERT 0 9400
+psql:revalidation.sql:25236: NOTICE:  Ex 139: rows=9400 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:25240: NOTICE:  table "r1_ex140" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:25241: NOTICE:  table "r2_ex140" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:25242: NOTICE:  table "result_ex140" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 75
+INSERT 0 235
+CREATE TABLE
+INSERT 0 235
+psql:revalidation.sql:25363: NOTICE:  Ex 140: rows=235 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:25367: NOTICE:  table "r1_ex141" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:25368: NOTICE:  table "r2_ex141" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:25369: NOTICE:  table "result_ex141" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 120
+INSERT 0 376
+CREATE TABLE
+INSERT 0 376
+psql:revalidation.sql:25490: NOTICE:  Ex 141: rows=376 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:25494: NOTICE:  table "r1_ex142" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:25495: NOTICE:  table "r2_ex142" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:25496: NOTICE:  table "result_ex142" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 150
+INSERT 0 470
+CREATE TABLE
+INSERT 0 470
+psql:revalidation.sql:25617: NOTICE:  Ex 142: rows=470 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:25621: NOTICE:  table "r1_ex143" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:25622: NOTICE:  table "r2_ex143" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:25623: NOTICE:  table "result_ex143" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 225
+INSERT 0 705
+CREATE TABLE
+INSERT 0 705
+psql:revalidation.sql:25744: NOTICE:  Ex 143: rows=705 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:25748: NOTICE:  table "r1_ex144" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:25749: NOTICE:  table "r2_ex144" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:25750: NOTICE:  table "result_ex144" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 300
+INSERT 0 940
+CREATE TABLE
+INSERT 0 940
+psql:revalidation.sql:25871: NOTICE:  Ex 144: rows=940 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:25875: NOTICE:  table "r1_ex145" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:25876: NOTICE:  table "r2_ex145" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:25877: NOTICE:  table "result_ex145" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 375
+INSERT 0 1175
+CREATE TABLE
+INSERT 0 1175
+psql:revalidation.sql:25998: NOTICE:  Ex 145: rows=1175 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:26002: NOTICE:  table "r1_ex146" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:26003: NOTICE:  table "r2_ex146" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:26004: NOTICE:  table "result_ex146" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 450
+INSERT 0 1410
+CREATE TABLE
+INSERT 0 1410
+psql:revalidation.sql:26125: NOTICE:  Ex 146: rows=1410 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:26129: NOTICE:  table "r1_ex147" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:26130: NOTICE:  table "r2_ex147" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:26131: NOTICE:  table "result_ex147" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 600
+INSERT 0 1880
+CREATE TABLE
+INSERT 0 1880
+psql:revalidation.sql:26252: NOTICE:  Ex 147: rows=1880 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:26256: NOTICE:  table "r1_ex148" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:26257: NOTICE:  table "r2_ex148" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:26258: NOTICE:  table "result_ex148" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 750
+INSERT 0 2350
+CREATE TABLE
+INSERT 0 2350
+psql:revalidation.sql:26379: NOTICE:  Ex 148: rows=2350 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:26383: NOTICE:  table "r1_ex149" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:26384: NOTICE:  table "r2_ex149" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:26385: NOTICE:  table "result_ex149" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 3525
+CREATE TABLE
+INSERT 0 3525
+psql:revalidation.sql:26506: NOTICE:  Ex 149: rows=3525 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:26510: NOTICE:  table "r1_ex150" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:26511: NOTICE:  table "r2_ex150" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:26512: NOTICE:  table "result_ex150" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 4700
+CREATE TABLE
+INSERT 0 4700
+psql:revalidation.sql:26633: NOTICE:  Ex 150: rows=4700 | paper(a, b, c, d): uniq=t min=f rem=a, b, c | corrected(a, b, d): uniq=t min=t
+DO
+psql:revalidation.sql:26637: NOTICE:  table "r1_ex316" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:26638: NOTICE:  table "r2_ex316" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:26639: NOTICE:  table "result_ex316" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 25
+INSERT 0 25
+CREATE TABLE
+INSERT 0 25
+psql:revalidation.sql:26759: NOTICE:  Ex 316: rows=25 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:26763: NOTICE:  table "r1_ex317" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:26764: NOTICE:  table "r2_ex317" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:26765: NOTICE:  table "result_ex317" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 40
+INSERT 0 40
+CREATE TABLE
+INSERT 0 40
+psql:revalidation.sql:26885: NOTICE:  Ex 317: rows=40 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:26889: NOTICE:  table "r1_ex318" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:26890: NOTICE:  table "r2_ex318" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:26891: NOTICE:  table "result_ex318" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 50
+INSERT 0 50
+CREATE TABLE
+INSERT 0 50
+psql:revalidation.sql:27011: NOTICE:  Ex 318: rows=50 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:27015: NOTICE:  table "r1_ex319" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:27016: NOTICE:  table "r2_ex319" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:27017: NOTICE:  table "result_ex319" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 75
+INSERT 0 75
+CREATE TABLE
+INSERT 0 75
+psql:revalidation.sql:27137: NOTICE:  Ex 319: rows=75 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:27141: NOTICE:  table "r1_ex320" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:27142: NOTICE:  table "r2_ex320" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:27143: NOTICE:  table "result_ex320" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -663,10 +2723,518 @@ INSERT 0 100
 INSERT 0 100
 CREATE TABLE
 INSERT 0 100
-psql:revalidation.sql:7504: NOTICE:  Ex 44: rows=100 | paper(g1): uniq=t min=t rem=- | corrected(g1): uniq=t min=t
+psql:revalidation.sql:27263: NOTICE:  Ex 320: rows=100 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
 DO
+psql:revalidation.sql:27267: NOTICE:  table "r1_ex321" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:27268: NOTICE:  table "r2_ex321" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:27269: NOTICE:  table "result_ex321" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 125
+INSERT 0 125
+CREATE TABLE
+INSERT 0 125
+psql:revalidation.sql:27389: NOTICE:  Ex 321: rows=125 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:27393: NOTICE:  table "r1_ex322" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:27394: NOTICE:  table "r2_ex322" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:27395: NOTICE:  table "result_ex322" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 150
+INSERT 0 150
+CREATE TABLE
+INSERT 0 150
+psql:revalidation.sql:27515: NOTICE:  Ex 322: rows=150 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:27519: NOTICE:  table "r1_ex323" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:27520: NOTICE:  table "r2_ex323" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:27521: NOTICE:  table "result_ex323" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 200
+CREATE TABLE
+INSERT 0 200
+psql:revalidation.sql:27641: NOTICE:  Ex 323: rows=200 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:27645: NOTICE:  table "r1_ex324" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:27646: NOTICE:  table "r2_ex324" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:27647: NOTICE:  table "result_ex324" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 250
+INSERT 0 250
+CREATE TABLE
+INSERT 0 250
+psql:revalidation.sql:27767: NOTICE:  Ex 324: rows=250 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:27771: NOTICE:  table "r1_ex325" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:27772: NOTICE:  table "r2_ex325" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:27773: NOTICE:  table "result_ex325" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 375
+INSERT 0 375
+CREATE TABLE
+INSERT 0 375
+psql:revalidation.sql:27893: NOTICE:  Ex 325: rows=375 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:27897: NOTICE:  table "r1_ex326" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:27898: NOTICE:  table "r2_ex326" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:27899: NOTICE:  table "result_ex326" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 500
+CREATE TABLE
+INSERT 0 500
+psql:revalidation.sql:28019: NOTICE:  Ex 326: rows=500 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:28023: NOTICE:  table "r1_ex327" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:28024: NOTICE:  table "r2_ex327" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:28025: NOTICE:  table "result_ex327" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 750
+INSERT 0 750
+CREATE TABLE
+INSERT 0 750
+psql:revalidation.sql:28145: NOTICE:  Ex 327: rows=750 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:28149: NOTICE:  table "r1_ex328" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:28150: NOTICE:  table "r2_ex328" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:28151: NOTICE:  table "result_ex328" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:28271: NOTICE:  Ex 328: rows=1000 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:28275: NOTICE:  table "r1_ex329" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:28276: NOTICE:  table "r2_ex329" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:28277: NOTICE:  table "result_ex329" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 40
+INSERT 0 40
+CREATE TABLE
+INSERT 0 40
+psql:revalidation.sql:28397: NOTICE:  Ex 329: rows=40 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:28401: NOTICE:  table "r1_ex330" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:28402: NOTICE:  table "r2_ex330" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:28403: NOTICE:  table "result_ex330" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 64
+INSERT 0 64
+CREATE TABLE
+INSERT 0 64
+psql:revalidation.sql:28523: NOTICE:  Ex 330: rows=64 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:28527: NOTICE:  table "r1_ex331" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:28528: NOTICE:  table "r2_ex331" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:28529: NOTICE:  table "result_ex331" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 80
+INSERT 0 80
+CREATE TABLE
+INSERT 0 80
+psql:revalidation.sql:28649: NOTICE:  Ex 331: rows=80 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:28653: NOTICE:  table "r1_ex332" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:28654: NOTICE:  table "r2_ex332" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:28655: NOTICE:  table "result_ex332" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 120
+INSERT 0 120
+CREATE TABLE
+INSERT 0 120
+psql:revalidation.sql:28775: NOTICE:  Ex 332: rows=120 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:28779: NOTICE:  table "r1_ex333" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:28780: NOTICE:  table "r2_ex333" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:28781: NOTICE:  table "result_ex333" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 160
+INSERT 0 160
+CREATE TABLE
+INSERT 0 160
+psql:revalidation.sql:28901: NOTICE:  Ex 333: rows=160 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:28905: NOTICE:  table "r1_ex334" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:28906: NOTICE:  table "r2_ex334" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:28907: NOTICE:  table "result_ex334" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 200
+CREATE TABLE
+INSERT 0 200
+psql:revalidation.sql:29027: NOTICE:  Ex 334: rows=200 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:29031: NOTICE:  table "r1_ex335" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:29032: NOTICE:  table "r2_ex335" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:29033: NOTICE:  table "result_ex335" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 240
+INSERT 0 240
+CREATE TABLE
+INSERT 0 240
+psql:revalidation.sql:29153: NOTICE:  Ex 335: rows=240 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:29157: NOTICE:  table "r1_ex336" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:29158: NOTICE:  table "r2_ex336" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:29159: NOTICE:  table "result_ex336" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 320
+INSERT 0 320
+CREATE TABLE
+INSERT 0 320
+psql:revalidation.sql:29279: NOTICE:  Ex 336: rows=320 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:29283: NOTICE:  table "r1_ex337" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:29284: NOTICE:  table "r2_ex337" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:29285: NOTICE:  table "result_ex337" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 400
+INSERT 0 400
+CREATE TABLE
+INSERT 0 400
+psql:revalidation.sql:29405: NOTICE:  Ex 337: rows=400 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:29409: NOTICE:  table "r1_ex338" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:29410: NOTICE:  table "r2_ex338" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:29411: NOTICE:  table "result_ex338" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 600
+INSERT 0 600
+CREATE TABLE
+INSERT 0 600
+psql:revalidation.sql:29531: NOTICE:  Ex 338: rows=600 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:29535: NOTICE:  table "r1_ex339" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:29536: NOTICE:  table "r2_ex339" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:29537: NOTICE:  table "result_ex339" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 800
+INSERT 0 800
+CREATE TABLE
+INSERT 0 800
+psql:revalidation.sql:29657: NOTICE:  Ex 339: rows=800 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:29661: NOTICE:  table "r1_ex340" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:29662: NOTICE:  table "r2_ex340" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:29663: NOTICE:  table "result_ex340" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:29783: NOTICE:  Ex 340: rows=1000 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:29787: NOTICE:  table "r1_ex341" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:29788: NOTICE:  table "r2_ex341" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:29789: NOTICE:  table "result_ex341" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:29909: NOTICE:  Ex 341: rows=1000 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:29913: NOTICE:  table "r1_ex342" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:29914: NOTICE:  table "r2_ex342" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:29915: NOTICE:  table "result_ex342" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 50
+INSERT 0 50
+CREATE TABLE
+INSERT 0 50
+psql:revalidation.sql:30035: NOTICE:  Ex 342: rows=50 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:30039: NOTICE:  table "r1_ex343" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:30040: NOTICE:  table "r2_ex343" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:30041: NOTICE:  table "result_ex343" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 80
+INSERT 0 80
+CREATE TABLE
+INSERT 0 80
+psql:revalidation.sql:30161: NOTICE:  Ex 343: rows=80 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:30165: NOTICE:  table "r1_ex344" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:30166: NOTICE:  table "r2_ex344" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:30167: NOTICE:  table "result_ex344" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 100
+INSERT 0 100
+CREATE TABLE
+INSERT 0 100
+psql:revalidation.sql:30287: NOTICE:  Ex 344: rows=100 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:30291: NOTICE:  table "r1_ex345" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:30292: NOTICE:  table "r2_ex345" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:30293: NOTICE:  table "result_ex345" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 150
+INSERT 0 150
+CREATE TABLE
+INSERT 0 150
+psql:revalidation.sql:30413: NOTICE:  Ex 345: rows=150 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:30417: NOTICE:  table "r1_ex346" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:30418: NOTICE:  table "r2_ex346" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:30419: NOTICE:  table "result_ex346" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 200
+CREATE TABLE
+INSERT 0 200
+psql:revalidation.sql:30539: NOTICE:  Ex 346: rows=200 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:30543: NOTICE:  table "r1_ex347" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:30544: NOTICE:  table "r2_ex347" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:30545: NOTICE:  table "result_ex347" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 250
+INSERT 0 250
+CREATE TABLE
+INSERT 0 250
+psql:revalidation.sql:30665: NOTICE:  Ex 347: rows=250 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:30669: NOTICE:  table "r1_ex348" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:30670: NOTICE:  table "r2_ex348" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:30671: NOTICE:  table "result_ex348" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 300
+INSERT 0 300
+CREATE TABLE
+INSERT 0 300
+psql:revalidation.sql:30791: NOTICE:  Ex 348: rows=300 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:30795: NOTICE:  table "r1_ex349" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:30796: NOTICE:  table "r2_ex349" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:30797: NOTICE:  table "result_ex349" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 400
+INSERT 0 400
+CREATE TABLE
+INSERT 0 400
+psql:revalidation.sql:30917: NOTICE:  Ex 349: rows=400 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+psql:revalidation.sql:30921: NOTICE:  table "r1_ex350" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:30922: NOTICE:  table "r2_ex350" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:30923: NOTICE:  table "result_ex350" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 500
+CREATE TABLE
+INSERT 0 500
+psql:revalidation.sql:31043: NOTICE:  Ex 350: rows=500 | paper(a, b): uniq=t min=t rem=- | corrected(a, b): uniq=t min=t
+DO
+── Equal Grains (50 examples) ──
+psql:revalidation.sql:31049: NOTICE:  table "r1_ex181" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:31050: NOTICE:  table "r2_ex181" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:31051: NOTICE:  table "result_ex181" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:31171: NOTICE:  Ex 181: rows=1000 | paper(g1): uniq=t min=t rem=- | corrected(g1): uniq=t min=t
+DO
+psql:revalidation.sql:31175: NOTICE:  table "r1_ex182" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:31176: NOTICE:  table "r2_ex182" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:31177: NOTICE:  table "result_ex182" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 500
+CREATE TABLE
+INSERT 0 500
+psql:revalidation.sql:31297: NOTICE:  Ex 182: rows=500 | paper(g1): uniq=t min=t rem=- | corrected(g1): uniq=t min=t
+DO
+psql:revalidation.sql:31301: NOTICE:  table "r1_ex183" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:31302: NOTICE:  table "r2_ex183" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:31303: NOTICE:  table "result_ex183" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 200
+CREATE TABLE
+INSERT 0 200
+psql:revalidation.sql:31423: NOTICE:  Ex 183: rows=200 | paper(g1): uniq=t min=t rem=- | corrected(g1): uniq=t min=t
+DO
+psql:revalidation.sql:31427: NOTICE:  table "r1_ex184" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:31428: NOTICE:  table "r2_ex184" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:31429: NOTICE:  table "result_ex184" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 100
+INSERT 0 100
+CREATE TABLE
+INSERT 0 100
+psql:revalidation.sql:31549: NOTICE:  Ex 184: rows=100 | paper(g1): uniq=t min=t rem=- | corrected(g1): uniq=t min=t
+DO
+psql:revalidation.sql:31553: NOTICE:  table "r1_ex185" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:31554: NOTICE:  table "r2_ex185" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:31555: NOTICE:  table "result_ex185" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 50
+INSERT 0 50
+CREATE TABLE
+INSERT 0 50
+psql:revalidation.sql:31675: NOTICE:  Ex 185: rows=50 | paper(g1): uniq=t min=t rem=- | corrected(g1): uniq=t min=t
+DO
+psql:revalidation.sql:31679: NOTICE:  table "r1_ex186" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:31680: NOTICE:  table "r2_ex186" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:31681: NOTICE:  table "result_ex186" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 750
+INSERT 0 750
+CREATE TABLE
+INSERT 0 750
+psql:revalidation.sql:31801: NOTICE:  Ex 186: rows=750 | paper(g1): uniq=t min=t rem=- | corrected(g1): uniq=t min=t
+DO
+psql:revalidation.sql:31805: NOTICE:  table "r1_ex187" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:31806: NOTICE:  table "r2_ex187" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:31807: NOTICE:  table "result_ex187" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -674,10 +3242,13 @@ INSERT 0 1000
 INSERT 0 1000
 CREATE TABLE
 INSERT 0 20000
-psql:revalidation.sql:7631: NOTICE:  Ex 45: rows=20000 | paper(g2_r1, g2_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g2_r2, g1): uniq=t min=t
+psql:revalidation.sql:31928: NOTICE:  Ex 187: rows=20000 | paper(g2_r1, g2_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g2_r2, g1): uniq=t min=t
 DO
+psql:revalidation.sql:31932: NOTICE:  table "r1_ex188" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:31933: NOTICE:  table "r2_ex188" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:31934: NOTICE:  table "result_ex188" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -685,10 +3256,13 @@ INSERT 0 1000
 INSERT 0 1000
 CREATE TABLE
 INSERT 0 25000
-psql:revalidation.sql:7758: NOTICE:  Ex 46: rows=25000 | paper(g2_r1, g2_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g2_r2, g1): uniq=t min=t
+psql:revalidation.sql:32055: NOTICE:  Ex 188: rows=25000 | paper(g2_r1, g2_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g2_r2, g1): uniq=t min=t
 DO
+psql:revalidation.sql:32059: NOTICE:  table "r1_ex189" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:32060: NOTICE:  table "r2_ex189" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:32061: NOTICE:  table "result_ex189" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -696,120 +3270,13 @@ INSERT 0 1000
 INSERT 0 1000
 CREATE TABLE
 INSERT 0 10000
-psql:revalidation.sql:7885: NOTICE:  Ex 47: rows=10000 | paper(g2_r1, g2_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g2_r2, g1): uniq=t min=t
+psql:revalidation.sql:32182: NOTICE:  Ex 189: rows=10000 | paper(g2_r1, g2_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g2_r2, g1): uniq=t min=t
 DO
+psql:revalidation.sql:32186: NOTICE:  table "r1_ex190" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:32187: NOTICE:  table "r2_ex190" does not exist, skipping
 DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
-CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:8011: NOTICE:  Ex 48: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
-CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:8137: NOTICE:  Ex 49: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
-CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:8263: NOTICE:  Ex 50: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
-CREATE TABLE
-INSERT 0 100000
-psql:revalidation.sql:8391: NOTICE:  Ex 51: rows=100000 | paper(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
-CREATE TABLE
-INSERT 0 50000
-psql:revalidation.sql:8519: NOTICE:  Ex 52: rows=50000 | paper(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
-CREATE TABLE
-INSERT 0 10000
-psql:revalidation.sql:8646: NOTICE:  Ex 53: rows=10000 | paper(g3_r1, g3_r2, g1, g2): uniq=t min=t rem=- | corrected(g3_r1, g3_r2, g1, g2): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
-CREATE TABLE
-INSERT 0 5000
-psql:revalidation.sql:8773: NOTICE:  Ex 54: rows=5000 | paper(g3_r1, g3_r2, g1, g2): uniq=t min=t rem=- | corrected(g3_r1, g3_r2, g1, g2): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
-CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:8899: NOTICE:  Ex 55: rows=1000 | paper(g1, g2, g3): uniq=t min=t rem=- | corrected(g1, g2, g3): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
-CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:9025: NOTICE:  Ex 56: rows=1000 | paper(g1, g2, g3): uniq=t min=t rem=- | corrected(g1, g2, g3): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
-DROP TABLE
-CREATE TABLE
-CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
-CREATE TABLE
-INSERT 0 200000
-psql:revalidation.sql:9154: NOTICE:  Ex 57: rows=200000 | paper(g2_r1, g3_r1, g4_r1, g2_r2, g3_r2, g4_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g3_r1, g4_r1, g2_r2, g3_r2, g4_r2, g1): uniq=t min=t
-DO
-DROP TABLE
-DROP TABLE
+psql:revalidation.sql:32188: NOTICE:  table "result_ex190" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -817,10 +3284,489 @@ INSERT 0 1000
 INSERT 0 1000
 CREATE TABLE
 INSERT 0 40000
-psql:revalidation.sql:9282: NOTICE:  Ex 58: rows=40000 | paper(g3_r1, g4_r1, g3_r2, g4_r2, g1, g2): uniq=t min=t rem=- | corrected(g3_r1, g4_r1, g3_r2, g4_r2, g1, g2): uniq=t min=t
+psql:revalidation.sql:32309: NOTICE:  Ex 190: rows=40000 | paper(g2_r1, g2_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g2_r2, g1): uniq=t min=t
 DO
+psql:revalidation.sql:32313: NOTICE:  table "r1_ex191" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:32314: NOTICE:  table "r2_ex191" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:32315: NOTICE:  table "result_ex191" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 50000
+psql:revalidation.sql:32436: NOTICE:  Ex 191: rows=50000 | paper(g2_r1, g2_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g2_r2, g1): uniq=t min=t
+DO
+psql:revalidation.sql:32440: NOTICE:  table "r1_ex192" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:32441: NOTICE:  table "r2_ex192" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:32442: NOTICE:  table "result_ex192" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 750
+INSERT 0 750
+CREATE TABLE
+INSERT 0 7500
+psql:revalidation.sql:32563: NOTICE:  Ex 192: rows=7500 | paper(g2_r1, g2_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g2_r2, g1): uniq=t min=t
+DO
+psql:revalidation.sql:32567: NOTICE:  table "r1_ex193" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:32568: NOTICE:  table "r2_ex193" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:32569: NOTICE:  table "result_ex193" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 900
+INSERT 0 900
+CREATE TABLE
+INSERT 0 27000
+psql:revalidation.sql:32690: NOTICE:  Ex 193: rows=27000 | paper(g2_r1, g2_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g2_r2, g1): uniq=t min=t
+DO
+psql:revalidation.sql:32694: NOTICE:  table "r1_ex194" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:32695: NOTICE:  table "r2_ex194" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:32696: NOTICE:  table "result_ex194" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 100000
+psql:revalidation.sql:32817: NOTICE:  Ex 194: rows=100000 | paper(g2_r1, g2_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g2_r2, g1): uniq=t min=t
+DO
+psql:revalidation.sql:32821: NOTICE:  table "r1_ex195" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:32822: NOTICE:  table "r2_ex195" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:32823: NOTICE:  table "result_ex195" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:32943: NOTICE:  Ex 195: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:32947: NOTICE:  table "r1_ex196" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:32948: NOTICE:  table "r2_ex196" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:32949: NOTICE:  table "result_ex196" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:33069: NOTICE:  Ex 196: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:33073: NOTICE:  table "r1_ex197" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:33074: NOTICE:  table "r2_ex197" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:33075: NOTICE:  table "result_ex197" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:33195: NOTICE:  Ex 197: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:33199: NOTICE:  table "r1_ex198" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:33200: NOTICE:  table "r2_ex198" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:33201: NOTICE:  table "result_ex198" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:33321: NOTICE:  Ex 198: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:33325: NOTICE:  table "r1_ex199" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:33326: NOTICE:  table "r2_ex199" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:33327: NOTICE:  table "result_ex199" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:33447: NOTICE:  Ex 199: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:33451: NOTICE:  table "r1_ex200" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:33452: NOTICE:  table "r2_ex200" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:33453: NOTICE:  table "result_ex200" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 900
+INSERT 0 900
+CREATE TABLE
+INSERT 0 900
+psql:revalidation.sql:33573: NOTICE:  Ex 200: rows=900 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:33577: NOTICE:  table "r1_ex201" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:33578: NOTICE:  table "r2_ex201" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:33579: NOTICE:  table "result_ex201" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 100000
+psql:revalidation.sql:33701: NOTICE:  Ex 201: rows=100000 | paper(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t
+DO
+psql:revalidation.sql:33705: NOTICE:  table "r1_ex202" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:33706: NOTICE:  table "r2_ex202" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:33707: NOTICE:  table "result_ex202" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 50000
+psql:revalidation.sql:33829: NOTICE:  Ex 202: rows=50000 | paper(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t
+DO
+psql:revalidation.sql:33833: NOTICE:  table "r1_ex203" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:33834: NOTICE:  table "r2_ex203" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:33835: NOTICE:  table "result_ex203" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 200000
+psql:revalidation.sql:33957: NOTICE:  Ex 203: rows=200000 | paper(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t
+DO
+psql:revalidation.sql:33961: NOTICE:  table "r1_ex204" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:33962: NOTICE:  table "r2_ex204" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:33963: NOTICE:  table "result_ex204" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 960
+INSERT 0 960
+CREATE TABLE
+INSERT 0 61440
+psql:revalidation.sql:34085: NOTICE:  Ex 204: rows=61440 | paper(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t
+DO
+psql:revalidation.sql:34089: NOTICE:  table "r1_ex205" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:34090: NOTICE:  table "r2_ex205" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:34091: NOTICE:  table "result_ex205" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 960
+INSERT 0 960
+CREATE TABLE
+INSERT 0 115200
+psql:revalidation.sql:34213: NOTICE:  Ex 205: rows=115200 | paper(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t
+DO
+psql:revalidation.sql:34217: NOTICE:  table "r1_ex206" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:34218: NOTICE:  table "r2_ex206" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:34219: NOTICE:  table "result_ex206" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 100000
+psql:revalidation.sql:34341: NOTICE:  Ex 206: rows=100000 | paper(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g3_r1, g2_r2, g3_r2, g1): uniq=t min=t
+DO
+psql:revalidation.sql:34345: NOTICE:  table "r1_ex207" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:34346: NOTICE:  table "r2_ex207" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:34347: NOTICE:  table "result_ex207" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 10000
+psql:revalidation.sql:34468: NOTICE:  Ex 207: rows=10000 | paper(g3_r1, g3_r2, g1, g2): uniq=t min=t rem=- | corrected(g3_r1, g3_r2, g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:34472: NOTICE:  table "r1_ex208" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:34473: NOTICE:  table "r2_ex208" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:34474: NOTICE:  table "result_ex208" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 5000
+psql:revalidation.sql:34595: NOTICE:  Ex 208: rows=5000 | paper(g3_r1, g3_r2, g1, g2): uniq=t min=t rem=- | corrected(g3_r1, g3_r2, g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:34599: NOTICE:  table "r1_ex209" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:34600: NOTICE:  table "r2_ex209" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:34601: NOTICE:  table "result_ex209" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 20000
+psql:revalidation.sql:34722: NOTICE:  Ex 209: rows=20000 | paper(g3_r1, g3_r2, g1, g2): uniq=t min=t rem=- | corrected(g3_r1, g3_r2, g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:34726: NOTICE:  table "r1_ex210" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:34727: NOTICE:  table "r2_ex210" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:34728: NOTICE:  table "result_ex210" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 960
+INSERT 0 960
+CREATE TABLE
+INSERT 0 7680
+psql:revalidation.sql:34849: NOTICE:  Ex 210: rows=7680 | paper(g3_r1, g3_r2, g1, g2): uniq=t min=t rem=- | corrected(g3_r1, g3_r2, g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:34853: NOTICE:  table "r1_ex211" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:34854: NOTICE:  table "r2_ex211" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:34855: NOTICE:  table "result_ex211" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 20000
+psql:revalidation.sql:34976: NOTICE:  Ex 211: rows=20000 | paper(g3_r1, g3_r2, g1, g2): uniq=t min=t rem=- | corrected(g3_r1, g3_r2, g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:34980: NOTICE:  table "r1_ex212" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:34981: NOTICE:  table "r2_ex212" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:34982: NOTICE:  table "result_ex212" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 960
+INSERT 0 960
+CREATE TABLE
+INSERT 0 14400
+psql:revalidation.sql:35103: NOTICE:  Ex 212: rows=14400 | paper(g3_r1, g3_r2, g1, g2): uniq=t min=t rem=- | corrected(g3_r1, g3_r2, g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:35107: NOTICE:  table "r1_ex213" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:35108: NOTICE:  table "r2_ex213" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:35109: NOTICE:  table "result_ex213" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:35229: NOTICE:  Ex 213: rows=1000 | paper(g1, g2, g3): uniq=t min=t rem=- | corrected(g1, g2, g3): uniq=t min=t
+DO
+psql:revalidation.sql:35233: NOTICE:  table "r1_ex214" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:35234: NOTICE:  table "r2_ex214" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:35235: NOTICE:  table "result_ex214" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:35355: NOTICE:  Ex 214: rows=1000 | paper(g1, g2, g3): uniq=t min=t rem=- | corrected(g1, g2, g3): uniq=t min=t
+DO
+psql:revalidation.sql:35359: NOTICE:  table "r1_ex215" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:35360: NOTICE:  table "r2_ex215" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:35361: NOTICE:  table "result_ex215" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:35481: NOTICE:  Ex 215: rows=1000 | paper(g1, g2, g3): uniq=t min=t rem=- | corrected(g1, g2, g3): uniq=t min=t
+DO
+psql:revalidation.sql:35485: NOTICE:  table "r1_ex216" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:35486: NOTICE:  table "r2_ex216" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:35487: NOTICE:  table "result_ex216" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 960
+INSERT 0 960
+CREATE TABLE
+INSERT 0 960
+psql:revalidation.sql:35607: NOTICE:  Ex 216: rows=960 | paper(g1, g2, g3): uniq=t min=t rem=- | corrected(g1, g2, g3): uniq=t min=t
+DO
+psql:revalidation.sql:35611: NOTICE:  table "r1_ex217" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:35612: NOTICE:  table "r2_ex217" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:35613: NOTICE:  table "result_ex217" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 200000
+psql:revalidation.sql:35736: NOTICE:  Ex 217: rows=200000 | paper(g2_r1, g3_r1, g4_r1, g2_r2, g3_r2, g4_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g3_r1, g4_r1, g2_r2, g3_r2, g4_r2, g1): uniq=t min=t
+DO
+psql:revalidation.sql:35740: NOTICE:  table "r1_ex218" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:35741: NOTICE:  table "r2_ex218" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:35742: NOTICE:  table "result_ex218" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 125000
+psql:revalidation.sql:35865: NOTICE:  Ex 218: rows=125000 | paper(g2_r1, g3_r1, g4_r1, g2_r2, g3_r2, g4_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g3_r1, g4_r1, g2_r2, g3_r2, g4_r2, g1): uniq=t min=t
+DO
+psql:revalidation.sql:35869: NOTICE:  table "r1_ex219" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:35870: NOTICE:  table "r2_ex219" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:35871: NOTICE:  table "result_ex219" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 200000
+psql:revalidation.sql:35994: NOTICE:  Ex 219: rows=200000 | paper(g2_r1, g3_r1, g4_r1, g2_r2, g3_r2, g4_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g3_r1, g4_r1, g2_r2, g3_r2, g4_r2, g1): uniq=t min=t
+DO
+psql:revalidation.sql:35998: NOTICE:  table "r1_ex220" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:35999: NOTICE:  table "r2_ex220" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:36000: NOTICE:  table "result_ex220" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 960
+INSERT 0 960
+CREATE TABLE
+INSERT 0 230400
+psql:revalidation.sql:36123: NOTICE:  Ex 220: rows=230400 | paper(g2_r1, g3_r1, g4_r1, g2_r2, g3_r2, g4_r2, g1): uniq=t min=t rem=- | corrected(g2_r1, g3_r1, g4_r1, g2_r2, g3_r2, g4_r2, g1): uniq=t min=t
+DO
+psql:revalidation.sql:36127: NOTICE:  table "r1_ex221" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:36128: NOTICE:  table "r2_ex221" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:36129: NOTICE:  table "result_ex221" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 40000
+psql:revalidation.sql:36251: NOTICE:  Ex 221: rows=40000 | paper(g3_r1, g4_r1, g3_r2, g4_r2, g1, g2): uniq=t min=t rem=- | corrected(g3_r1, g4_r1, g3_r2, g4_r2, g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:36255: NOTICE:  table "r1_ex222" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:36256: NOTICE:  table "r2_ex222" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:36257: NOTICE:  table "result_ex222" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 25000
+psql:revalidation.sql:36379: NOTICE:  Ex 222: rows=25000 | paper(g3_r1, g4_r1, g3_r2, g4_r2, g1, g2): uniq=t min=t rem=- | corrected(g3_r1, g4_r1, g3_r2, g4_r2, g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:36383: NOTICE:  table "r1_ex223" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:36384: NOTICE:  table "r2_ex223" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:36385: NOTICE:  table "result_ex223" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 960
+INSERT 0 960
+CREATE TABLE
+INSERT 0 57600
+psql:revalidation.sql:36507: NOTICE:  Ex 223: rows=57600 | paper(g3_r1, g4_r1, g3_r2, g4_r2, g1, g2): uniq=t min=t rem=- | corrected(g3_r1, g4_r1, g3_r2, g4_r2, g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:36511: NOTICE:  table "r1_ex224" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:36512: NOTICE:  table "r2_ex224" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:36513: NOTICE:  table "result_ex224" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 25000
+psql:revalidation.sql:36635: NOTICE:  Ex 224: rows=25000 | paper(g3_r1, g4_r1, g3_r2, g4_r2, g1, g2): uniq=t min=t rem=- | corrected(g3_r1, g4_r1, g3_r2, g4_r2, g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:36639: NOTICE:  table "r1_ex225" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:36640: NOTICE:  table "r2_ex225" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:36641: NOTICE:  table "result_ex225" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -828,22 +3774,84 @@ INSERT 0 1000
 INSERT 0 1000
 CREATE TABLE
 INSERT 0 8000
-psql:revalidation.sql:9409: NOTICE:  Ex 59: rows=8000 | paper(g4_r1, g4_r2, g1, g2, g3): uniq=t min=t rem=- | corrected(g4_r1, g4_r2, g1, g2, g3): uniq=t min=t
+psql:revalidation.sql:36762: NOTICE:  Ex 225: rows=8000 | paper(g4_r1, g4_r2, g1, g2, g3): uniq=t min=t rem=- | corrected(g4_r1, g4_r2, g1, g2, g3): uniq=t min=t
 DO
+psql:revalidation.sql:36766: NOTICE:  table "r1_ex226" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:36767: NOTICE:  table "r2_ex226" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:36768: NOTICE:  table "result_ex226" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 1000
-INSERT 0 1000
+INSERT 0 960
+INSERT 0 960
 CREATE TABLE
-INSERT 0 1000
-psql:revalidation.sql:9535: NOTICE:  Ex 60: rows=1000 | paper(g1, g2, g3, g4): uniq=t min=t rem=- | corrected(g1, g2, g3, g4): uniq=t min=t
+INSERT 0 9600
+psql:revalidation.sql:36889: NOTICE:  Ex 226: rows=9600 | paper(g4_r1, g4_r2, g1, g2, g3): uniq=t min=t rem=- | corrected(g4_r1, g4_r2, g1, g2, g3): uniq=t min=t
 DO
-── Ordered Grains (25 examples) ──
+psql:revalidation.sql:36893: NOTICE:  table "r1_ex227" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:36894: NOTICE:  table "r2_ex227" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:36895: NOTICE:  table "result_ex227" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 5000
+psql:revalidation.sql:37016: NOTICE:  Ex 227: rows=5000 | paper(g4_r1, g4_r2, g1, g2, g3): uniq=t min=t rem=- | corrected(g4_r1, g4_r2, g1, g2, g3): uniq=t min=t
+DO
+psql:revalidation.sql:37020: NOTICE:  table "r1_ex228" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:37021: NOTICE:  table "r2_ex228" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:37022: NOTICE:  table "result_ex228" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:37142: NOTICE:  Ex 228: rows=1000 | paper(g1, g2, g3, g4): uniq=t min=t rem=- | corrected(g1, g2, g3, g4): uniq=t min=t
+DO
+psql:revalidation.sql:37146: NOTICE:  table "r1_ex229" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:37147: NOTICE:  table "r2_ex229" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:37148: NOTICE:  table "result_ex229" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 960
+INSERT 0 960
+CREATE TABLE
+INSERT 0 960
+psql:revalidation.sql:37268: NOTICE:  Ex 229: rows=960 | paper(g1, g2, g3, g4): uniq=t min=t rem=- | corrected(g1, g2, g3, g4): uniq=t min=t
+DO
+psql:revalidation.sql:37272: NOTICE:  table "r1_ex230" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:37273: NOTICE:  table "r2_ex230" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:37274: NOTICE:  table "result_ex230" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:37394: NOTICE:  Ex 230: rows=1000 | paper(g1, g2, g3, g4): uniq=t min=t rem=- | corrected(g1, g2, g3, g4): uniq=t min=t
+DO
+── Ordered Grains (55 examples) ──
+psql:revalidation.sql:37400: NOTICE:  table "r1_ex231" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:37401: NOTICE:  table "r2_ex231" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:37402: NOTICE:  table "result_ex231" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -851,10 +3859,13 @@ INSERT 0 1000
 INSERT 0 50
 CREATE TABLE
 INSERT 0 1000
-psql:revalidation.sql:9663: NOTICE:  Ex 61: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:37522: NOTICE:  Ex 231: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:37526: NOTICE:  table "r1_ex232" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:37527: NOTICE:  table "r2_ex232" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:37528: NOTICE:  table "result_ex232" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -862,10 +3873,13 @@ INSERT 0 1000
 INSERT 0 40
 CREATE TABLE
 INSERT 0 1000
-psql:revalidation.sql:9789: NOTICE:  Ex 62: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:37648: NOTICE:  Ex 232: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:37652: NOTICE:  table "r1_ex233" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:37653: NOTICE:  table "r2_ex233" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:37654: NOTICE:  table "result_ex233" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -873,10 +3887,13 @@ INSERT 0 1000
 INSERT 0 100
 CREATE TABLE
 INSERT 0 1000
-psql:revalidation.sql:9915: NOTICE:  Ex 63: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:37774: NOTICE:  Ex 233: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:37778: NOTICE:  table "r1_ex234" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:37779: NOTICE:  table "r2_ex234" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:37780: NOTICE:  table "result_ex234" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -884,10 +3901,13 @@ INSERT 0 1000
 INSERT 0 25
 CREATE TABLE
 INSERT 0 1000
-psql:revalidation.sql:10041: NOTICE:  Ex 64: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:37900: NOTICE:  Ex 234: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:37904: NOTICE:  table "r1_ex235" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:37905: NOTICE:  table "r2_ex235" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:37906: NOTICE:  table "result_ex235" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -895,10 +3915,13 @@ INSERT 0 1000
 INSERT 0 20
 CREATE TABLE
 INSERT 0 1000
-psql:revalidation.sql:10167: NOTICE:  Ex 65: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:38026: NOTICE:  Ex 235: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:38030: NOTICE:  table "r1_ex236" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:38031: NOTICE:  table "r2_ex236" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:38032: NOTICE:  table "result_ex236" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -906,10 +3929,13 @@ INSERT 0 1000
 INSERT 0 200
 CREATE TABLE
 INSERT 0 1000
-psql:revalidation.sql:10293: NOTICE:  Ex 66: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:38152: NOTICE:  Ex 236: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:38156: NOTICE:  table "r1_ex237" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:38157: NOTICE:  table "r2_ex237" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:38158: NOTICE:  table "result_ex237" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -917,10 +3943,13 @@ INSERT 0 1000
 INSERT 0 10
 CREATE TABLE
 INSERT 0 1000
-psql:revalidation.sql:10419: NOTICE:  Ex 67: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:38278: NOTICE:  Ex 237: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:38282: NOTICE:  table "r1_ex238" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:38283: NOTICE:  table "r2_ex238" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:38284: NOTICE:  table "result_ex238" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -928,10 +3957,13 @@ INSERT 0 900
 INSERT 0 30
 CREATE TABLE
 INSERT 0 900
-psql:revalidation.sql:10545: NOTICE:  Ex 68: rows=900 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:38404: NOTICE:  Ex 238: rows=900 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:38408: NOTICE:  table "r1_ex239" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:38409: NOTICE:  table "r2_ex239" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:38410: NOTICE:  table "result_ex239" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -939,10 +3971,13 @@ INSERT 0 1000
 INSERT 0 50
 CREATE TABLE
 INSERT 0 1000
-psql:revalidation.sql:10671: NOTICE:  Ex 69: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:38530: NOTICE:  Ex 239: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:38534: NOTICE:  table "r1_ex240" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:38535: NOTICE:  table "r2_ex240" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:38536: NOTICE:  table "result_ex240" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -950,10 +3985,223 @@ INSERT 0 1000
 INSERT 0 100
 CREATE TABLE
 INSERT 0 1000
-psql:revalidation.sql:10797: NOTICE:  Ex 70: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:38656: NOTICE:  Ex 240: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:38660: NOTICE:  table "r1_ex241" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:38661: NOTICE:  table "r2_ex241" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:38662: NOTICE:  table "result_ex241" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 750
+INSERT 0 75
+CREATE TABLE
+INSERT 0 750
+psql:revalidation.sql:38782: NOTICE:  Ex 241: rows=750 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:38786: NOTICE:  table "r1_ex242" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:38787: NOTICE:  table "r2_ex242" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:38788: NOTICE:  table "result_ex242" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 750
+INSERT 0 15
+CREATE TABLE
+INSERT 0 750
+psql:revalidation.sql:38908: NOTICE:  Ex 242: rows=750 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:38912: NOTICE:  table "r1_ex243" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:38913: NOTICE:  table "r2_ex243" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:38914: NOTICE:  table "result_ex243" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 800
+INSERT 0 8
+CREATE TABLE
+INSERT 0 800
+psql:revalidation.sql:39034: NOTICE:  Ex 243: rows=800 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:39038: NOTICE:  table "r1_ex244" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:39039: NOTICE:  table "r2_ex244" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:39040: NOTICE:  table "result_ex244" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 40
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:39160: NOTICE:  Ex 244: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:39164: NOTICE:  table "r1_ex245" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:39165: NOTICE:  table "r2_ex245" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:39166: NOTICE:  table "result_ex245" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 600
+INSERT 0 20
+CREATE TABLE
+INSERT 0 600
+psql:revalidation.sql:39286: NOTICE:  Ex 245: rows=600 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:39290: NOTICE:  table "r1_ex246" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:39291: NOTICE:  table "r2_ex246" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:39292: NOTICE:  table "result_ex246" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 900
+INSERT 0 60
+CREATE TABLE
+INSERT 0 900
+psql:revalidation.sql:39412: NOTICE:  Ex 246: rows=900 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:39416: NOTICE:  table "r1_ex247" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:39417: NOTICE:  table "r2_ex247" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:39418: NOTICE:  table "result_ex247" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 625
+INSERT 0 25
+CREATE TABLE
+INSERT 0 625
+psql:revalidation.sql:39538: NOTICE:  Ex 247: rows=625 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:39542: NOTICE:  table "r1_ex248" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:39543: NOTICE:  table "r2_ex248" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:39544: NOTICE:  table "result_ex248" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 10
+CREATE TABLE
+INSERT 0 500
+psql:revalidation.sql:39664: NOTICE:  Ex 248: rows=500 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:39668: NOTICE:  table "r1_ex249" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:39669: NOTICE:  table "r2_ex249" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:39670: NOTICE:  table "result_ex249" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 50
+CREATE TABLE
+INSERT 0 500
+psql:revalidation.sql:39790: NOTICE:  Ex 249: rows=500 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:39794: NOTICE:  table "r1_ex250" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:39795: NOTICE:  table "r2_ex250" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:39796: NOTICE:  table "result_ex250" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 600
+INSERT 0 30
+CREATE TABLE
+INSERT 0 600
+psql:revalidation.sql:39916: NOTICE:  Ex 250: rows=600 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:39920: NOTICE:  table "r1_ex251" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:39921: NOTICE:  table "r2_ex251" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:39922: NOTICE:  table "result_ex251" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 100
+CREATE TABLE
+INSERT 0 500
+psql:revalidation.sql:40042: NOTICE:  Ex 251: rows=500 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:40046: NOTICE:  table "r1_ex252" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:40047: NOTICE:  table "r2_ex252" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:40048: NOTICE:  table "result_ex252" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1000
+INSERT 0 5
+CREATE TABLE
+INSERT 0 1000
+psql:revalidation.sql:40168: NOTICE:  Ex 252: rows=1000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:40172: NOTICE:  table "r1_ex253" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:40173: NOTICE:  table "r2_ex253" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:40174: NOTICE:  table "result_ex253" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 800
+INSERT 0 80
+CREATE TABLE
+INSERT 0 800
+psql:revalidation.sql:40294: NOTICE:  Ex 253: rows=800 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:40298: NOTICE:  table "r1_ex254" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:40299: NOTICE:  table "r2_ex254" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:40300: NOTICE:  table "result_ex254" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 600
+INSERT 0 15
+CREATE TABLE
+INSERT 0 600
+psql:revalidation.sql:40420: NOTICE:  Ex 254: rows=600 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:40424: NOTICE:  table "r1_ex255" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:40425: NOTICE:  table "r2_ex255" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:40426: NOTICE:  table "result_ex255" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 875
+INSERT 0 35
+CREATE TABLE
+INSERT 0 875
+psql:revalidation.sql:40546: NOTICE:  Ex 255: rows=875 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:40550: NOTICE:  table "r1_ex256" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:40551: NOTICE:  table "r2_ex256" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:40552: NOTICE:  table "result_ex256" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -961,10 +4209,13 @@ INSERT 0 1000
 INSERT 0 20000
 CREATE TABLE
 INSERT 0 20000
-psql:revalidation.sql:10924: NOTICE:  Ex 71: rows=20000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:40673: NOTICE:  Ex 256: rows=20000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:40677: NOTICE:  table "r1_ex257" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:40678: NOTICE:  table "r2_ex257" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:40679: NOTICE:  table "result_ex257" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -972,10 +4223,13 @@ INSERT 0 500
 INSERT 0 12500
 CREATE TABLE
 INSERT 0 12500
-psql:revalidation.sql:11051: NOTICE:  Ex 72: rows=12500 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:40800: NOTICE:  Ex 257: rows=12500 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:40804: NOTICE:  table "r1_ex258" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:40805: NOTICE:  table "r2_ex258" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:40806: NOTICE:  table "result_ex258" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -983,10 +4237,13 @@ INSERT 0 200
 INSERT 0 2000
 CREATE TABLE
 INSERT 0 2000
-psql:revalidation.sql:11178: NOTICE:  Ex 73: rows=2000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:40927: NOTICE:  Ex 258: rows=2000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:40931: NOTICE:  table "r1_ex259" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:40932: NOTICE:  table "r2_ex259" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:40933: NOTICE:  table "result_ex259" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -994,10 +4251,13 @@ INSERT 0 100
 INSERT 0 4000
 CREATE TABLE
 INSERT 0 4000
-psql:revalidation.sql:11305: NOTICE:  Ex 74: rows=4000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:41054: NOTICE:  Ex 259: rows=4000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:41058: NOTICE:  table "r1_ex260" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:41059: NOTICE:  table "r2_ex260" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:41060: NOTICE:  table "result_ex260" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -1005,10 +4265,13 @@ INSERT 0 50
 INSERT 0 2500
 CREATE TABLE
 INSERT 0 2500
-psql:revalidation.sql:11432: NOTICE:  Ex 75: rows=2500 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:41181: NOTICE:  Ex 260: rows=2500 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:41185: NOTICE:  table "r1_ex261" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:41186: NOTICE:  table "r2_ex261" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:41187: NOTICE:  table "result_ex261" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -1016,10 +4279,13 @@ INSERT 0 1000
 INSERT 0 5000
 CREATE TABLE
 INSERT 0 5000
-psql:revalidation.sql:11559: NOTICE:  Ex 76: rows=5000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:41308: NOTICE:  Ex 261: rows=5000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:41312: NOTICE:  table "r1_ex262" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:41313: NOTICE:  table "r2_ex262" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:41314: NOTICE:  table "result_ex262" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -1027,10 +4293,13 @@ INSERT 0 500
 INSERT 0 50000
 CREATE TABLE
 INSERT 0 50000
-psql:revalidation.sql:11686: NOTICE:  Ex 77: rows=50000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:41435: NOTICE:  Ex 262: rows=50000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:41439: NOTICE:  table "r1_ex263" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:41440: NOTICE:  table "r2_ex263" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:41441: NOTICE:  table "result_ex263" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -1038,10 +4307,13 @@ INSERT 0 200
 INSERT 0 6000
 CREATE TABLE
 INSERT 0 6000
-psql:revalidation.sql:11813: NOTICE:  Ex 78: rows=6000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:41562: NOTICE:  Ex 263: rows=6000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:41566: NOTICE:  table "r1_ex264" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:41567: NOTICE:  table "r2_ex264" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:41568: NOTICE:  table "result_ex264" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -1049,10 +4321,13 @@ INSERT 0 500
 INSERT 0 10000
 CREATE TABLE
 INSERT 0 10000
-psql:revalidation.sql:11940: NOTICE:  Ex 79: rows=10000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:41689: NOTICE:  Ex 264: rows=10000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:41693: NOTICE:  table "r1_ex265" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:41694: NOTICE:  table "r2_ex265" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:41695: NOTICE:  table "result_ex265" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -1060,32 +4335,125 @@ INSERT 0 1000
 INSERT 0 10000
 CREATE TABLE
 INSERT 0 10000
-psql:revalidation.sql:12067: NOTICE:  Ex 80: rows=10000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:41816: NOTICE:  Ex 265: rows=10000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:41820: NOTICE:  table "r1_ex266" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:41821: NOTICE:  table "r2_ex266" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:41822: NOTICE:  table "result_ex266" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 750
+INSERT 0 7500
+CREATE TABLE
+INSERT 0 7500
+psql:revalidation.sql:41943: NOTICE:  Ex 266: rows=7500 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:41947: NOTICE:  table "r1_ex267" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:41948: NOTICE:  table "r2_ex267" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:41949: NOTICE:  table "result_ex267" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 25000
+CREATE TABLE
+INSERT 0 25000
+psql:revalidation.sql:42070: NOTICE:  Ex 267: rows=25000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:42074: NOTICE:  table "r1_ex268" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:42075: NOTICE:  table "r2_ex268" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:42076: NOTICE:  table "result_ex268" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
+INSERT 0 20000
+CREATE TABLE
+INSERT 0 20000
+psql:revalidation.sql:42197: NOTICE:  Ex 268: rows=20000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:42201: NOTICE:  table "r1_ex269" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:42202: NOTICE:  table "r2_ex269" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:42203: NOTICE:  table "result_ex269" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
 INSERT 0 100
-INSERT 0 2000
+INSERT 0 2500
 CREATE TABLE
-INSERT 0 2000
-psql:revalidation.sql:12194: NOTICE:  Ex 81: rows=2000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+INSERT 0 2500
+psql:revalidation.sql:42324: NOTICE:  Ex 269: rows=2500 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:42328: NOTICE:  table "r1_ex270" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:42329: NOTICE:  table "r2_ex270" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:42330: NOTICE:  table "result_ex270" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 300
+INSERT 0 9000
+CREATE TABLE
+INSERT 0 9000
+psql:revalidation.sql:42451: NOTICE:  Ex 270: rows=9000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:42455: NOTICE:  table "r1_ex271" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:42456: NOTICE:  table "r2_ex271" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:42457: NOTICE:  table "result_ex271" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 600
+INSERT 0 9000
+CREATE TABLE
+INSERT 0 9000
+psql:revalidation.sql:42578: NOTICE:  Ex 271: rows=9000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:42582: NOTICE:  table "r1_ex272" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:42583: NOTICE:  table "r2_ex272" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:42584: NOTICE:  table "result_ex272" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 12500
+CREATE TABLE
+INSERT 0 12500
+psql:revalidation.sql:42705: NOTICE:  Ex 272: rows=12500 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:42709: NOTICE:  table "r1_ex273" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:42710: NOTICE:  table "r2_ex273" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:42711: NOTICE:  table "result_ex273" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
 INSERT 0 200
-INSERT 0 5000
+INSERT 0 10000
 CREATE TABLE
-INSERT 0 5000
-psql:revalidation.sql:12321: NOTICE:  Ex 82: rows=5000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+INSERT 0 10000
+psql:revalidation.sql:42832: NOTICE:  Ex 273: rows=10000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:42836: NOTICE:  table "r1_ex274" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:42837: NOTICE:  table "r2_ex274" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:42838: NOTICE:  table "result_ex274" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
@@ -1093,87 +4461,342 @@ INSERT 0 500
 INSERT 0 5000
 CREATE TABLE
 INSERT 0 5000
-psql:revalidation.sql:12448: NOTICE:  Ex 83: rows=5000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:42959: NOTICE:  Ex 274: rows=5000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:42963: NOTICE:  table "r1_ex275" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:42964: NOTICE:  table "r2_ex275" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:42965: NOTICE:  table "result_ex275" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 300
+INSERT 0 6000
+CREATE TABLE
+INSERT 0 6000
+psql:revalidation.sql:43086: NOTICE:  Ex 275: rows=6000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:43090: NOTICE:  table "r1_ex276" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:43091: NOTICE:  table "r2_ex276" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:43092: NOTICE:  table "result_ex276" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 500
+INSERT 0 2500
+CREATE TABLE
+INSERT 0 2500
+psql:revalidation.sql:43213: NOTICE:  Ex 276: rows=2500 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:43217: NOTICE:  table "r1_ex277" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:43218: NOTICE:  table "r2_ex277" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:43219: NOTICE:  table "result_ex277" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
 INSERT 0 1000
-INSERT 0 5000
+INSERT 0 200000
 CREATE TABLE
-INSERT 0 5000
-psql:revalidation.sql:12575: NOTICE:  Ex 84: rows=5000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+INSERT 0 200000
+psql:revalidation.sql:43340: NOTICE:  Ex 277: rows=200000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
+psql:revalidation.sql:43344: NOTICE:  table "r1_ex278" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:43345: NOTICE:  table "r2_ex278" does not exist, skipping
 DROP TABLE
+psql:revalidation.sql:43346: NOTICE:  table "result_ex278" does not exist, skipping
 DROP TABLE
 CREATE TABLE
 CREATE TABLE
-INSERT 0 50
+INSERT 0 800
+INSERT 0 8000
+CREATE TABLE
+INSERT 0 8000
+psql:revalidation.sql:43467: NOTICE:  Ex 278: rows=8000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:43471: NOTICE:  table "r1_ex279" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:43472: NOTICE:  table "r2_ex279" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:43473: NOTICE:  table "result_ex279" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 400
+INSERT 0 16000
+CREATE TABLE
+INSERT 0 16000
+psql:revalidation.sql:43594: NOTICE:  Ex 279: rows=16000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:43598: NOTICE:  table "r1_ex280" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:43599: NOTICE:  table "r2_ex280" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:43600: NOTICE:  table "result_ex280" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 200
 INSERT 0 5000
 CREATE TABLE
 INSERT 0 5000
-psql:revalidation.sql:12702: NOTICE:  Ex 85: rows=5000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+psql:revalidation.sql:43721: NOTICE:  Ex 280: rows=5000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:43725: NOTICE:  table "r1_ex281" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:43726: NOTICE:  table "r2_ex281" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:43727: NOTICE:  table "result_ex281" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 900
+INSERT 0 27000
+CREATE TABLE
+INSERT 0 27000
+psql:revalidation.sql:43848: NOTICE:  Ex 281: rows=27000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:43852: NOTICE:  table "r1_ex282" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:43853: NOTICE:  table "r2_ex282" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:43854: NOTICE:  table "result_ex282" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 450
+INSERT 0 27000
+CREATE TABLE
+INSERT 0 27000
+psql:revalidation.sql:43975: NOTICE:  Ex 282: rows=27000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:43979: NOTICE:  table "r1_ex283" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:43980: NOTICE:  table "r2_ex283" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:43981: NOTICE:  table "result_ex283" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 375
+INSERT 0 5625
+CREATE TABLE
+INSERT 0 5625
+psql:revalidation.sql:44102: NOTICE:  Ex 283: rows=5625 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:44106: NOTICE:  table "r1_ex284" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:44107: NOTICE:  table "r2_ex284" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:44108: NOTICE:  table "result_ex284" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 400
+INSERT 0 16000
+CREATE TABLE
+INSERT 0 16000
+psql:revalidation.sql:44229: NOTICE:  Ex 284: rows=16000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
+DO
+psql:revalidation.sql:44233: NOTICE:  table "r1_ex285" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:44234: NOTICE:  table "r2_ex285" does not exist, skipping
+DROP TABLE
+psql:revalidation.sql:44235: NOTICE:  table "result_ex285" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 800
+INSERT 0 64000
+CREATE TABLE
+INSERT 0 64000
+psql:revalidation.sql:44356: NOTICE:  Ex 285: rows=64000 | paper(g1, g2): uniq=t min=t rem=- | corrected(g1, g2): uniq=t min=t
 DO
 
 ========================================================
 SUMMARY REPORT
 ========================================================
 
-psql:revalidation.sql:12768: NOTICE:  
-psql:revalidation.sql:12768: NOTICE:  Total examples:        100
-psql:revalidation.sql:12768: NOTICE:    Case A:              73
-psql:revalidation.sql:12768: NOTICE:    Case B:              27
-psql:revalidation.sql:12768: NOTICE:    No data (0 rows):    0
-psql:revalidation.sql:12768: NOTICE:    Errors:              0
-psql:revalidation.sql:12768: NOTICE:  
-psql:revalidation.sql:12768: NOTICE:  ── PAPER FORMULA (Theorem 6.1) ──
-psql:revalidation.sql:12768: NOTICE:    Uniqueness pass:     100/100
-psql:revalidation.sql:12768: NOTICE:    Minimality pass:     73/100
-psql:revalidation.sql:12768: NOTICE:    Minimality FAIL:     27  (all should be Case B)
-psql:revalidation.sql:12768: NOTICE:  
-psql:revalidation.sql:12768: NOTICE:  ── CORRECTED FORMULA ──
-psql:revalidation.sql:12768: NOTICE:    Uniqueness pass:     100/100
-psql:revalidation.sql:12768: NOTICE:    Minimality pass:     100/100
-psql:revalidation.sql:12768: NOTICE:  
-psql:revalidation.sql:12768: NOTICE:  ✓ VALIDATION CONFIRMED:
-psql:revalidation.sql:12768: NOTICE:    Paper formula fails minimality on ALL 27 Case B examples
-psql:revalidation.sql:12768: NOTICE:    Corrected formula passes uniqueness + minimality on ALL 100 examples
+psql:revalidation.sql:44422: NOTICE:  
+psql:revalidation.sql:44422: NOTICE:  Total examples:        350
+psql:revalidation.sql:44422: NOTICE:    Case A:              200
+psql:revalidation.sql:44422: NOTICE:    Case B:              150
+psql:revalidation.sql:44422: NOTICE:    No data (0 rows):    0
+psql:revalidation.sql:44422: NOTICE:    Errors:              0
+psql:revalidation.sql:44422: NOTICE:  
+psql:revalidation.sql:44422: NOTICE:  ── PAPER FORMULA (Theorem 6.1) ──
+psql:revalidation.sql:44422: NOTICE:    Uniqueness pass:     350/350
+psql:revalidation.sql:44422: NOTICE:    Minimality pass:     200/350
+psql:revalidation.sql:44422: NOTICE:    Minimality FAIL:     150  (all should be Case B)
+psql:revalidation.sql:44422: NOTICE:  
+psql:revalidation.sql:44422: NOTICE:  ── CORRECTED FORMULA ──
+psql:revalidation.sql:44422: NOTICE:    Uniqueness pass:     350/350
+psql:revalidation.sql:44422: NOTICE:    Minimality pass:     350/350
+psql:revalidation.sql:44422: NOTICE:  
+psql:revalidation.sql:44422: NOTICE:  ✓ VALIDATION CONFIRMED:
+psql:revalidation.sql:44422: NOTICE:    Paper formula fails minimality on ALL 150 Case B examples
+psql:revalidation.sql:44422: NOTICE:    Corrected formula passes uniqueness + minimality on ALL 350 examples
 DO
 
 ── Case B: Paper formula minimality failures ──
- example_id |                 description                  | result_rows | paper_grain | paper_removable | corrected_grain 
-------------+----------------------------------------------+-------------+-------------+-----------------+-----------------
-          1 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v1] |         999 | a, b, c     | b, c            | a, c
-          2 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v2] |         999 | a, b, c     | a, b, c         | a, c
-          3 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v3] |        1000 | a, b, c     | b, c            | a, c
-          4 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v4] |         999 | a, b, c     | a, b, c         | a, c
-          5 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v5] |         940 | a, b, c     | a, b, c         | a, c
-          6 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v6] |         470 | a, b, c     | a, b, c         | a, c
-          7 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v7] |         899 | a, b, c     | a, b, c         | a, c
-          8 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v8] |        1000 | a, b, c     | b, c            | a, c
-          9 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v9] |         235 | a, b, c     | a, b, c         | a, c
-         10 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v1]   |         940 | a, b, c, d  | a, b, c         | a, c, d
-         11 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v2]   |        1176 | a, b, c, d  | a, b            | a, c, d
-         12 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v3]   |         470 | a, b, c, d  | a, b, c         | a, c, d
-         13 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v4]   |        1881 | a, b, c, d  | a, b            | a, c, d
-         14 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v5]   |        2617 | a, b, c, d  | a, b            | a, c, d
-         15 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v6]   |       10218 | a, b, c, d  | a, b            | a, c, d
-         16 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v7]   |        1413 | a, b, c, d  | a, b            | a, c, d
-         17 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v8]   |         235 | a, b, c, d  | a, b, c         | a, c, d
-         18 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v9]   |       40351 | a, b, c, d  | a, b            | a, c, d
-         19 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v1]   |        1049 | a, b, c, d  | b, c            | a, b, d
-         20 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v2]   |        1175 | a, b, c, d  | a, b, c         | a, b, d
-         21 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v3]   |        1019 | a, b, c, d  | b, c            | a, b, d
-         22 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v4]   |        1880 | a, b, c, d  | a, b, c         | a, b, d
-         23 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v5]   |        2350 | a, b, c, d  | a, b, c         | a, b, d
-         24 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v6]   |        4700 | a, b, c, d  | a, b, c         | a, b, d
-         25 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v7]   |        1410 | a, b, c, d  | a, b, c         | a, b, d
-         26 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v8]   |        1021 | a, b, c, d  | b, c            | a, b, d
-         27 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v9]   |        9400 | a, b, c, d  | a, b, c         | a, b, d
-(27 rows)
+ example_id |                  description                  | result_rows | paper_grain | paper_removable | corrected_grain 
+------------+-----------------------------------------------+-------------+-------------+-----------------+-----------------
+          1 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v1]  |          25 | a, b, c     | a, b, c         | a, c
+          2 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v2]  |          40 | a, b, c     | a, b, c         | a, c
+          3 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v3]  |          49 | a, b, c     | a, b, c         | a, c
+          4 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v4]  |          75 | a, b, c     | a, b, c         | a, c
+          5 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v5]  |          99 | a, b, c     | a, b, c         | a, c
+          6 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v6]  |         125 | a, b, c     | a, b, c         | a, c
+          7 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v7]  |         149 | a, b, c     | a, b, c         | a, c
+          8 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v8]  |         199 | a, b, c     | a, b, c         | a, c
+          9 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v9]  |         235 | a, b, c     | a, b, c         | a, c
+         10 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v10] |         235 | a, b, c     | a, b, c         | a, c
+         11 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v11] |         235 | a, b, c     | a, b, c         | a, c
+         12 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v12] |         235 | a, b, c     | a, b, c         | a, c
+         13 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v13] |         235 | a, b, c     | a, b, c         | a, c
+         14 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v14] |          40 | a, b, c     | a, b, c         | a, c
+         15 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v15] |          64 | a, b, c     | a, b, c         | a, c
+         16 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v16] |          80 | a, b, c     | a, b, c         | a, c
+         17 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v17] |         120 | a, b, c     | a, b, c         | a, c
+         18 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v18] |         159 | a, b, c     | a, b, c         | a, c
+         19 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v19] |         199 | a, b, c     | a, b, c         | a, c
+         20 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v20] |         239 | a, b, c     | a, b, c         | a, c
+         21 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v21] |         319 | a, b, c     | a, b, c         | a, c
+         22 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v22] |         376 | a, b, c     | a, b, c         | a, c
+         23 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v23] |         376 | a, b, c     | a, b, c         | a, c
+         24 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v24] |         376 | a, b, c     | a, b, c         | a, c
+         25 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v25] |         329 | a, b, c     | a, b, c         | a, c
+         26 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v26] |         236 | a, b, c     | a, b, c         | a, c
+         27 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v27] |          49 | a, b, c     | a, b, c         | a, c
+         28 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v28] |          80 | a, b, c     | a, b, c         | a, c
+         29 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v29] |          99 | a, b, c     | a, b, c         | a, c
+         30 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v30] |         149 | a, b, c     | a, b, c         | a, c
+         31 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v31] |         199 | a, b, c     | a, b, c         | a, c
+         32 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v32] |         249 | a, b, c     | a, b, c         | a, c
+         33 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v33] |         299 | a, b, c     | a, b, c         | a, c
+         34 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v34] |         399 | a, b, c     | a, b, c         | a, c
+         35 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v35] |         470 | a, b, c     | a, b, c         | a, c
+         36 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v36] |         470 | a, b, c     | a, b, c         | a, c
+         37 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v37] |         470 | a, b, c     | a, b, c         | a, c
+         38 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v38] |         329 | a, b, c     | a, b, c         | a, c
+         39 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v39] |         236 | a, b, c     | a, b, c         | a, c
+         40 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v40] |          75 | a, b, c     | a, b, c         | a, c
+         41 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v41] |         120 | a, b, c     | a, b, c         | a, c
+         42 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v42] |         149 | a, b, c     | a, b, c         | a, c
+         43 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v43] |         225 | a, b, c     | a, b, c         | a, c
+         44 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v44] |         299 | a, b, c     | a, b, c         | a, c
+         45 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v45] |         375 | a, b, c     | a, b, c         | a, c
+         46 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v46] |         449 | a, b, c     | a, b, c         | a, c
+         47 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v47] |         599 | a, b, c     | a, b, c         | a, c
+         48 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v48] |         705 | a, b, c     | a, b, c         | a, c
+         49 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v49] |         637 | a, b, c     | a, b, c         | a, c
+         50 | Case B — Jk={a,b,c}, G1={a,c}, G2={a,b} [v50] |         471 | a, b, c     | a, b, c         | a, c
+         51 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v1]    |         125 | a, b, c, d  | a, b, c         | a, c, d
+         52 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v2]    |         320 | a, b, c, d  | a, b, c         | a, c, d
+         53 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v3]    |         480 | a, b, c, d  | a, b            | a, c, d
+         54 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v4]    |         705 | a, b, c, d  | a, b, c         | a, c, d
+         55 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v5]    |         947 | a, b, c, d  | a, b            | a, c, d
+         56 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v6]    |        1175 | a, b, c, d  | a, b, c         | a, c, d
+         57 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v7]    |        1429 | a, b, c, d  | a, b            | a, c, d
+         58 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v8]    |        1890 | a, b, c, d  | a, b            | a, c, d
+         59 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v9]    |        2587 | a, b, c, d  | a, b            | a, c, d
+         60 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v10]   |        6197 | a, b, c, d  | a, b            | a, c, d
+         61 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v11]   |       10222 | a, b, c, d  | a, b            | a, c, d
+         62 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v12]   |       22781 | a, b, c, d  | a, b            | a, c, d
+         63 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v13]   |       40409 | a, b, c, d  | a, b            | a, c, d
+         64 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v14]   |         200 | a, b, c, d  | a, b, c         | a, c, d
+         65 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v15]   |         376 | a, b, c, d  | a, b, c         | a, c, d
+         66 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v16]   |         470 | a, b, c, d  | a, b, c         | a, c, d
+         67 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v17]   |         705 | a, b, c, d  | a, b, c         | a, c, d
+         68 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v18]   |         947 | a, b, c, d  | a, b            | a, c, d
+         69 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v19]   |        1183 | a, b, c, d  | a, b            | a, c, d
+         70 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v20]   |        1419 | a, b, c, d  | a, b            | a, c, d
+         71 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v21]   |        1892 | a, b, c, d  | a, b            | a, c, d
+         72 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v22]   |        2604 | a, b, c, d  | a, b            | a, c, d
+         73 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v23]   |        6134 | a, b, c, d  | a, b            | a, c, d
+         74 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v24]   |       10220 | a, b, c, d  | a, b            | a, c, d
+         75 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v25]   |       22108 | a, b, c, d  | a, b            | a, c, d
+         76 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v26]   |       40256 | a, b, c, d  | a, b            | a, c, d
+         77 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v27]   |         240 | a, b, c, d  | a, b            | a, c, d
+         78 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v28]   |         376 | a, b, c, d  | a, b, c         | a, c, d
+         79 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v29]   |         476 | a, b, c, d  | a, b            | a, c, d
+         80 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v30]   |         714 | a, b, c, d  | a, b            | a, c, d
+         81 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v31]   |         951 | a, b, c, d  | a, b            | a, c, d
+         82 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v32]   |        1178 | a, b, c, d  | a, b            | a, c, d
+         83 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v33]   |        1423 | a, b, c, d  | a, b            | a, c, d
+         84 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v34]   |        1895 | a, b, c, d  | a, b            | a, c, d
+         85 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v35]   |        2618 | a, b, c, d  | a, b            | a, c, d
+         86 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v36]   |        6158 | a, b, c, d  | a, b            | a, c, d
+         87 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v37]   |       10223 | a, b, c, d  | a, b            | a, c, d
+         88 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v38]   |       22054 | a, b, c, d  | a, b            | a, c, d
+         89 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v39]   |       40374 | a, b, c, d  | a, b            | a, c, d
+         90 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v40]   |         235 | a, b, c, d  | a, b, c         | a, c, d
+         91 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v41]   |         376 | a, b, c, d  | a, b, c         | a, c, d
+         92 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v42]   |         476 | a, b, c, d  | a, b            | a, c, d
+         93 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v43]   |         705 | a, b, c, d  | a, b, c         | a, c, d
+         94 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v44]   |         946 | a, b, c, d  | a, b            | a, c, d
+         95 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v45]   |        1175 | a, b, c, d  | a, b, c         | a, c, d
+         96 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v46]   |        1413 | a, b, c, d  | a, b            | a, c, d
+         97 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v47]   |        1887 | a, b, c, d  | a, b            | a, c, d
+         98 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v48]   |        2643 | a, b, c, d  | a, b            | a, c, d
+         99 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v49]   |        6082 | a, b, c, d  | a, b            | a, c, d
+        100 | Case B — Jk={a,b}, G1={a,c}, G2={b,d} [v50]   |       10236 | a, b, c, d  | a, b            | a, c, d
+        101 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v1]    |         125 | a, b, c, d  | a, b, c         | a, b, d
+        102 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v2]    |         320 | a, b, c, d  | a, b, c         | a, b, d
+        103 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v3]    |         470 | a, b, c, d  | a, b, c         | a, b, d
+        104 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v4]    |         705 | a, b, c, d  | a, b, c         | a, b, d
+        105 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v5]    |         940 | a, b, c, d  | a, b, c         | a, b, d
+        106 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v6]    |        1175 | a, b, c, d  | a, b, c         | a, b, d
+        107 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v7]    |        1410 | a, b, c, d  | a, b, c         | a, b, d
+        108 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v8]    |        1880 | a, b, c, d  | a, b, c         | a, b, d
+        109 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v9]    |        2350 | a, b, c, d  | a, b, c         | a, b, d
+        110 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v10]   |        3525 | a, b, c, d  | a, b, c         | a, b, d
+        111 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v11]   |        4700 | a, b, c, d  | a, b, c         | a, b, d
+        112 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v12]   |        7050 | a, b, c, d  | a, b, c         | a, b, d
+        113 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v13]   |        9400 | a, b, c, d  | a, b, c         | a, b, d
+        114 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v14]   |         200 | a, b, c, d  | a, b, c         | a, b, d
+        115 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v15]   |         376 | a, b, c, d  | a, b, c         | a, b, d
+        116 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v16]   |         470 | a, b, c, d  | a, b, c         | a, b, d
+        117 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v17]   |         705 | a, b, c, d  | a, b, c         | a, b, d
+        118 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v18]   |         940 | a, b, c, d  | a, b, c         | a, b, d
+        119 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v19]   |        1175 | a, b, c, d  | a, b, c         | a, b, d
+        120 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v20]   |        1410 | a, b, c, d  | a, b, c         | a, b, d
+        121 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v21]   |        1880 | a, b, c, d  | a, b, c         | a, b, d
+        122 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v22]   |        2350 | a, b, c, d  | a, b, c         | a, b, d
+        123 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v23]   |        3525 | a, b, c, d  | a, b, c         | a, b, d
+        124 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v24]   |        4700 | a, b, c, d  | a, b, c         | a, b, d
+        125 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v25]   |        7050 | a, b, c, d  | a, b, c         | a, b, d
+        126 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v26]   |        9400 | a, b, c, d  | a, b, c         | a, b, d
+        127 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v27]   |         235 | a, b, c, d  | a, b, c         | a, b, d
+        128 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v28]   |         376 | a, b, c, d  | a, b, c         | a, b, d
+        129 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v29]   |         470 | a, b, c, d  | a, b, c         | a, b, d
+        130 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v30]   |         705 | a, b, c, d  | a, b, c         | a, b, d
+        131 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v31]   |         940 | a, b, c, d  | a, b, c         | a, b, d
+        132 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v32]   |        1175 | a, b, c, d  | a, b, c         | a, b, d
+        133 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v33]   |        1410 | a, b, c, d  | a, b, c         | a, b, d
+        134 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v34]   |        1880 | a, b, c, d  | a, b, c         | a, b, d
+        135 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v35]   |        2350 | a, b, c, d  | a, b, c         | a, b, d
+        136 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v36]   |        3525 | a, b, c, d  | a, b, c         | a, b, d
+        137 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v37]   |        4700 | a, b, c, d  | a, b, c         | a, b, d
+        138 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v38]   |        7050 | a, b, c, d  | a, b, c         | a, b, d
+        139 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v39]   |        9400 | a, b, c, d  | a, b, c         | a, b, d
+        140 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v40]   |         235 | a, b, c, d  | a, b, c         | a, b, d
+        141 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v41]   |         376 | a, b, c, d  | a, b, c         | a, b, d
+        142 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v42]   |         470 | a, b, c, d  | a, b, c         | a, b, d
+        143 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v43]   |         705 | a, b, c, d  | a, b, c         | a, b, d
+        144 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v44]   |         940 | a, b, c, d  | a, b, c         | a, b, d
+        145 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v45]   |        1175 | a, b, c, d  | a, b, c         | a, b, d
+        146 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v46]   |        1410 | a, b, c, d  | a, b, c         | a, b, d
+        147 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v47]   |        1880 | a, b, c, d  | a, b, c         | a, b, d
+        148 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v48]   |        2350 | a, b, c, d  | a, b, c         | a, b, d
+        149 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v49]   |        3525 | a, b, c, d  | a, b, c         | a, b, d
+        150 | Case B — Jk={b,c}, G1={a,b}, G2={c,d} [v50]   |        4700 | a, b, c, d  | a, b, c         | a, b, d
+(150 rows)
 
 
 ── Any unexpected results (errors, Case A minimality failures, etc.) ──

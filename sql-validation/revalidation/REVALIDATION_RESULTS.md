@@ -2,10 +2,10 @@
 
 ## Purpose
 
-This revalidation tests the paper's Theorem 6.1 (equi-join grain inference) against a corrected formula across 100 SQL examples, verifying that:
+This revalidation tests the paper's Theorem 6.1 (equi-join grain inference) against a corrected formula across 350 SQL examples, verifying that:
 
 1. The paper's formula produces a **correct but non-minimal** grain in all Case B (incomparable $J_k$-portions) examples.
-2. The corrected formula produces a grain that is both a **unique identifier** and a **minimal unique identifier** in all 100 examples.
+2. The corrected formula produces a grain that is both a **unique identifier** and a **minimal unique identifier** in all 350 examples.
 
 ## Background
 
@@ -35,7 +35,7 @@ This single formula works for both Case A and Case B. It includes all of $G[R_1]
 
 ### Test structure
 
-For each of the 100 examples:
+For each of the 350 examples:
 
 1. **Create $R_1$ and $R_2$** with defined schemas, grain constraints (primary keys), and functional dependencies.
 2. **Populate data** using `generate_series` with modular arithmetic for grain columns and randomized non-grain columns. $R_2$ is derived from $R_1$ through the join key to ensure dense join results.
@@ -63,16 +63,16 @@ A grain that passes uniqueness but fails minimality contains redundant columns -
 
 | Category | Case | Count | Description |
 |----------|------|-------|-------------|
-| Main Theorem | B | 9 | $R_1(a,b,c,e)$, $G_1 = \{a,c\}$; $R_2(a,b,c,d)$, $G_2 = \{a,b\}$; $J_k = \{a,b,c\}$ |
-| Incomparable Grains | B | 9 | $R_1(a,b,c,v_1)$, $G_1 = \{a,c\}$; $R_2(a,b,d,v_2)$, $G_2 = \{b,d\}$; $J_k = \{a,b\}$ |
-| Natural Join | B | 9 | $R_1(a,b,c)$, $G_1 = \{a,b\}$; $R_2(b,c,d)$, $G_2 = \{c,d\}$; $J_k = \{b,c\}$ |
-| Main Theorem | A | 13 | $R_1(a,b,v_1)$, $G_1 = \{a\}$; $R_2(a,b,v_2)$, $G_2 = \{a,b\}$; $J_k = \{a,b\}$ |
-| Equal Grains | A | 20 | $G_1 = G_2$, grain size 1--4, join key size 1--4 |
-| Ordered Grains | A | 25 | $G_1 \subseteq_{typ} G_2$ or $G_2 \subseteq_{typ} G_1$, 10 normal + 15 reversed |
-| Incomparable Grains | A | 7 | $G_1 \not\subseteq_{typ} G_2$ but $G_1^{J_k} = G_2^{J_k}$ (comparable $J_k$-portions) |
-| Natural Join | A | 8 | $G_1^{J_k} \subseteq_{typ} G_2^{J_k}$ |
+| Main Theorem | B | 50 | $R_1(a,b,c,e)$, $G_1 = \{a,c\}$; $R_2(a,b,c,d)$, $G_2 = \{a,b\}$; $J_k = \{a,b,c\}$ |
+| Incomparable Grains | B | 50 | $R_1(a,b,c,v_1)$, $G_1 = \{a,c\}$; $R_2(a,b,d,v_2)$, $G_2 = \{b,d\}$; $J_k = \{a,b\}$ |
+| Natural Join | B | 50 | $R_1(a,b,c)$, $G_1 = \{a,b\}$; $R_2(b,c,d)$, $G_2 = \{c,d\}$; $J_k = \{b,c\}$ |
+| Main Theorem | A | 30 | $R_1(a,b,v_1)$, $G_1 = \{a\}$; $R_2(a,b,v_2)$, $G_2 = \{a,b\}$; $J_k = \{a,b\}$ |
+| Equal Grains | A | 50 | $G_1 = G_2$, grain size 1--4, join key size 1--4 |
+| Ordered Grains | A | 55 | $G_1 \subseteq_{typ} G_2$ or $G_2 \subseteq_{typ} G_1$, 25 normal + 30 reversed |
+| Incomparable Grains | A | 30 | $G_1 \not\subseteq_{typ} G_2$ but $G_1^{J_k} = G_2^{J_k}$ (comparable $J_k$-portions) |
+| Natural Join | A | 35 | $G_1^{J_k} \subseteq_{typ} G_2^{J_k}$ |
 
-Each category is tested with multiple data distributions (varying grain column cardinalities) to eliminate distribution-specific artifacts.
+Each category is tested with a wide variety of data distributions (grain column cardinalities ranging from 3 to 200, producing result tables from 25 to 40,000+ rows) to eliminate distribution-specific artifacts.
 
 ## Results
 
@@ -80,33 +80,33 @@ Each category is tested with multiple data distributions (varying grain column c
 
 | | Paper formula (Thm 6.1) | Corrected formula |
 |---|---|---|
-| **Uniqueness** | **100/100** | **100/100** |
-| **Minimality** | **73/100** | **100/100** |
+| **Uniqueness** | **350/350** | **350/350** |
+| **Minimality** | **200/350** | **350/350** |
 
 ### By case type
 
 | Case | Examples | Paper unique | Paper minimal | Corrected unique | Corrected minimal |
 |------|----------|--------------|---------------|------------------|-------------------|
-| A | 73 | 73/73 | 73/73 | 73/73 | 73/73 |
-| B | 27 | 27/27 | **0/27** | 27/27 | 27/27 |
+| A | 200 | 200/200 | 200/200 | 200/200 | 200/200 |
+| B | 150 | 150/150 | **0/150** | 150/150 | 150/150 |
 
 ### Key observations
 
-1. **Both formulas always produce unique identifiers** (100/100 uniqueness). The paper's formula is never *wrong* -- it always identifies result rows uniquely.
+1. **Both formulas always produce unique identifiers** (350/350 uniqueness). The paper's formula is never *wrong* -- it always identifies result rows uniquely.
 
-2. **The paper's formula fails minimality on every Case B example** (0/27). In each case, it includes $J_k$-grain columns that are recoverable through the bootstrapping argument.
+2. **The paper's formula fails minimality on every Case B example** (0/150). In each case, it includes $J_k$-grain columns that are recoverable through the bootstrapping argument.
 
-3. **The corrected formula passes both uniqueness and minimality on all 100 examples** (100/100). It produces the tightest possible grain.
+3. **The corrected formula passes both uniqueness and minimality on all 350 examples** (350/350). It produces the tightest possible grain.
 
-4. **Case A is unaffected.** Both formulas produce identical grains for all 73 Case A examples, and all pass both tests.
+4. **Case A is unaffected.** Both formulas produce identical grains for all 200 Case A examples, and all pass both tests.
 
 ### Case B detail: removable columns in the paper's grain
 
 | Examples | Paper grain | Removable columns | Corrected grain |
 |----------|-------------|-------------------|-----------------|
-| 1--9 (Main Theorem) | $(a, b, c)$ | $b$ and/or $c$ | $(a, c)$ |
-| 10--18 (Incomparable) | $(a, b, c, d)$ | $a$ and $b$ | $(a, c, d)$ |
-| 19--27 (Natural Join) | $(a, b, c, d)$ | $b$ and $c$ | $(a, b, d)$ |
+| 1--50 (Main Theorem) | $(a, b, c)$ | $b$ and/or $c$ | $(a, c)$ |
+| 51--100 (Incomparable) | $(a, b, c, d)$ | $a$ and $b$ | $(a, c, d)$ |
+| 101--150 (Natural Join) | $(a, b, c, d)$ | $b$ and $c$ | $(a, b, d)$ |
 
 In every Case B example, the paper's formula includes columns from $G_2^{J_k}$ that are redundant -- they can be recovered through the join condition once $G[R_1]$ is fully known.
 
@@ -163,7 +163,7 @@ ORDER BY example_id;
 
 | File | Description |
 |------|-------------|
-| `generate_revalidation.py` | Python generator for the SQL test suite (813 lines) |
-| `revalidation.sql` | Generated SQL: schema, data, tests for 100 examples (12,797 lines) |
+| `generate_revalidation.py` | Python generator for the SQL test suite |
+| `revalidation.sql` | Generated SQL: schema, data, tests for 350 examples (44,451 lines) |
 | `output.txt` | Full PostgreSQL output from the validation run |
 | `REVALIDATION_RESULTS.md` | This document |
