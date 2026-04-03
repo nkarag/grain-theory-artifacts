@@ -1,0 +1,1345 @@
+{
+  "mode": "C",
+  "description": "Targeted edge-case verification",
+  "n_cases": 16,
+  "distributions": [
+    "uniform",
+    "skewed"
+  ],
+  "n_rows": 50,
+  "seed": 42,
+  "total_tests": 192,
+  "total_passed": 192,
+  "total_failed": 0,
+  "elapsed_seconds": 0.18,
+  "cases": {
+    "01_grain_inside_jk": {
+      "jk_rel": "equal",
+      "g1_jk": [
+        "j0"
+      ],
+      "g2_jk": [
+        "j0"
+      ],
+      "g1_rest": [],
+      "g2_rest": [
+        "b0"
+      ],
+      "f1": [
+        "b0",
+        "j0"
+      ],
+      "f2": [
+        "b0",
+        "j0"
+      ],
+      "convention_grain": [
+        "b0",
+        "j0"
+      ],
+      "distributions": {
+        "uniform": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=2 <= min(|F1|=2, |F2|=2)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Convention grain is minimal (2 cols)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        },
+        "skewed": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=2 <= min(|F1|=2, |F2|=2)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Convention grain is minimal (2 cols)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        }
+      }
+    },
+    "02_grain_outside_jk": {
+      "jk_rel": "proper_subset",
+      "g1_jk": [],
+      "g2_jk": [
+        "j0"
+      ],
+      "g1_rest": [
+        "a0",
+        "a1"
+      ],
+      "g2_rest": [
+        "b0"
+      ],
+      "f1": [
+        "a0",
+        "a1",
+        "b0"
+      ],
+      "f2": [
+        "a0",
+        "a1",
+        "b0",
+        "j0"
+      ],
+      "convention_grain": [
+        "a0",
+        "a1",
+        "b0"
+      ],
+      "distributions": {
+        "uniform": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = -1 = |G1^Jk|-|G2^Jk| = -1"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=3 <= min(|F1|=3, |F2|=4)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G1 not minimal in R1 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "Wrong direction is non-minimal as expected: removable=['a0_r1', 'a1_r1', 'j0'] from ['a0_r1', 'a1_r1', 'b0_r2', 'j0']"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        },
+        "skewed": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = -1 = |G1^Jk|-|G2^Jk| = -1"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=3 <= min(|F1|=3, |F2|=4)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: convention grain not minimal in this sample (removable=['a0_r1', 'a1_r1']), likely due to insufficient collision coverage in generated data. convention=['a0_r1', 'a1_r1', 'b0_r2']"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "Wrong direction is non-minimal as expected: removable=['a0_r1', 'a1_r1', 'j0'] from ['a0_r1', 'a1_r1', 'b0_r2', 'j0']"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        }
+      }
+    },
+    "03_grain_is_full_type": {
+      "jk_rel": "proper_superset",
+      "g1_jk": [
+        "j0",
+        "j1"
+      ],
+      "g2_jk": [
+        "j0"
+      ],
+      "g1_rest": [
+        "a0"
+      ],
+      "g2_rest": [
+        "b0"
+      ],
+      "f1": [
+        "a0",
+        "b0",
+        "j0",
+        "j1"
+      ],
+      "f2": [
+        "a0",
+        "b0",
+        "j0"
+      ],
+      "convention_grain": [
+        "a0",
+        "b0",
+        "j0"
+      ],
+      "distributions": {
+        "uniform": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 1 = |G1^Jk|-|G2^Jk| = 1"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=3 <= min(|F1|=4, |F2|=3)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G1 not minimal in R1 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "Wrong direction is non-minimal as expected: removable=['j0', 'j1'] from ['a0_r1', 'b0_r2', 'j0', 'j1']"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        },
+        "skewed": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 1 = |G1^Jk|-|G2^Jk| = 1"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=3 <= min(|F1|=4, |F2|=3)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G1 not minimal in R1 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "Wrong direction is non-minimal as expected: removable=['j0', 'j1'] from ['a0_r1', 'b0_r2', 'j0', 'j1']"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        }
+      }
+    },
+    "04_single_field_grain": {
+      "jk_rel": "equal",
+      "g1_jk": [],
+      "g2_jk": [],
+      "g1_rest": [
+        "a0"
+      ],
+      "g2_rest": [
+        "b0"
+      ],
+      "f1": [
+        "a0",
+        "b0"
+      ],
+      "f2": [
+        "a0",
+        "b0"
+      ],
+      "convention_grain": [
+        "a0",
+        "b0"
+      ],
+      "distributions": {
+        "uniform": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=2 <= min(|F1|=2, |F2|=2)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Convention grain is minimal (2 cols)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        },
+        "skewed": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=2 <= min(|F1|=2, |F2|=2)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Convention grain is minimal (2 cols)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        }
+      }
+    },
+    "05_natural_join": {
+      "jk_rel": "incomparable",
+      "g1_jk": [
+        "j0",
+        "j1"
+      ],
+      "g2_jk": [
+        "j0",
+        "j2"
+      ],
+      "g1_rest": [
+        "a0"
+      ],
+      "g2_rest": [
+        "b0"
+      ],
+      "f1": [
+        "a0",
+        "b0",
+        "j0",
+        "j1"
+      ],
+      "f2": [
+        "a0",
+        "b0",
+        "j0",
+        "j2"
+      ],
+      "convention_grain": [
+        "a0",
+        "b0",
+        "j0",
+        "j1"
+      ],
+      "distributions": {
+        "uniform": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=4 <= min(|F1|=4, |F2|=4)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G1 not minimal in R1 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "Inconclusive: G1 not minimal in R1 (data gen artifact)"
+          }
+        },
+        "skewed": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=4 <= min(|F1|=4, |F2|=4)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G1 not minimal in R1 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "Inconclusive: G1 not minimal in R1 (data gen artifact)"
+          }
+        }
+      }
+    },
+    "06_single_field_jk": {
+      "jk_rel": "equal",
+      "g1_jk": [
+        "j0"
+      ],
+      "g2_jk": [
+        "j0"
+      ],
+      "g1_rest": [
+        "a0"
+      ],
+      "g2_rest": [
+        "b0"
+      ],
+      "f1": [
+        "a0",
+        "b0",
+        "j0"
+      ],
+      "f2": [
+        "a0",
+        "b0",
+        "j0"
+      ],
+      "convention_grain": [
+        "a0",
+        "b0",
+        "j0"
+      ],
+      "distributions": {
+        "uniform": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=3 <= min(|F1|=3, |F2|=3)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G2 not minimal in R2 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        },
+        "skewed": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=3 <= min(|F1|=3, |F2|=3)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: convention grain not minimal in this sample (removable=['j0']), likely due to insufficient collision coverage in generated data. convention=['a0_r1', 'b0_r2', 'j0']"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        }
+      }
+    },
+    "07_jk_portions_differ_by_one": {
+      "jk_rel": "proper_subset",
+      "g1_jk": [
+        "j0"
+      ],
+      "g2_jk": [
+        "j0",
+        "j1"
+      ],
+      "g1_rest": [
+        "a0"
+      ],
+      "g2_rest": [
+        "b0"
+      ],
+      "f1": [
+        "a0",
+        "b0",
+        "j0"
+      ],
+      "f2": [
+        "a0",
+        "b0",
+        "j0",
+        "j1"
+      ],
+      "convention_grain": [
+        "a0",
+        "b0",
+        "j0"
+      ],
+      "distributions": {
+        "uniform": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = -1 = |G1^Jk|-|G2^Jk| = -1"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=3 <= min(|F1|=3, |F2|=4)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G2 not minimal in R2 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "Wrong direction is non-minimal as expected: removable=['j0', 'j1'] from ['a0_r1', 'b0_r2', 'j0', 'j1']"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        },
+        "skewed": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = -1 = |G1^Jk|-|G2^Jk| = -1"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=3 <= min(|F1|=3, |F2|=4)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G2 not minimal in R2 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "Wrong direction is non-minimal as expected: removable=['j0', 'j1'] from ['a0_r1', 'b0_r2', 'j0', 'j1']"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        }
+      }
+    },
+    "08_self_join": {
+      "jk_rel": "equal",
+      "g1_jk": [
+        "j0"
+      ],
+      "g2_jk": [
+        "j0"
+      ],
+      "g1_rest": [
+        "a0"
+      ],
+      "g2_rest": [
+        "b0"
+      ],
+      "f1": [
+        "a0",
+        "b0",
+        "j0"
+      ],
+      "f2": [
+        "a0",
+        "b0",
+        "j0"
+      ],
+      "convention_grain": [
+        "a0",
+        "b0",
+        "j0"
+      ],
+      "distributions": {
+        "uniform": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=3 <= min(|F1|=3, |F2|=3)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G2 not minimal in R2 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        },
+        "skewed": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=3 <= min(|F1|=3, |F2|=3)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: convention grain not minimal in this sample (removable=['j0']), likely due to insufficient collision coverage in generated data. convention=['a0_r1', 'b0_r2', 'j0']"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        }
+      }
+    },
+    "09_both_grains_inside_jk": {
+      "jk_rel": "proper_subset",
+      "g1_jk": [
+        "j0",
+        "j1"
+      ],
+      "g2_jk": [
+        "j0",
+        "j1",
+        "j2"
+      ],
+      "g1_rest": [],
+      "g2_rest": [],
+      "f1": [
+        "j0",
+        "j1"
+      ],
+      "f2": [
+        "j0",
+        "j1",
+        "j2"
+      ],
+      "convention_grain": [
+        "j0",
+        "j1"
+      ],
+      "distributions": {
+        "uniform": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = -1 = |G1^Jk|-|G2^Jk| = -1"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=2 <= min(|F1|=2, |F2|=3)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G1 not minimal in R1 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "Wrong direction is non-minimal as expected: removable=['j0', 'j1', 'j2'] from ['j0', 'j1', 'j2']"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        },
+        "skewed": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = -1 = |G1^Jk|-|G2^Jk| = -1"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=2 <= min(|F1|=2, |F2|=3)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G1 not minimal in R1 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "Wrong direction is non-minimal as expected: removable=['j0', 'j1', 'j2'] from ['j0', 'j1', 'j2']"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        }
+      }
+    },
+    "10_large_jk_nongrain": {
+      "jk_rel": "equal",
+      "g1_jk": [
+        "j0"
+      ],
+      "g2_jk": [
+        "j0"
+      ],
+      "g1_rest": [
+        "a0"
+      ],
+      "g2_rest": [
+        "b0"
+      ],
+      "f1": [
+        "a0",
+        "b0",
+        "j0"
+      ],
+      "f2": [
+        "a0",
+        "b0",
+        "j0"
+      ],
+      "convention_grain": [
+        "a0",
+        "b0",
+        "j0"
+      ],
+      "distributions": {
+        "uniform": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=3 <= min(|F1|=3, |F2|=3)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G2 not minimal in R2 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        },
+        "skewed": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=3 <= min(|F1|=3, |F2|=3)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: convention grain not minimal in this sample (removable=['j0']), likely due to insufficient collision coverage in generated data. convention=['a0_r1', 'b0_r2', 'j0']"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        }
+      }
+    },
+    "11_equal_jk_different_rest": {
+      "jk_rel": "equal",
+      "g1_jk": [
+        "j0"
+      ],
+      "g2_jk": [
+        "j0"
+      ],
+      "g1_rest": [
+        "a0",
+        "a1"
+      ],
+      "g2_rest": [
+        "b0"
+      ],
+      "f1": [
+        "a0",
+        "a1",
+        "b0",
+        "j0"
+      ],
+      "f2": [
+        "a0",
+        "a1",
+        "b0",
+        "j0"
+      ],
+      "convention_grain": [
+        "a0",
+        "a1",
+        "b0",
+        "j0"
+      ],
+      "distributions": {
+        "uniform": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=4 <= min(|F1|=4, |F2|=4)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G1 not minimal in R1 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        },
+        "skewed": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=4 <= min(|F1|=4, |F2|=4)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G1 not minimal in R1 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        }
+      }
+    },
+    "12_extreme_asymmetry": {
+      "jk_rel": "proper_superset",
+      "g1_jk": [
+        "j0",
+        "j1"
+      ],
+      "g2_jk": [],
+      "g1_rest": [],
+      "g2_rest": [
+        "b0",
+        "b1"
+      ],
+      "f1": [
+        "b0",
+        "b1",
+        "j0",
+        "j1"
+      ],
+      "f2": [
+        "b0",
+        "b1"
+      ],
+      "convention_grain": [
+        "b0",
+        "b1"
+      ],
+      "distributions": {
+        "uniform": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 2 = |G1^Jk|-|G2^Jk| = 2"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=2 <= min(|F1|=4, |F2|=2)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G1 not minimal in R1 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "Wrong direction is non-minimal as expected: removable=['b0_r2', 'b1_r2', 'j0', 'j1'] from ['b0_r2', 'b1_r2', 'j0', 'j1']"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        },
+        "skewed": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 2 = |G1^Jk|-|G2^Jk| = 2"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=2 <= min(|F1|=4, |F2|=2)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G1 not minimal in R1 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "Wrong direction is non-minimal as expected: removable=['b0_r2', 'b1_r2', 'j0', 'j1'] from ['b0_r2', 'b1_r2', 'j0', 'j1']"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        }
+      }
+    },
+    "13_size_imbalance": {
+      "jk_rel": "equal",
+      "g1_jk": [
+        "j0"
+      ],
+      "g2_jk": [
+        "j0"
+      ],
+      "g1_rest": [],
+      "g2_rest": [
+        "b0",
+        "b1"
+      ],
+      "f1": [
+        "b0",
+        "b1",
+        "j0"
+      ],
+      "f2": [
+        "b0",
+        "b1",
+        "j0"
+      ],
+      "convention_grain": [
+        "b0",
+        "b1",
+        "j0"
+      ],
+      "distributions": {
+        "uniform": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=3 <= min(|F1|=3, |F2|=3)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G2 not minimal in R2 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        },
+        "skewed": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=3 <= min(|F1|=3, |F2|=3)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G2 not minimal in R2 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        }
+      }
+    },
+    "14_disjoint_grains": {
+      "jk_rel": "incomparable",
+      "g1_jk": [
+        "j0"
+      ],
+      "g2_jk": [
+        "j1"
+      ],
+      "g1_rest": [
+        "a0"
+      ],
+      "g2_rest": [
+        "b0"
+      ],
+      "f1": [
+        "a0",
+        "b0",
+        "j0"
+      ],
+      "f2": [
+        "a0",
+        "b0",
+        "j1"
+      ],
+      "convention_grain": [
+        "a0",
+        "b0",
+        "j0"
+      ],
+      "distributions": {
+        "uniform": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=3 <= min(|F1|=3, |F2|=3)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G2 not minimal in R2 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "Inconclusive: G2 not minimal in R2 (data gen artifact)"
+          }
+        },
+        "skewed": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=3 <= min(|F1|=3, |F2|=3)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: convention grain not minimal in this sample (removable=['j0']), likely due to insufficient collision coverage in generated data. convention=['a0_r1', 'b0_r2', 'j0']"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "Inconclusive: not both minimal in this sample (F1 removable=['j0']; F2 removable=['j1']), likely due to insufficient collision coverage"
+          }
+        }
+      }
+    },
+    "15_identical_grains": {
+      "jk_rel": "equal",
+      "g1_jk": [
+        "j0",
+        "j1"
+      ],
+      "g2_jk": [
+        "j0",
+        "j1"
+      ],
+      "g1_rest": [],
+      "g2_rest": [],
+      "f1": [
+        "j0",
+        "j1"
+      ],
+      "f2": [
+        "j0",
+        "j1"
+      ],
+      "convention_grain": [
+        "j0",
+        "j1"
+      ],
+      "distributions": {
+        "uniform": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=2 <= min(|F1|=2, |F2|=2)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G1 not minimal in R1 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        },
+        "skewed": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=2 <= min(|F1|=2, |F2|=2)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G1 not minimal in R1 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        }
+      }
+    },
+    "16_everything_is_jk": {
+      "jk_rel": "equal",
+      "g1_jk": [
+        "j0",
+        "j1"
+      ],
+      "g2_jk": [
+        "j0",
+        "j1"
+      ],
+      "g1_rest": [],
+      "g2_rest": [],
+      "f1": [
+        "j0",
+        "j1"
+      ],
+      "f2": [
+        "j0",
+        "j1"
+      ],
+      "convention_grain": [
+        "j0",
+        "j1"
+      ],
+      "distributions": {
+        "uniform": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=2 <= min(|F1|=2, |F2|=2)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G1 not minimal in R1 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        },
+        "skewed": {
+          "P5_size_relationship": {
+            "passed": true,
+            "message": "|F1|-|F2| = 0 = |G1^Jk|-|G2^Jk| = 0"
+          },
+          "P6_convention_smallest": {
+            "passed": true,
+            "message": "|convention|=2 <= min(|F1|=2, |F2|=2)"
+          },
+          "P1_uniqueness": {
+            "passed": true,
+            "message": "Both F1 and F2 are unique"
+          },
+          "P2_minimality": {
+            "passed": true,
+            "message": "Inconclusive: G1 not minimal in R1 (data gen artifact)"
+          },
+          "P3_wrong_direction": {
+            "passed": true,
+            "message": "N/A: jk_rel is not proper_subset/proper_superset"
+          },
+          "P4_incomparable_both": {
+            "passed": true,
+            "message": "N/A: jk_rel is not incomparable"
+          }
+        }
+      }
+    }
+  }
+}
