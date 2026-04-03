@@ -1,0 +1,90 @@
+{
+  "mode": "B",
+  "description": "Random PBT with 10,000 examples at larger sizes",
+  "max_examples": 10000,
+  "generator_params": {
+    "max_jk": 8,
+    "max_r_only": 7
+  },
+  "n_rows_per_config": 30,
+  "started": "2026-04-03T22:18:57.323693",
+  "elapsed_seconds": 71.99,
+  "test_passed": true,
+  "error": null,
+  "total_examples_run": 10000,
+  "class_distribution": {
+    "equal_g1restE_g2restE": 239,
+    "proper_superset_g1restE_g2restNE": 228,
+    "incomparable_g1restNE_g2restE": 1005,
+    "proper_superset_g1restNE_g2restE": 484,
+    "proper_subset_g1restNE_g2restE": 2422,
+    "proper_subset_g1restNE_g2restNE": 1576,
+    "proper_superset_g1restNE_g2restNE": 467,
+    "equal_g1restNE_g2restNE": 518,
+    "incomparable_g1restNE_g2restNE": 938,
+    "proper_subset_g1restE_g2restE": 167,
+    "incomparable_g1restE_g2restE": 579,
+    "proper_subset_g1restE_g2restNE": 249,
+    "incomparable_g1restE_g2restNE": 515,
+    "equal_g1restNE_g2restE": 283,
+    "proper_superset_g1restE_g2restE": 199,
+    "equal_g1restE_g2restNE": 131
+  },
+  "size_distribution": {
+    "1": 1,
+    "2": 15,
+    "3": 78,
+    "4": 180,
+    "5": 317,
+    "6": 493,
+    "7": 556,
+    "8": 808,
+    "9": 848,
+    "10": 902,
+    "11": 816,
+    "12": 905,
+    "13": 829,
+    "14": 847,
+    "15": 685,
+    "16": 476,
+    "17": 395,
+    "18": 333,
+    "19": 202,
+    "20": 123,
+    "21": 167,
+    "22": 24
+  },
+  "property_results": {
+    "P1_uniqueness": {
+      "passed": 10000,
+      "failed": 0,
+      "inconclusive": 0
+    },
+    "P2_minimality": {
+      "passed": 2318,
+      "failed": 0,
+      "inconclusive": 7682
+    },
+    "P3_wrong_direction": {
+      "passed": 10000,
+      "failed": 0,
+      "inconclusive": 0
+    },
+    "P4_incomparable_both": {
+      "passed": 7263,
+      "failed": 0,
+      "inconclusive": 2737
+    },
+    "P5_size_relationship": {
+      "passed": 10000,
+      "failed": 0,
+      "inconclusive": 0
+    },
+    "P6_convention_smallest": {
+      "passed": 10000,
+      "failed": 0,
+      "inconclusive": 0
+    }
+  },
+  "failures": []
+}
