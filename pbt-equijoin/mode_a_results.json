@@ -1,0 +1,251 @@
+{
+  "mode": "A",
+  "description": "Exhaustive small-model checking",
+  "parameters": {
+    "max_type_size": 5,
+    "n_rows": 10
+  },
+  "total_configs": 12271,
+  "elapsed_seconds": 31.94,
+  "summary": {
+    "total_property_checks": 73626,
+    "passed": 60344,
+    "failed": 0,
+    "inconclusive": 13282
+  },
+  "verdict": "ALL PASSED",
+  "by_class": {
+    "equal|g1e=False|g2e=False": {
+      "configs_tested": 1980,
+      "passed": {
+        "P1_uniqueness": 1980,
+        "P2_minimality": 146,
+        "P3_wrong_direction": 1980,
+        "P4_incomparable_both": 1980,
+        "P5_size_relationship": 1980,
+        "P6_convention_smallest": 1980
+      },
+      "failed": {},
+      "inconclusive": {
+        "P2_minimality": 1834
+      }
+    },
+    "equal|g1e=False|g2e=True": {
+      "configs_tested": 376,
+      "passed": {
+        "P1_uniqueness": 376,
+        "P3_wrong_direction": 376,
+        "P4_incomparable_both": 376,
+        "P5_size_relationship": 376,
+        "P6_convention_smallest": 376
+      },
+      "failed": {},
+      "inconclusive": {
+        "P2_minimality": 376
+      }
+    },
+    "equal|g1e=True|g2e=False": {
+      "configs_tested": 376,
+      "passed": {
+        "P1_uniqueness": 376,
+        "P3_wrong_direction": 376,
+        "P4_incomparable_both": 376,
+        "P5_size_relationship": 376,
+        "P6_convention_smallest": 376
+      },
+      "failed": {},
+      "inconclusive": {
+        "P2_minimality": 376
+      }
+    },
+    "equal|g1e=True|g2e=True": {
+      "configs_tested": 227,
+      "passed": {
+        "P1_uniqueness": 227,
+        "P2_minimality": 105,
+        "P3_wrong_direction": 227,
+        "P4_incomparable_both": 227,
+        "P5_size_relationship": 227,
+        "P6_convention_smallest": 227
+      },
+      "failed": {},
+      "inconclusive": {
+        "P2_minimality": 122
+      }
+    },
+    "incomparable|g1e=False|g2e=False": {
+      "configs_tested": 640,
+      "passed": {
+        "P1_uniqueness": 640,
+        "P3_wrong_direction": 640,
+        "P5_size_relationship": 640,
+        "P6_convention_smallest": 640
+      },
+      "failed": {},
+      "inconclusive": {
+        "P2_minimality": 640,
+        "P4_incomparable_both": 640
+      }
+    },
+    "incomparable|g1e=False|g2e=True": {
+      "configs_tested": 524,
+      "passed": {
+        "P1_uniqueness": 524,
+        "P3_wrong_direction": 524,
+        "P5_size_relationship": 524,
+        "P6_convention_smallest": 524
+      },
+      "failed": {},
+      "inconclusive": {
+        "P2_minimality": 524,
+        "P4_incomparable_both": 524
+      }
+    },
+    "incomparable|g1e=True|g2e=False": {
+      "configs_tested": 524,
+      "passed": {
+        "P1_uniqueness": 524,
+        "P3_wrong_direction": 524,
+        "P5_size_relationship": 524,
+        "P6_convention_smallest": 524
+      },
+      "failed": {},
+      "inconclusive": {
+        "P2_minimality": 524,
+        "P4_incomparable_both": 524
+      }
+    },
+    "incomparable|g1e=True|g2e=True": {
+      "configs_tested": 1204,
+      "passed": {
+        "P1_uniqueness": 1204,
+        "P2_minimality": 446,
+        "P3_wrong_direction": 1204,
+        "P4_incomparable_both": 154,
+        "P5_size_relationship": 1204,
+        "P6_convention_smallest": 1204
+      },
+      "failed": {},
+      "inconclusive": {
+        "P4_incomparable_both": 1050,
+        "P2_minimality": 758
+      }
+    },
+    "proper_subset|g1e=False|g2e=False": {
+      "configs_tested": 1650,
+      "passed": {
+        "P1_uniqueness": 1650,
+        "P3_wrong_direction": 1650,
+        "P4_incomparable_both": 1650,
+        "P5_size_relationship": 1650,
+        "P6_convention_smallest": 1650
+      },
+      "failed": {},
+      "inconclusive": {
+        "P2_minimality": 1650
+      }
+    },
+    "proper_subset|g1e=False|g2e=True": {
+      "configs_tested": 708,
+      "passed": {
+        "P1_uniqueness": 708,
+        "P2_minimality": 215,
+        "P3_wrong_direction": 708,
+        "P4_incomparable_both": 708,
+        "P5_size_relationship": 708,
+        "P6_convention_smallest": 708
+      },
+      "failed": {},
+      "inconclusive": {
+        "P2_minimality": 493
+      }
+    },
+    "proper_subset|g1e=True|g2e=False": {
+      "configs_tested": 332,
+      "passed": {
+        "P1_uniqueness": 332,
+        "P3_wrong_direction": 332,
+        "P4_incomparable_both": 332,
+        "P5_size_relationship": 332,
+        "P6_convention_smallest": 332
+      },
+      "failed": {},
+      "inconclusive": {
+        "P2_minimality": 332
+      }
+    },
+    "proper_subset|g1e=True|g2e=True": {
+      "configs_tested": 520,
+      "passed": {
+        "P1_uniqueness": 520,
+        "P2_minimality": 300,
+        "P3_wrong_direction": 520,
+        "P4_incomparable_both": 520,
+        "P5_size_relationship": 520,
+        "P6_convention_smallest": 520
+      },
+      "failed": {},
+      "inconclusive": {
+        "P2_minimality": 220
+      }
+    },
+    "proper_superset|g1e=False|g2e=False": {
+      "configs_tested": 1650,
+      "passed": {
+        "P1_uniqueness": 1650,
+        "P3_wrong_direction": 1650,
+        "P4_incomparable_both": 1650,
+        "P5_size_relationship": 1650,
+        "P6_convention_smallest": 1650
+      },
+      "failed": {},
+      "inconclusive": {
+        "P2_minimality": 1650
+      }
+    },
+    "proper_superset|g1e=False|g2e=True": {
+      "configs_tested": 332,
+      "passed": {
+        "P1_uniqueness": 332,
+        "P3_wrong_direction": 332,
+        "P4_incomparable_both": 332,
+        "P5_size_relationship": 332,
+        "P6_convention_smallest": 332
+      },
+      "failed": {},
+      "inconclusive": {
+        "P2_minimality": 332
+      }
+    },
+    "proper_superset|g1e=True|g2e=False": {
+      "configs_tested": 708,
+      "passed": {
+        "P1_uniqueness": 708,
+        "P2_minimality": 215,
+        "P3_wrong_direction": 708,
+        "P4_incomparable_both": 708,
+        "P5_size_relationship": 708,
+        "P6_convention_smallest": 708
+      },
+      "failed": {},
+      "inconclusive": {
+        "P2_minimality": 493
+      }
+    },
+    "proper_superset|g1e=True|g2e=True": {
+      "configs_tested": 520,
+      "passed": {
+        "P1_uniqueness": 520,
+        "P2_minimality": 300,
+        "P3_wrong_direction": 520,
+        "P4_incomparable_both": 520,
+        "P5_size_relationship": 520,
+        "P6_convention_smallest": 520
+      },
+      "failed": {},
+      "inconclusive": {
+        "P2_minimality": 220
+      }
+    }
+  }
+}
