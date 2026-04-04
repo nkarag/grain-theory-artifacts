@@ -45,18 +45,25 @@ The **convention** selects whichever formula is smallest (fewest columns), break
 
 ## 3. Properties Tested
 
-Six properties collectively characterize correctness of the theorem:
+### Core theorem properties (P1--P4)
 
-| ID | Property | Description | Requires SQL |
-|----|----------|-------------|:---:|
-| P1 | Uniqueness | Both $F_1$ and $F_2$ produce unique identifiers on the join result | Yes |
-| P2 | Minimality | The convention-compliant grain is irreducible (removing any column breaks uniqueness) | Yes |
-| P3 | Non-minimality of wrong direction | For proper subset/superset configs, the non-convention formula is NOT minimal | Yes |
-| P4 | Both-minimal for incomparable | When $G[R_1]^{J_k}$ and $G[R_2]^{J_k}$ are incomparable, BOTH $F_1$ and $F_2$ are minimal | Yes |
-| P5 | Size relationship | $\|F_1\| - \|F_2\| = \|G[R_1]^{J_k}\| - \|G[R_2]^{J_k}\|$ | No |
-| P6 | Convention smallest | $\|\text{convention}\| \leq \min(\|F_1\|, \|F_2\|)$ | No |
+These are the substantive properties that verify the equi-join grain inference theorem. They execute SQL against a PostgreSQL database: generating data, creating tables, performing the equi-join, and checking the property on actual join results.
 
-Properties P1--P4 execute SQL against a PostgreSQL database: they generate data, create tables, perform the equi-join, and verify the property on actual join results. Properties P5--P6 are structural checks computed purely in Python from the configuration metadata.
+| ID | Property | Description |
+|----|----------|-------------|
+| P1 | Uniqueness | Both $F_1$ and $F_2$ produce unique identifiers on the join result |
+| P2 | Minimality | The convention-compliant grain is irreducible (removing any column breaks uniqueness) |
+| P3 | Non-minimality of wrong direction | For proper subset/superset configs, the non-convention formula is NOT minimal |
+| P4 | Both-minimal for incomparable | When $G[R_1]^{J_k}$ and $G[R_2]^{J_k}$ are incomparable, BOTH $F_1$ and $F_2$ are minimal |
+
+### Structural sanity checks (P5--P6)
+
+These are algebraic identities that follow from the definitions of $F_1$, $F_2$, and the naming convention. They do not test the theorem itself -- they verify that the configuration generator computes $F_1$, $F_2$, and the Jk-portions consistently. Pure Python, no SQL needed.
+
+| ID | Property | Description |
+|----|----------|-------------|
+| P5 | Size relationship | $\|F_1\| - \|F_2\| = \|G[R_1]^{J_k}\| - \|G[R_2]^{J_k}\|$ (follows from definitions) |
+| P6 | Convention smallest | $\|\text{convention}\| \leq \min(\|F_1\|, \|F_2\|)$ (follows from the convention choosing the side with smaller Jk-portion) |
 
 ---
 
@@ -262,7 +269,7 @@ Results are written to `mode_a_results.json`, `mode_b_results.json`, and `mode_c
 
 ## 11. Conclusion
 
-Across 22,303 configurations -- spanning exhaustive enumeration of small models, randomized testing at larger scales, and hand-crafted boundary conditions -- all six properties of the corrected equi-join grain inference theorem hold without exception:
+Across 22,303 configurations -- spanning exhaustive enumeration of small models, randomized testing at larger scales, and hand-crafted boundary conditions -- all four core theorem properties hold without exception:
 
 1. **Uniqueness (P1):** Both candidate formulas $F_1$ and $F_2$ always produce unique identifiers on the join result. Confirmed in 100% of configs across all modes.
 
@@ -272,8 +279,6 @@ Across 22,303 configurations -- spanning exhaustive enumeration of small models,
 
 4. **Incomparable both-minimal (P4):** When Jk-portions are incomparable, both formulas are minimal whenever data sufficiency allows verification.
 
-5. **Size relationship (P5):** The structural identity $\|F_1\| - \|F_2\| = \|G[R_1]^{J_k}\| - \|G[R_2]^{J_k}\|$ holds universally.
-
-6. **Convention smallest (P6):** The convention grain is always the smallest (or tied), confirming the convention selection rule.
+The two structural sanity checks (P5, P6) also passed universally, confirming that the configuration generator is internally consistent.
 
 This PBT evidence, combined with the Lean 4 mechanized proof, provides strong confidence that the corrected equi-join grain inference theorem ($G[\text{Res}] \equiv_g G[R_1] \cup_{typ} (G[R_2] -_{typ} J_k)$) is sound.
