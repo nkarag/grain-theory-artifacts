@@ -2,18 +2,20 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This repository contains all artifacts supporting the VLDB 2026 paper:
+This repository contains all artifacts supporting the grain theory papers:
 
-**"Grain-Aware Data Transformations: Type-Level Formal Verification at Zero Computational Cost"**
-by Nikos Karayannidis
+- **PODS 2027**: "Grain Theory: A Type-Level Framework for Correctness of Data Transformations" by Nikos Karayannidis
+- **VLDB 2026**: "Grain-Aware Data Transformations: Type-Level Formal Verification at Zero Computational Cost" by Nikos Karayannidis
 
 ## Overview
 
-This repository provides comprehensive artifacts demonstrating grain theory's implementation and formal verification capabilities:
+This repository provides comprehensive artifacts demonstrating grain theory's implementation, formal verification, and empirical validation:
 
-1. **Lean 4 Formalization** - Machine-checkable formal proofs of pipeline correctness
-2. **Type System Encodings** - Grain encoding implementations across three type systems (Python/mypy, Lean 4, Agda)
-3. **SQL Validation** - 100 equi-join examples validating the grain inference formulas
+1. **Lean 4 Grain Theory Proofs** - Mechanized verification of all 26 PODS appendix theorems (33 modules, zero `sorry`)
+2. **PBT Equi-Join Validation** - Property-based testing of the equi-join theorem against PostgreSQL (22,303 configs, zero violations)
+3. **Lean 4 Pipeline Formalization** - Machine-checkable formal proofs of pipeline correctness
+4. **Type System Encodings** - Grain encoding implementations across three type systems (Python/mypy, Lean 4, Agda)
+5. **SQL Validation** - 100 equi-join examples validating the grain inference formulas
 
 All artifacts are fully functional and demonstrate that grain theory enables systematic verification of data transformation correctness through type-level reasoning.
 
@@ -21,6 +23,19 @@ All artifacts are fully functional and demonstrate that grain theory enables sys
 
 ```
 grain-theory-artifacts/
+├── lean4-grain-theory-proofs/ # PODS 2027: Mechanized proofs (Lean 4 + Mathlib)
+│   ├── GrainTheory/           # 33 proof modules (§3--§9)
+│   ├── GrainTheory.lean       # Root import
+│   ├── lakefile.toml          # Build configuration
+│   ├── lean-toolchain         # Lean 4 v4.29.0-rc8
+│   └── README.md              # Module-by-module guide
+│
+├── pbt-equijoin/              # PBT validation of equi-join theorem
+│   ├── run_mode_a.py          # Exhaustive (12,271 configs)
+│   ├── run_mode_b.py          # Random PBT (10,000 configs)
+│   ├── run_mode_c.py          # Edge cases (16 × 2)
+│   └── PBT_RESULTS.md         # Full results report
+│
 ├── lean4-formalization/       # Machine-checkable formal verification
 │   ├── Pipeline1.lean         # Correct pipeline (type-checks)
 │   ├── Pipeline2.lean         # Incorrect pipeline A (type error)
