@@ -1,8 +1,13 @@
 /-
   GrainTheory.Relations.GrainSubset — Grain subset theorem and corollary
 
-  PODS Theorem 3.4: If G[R₁] ⊆_typ G[R₂], then R₂ ≤_g R₁.
-  PODS Corollary 3.5: If R' ⊆_typ R, then G[R] ≤_g R'.
+  PODS Theorem (thm:grain-subset): If G[R₁] ⊆_typ G[R₂], then R₂ ≤_g R₁.
+  This is the formal bridge from ⊆_typ to ≤_g: subset containment of grains
+  implies grain ordering. In the general (surjective-function) definition,
+  the subset case yields a surjective projection.
+
+  PODS Corollary (cor:grain-all-subsets): If R' ⊆_typ R, then G[R] ≤_g R'.
+  The grain of a type functionally determines any subset of that type's fields.
 -/
 
 import GrainTheory.Relations.GrainOrdering
@@ -16,16 +21,17 @@ open GrainStructure
 
 /-! ## PODS Theorem 3.4: Grain Subset -/
 
-/-- PODS Thm 3.4: If G[R₁] ⊆_typ G[R₂], then R₂ ≤_g R₁.
+/-- PODS Theorem (grain-subset): If G[R₁] ⊆_typ G[R₂], then R₂ ≤_g R₁.
     Trivially definitional — validates that our grainLe encoding captures
-    the subset-based ordering. -/
+    the subset-based ordering. In the general definition, this is the
+    subset case: the projection G[R₂] → G[R₁] is surjective. -/
 theorem grain_subset {R₁ R₂ : D} (h : sub (grain R₁) (grain R₂)) : grainLe R₂ R₁ :=
   h
 
 /-! ## PODS Corollary 3.5: Grain Determines All Subsets -/
 
-/-- PODS Cor 3.5: The grain of a type determines any subset of that type's fields.
-    If R' ⊆_typ R, then G[R] ≤_g R'.
+/-- PODS Corollary (grain-all-subsets): The grain of a type determines
+    any subset of that type's fields. If R' ⊆_typ R, then G[R] ≤_g R'.
 
     Proof: G[R] ≅ R (grain_iso) and R' ⊆ R (hypothesis), so by iso_sub,
     R' ⊆ G[R]. Then G[R'] ⊆ R' ⊆ G[R] ⊆ G[G[R]] (idempotency). -/

@@ -1,11 +1,22 @@
 /-
   GrainTheory.Relations.GrainOrdering — Grain ordering (partial order)
 
-  PODS Definition 5: R₁ ≤_g R₂ iff ∃ f : G[R₁] → G[R₂].
-  Encoded as: G[R₂] ⊆_typ G[R₁] (the coarser type's grain is a subset
-  of the finer type's grain).
+  PODS Definition 5: R₁ ≤_g R₂ iff ∃ surjective f : G[R₁] ↠ G[R₂].
 
-  Grain ordering is a partial order up to grain equivalence:
+  Grain ordering arises in two ways, both yielding surjective functions:
+  (1) Subset-based: G[R₂] ⊆_typ G[R₁] yields a surjective projection.
+  (2) FD-based: a surjective functional dependency from G[R₁] to G[R₂]
+      without field overlap (e.g., EmployeeId ↠ DepartmentId).
+
+  In this abstract axiomatization, we encode grain ordering via (1):
+  `grainLe R₁ R₂ := sub (grain R₂) (grain R₁)`. The subset case
+  implies surjectivity (the projection is surjective), and all proof
+  machinery (Armstrong axioms, GIT, equi-join) operates through this
+  path. The FD-based case (2) cannot be expressed abstractly since
+  DataType `D` carries no internal function types.
+
+  PODS Theorem (Grain Ordering is a Partial Order):
+  ≤_g is a partial order up to grain equivalence:
   reflexive, antisymmetric (up to ≅), and transitive.
 -/
 
@@ -28,7 +39,9 @@ scoped infixl:50 " ≡_g " => grainEq
 
 /-! ## Grain Ordering (PODS Def 5) -/
 
-/-- PODS Def 5: Grain ordering. R₁ ≤_g R₂ iff G[R₂] ⊆_typ G[R₁].
+/-- PODS Def 5: Grain ordering. R₁ ≤_g R₂ iff ∃ surjective f : G[R₁] ↠ G[R₂].
+    Encoded via the subset case: G[R₂] ⊆_typ G[R₁] (the projection is
+    surjective because every field of G[R₂] exists in G[R₁]).
     "R₁ has lower grain (finer granularity) than R₂."
     Example: OrderDetail ≤_g Order, since G[Order] ⊆_typ G[OrderDetail]. -/
 def grainLe (R₁ R₂ : D) : Prop := sub (grain R₂) (grain R₁)
@@ -51,6 +64,27 @@ theorem grainLe_antisymm {R₁ R₂ : D}
 theorem grainLe_trans {R₁ R₂ R₃ : D}
     (h₁ : grainLe R₁ R₂) (h₂ : grainLe R₂ R₃) : grainLe R₁ R₃ :=
   sub_trans _ _ _ h₂ h₁
+
+/-! ## PODS Theorem: Grain Ordering is a Partial Order (thm:grain-partial-order)
+
+  ≤_g is a partial order (up to isomorphism):
+  - Reflexivity: R ≤_g R (identity is surjective).
+  - Antisymmetry: R₁ ≤_g R₂ ∧ R₂ ≤_g R₁ → R₁ ≡_g R₂.
+    Proof: surjective f : G[R₁] ↠ G[R₂] implies |G[R₁]| ≥ |G[R₂]|;
+    surjective g : G[R₂] ↠ G[R₁] implies the reverse. Equal cardinality
+    makes f a bijection, hence G[R₁] ≅ G[R₂].
+    In the subset encoding: sub_antisymm gives iso directly.
+  - Transitivity: R₁ ≤_g R₂ ∧ R₂ ≤_g R₃ → R₁ ≤_g R₃
+    (composition of surjections is surjective).
+-/
+
+/-- PODS Theorem (grain-partial-order): Grain ordering is a partial order
+    (up to isomorphism). Bundles reflexivity, antisymmetry, and transitivity. -/
+theorem grain_partial_order :
+    (∀ (R : D), grainLe R R) ∧
+    (∀ (R₁ R₂ : D), grainLe R₁ R₂ → grainLe R₂ R₁ → grainEq R₁ R₂) ∧
+    (∀ (R₁ R₂ R₃ : D), grainLe R₁ R₂ → grainLe R₂ R₃ → grainLe R₁ R₃) :=
+  ⟨grainLe_refl, fun _ _ h₁ h₂ => grainLe_antisymm h₁ h₂, fun _ _ _ h₁ h₂ => grainLe_trans h₁ h₂⟩
 
 /-! ## Useful lemmas -/
 
