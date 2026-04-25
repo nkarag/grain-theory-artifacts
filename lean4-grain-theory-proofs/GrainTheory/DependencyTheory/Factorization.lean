@@ -1,7 +1,14 @@
 /-
-  GrainTheory.DependencyTheory.Factorization — Grain Factorization & Compositionality
+  GrainTheory.DependencyTheory.Factorization — Grain Homomorphism
 
-  PODS 2027, §7: Theorem (Grain Factorization) and Corollary (Grain Compositionality).
+  PODS 2027, §7 "Grain Projection as a Homomorphism":
+  - Theorem 7.1 (Grain Homomorphism):
+      (i)  Factorization — h factors through G[R₂]
+      (ii) Commutativity — the grain factorization square commutes,
+           establishing grain projection as a homomorphism
+  - Corollary 7.2 (Grain Compositionality):
+      Grain-level factors compose; follows from commutativity via
+      id cancellation of the intermediate type.
 
   These are element-level (function-level) statements requiring a semantic
   layer — SemanticGrainStructure — that adds a denotation function
@@ -10,11 +17,11 @@
   New axioms: 2 (den, isoEquiv). Total with GrainStructure: 38.
 
   Key results:
-  - grain_factorization: h = f_{g_{R₂}} ∘ (grain_{R₂} ∘ h)
-  - grain_factorization_square: e = f_{G₁G₂} ∘ grain_{R₁}
-  - grain_factorization_full: h = f_{g_{R₂}} ∘ f_{G₁G₂} ∘ grain_{R₁}
-  - grain_compositionality: f_{G₁G₃} = f_{G₂G₃} ∘ f_{G₁G₂}
-  - grain_factor_surj_iff: h surjective ⟺ f_{G₁G₂} surjective
+  - grain_homomorphism_i: h = f_{g_{R₂}} ∘ e            [Thm 7.1(i)]
+  - grain_factorization_square: e = f_{G₁G₂} ∘ grain_{R₁} [lemma]
+  - grain_homomorphism_ii: h = f_{g_{R₂}} ∘ f_{G₁G₂} ∘ grain_{R₁} [Thm 7.1(ii)]
+  - grain_compositionality: f_{G₁G₃} = f_{G₂G₃} ∘ f_{G₁G₂}       [Cor 7.2]
+  - grain_factor_surj_iff: h surjective ⟺ f_{G₁G₂} surjective    [Remark]
 -/
 
 import GrainTheory.Basic
@@ -62,38 +69,45 @@ noncomputable def factorE (R₁ R₂ : D) (h : den R₁ → den R₂) :
     den R₁ → den (grain R₂) :=
   grainProj R₂ ∘ h
 
-/-! ## PODS §7 Theorem: Grain Factorization -/
+/-! ## PODS §7, Theorem 7.1: Grain Homomorphism -/
 
-/-- **PODS Theorem (Grain Factorization, Step 1):**
+/-- **PODS Theorem 7.1(i) — Factorization:**
     h = f_{g_{R₂}} ∘ e where e = grain_{R₂} ∘ h.
     Any h : R₁ → R₂ factors through G[R₂]. -/
-theorem grain_factorization (R₁ R₂ : D) (h : den R₁ → den R₂) :
+theorem grain_homomorphism_i (R₁ R₂ : D) (h : den R₁ → den R₂) :
     h = (grainEquiv R₂) ∘ (factorE R₁ R₂ h) := by
   funext x
   simp only [Function.comp_apply, factorE, grainProj,
     Equiv.apply_symm_apply]
 
-/-- **PODS Theorem (Grain Factorization, Step 2):**
-    e = f_{G₁G₂} ∘ grain_{R₁} (commutative square). -/
+/-- **Lemma (Grain Factorization Square):**
+    e = f_{G₁G₂} ∘ grain_{R₁}. The factoring map decomposes through
+    the source grain. Used to derive Thm 7.1(ii) from 7.1(i). -/
 theorem grain_factorization_square (R₁ R₂ : D) (h : den R₁ → den R₂) :
     factorE R₁ R₂ h = (grainFactor R₁ R₂ h) ∘ (grainProj R₁) := by
   funext x
   simp only [Function.comp_apply, factorE, grainFactor, grainProj,
     Equiv.apply_symm_apply]
 
-/-- **PODS Theorem (Grain Factorization, Full — Figure 7):**
-    h = f_{g_{R₂}} ∘ f_{G₁G₂} ∘ grain_{R₁}. -/
-theorem grain_factorization_full (R₁ R₂ : D) (h : den R₁ → den R₂) :
+/-- **PODS Theorem 7.1(ii) — Commutativity:**
+    h = f_{g_{R₂}} ∘ f_{G₁G₂} ∘ grain_{R₁}.
+    The grain factorization square commutes: every transformation
+    decomposes into extract source grain, map between grains, expand
+    via co-domain grain isomorphism. This establishes grain projection
+    as a **homomorphism**. -/
+theorem grain_homomorphism_ii (R₁ R₂ : D) (h : den R₁ → den R₂) :
     h = (grainEquiv R₂) ∘ (grainFactor R₁ R₂ h) ∘ (grainProj R₁) := by
   funext x
   simp only [Function.comp_apply, grainFactor, grainProj,
     Equiv.apply_symm_apply]
 
-/-! ## PODS §7 Corollary: Grain Compositionality -/
+/-! ## PODS §7, Corollary 7.2: Grain Compositionality -/
 
-/-- **PODS Corollary (Grain Compositionality):**
+/-- **PODS Corollary 7.2 (Grain Compositionality):**
     f_{G₁G₃} = f_{G₂G₃} ∘ f_{G₁G₂}.
-    Grain projection is a homomorphism. The intermediate type R₂ cancels
+    The grain-level factor of a composed transformation equals the
+    composition of the individual grain-level factors. Follows from
+    commutativity (Thm 7.1(ii)): the intermediate type R₂ cancels
     via f_{g_{R₂}} ∘ grain_{R₂} = id. -/
 theorem grain_compositionality (R₁ R₂ R₃ : D)
     (h₁ : den R₁ → den R₂) (h₂ : den R₂ → den R₃) :
