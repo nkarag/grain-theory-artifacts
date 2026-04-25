@@ -19,6 +19,7 @@ import GrainTheory.Inference.JoinSpecialCases
 import GrainTheory.Entity.EntityDef
 import GrainTheory.Entity.EKHierarchy
 import GrainTheory.DependencyTheory.Determination
+import GrainTheory.DependencyTheory.Factorization
 import GrainTheory.CalcG.CalcGDef
 import GrainTheory.CalcG.ZeroCost
 import GrainTheory.ErrorDetection.ChasmTrap
