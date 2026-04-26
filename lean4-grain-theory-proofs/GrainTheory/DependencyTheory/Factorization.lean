@@ -1,14 +1,11 @@
 /-
-  GrainTheory.DependencyTheory.Factorization — Grain Homomorphism
+  GrainTheory.DependencyTheory.Factorization — Grain Projection as a Homomorphism
 
   PODS 2027, §7 "Grain Projection as a Homomorphism":
-  - Theorem 7.1 (Grain Homomorphism):
-      (i)  Factorization — h factors through G[R₂]
-      (ii) Commutativity — the grain factorization square commutes,
-           establishing grain projection as a homomorphism
-  - Corollary 7.2 (Grain Compositionality):
-      Grain-level factors compose; follows from commutativity via
-      id cancellation of the intermediate type.
+  - Definition 7.1 (Grain Lift): φ(h) = grain_{R₂} ∘ h ∘ f_{g_{R₁}}
+  - Proposition 7.2 (Grain Factorization): h factors through G[R₂]
+  - Theorem (Grain Homomorphism): grain_{R₂} ∘ h = φ(h) ∘ grain_{R₁}
+  - Corollary (Grain Compositionality): φ(h₂ ∘ h₁) = φ(h₂) ∘ φ(h₁)
 
   These are element-level (function-level) statements requiring a semantic
   layer — SemanticGrainStructure — that adds a denotation function
@@ -17,11 +14,12 @@
   New axioms: 2 (den, isoEquiv). Total with GrainStructure: 38.
 
   Key results:
-  - grain_homomorphism_i: h = f_{g_{R₂}} ∘ e            [Thm 7.1(i)]
-  - grain_factorization_square: e = f_{G₁G₂} ∘ grain_{R₁} [lemma]
-  - grain_homomorphism_ii: h = f_{g_{R₂}} ∘ f_{G₁G₂} ∘ grain_{R₁} [Thm 7.1(ii)]
-  - grain_compositionality: f_{G₁G₃} = f_{G₂G₃} ∘ f_{G₁G₂}       [Cor 7.2]
-  - grain_factor_surj_iff: h surjective ⟺ f_{G₁G₂} surjective    [Remark]
+  - grainLift:                φ(h) = grain_{R₂} ∘ h ∘ f_{g_{R₁}}  [Def 7.1]
+  - grain_factorization:      h = f_{g_{R₂}} ∘ e                   [Prop 7.2]
+  - grain_factorization_full: h = f_{g_{R₂}} ∘ φ(h) ∘ grain_{R₁}  [derived]
+  - grain_homomorphism:       grain_{R₂} ∘ h = φ(h) ∘ grain_{R₁}  [Theorem]
+  - grain_compositionality:   φ(h₂ ∘ h₁) = φ(h₂) ∘ φ(h₁)         [Corollary]
+  - grain_lift_surj_iff:      h surj ⟺ φ(h) surj                  [Remark]
 -/
 
 import GrainTheory.Basic
@@ -48,9 +46,9 @@ variable {D : Type u} [SemanticGrainStructure.{u, v} D]
 
 open GrainStructure (grain grain_iso)
 
-/-! ## Core Definitions (PODS §7 notation) -/
+/-! ## Core Definitions -/
 
-/-- The grain isomorphism: G[R] ≃ R. PODS: f_{g_R}. -/
+/-- The grain function: G[R] ≃ R. PODS: f_{g_R} (Definition 3.1). -/
 noncomputable def grainEquiv (R : D) : den (grain R) ≃ den R :=
   isoEquiv (grain R) R (grain_iso R)
 
@@ -58,9 +56,13 @@ noncomputable def grainEquiv (R : D) : den (grain R) ≃ den R :=
 noncomputable def grainProj (R : D) : den R → den (grain R) :=
   (grainEquiv R).symm
 
-/-- The grain-level factor: G[R₁] → G[R₂].
-    PODS: f_{G₁G₂} = grain_{R₂} ∘ h ∘ f_{g_{R₁}}. -/
-noncomputable def grainFactor (R₁ R₂ : D) (h : den R₁ → den R₂) :
+/-! ## PODS §7, Definition 7.1: Grain Lift -/
+
+/-- **PODS Definition 7.1 (Grain Lift):**
+    φ(h) = grain_{R₂} ∘ h ∘ f_{g_{R₁}} : G[R₁] → G[R₂].
+    The grain lift of h captures the essential grain-to-grain content,
+    discarding all payload attributes and implementation details. -/
+noncomputable def grainLift (R₁ R₂ : D) (h : den R₁ → den R₂) :
     den (grain R₁) → den (grain R₂) :=
   grainProj R₂ ∘ h ∘ (grainEquiv R₁)
 
@@ -69,76 +71,89 @@ noncomputable def factorE (R₁ R₂ : D) (h : den R₁ → den R₂) :
     den R₁ → den (grain R₂) :=
   grainProj R₂ ∘ h
 
-/-! ## PODS §7, Theorem 7.1: Grain Homomorphism -/
+/-! ## PODS §7, Proposition 7.2: Grain Factorization -/
 
-/-- **PODS Theorem 7.1(i) — Factorization:**
+/-- **PODS Proposition 7.2 (Grain Factorization):**
+    For any h : R₁ → R₂, h factors through G[R₂]:
     h = f_{g_{R₂}} ∘ e where e = grain_{R₂} ∘ h.
-    Any h : R₁ → R₂ factors through G[R₂]. -/
-theorem grain_homomorphism_i (R₁ R₂ : D) (h : den R₁ → den R₂) :
+    Follows directly from f_{g_{R₂}} being an isomorphism (Def 3.1),
+    independently of the grain lift φ. -/
+theorem grain_factorization (R₁ R₂ : D) (h : den R₁ → den R₂) :
     h = (grainEquiv R₂) ∘ (factorE R₁ R₂ h) := by
   funext x
   simp only [Function.comp_apply, factorE, grainProj,
     Equiv.apply_symm_apply]
 
-/-- **Lemma (Grain Factorization Square):**
-    e = f_{G₁G₂} ∘ grain_{R₁}. The factoring map decomposes through
-    the source grain. Used to derive Thm 7.1(ii) from 7.1(i). -/
-theorem grain_factorization_square (R₁ R₂ : D) (h : den R₁ → den R₂) :
-    factorE R₁ R₂ h = (grainFactor R₁ R₂ h) ∘ (grainProj R₁) := by
+/-- The factoring map decomposes via the grain lift:
+    e = φ(h) ∘ grain_{R₁}. Noted after Proposition 7.2. -/
+theorem grain_factorization_decomposition
+    (R₁ R₂ : D) (h : den R₁ → den R₂) :
+    factorE R₁ R₂ h = (grainLift R₁ R₂ h) ∘ (grainProj R₁) := by
   funext x
-  simp only [Function.comp_apply, factorE, grainFactor, grainProj,
+  simp only [Function.comp_apply, factorE, grainLift, grainProj,
     Equiv.apply_symm_apply]
 
-/-- **PODS Theorem 7.1(ii) — Commutativity:**
-    h = f_{g_{R₂}} ∘ f_{G₁G₂} ∘ grain_{R₁}.
-    The grain factorization square commutes: every transformation
-    decomposes into extract source grain, map between grains, expand
-    via co-domain grain isomorphism. This establishes grain projection
-    as a **homomorphism**. -/
-theorem grain_homomorphism_ii (R₁ R₂ : D) (h : den R₁ → den R₂) :
-    h = (grainEquiv R₂) ∘ (grainFactor R₁ R₂ h) ∘ (grainProj R₁) := by
+/-- Full decomposition: h = f_{g_{R₂}} ∘ φ(h) ∘ grain_{R₁}.
+    Derived from Proposition 7.2 and the decomposition of e. -/
+theorem grain_factorization_full (R₁ R₂ : D) (h : den R₁ → den R₂) :
+    h = (grainEquiv R₂) ∘ (grainLift R₁ R₂ h) ∘ (grainProj R₁) := by
   funext x
-  simp only [Function.comp_apply, grainFactor, grainProj,
+  simp only [Function.comp_apply, grainLift, grainProj,
     Equiv.apply_symm_apply]
 
-/-! ## PODS §7, Corollary 7.2: Grain Compositionality -/
+/-! ## PODS §7, Theorem: Grain Homomorphism -/
 
-/-- **PODS Corollary 7.2 (Grain Compositionality):**
-    f_{G₁G₃} = f_{G₂G₃} ∘ f_{G₁G₂}.
-    The grain-level factor of a composed transformation equals the
-    composition of the individual grain-level factors. Follows from
-    commutativity (Thm 7.1(ii)): the intermediate type R₂ cancels
-    via f_{g_{R₂}} ∘ grain_{R₂} = id. -/
-theorem grain_compositionality (R₁ R₂ R₃ : D)
-    (h₁ : den R₁ → den R₂) (h₂ : den R₂ → den R₃) :
-    grainFactor R₁ R₃ (h₂ ∘ h₁) =
-      (grainFactor R₂ R₃ h₂) ∘ (grainFactor R₁ R₂ h₁) := by
+/-- **PODS Theorem (Grain Homomorphism):**
+    grain_{R₂} ∘ h = φ(h) ∘ grain_{R₁}.
+    Grain projection commutes with transformation: transforming and then
+    projecting to grain yields the same result as projecting to grain
+    and then applying the grain lift. This is the **homomorphism
+    condition** — it does not matter whether one works at the level of
+    full types or at the grain level. -/
+theorem grain_homomorphism (R₁ R₂ : D) (h : den R₁ → den R₂) :
+    grainProj R₂ ∘ h = (grainLift R₁ R₂ h) ∘ (grainProj R₁) := by
   funext x
-  simp only [Function.comp_apply, grainFactor, grainProj,
+  simp only [Function.comp_apply, grainLift, grainProj,
     Equiv.apply_symm_apply]
 
-/-! ## PODS §7 Remark: Surjectivity Characterization -/
+/-! ## PODS §7, Remark: Surjectivity Characterization -/
 
 /-- **PODS Remark (Connection to Grain Ordering):**
-    h surjective ⟺ f_{G₁G₂} surjective (grain iso and its inverse are
-    bijections). R₁ ≤_g R₂ precisely when the grain-level factor is
-    a surjection. -/
-theorem grain_factor_surj_iff (R₁ R₂ : D) (h : den R₁ → den R₂) :
+    h surjective ⟺ φ(h) surjective (grain projection and grain function
+    are bijections). R₁ ≤_g R₂ precisely when the grain lift is a
+    surjection. -/
+theorem grain_lift_surj_iff (R₁ R₂ : D) (h : den R₁ → den R₂) :
     Function.Surjective h ↔
-      Function.Surjective (grainFactor R₁ R₂ h) := by
+      Function.Surjective (grainLift R₁ R₂ h) := by
   constructor
   · intro hs y
     obtain ⟨z, hz⟩ := hs ((grainEquiv R₂) y)
     exact ⟨(grainEquiv R₁).symm z, by
-      simp only [grainFactor, grainProj, Function.comp_apply,
+      simp only [grainLift, grainProj, Function.comp_apply,
         Equiv.apply_symm_apply, hz, Equiv.symm_apply_apply]⟩
   · intro hs y
     obtain ⟨w, hw⟩ := hs ((grainEquiv R₂).symm y)
     refine ⟨(grainEquiv R₁) w, ?_⟩
     have : (grainEquiv R₂).symm (h ((grainEquiv R₁) w)) =
            (grainEquiv R₂).symm y := by
-      simpa only [grainFactor, grainProj, Function.comp_apply]
+      simpa only [grainLift, grainProj, Function.comp_apply]
         using hw
     exact (grainEquiv R₂).symm.injective this
+
+/-! ## PODS §7, Corollary: Grain Compositionality -/
+
+/-- **PODS Corollary (Grain Compositionality):**
+    φ(h₂ ∘ h₁) = φ(h₂) ∘ φ(h₁).
+    The grain lift of a composed transformation equals the composition
+    of the individual grain lifts. This is the algebraic homomorphism
+    condition. Follows from the grain homomorphism: the intermediate
+    type R₂ cancels via f_{g_{R₂}} ∘ grain_{R₂} = id. -/
+theorem grain_compositionality (R₁ R₂ R₃ : D)
+    (h₁ : den R₁ → den R₂) (h₂ : den R₂ → den R₃) :
+    grainLift R₁ R₃ (h₂ ∘ h₁) =
+      (grainLift R₂ R₃ h₂) ∘ (grainLift R₁ R₂ h₁) := by
+  funext x
+  simp only [Function.comp_apply, grainLift, grainProj,
+    Equiv.apply_symm_apply]
 
 end SemanticGrainStructure
