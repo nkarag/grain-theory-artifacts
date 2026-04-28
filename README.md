@@ -16,6 +16,7 @@ This repository provides comprehensive artifacts demonstrating grain theory's im
 3. **Lean 4 Pipeline Formalization** - Machine-checkable formal proofs of pipeline correctness
 4. **Type System Encodings** - Grain encoding implementations across three type systems (Python/mypy, Lean 4, Agda)
 5. **SQL Validation** - 100 equi-join examples validating the grain inference formulas
+6. **Agda Behavioral Classes** - Mechanized type class definitions for all behavioral classes (§5, Definition 5.5) with explicit grain conditions, ordering constraints, and subclass hierarchy
 
 All artifacts are fully functional and demonstrate that grain theory enables systematic verification of data transformation correctness through type-level reasoning.
 
@@ -57,6 +58,16 @@ grain-theory-artifacts/
 │       ├── GrainDefinitions.agda
 │       ├── GrainedData.agda
 │       └── README.md
+│
+├── agda-behavioral-classes/   # PODS 2027: Mechanized behavioral type classes (Agda)
+│   ├── GrainTheory/           # Core grain theory modules (4 files)
+│   ├── GrainTheory.agda       # Root grain theory module
+│   ├── PDA/                   # Pipeline Design Algebra modules
+│   │   ├── Collections.agda   # Data collection abstraction
+│   │   ├── Relations.agda     # Collection-level relations
+│   │   └── BehavioralClasses.agda  # ** 9 behavioral type classes **
+│   ├── pdl.agda-lib           # Library file
+│   └── README.md              # Module guide + paper correspondence
 │
 └── sql-validation/            # Experimental validation
     ├── dbscripts/
@@ -127,7 +138,28 @@ agda GrainDefinitions.agda  # Verify grain definitions
 agda GrainedData.agda       # Verify grain-aware data structures
 ```
 
-### 3. SQL Validation Experiments
+### 3. Agda Behavioral Classes
+
+Mechanized type class definitions for all behavioral classes from Section 5 of the PODS 2027 paper. Each class is an Agda record with an explicit `grain-cond` field.
+
+**Prerequisites:**
+- Agda 2.6.3 or later
+- Agda standard library (agda-stdlib)
+
+```bash
+cd agda-behavioral-classes
+agda PDA/BehavioralClasses.agda  # Type-checks all 8 modules
+```
+
+**What to observe:**
+- All 9 behavioral classes type-check with explicit grain conditions
+- `EventDtm`, `FromDtm`, `SnapshotDtm` are generic type parameters with ordering constraints
+- Subclass hierarchy via instance fields (e.g., `IsMultiVersion` contains `IsEvent`)
+- Worked examples: `Customer` as `IsEntity`, `Order` as `IsEvent`, with `BC[ Customer ] ≡ Entity-Tag` proved by `refl`
+
+See `agda-behavioral-classes/README.md` for the full module guide and paper correspondence table.
+
+### 4. SQL Validation Experiments
 
 100 PostgreSQL examples validating the grain inference formulas across all cases.
 
