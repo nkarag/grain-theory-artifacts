@@ -1,18 +1,24 @@
 /-
-  GrainTheory.Relations.IntersectionUnion — Intersection and union with grain
+  GrainTheory.Relations.IntersectionUnion — Lattice absorption laws
 
-  PODS Theorem intersection-grain:
-    If G[R₁] ⊆_typ G[R₂], then R₁ ≡_g (R₁ ∩ R₂).
-    Equivalently: G[R₁] ≡_g G[R₁ ∩ R₂].
+  PODS Theorem (Lattice Absorption): For any data types R₁, R₂ with
+  R₂ ≤_g R₁ (equivalently G[R₁] ⊆_typ G[R₂] by Thm Grain Subset):
+    G[R₁ ∩ R₂] ≡_g G[R₁]   (lub absorbs to coarser grain)
+    G[R₁ ∪ R₂] ≡_g G[R₂]   (glb absorbs to finer grain)
 
-  PODS Theorem union-grain:
-    If G[R₁] ⊆_typ G[R₂], then R₂ ≡_g (R₁ ∪ R₂).
-    Equivalently: G[R₂] ≡_g G[R₁ ∪ R₂].
+  These are the standard lattice absorption laws applied to the grain
+  lattice, with ∩_typ as the lub and ∪_typ as the glb. The lub/glb
+  characterization extends naturally to any algebraic data type
+  (PODS §2 natural-extension paragraph); the field-set formulas
+  realize it on product types.
 
-  Both proofs verify the conditions of the Grain Inference Sufficient
-  Condition (Theorem 4.9) for the appropriate G and target type.
+  Mechanized as two lemmas (intersection_grain, union_grain) plus a
+  combined theorem (lattice_absorption). Both lemmas verify the
+  conditions of the Grain Inference Sufficient Condition for the
+  appropriate G and target type.
 
-  Reference: PODS 2027 paper, §4, Theorems 4.10-4.11; Appendix proofs.
+  Reference: PODS 2027 paper, §4.3, Theorem (Lattice Absorption);
+  Appendix proof.
 -/
 
 import GrainTheory.Relations.GrainInference
@@ -145,5 +151,19 @@ theorem union_grain_isGrainOf {R₁ R₂ : D}
   have h_idem : iso (grain (grain R₂)) (grain R₂) :=
     Foundations.grain_idempotent R₂
   exact grain_inference_isGrainOf h_sub_union h_le h_idem
+
+/-! ## PODS Theorem: Lattice Absorption (combined) -/
+
+/-- PODS Thm (Lattice Absorption): Both absorption laws of the grain
+    lattice combined. When G[R₁] ⊆_typ G[R₂] (equivalently R₂ ≤_g R₁
+    by the Grain Subset Theorem):
+      - G[R₁ ∩ R₂] ≡_g G[R₁]   (lub absorbs to coarser grain)
+      - G[R₁ ∪ R₂] ≡_g G[R₂]   (glb absorbs to finer grain)
+
+    Direct corollary of intersection_grain and union_grain. -/
+theorem lattice_absorption {R₁ R₂ : D}
+    (h : sub (grain R₁) (grain R₂)) :
+    grainEq R₁ (inter R₁ R₂) ∧ grainEq R₂ (union R₁ R₂) :=
+  ⟨intersection_grain h, union_grain h⟩
 
 end GrainTheory.Relations

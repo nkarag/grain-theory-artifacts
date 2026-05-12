@@ -142,6 +142,9 @@ theorem equijoin_grain_complete
     (i)   F₁ ⊆ Res           — Lemma A (equijoin_candidate_sub)
     (ii)  F₁ ≤_g Res          — derived: Lemmas A+B → F₁ ≅ Res → grainLe
     (iii) G[F₁] ≅ F₁          — equijoin_candidate_idempotent
+          This is informational independence (PODS Definition 6.2):
+          the components of F₁ carry no cross-dependencies through
+          grain determination and join equality.
 
     **No naming convention or disjointness hypothesis needed.** -/
 theorem equijoin_grain_identity

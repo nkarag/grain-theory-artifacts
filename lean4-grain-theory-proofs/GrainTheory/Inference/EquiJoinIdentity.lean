@@ -7,10 +7,15 @@
 
       G[Res] = G[R₁] ∪_typ (G[R₂] -_typ Jk)
 
-  This file proves GIT condition (iii): G[F₁] ≅ F₁, where
-  F₁ = G[R₁] ∪_typ (G[R₂] \_{typ} Jk).
+  This file:
+  1. Defines `InformationallyIndependent` (PODS Definition 6.2):
+     sub-types of a join result are informationally independent when
+     their union is irreducible (a grain fixpoint): G[T₁ ∪ ··· ∪ Tₖ] ≅ T₁ ∪ ··· ∪ Tₖ.
 
-  **Proof:**
+  2. Proves GIT condition (iii): the equi-join candidate F₁ = G[R₁] ∪ (G[R₂] \ Jk)
+     is informationally independent.
+
+  **Proof of condition (iii):**
   1. grain_union: G[F₁] ≅ G[G[R₁]] ∪ G[G[R₂]\Jk]
   2. grain_idempotent: G[G[R₁]] ≅ G[R₁]
   3. grain_diff_idempotent: G[G[R₂]\Jk] ≅ G[R₂]\Jk
@@ -20,7 +25,7 @@
   Combined with conditions (i) and (ii) (Lemmas A and B), the
   strengthened GIT (grain_inference_isGrainOf) gives IsGrainOf F₁ Res.
 
-  Reference: PODS 2027, §6 + Appendix proof (Condition iii paragraph).
+  Reference: PODS 2027, §6, Definition 6.2 + Appendix proof (Condition iii paragraph).
 -/
 
 import GrainTheory.Inference.EquiJoinAxioms
@@ -60,10 +65,30 @@ private theorem union_iso (A A' B B' : D) (hA : iso A A') (hB : iso B B') :
         (sub_union_right A B)
   exact sub_antisymm _ _ h_fwd h_bwd
 
+/-- **Informational Independence (PODS Definition 6.2).**
+
+    A type G is *informationally independent* (or *irreducible*) if its grain
+    is isomorphic to itself: G[G] ≅ G.
+
+    In the context of equi-join grain inference, pairwise disjoint sub-types
+    T₁, ..., Tₖ of a join result are informationally independent within the
+    result if no field of Tⱼ is determined by the fields of Tᵢ (for i ≠ j)
+    through the combination of grain determination (G[Rₘ] determines all
+    fields of Rₘ) and join equality (r₁.Jk = r₂.Jk).
+
+    Equivalently, their union is irreducible:
+      G[T₁ ∪ ··· ∪ Tₖ] ≅ T₁ ∪ ··· ∪ Tₖ
+
+    This is GIT condition (iii): the candidate grain is a grain fixpoint.
+    Without this condition, only grain equivalence (≡_g) holds — the
+    strengthened GIT requires it for grain identity (IsGrainOf). -/
+def InformationallyIndependent (G : D) : Prop :=
+  iso (grain G) G
+
 /-- **GIT Condition (iii): G[F₁] ≅ F₁.**
 
-    The candidate grain F₁ = G[R₁] ∪ (G[R₂] \ Jk) is a grain fixpoint:
-    its grain is isomorphic to itself.
+    The candidate grain F₁ = G[R₁] ∪ (G[R₂] \ Jk) is informationally
+    independent (PODS Definition 6.2): its grain is isomorphic to itself.
 
     Proof:
     - grain_union: G[A ∪ B] ≅ G[A] ∪ G[B]
@@ -93,5 +118,14 @@ theorem equijoin_candidate_idempotent (R₁ R₂ Jk : D) :
     union_iso (grain A) A (grain B) B h_idem_A h_idem_B
   -- Compose: G[A ∪ B] ≅ G[A] ∪ G[B] ≅ A ∪ B
   exact iso_trans _ _ _ h_dist h_union
+
+/-- The equi-join candidate F₁ = G[R₁] ∪ (G[R₂] \ Jk) is informationally
+    independent (PODS Definition 6.2).
+
+    This is a named wrapper around `equijoin_candidate_idempotent`,
+    stating the result in terms of `InformationallyIndependent`. -/
+theorem equijoin_candidate_informationally_independent (R₁ R₂ Jk : D) :
+    InformationallyIndependent (union (grain R₁) (diff (grain R₂) Jk)) :=
+  equijoin_candidate_idempotent R₁ R₂ Jk
 
 end GrainTheory.Inference
