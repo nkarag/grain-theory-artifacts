@@ -1,11 +1,11 @@
 /-
   GrainTheory.Entity.EKHierarchy — EK-Grain-Type Hierarchy
 
-  PODS §5, Theorem (EK–Grain–Type Hierarchy):
+  PODS §5, Theorem 5.3 (EK–Grain–Type Hierarchy):
     For any data type R with entity E, EK(R) ⊆_typ G[R] ⊆_typ R.
 
-  The core hierarchy theorem is proved in EntityDef.lean. This module
-  provides the focused interface and additional hierarchy-related results,
+  The core hierarchy theorem is proved in EntityDef.lean (IsEntityOf.ek_sub_grain).
+  This module provides the focused interface and additional hierarchy-related results,
   including the data integration remark from the PODS paper.
 -/
 
@@ -20,13 +20,13 @@ open GrainStructure
 open GrainTheory.Foundations
 open GrainTheory.Relations
 
-/-! ## EK–Grain–Type Hierarchy (PODS Theorem)
+/-! ## EK–Grain–Type Hierarchy (PODS Theorem 5.3)
 
   The hierarchy EK(R) ⊆_typ G[R] ⊆_typ R is proved in EntityDef.lean.
   We re-export the key results here for a focused interface.
 
   Main theorem: `ek_grain_type_hierarchy`
-  - Left conjunct:  G[E] ⊆_typ G[R]  (entity key ⊆ grain)
+  - Left conjunct:  G[E] ⊆_typ G[R]  (entity key ⊆ grain) — *derived*
   - Right conjunct: G[R] ⊆_typ R     (grain ⊆ type)
 
   Transitivity: `ek_sub_type`
@@ -34,7 +34,7 @@ open GrainTheory.Relations
 -/
 
 -- The following are re-exported from EntityDef.lean:
--- ek_grain_type_hierarchy, ek_sub_grain, grain_sub_type, ek_sub_type
+-- ek_grain_type_hierarchy, ek_sub_type, IsEntityOf.ek_sub_grain
 
 /-! ## Hierarchy as Chain of Grain Orderings
 
@@ -45,10 +45,10 @@ open GrainTheory.Relations
 -/
 
 /-- If E is an entity of R, then R ≤_g E: R has finer grain than its entity.
-    This is the grain-ordering reading of EK(R) ⊆_typ G[R]. -/
+    This is the grain-ordering reading of EK(R) ⊆_typ G[R] (Theorem 5.3). -/
 theorem entity_implies_grainLe {E R : D} (h : IsEntityOf E R) :
     grainLe R E :=
-  h
+  h.ek_sub_grain
 
 /-! ## Data Integration at the Entity Level (PODS Remark)
 
@@ -67,14 +67,14 @@ theorem entity_implies_grainLe {E R : D} (h : IsEntityOf E R) :
 theorem shared_entity_grainLe {E R₁ R₂ : D}
     (h₁ : IsEntityOf E R₁) (h₂ : IsEntityOf E R₂) :
     grainLe R₁ E ∧ grainLe R₂ E :=
-  ⟨h₁, h₂⟩
+  ⟨h₁.ek_sub_grain, h₂.ek_sub_grain⟩
 
 /-- Data integration (subset form): if R₁ and R₂ share entity E, both
     entity keys sit inside both grains: G[E] ⊆_typ G[R₁] and G[E] ⊆_typ G[R₂]. -/
 theorem shared_entity_ek_sub {E R₁ R₂ : D}
     (h₁ : IsEntityOf E R₁) (h₂ : IsEntityOf E R₂) :
     sub (grain E) (grain R₁) ∧ sub (grain E) (grain R₂) :=
-  ⟨h₁, h₂⟩
+  ⟨h₁.ek_sub_grain, h₂.ek_sub_grain⟩
 
 /-! ## Hierarchy Strengthening: EntityKey Bundle
 
