@@ -31,7 +31,7 @@ namespace GrainTheory.CalcG
 
 variable {D : Type*} [EquiJoinStructure D]
 
-open GrainStructure (sub iso grain union inter diff prod sum
+open GrainStructure (sub ssub indep iso grain union inter diff prod sum
   sub_refl sub_trans iso_refl iso_symm iso_trans iso_sub
   grain_sub grain_iso grain_irred
   sub_union_left sub_union_right union_sub
@@ -42,7 +42,8 @@ open EquiJoinStructure (determines determines_iso_of_sub)
 
 open GrainTheory.Relations (grainEq grainEq_of_iso)
 
-open GrainTheory.Foundations (IsGrainOf grain_isGrainOf multiple_grains_iso)
+open GrainTheory.Foundations (IsGrainOf IsIrreducible grain_isGrainOf
+  grain_irreducible multiple_grains_iso)
 
 /-! ## RA Expression Type
 
@@ -73,10 +74,16 @@ inductive RAExpr (D : Type*) [EquiJoinStructure D] : Type _ where
   /-- Selection σ_θ: filters rows, type unchanged.
       Res ≅ R (output iso to input). -/
   | Selection (e : RAExpr D) (R Res : D) (h_iso : iso Res R) : RAExpr D
-  /-- Projection π_S: project onto S ⊆ R, when grain survives.
-      S ⊆ R, G[R] ⊆ S (grain fields survive in projection). -/
+  /-- Projection π_S: project onto S, when the grain survives.
+      `S ⊑ R` and `G[R] ⊑ S` — both structural, as the appendix states them:
+      the projection keeps a sub-set of R's columns, and every grain
+      *component* is among those kept.
+      The structural test is the schema-decidable one CalcG performs
+      (arXiv Table 2); it is sound but conservative, so a projection that
+      keeps the grain only via an alternative key is not constructible here
+      (`grain_projection` covers that case with the exact condition). -/
   | Projection (e : RAExpr D) (R S : D)
-      (h_SR : sub S R) (h_GS : sub (grain R) S) : RAExpr D
+      (h_SR : ssub S R) (h_GS : ssub (grain R) S) : RAExpr D
   /-- Extension ε: add computed column D = f(R).
       Res ≅ R × D_ext, and R × D_ext ≅ R (D is functionally determined). -/
   | Extension (e : RAExpr D) (R D_ext Res : D)
@@ -92,8 +99,11 @@ inductive RAExpr (D : Type*) [EquiJoinStructure D] : Type _ where
       Res ≅ R (same type). -/
   | SetOp (e₁ e₂ : RAExpr D) (R Res : D) (h_iso : iso Res R) : RAExpr D
   /-- Theta join ⋈_θ: cross product filtered by θ.
-      Res type is R₁ × R₂. -/
-  | ThetaJoin (e₁ e₂ : RAExpr D) (R₁ R₂ : D) : RAExpr D
+      Res type is R₁ × R₂. Requires the inputs to be **independent** — no
+      determination declared across them — which is the hypothesis of the
+      Grain of Product Types theorem (arXiv Thm 3.8). Without it the product
+      of grains is reducible and the rule over-reports. -/
+  | ThetaJoin (e₁ e₂ : RAExpr D) (R₁ R₂ : D) (h_indep : indep R₁ R₂) : RAExpr D
   /-- Semi-join ⋉: returns rows from R₁ matching R₂.
       Res ≅ R₁ (type unchanged). -/
   | SemiJoin (e₁ e₂ : RAExpr D) (R₁ _R₂ Res : D) (h_iso : iso Res R₁) : RAExpr D
@@ -104,9 +114,10 @@ inductive RAExpr (D : Type*) [EquiJoinStructure D] : Type _ where
       Carries schema constraints: Jk ⊆ R₁, Jk ⊆ R₂,
       Res ↔ (R₁ \ Jk) × (R₂ \ Jk) × Jk (mutual containment). -/
   | EquiJoin (e₁ e₂ : RAExpr D) (R₁ R₂ Jk Res : D)
-      (h_jk_r1 : sub Jk R₁) (h_jk_r2 : sub Jk R₂)
+      (h_jk_r1 : ssub Jk R₁) (h_jk_r2 : ssub Jk R₂)
       (h_res_sub : sub Res (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk))
-      (h_res_sup : sub (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk) Res) : RAExpr D
+      (h_res_sup : sub (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk) Res)
+      (h_adm : Inference.AdmissibleLabeling R₁ R₂ Jk) : RAExpr D
 
 /-! ## Output Type Function
 
@@ -122,10 +133,10 @@ def RAExpr.outType {D : Type*} [EquiJoinStructure D] : RAExpr D → D
   | .Rename _ _ Res _ => Res
   | .Grouping _ _ _ Res _ => Res
   | .SetOp _ _ _ Res _ => Res
-  | .ThetaJoin _ _ R₁ R₂ => prod R₁ R₂
+  | .ThetaJoin _ _ R₁ R₂ _ => prod R₁ R₂
   | .SemiJoin _ _ _ _ Res _ => Res
   | .AntiJoin _ _ _ _ Res _ => Res
-  | .EquiJoin _ _ _ _ _ Res _ _ _ _ => Res
+  | .EquiJoin _ _ _ _ _ Res _ _ _ _ _ => Res
 
 /-! ## CalcG Function
 
@@ -163,12 +174,12 @@ def calcG {D : Type*} [EquiJoinStructure D] : RAExpr D → D
   -- Set operations: grain of (either) input
   | .SetOp _e₁ _ R _ _ => grain R
   -- Theta join: product of grains
-  | .ThetaJoin _ _ R₁ R₂ => prod (grain R₁) (grain R₂)
+  | .ThetaJoin _ _ R₁ R₂ _ => prod (grain R₁) (grain R₂)
   -- Semi-join / Anti-join: grain of R₁
   | .SemiJoin _ _ R₁ _ _ _ => grain R₁
   | .AntiJoin _ _ R₁ _ _ _ => grain R₁
   -- Equi-join: CalcG formula
-  | .EquiJoin _ _ R₁ R₂ Jk _ _ _ _ _ =>
+  | .EquiJoin _ _ R₁ R₂ Jk _ _ _ _ _ _ =>
       union (grain R₁) (diff (grain R₂) Jk)
 
 /-! ## CalcG Correctness Theorem
@@ -206,7 +217,7 @@ theorem calcG_iso_grain : ∀ (e : RAExpr D), iso (calcG e) (grain (RAExpr.outTy
   -- Projection: calcG = G[R], outType = S
   -- By grain_projection: G[S] ≅ G[R], so G[R] ≅ G[S]
   | .Projection _ R S h_SR h_GS =>
-    iso_symm _ _ (Inference.grain_projection R S h_SR h_GS)
+    iso_symm _ _ (Inference.grain_projection_structural R S h_SR h_GS)
   -- Extension: calcG = G[R], outType = Res
   -- By grain_extension: G[Res] ≅ G[R], so G[R] ≅ G[Res]
   | .Extension _ R D_ext Res h_res h_det =>
@@ -225,8 +236,8 @@ theorem calcG_iso_grain : ∀ (e : RAExpr D), iso (calcG e) (grain (RAExpr.outTy
     iso_symm _ _ (Inference.grain_set_ops R Res h_iso)
   -- Theta join: calcG = G[R₁] × G[R₂], outType = R₁ × R₂
   -- By grain_theta_join: G[R₁ × R₂] ≅ G[R₁] × G[R₂]
-  | .ThetaJoin _ _ R₁ R₂ =>
-    iso_symm _ _ (Inference.grain_theta_join R₁ R₂)
+  | .ThetaJoin _ _ R₁ R₂ h_indep =>
+    iso_symm _ _ (Inference.grain_theta_join R₁ R₂ h_indep)
   -- Semi-join: calcG = G[R₁], outType = Res
   -- By grain_semijoin: G[Res] ≅ G[R₁], so G[R₁] ≅ G[Res]
   | .SemiJoin _ _ R₁ _R₂ Res h_iso =>
@@ -240,10 +251,10 @@ theorem calcG_iso_grain : ∀ (e : RAExpr D), iso (calcG e) (grain (RAExpr.outTy
   -- Then F₁ ≅ Res → G[F₁] ≅ G[Res] (grainEq_of_iso)
   -- And F₁ has G[F₁] ≅ F₁ (from equijoin_candidate_idempotent)
   -- So F₁ ≅ G[F₁] ≅ G[Res]
-  | .EquiJoin _ _ R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sub h_res_sup => by
+  | .EquiJoin _ _ R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sub h_res_sup h_adm => by
     set F₁ := union (grain R₁) (diff (grain R₂) Jk)
     have h_identity : IsGrainOf F₁ Res :=
-      Inference.equijoin_grain_identity R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sub h_res_sup
+      Inference.equijoin_grain_identity R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sub h_res_sup h_adm
     -- F₁ ≅ Res
     have h_F1_Res : iso F₁ Res := h_identity.1
     -- G[F₁] ≅ G[Res] (PODS Thm 4.2)
@@ -251,49 +262,67 @@ theorem calcG_iso_grain : ∀ (e : RAExpr D), iso (calcG e) (grain (RAExpr.outTy
       grainEq_of_iso h_F1_Res
     -- G[F₁] ≅ F₁ (equi-join candidate idempotent)
     have h_idem : iso (grain F₁) F₁ :=
-      Inference.equijoin_candidate_idempotent R₁ R₂ Jk
+      Inference.equijoin_candidate_idempotent R₁ R₂ Jk h_adm
     -- F₁ ≅ G[F₁] ≅ G[Res]
     exact iso_trans _ _ _ (iso_symm _ _ h_idem) h_gF1_gRes
 
-/-- **CalcG Correctness — Grain Identity (PODS Theorem 8.2, strong form).**
+/-- **CalcG output is structurally irreducible.**
+
+    Proved by case analysis on the expression: at every RA node, the grain
+    CalcG produces is irreducible *for a reason specific to that operation*.
+
+    This replaces the earlier argument, which derived irreducibility of
+    `calcG e` by transporting it across the isomorphism
+    `calcG e ≅ G[outType e]`. That transport is unsound once irreducibility
+    is structural — an isomorphism carries no information about components.
+    The obligation therefore has to be discharged node by node, and two nodes
+    genuinely need a side condition to discharge it:
+
+    - **ThetaJoin** needs the inputs to be independent (arXiv Thm 3.8);
+    - **EquiJoin** needs an admissible labeling (arXiv Thm 7.2).
+
+    Both are now carried by the corresponding `RAExpr` constructors, so an
+    ill-conditioned pipeline is not constructible. This is the mechanized
+    form of the claim that CalcG's checks are schema-decidable: each side
+    condition is a comparison of component sets. -/
+theorem calcG_irreducible : ∀ (e : RAExpr D), IsIrreducible (calcG e)
+  -- Source: the declared grain of the base relation is irreducible.
+  | .Source R => grain_irreducible R
+  -- Type-preserving operations: the grain is the input's grain.
+  | .Selection _ R _ _ => grain_irreducible R
+  | .Projection _ R _ _ _ => grain_irreducible R
+  | .Extension _ R _ _ _ _ => grain_irreducible R
+  | .Rename _ R _ _ => grain_irreducible R
+  | .SetOp _ _ R _ _ => grain_irreducible R
+  | .SemiJoin _ _ R₁ _ _ _ => grain_irreducible R₁
+  | .AntiJoin _ _ R₁ _ _ _ => grain_irreducible R₁
+  -- Grouping: the grouping key is a grain of the result by construction.
+  | .Grouping _ _ _ _ h_grain => h_grain.toIrreducible
+  -- Theta join: product of independent irreducible grains (Thm 3.8).
+  | .ThetaJoin _ _ R₁ R₂ h_indep =>
+    (Foundations.prod_grain_isGrainOf R₁ R₂ h_indep).toIrreducible
+  -- Equi-join: the candidate is irreducible under an admissible labeling
+  -- (Thm 7.2). This is informational independence (Def 6.2).
+  | .EquiJoin _ _ R₁ R₂ Jk _ _ _ _ _ h_adm =>
+    Inference.equijoin_candidate_irreducible R₁ R₂ Jk h_adm
+
+/-- **CalcG Correctness — Grain Identity (arXiv Theorem 9.2, strong form).**
 
     For any RA expression E:
       IsGrainOf (calcG E) (outType E)
 
-    i.e., CalcG(E) is a grain of the output type: it satisfies both
-    isomorphism and irreducibility.
+    i.e. CalcG(E) is a grain of the output type: it satisfies both the
+    isomorphism clause and structural irreducibility.
 
-    This is strictly stronger than `calcG_iso_grain` (which only gives ≅).
-    The proof combines `calcG_iso_grain` with `grain_isGrainOf` and
-    `multiple_grains_iso` to transfer the grain property. -/
-theorem calcG_isGrainOf : ∀ (e : RAExpr D),
-    IsGrainOf (calcG e) (RAExpr.outType e) := by
-  intro e
-  -- Step 1: calcG(e) ≅ G[outType(e)] (from calcG_iso_grain)
-  have h_iso := calcG_iso_grain e
-  -- Step 2: G[outType(e)] is a grain of outType(e) (canonical)
-  have h_canonical := grain_isGrainOf (RAExpr.outType e)
-  -- Step 3: calcG(e) ≅ outType(e) (transitivity)
-  have h_iso_out : iso (calcG e) (RAExpr.outType e) :=
-    iso_trans _ _ _ h_iso (grain_iso (RAExpr.outType e))
-  -- Step 4: Irreducibility — for any S ⊆ calcG(e) with S ≅ outType(e), calcG(e) ⊆ S
-  have h_irred : ∀ S : D, sub S (calcG e) → iso S (RAExpr.outType e) →
-      sub (calcG e) S := by
-    intro S h_S_sub h_S_iso
-    -- calcG(e) ≅ G[outType(e)] and S ⊆ calcG(e), so S ⊆ G[outType(e)]
-    -- via iso_sub: calcG(e) ≅ G[out] → S ⊆ calcG(e) → S ⊆ G[out]
-    have h_S_sub_grain : sub S (grain (RAExpr.outType e)) :=
-      iso_sub _ _ _ (iso_symm _ _ h_iso) h_S_sub
-    -- grain_irred: S ⊆ G[out] and S ≅ out → G[out] ⊆ S
-    have h_grain_sub_S : sub (grain (RAExpr.outType e)) S :=
-      grain_irred (RAExpr.outType e) S h_S_sub_grain h_S_iso
-    -- calcG(e) ⊆ G[out] (via iso_sub: calcG(e) ≅ G[out] → calcG(e) ⊆ calcG(e) → calcG(e) ⊆ G[out])
-    -- Wait: we need calcG(e) ⊆ G[out]. From calcG(e) ≅ G[out]:
-    have h_calc_sub_grain : sub (calcG e) (grain (RAExpr.outType e)) :=
-      iso_sub _ _ _ (iso_symm _ _ h_iso) (sub_refl (calcG e))
-    -- Chain: calcG(e) ⊆ G[out] ⊆ S
-    exact sub_trans _ _ _ h_calc_sub_grain h_grain_sub_S
-  exact ⟨h_iso_out, h_irred⟩
+    The isomorphism comes from `calcG_iso_grain`; irreducibility from
+    `calcG_irreducible`. Grain-hood factors into exactly these two
+    (`isGrainOf_iff_iso_and_irreducible`), so the two halves compose
+    directly. -/
+theorem calcG_isGrainOf (e : RAExpr D) :
+    IsGrainOf (calcG e) (RAExpr.outType e) :=
+  Foundations.IsGrainOf.mk'
+    (iso_trans _ _ _ (calcG_iso_grain e) (grain_iso (RAExpr.outType e)))
+    (calcG_irreducible e)
 
 /-! ## Sequential Composition
 

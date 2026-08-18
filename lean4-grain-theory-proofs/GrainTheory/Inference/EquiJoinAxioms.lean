@@ -9,6 +9,7 @@
 -/
 
 import GrainTheory.Basic
+import GrainTheory.Foundations.GrainDef
 import GrainTheory.Foundations.Product
 
 universe u
@@ -89,6 +90,46 @@ class EquiJoinStructure (D : Type u) extends GrainStructure D where
       determination. Converse of `determines_iso_of_sub` for the determines part. -/
   iso_determines : ∀ (S R : D), iso S R → sub S R → determines S R
 
+  -- ================================================================
+  -- Structural irreducibility of the equi-join candidate (arXiv Thm 7.2)
+  -- ================================================================
+
+  /-- **Equi-join candidate irreducibility (arXiv Thm 7.2, irreducibility
+      step).**
+
+      Writing `Gᵢ^Jk = G[Rᵢ] ∩ Jk` for each input's join-key grain portion,
+      the candidate `G[R₁] ∪ (G[R₂] \ Jk)` is structurally irreducible
+      exactly when `G₂^Jk` is *not* a proper structural subtype of `G₁^Jk`.
+
+      arXiv justification (Thm 7.2 proof, "A field of G₁^rest or G₂^rest is
+      never redundant…"): the candidate's fields are those of `G[R₁]` — split
+      into `G₁^rest` and `G₁^Jk` — together with `G₂^rest = G[R₂] \ Jk`. A
+      field of `G₁^rest` or `G₂^rest` is never redundant: it is a non-Jk field
+      of an irreducible grain, recovered neither from the rest of that grain
+      nor, lying outside Jk, through the join. A field `f ∈ G₁^Jk` can be
+      recovered only via the opposite grain `G[R₂]` through the join, which
+      requires the candidate minus `f` to still contain all of
+      `G[R₂] = G₂^rest ∪ G₂^Jk`. Since the candidate's Jk-fields are exactly
+      `G₁^Jk`, such an `f` exists iff `G₂^Jk ⊏ G₁^Jk`. Hence the candidate is
+      reducible iff `G₂^Jk ⊏ G₁^Jk`, which is the hypothesis negated here.
+
+      This covers both admissible cases of Thm 7.2: the *canonical* labeling
+      (`G₁^Jk ⊑ G₂^Jk`) and the *incomparable* case both satisfy
+      `¬ (G₂^Jk ⊏ G₁^Jk)`; only the strict reverse labeling fails it, and
+      there the candidate genuinely is reducible.
+
+      **Relation routing.** Both the gate and the reducibility criterion are
+      structural: `⊑` for the canonical labeling, `⊏` for the strict
+      comparison. The paper agrees as of the §7/appendix notation sweep
+      (`6963ec1`, `4ae23dd`), which converted the six `⊊` sites to `⊏` and the
+      labeling comparisons to `⊑`. -/
+  equijoin_candidate_irred : ∀ (R₁ R₂ Jk S : D),
+    ¬ GrainTheory.Foundations.properSsub
+        (inter (grain R₂) Jk) (inter (grain R₁) Jk) →
+    ssub S (union (grain R₁) (diff (grain R₂) Jk)) →
+    iso S (union (grain R₁) (diff (grain R₂) Jk)) →
+    ssub (union (grain R₁) (diff (grain R₂) Jk)) S
+
 namespace EquiJoinStructure
 
 variable {D : Type u} [EquiJoinStructure D]
@@ -97,7 +138,7 @@ variable {D : Type u} [EquiJoinStructure D]
 open GrainStructure (sub iso grain union inter diff prod
   sub_refl sub_trans sub_antisymm
   iso_refl iso_symm iso_trans iso_sub
-  grain_sub grain_iso grain_irred
+  grain_sub grain_iso grain_irred ssub ssub_sub ssub_refl ssub_trans ssub_antisymm indep
   sub_union_left sub_union_right union_sub
   inter_sub_left inter_sub_right sub_inter
   sub_diff sub_union_diff
@@ -119,21 +160,27 @@ theorem determines_self (R : D) : determines R R := by
 theorem determines_of_sub (G B : D) (h : sub B G) : determines G B :=
   determines_sub G G B (determines_self G) h
 
-/-- A proper sub-type of the grain cannot determine the type.
+/-- A **proper structural** subtype of the grain cannot determine the type.
 
-    This is the key irreducibility tool for the equi-join proof (Lemma C):
-    removing any field from the candidate grain gives a proper subset of
-    G[Rᵢ], which by this lemma cannot determine Rᵢ. -/
+    Dropping a component from G[R] — `S ⊏ G[R]` — leaves something that no
+    longer determines R. This is the schema-decidable form of irreducibility:
+    it says the grain has no redundant component.
+
+    Restated over `⊑` as part of the notation split. Under the old
+    `⊆_typ` reading the hypothesis `¬ (G[R] ⊆_typ S)` was unsatisfiable
+    whenever `S ≅ R`, so the lemma had no instances — the vacuity the
+    reviewer identified, visible here as a lemma that could never fire. -/
 theorem grain_irred_determines (R S : D)
-    (h_sub : sub S (grain R)) (h_proper : ¬ sub (grain R) S) :
+    (h_ssub : ssub S (grain R)) (h_proper : ¬ ssub (grain R) S) :
     ¬ determines S R := by
   intro h_det
-  -- S ⊆_typ G[R] ⊆_typ R, so S ⊆_typ R
-  have h_sub_R : sub S R := sub_trans S (grain R) R h_sub (grain_sub R)
+  -- S ⊑ G[R] ⊆_typ R, so S ⊆_typ R
+  have h_sub_R : sub S R :=
+    sub_trans S (grain R) R (ssub_sub S (grain R) h_ssub) (grain_sub R)
   -- S → R and S ⊆_typ R imply S ≅ R
   have h_iso : iso S R := determines_iso_of_sub S R h_det h_sub_R
-  -- S ⊆_typ G[R] and S ≅ R, by grain irreducibility: G[R] ⊆_typ S
-  have h_contra : sub (grain R) S := grain_irred R S h_sub h_iso
+  -- S ⊑ G[R] and S ≅ R, by structural grain irreducibility: G[R] ⊑ S
+  have h_contra : ssub (grain R) S := grain_irred R S h_ssub h_iso
   exact h_proper h_contra
 
 -- ================================================================

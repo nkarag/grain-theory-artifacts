@@ -69,6 +69,21 @@ theorem grainLt_trans {R₁ R₂ R₃ : D}
   have h₃₂ : grainLe R₃ R₂ := grainLe_trans h₃₁ h₁₂.1
   exact h₂₃.2 (grainLe_antisymm h₂₃.1 h₃₂)
 
+/-- The two natural readings of strict grain ordering agree:
+    `R₁ ≤_g R₂ ∧ ¬ (R₁ ≡_g R₂)` is equivalent to `R₁ ≤_g R₂ ∧ ¬ (R₂ ≤_g R₁)`.
+
+    Both directions go through antisymmetry of `⊆_typ` up to isomorphism:
+    mutual grain containment *is* grain equality. Recorded because the chasm-
+    trap development was written against the second reading and the fan-trap
+    development against the first. -/
+theorem grainLt_iff_not_grainLe {R₁ R₂ : D} :
+    grainLt R₁ R₂ ↔ (grainLe R₁ R₂ ∧ ¬ grainLe R₂ R₁) := by
+  constructor
+  · rintro ⟨h_le, h_ne⟩
+    exact ⟨h_le, fun h_ge => h_ne (sub_antisymm _ _ h_ge h_le)⟩
+  · rintro ⟨h_le, h_nge⟩
+    exact ⟨h_le, fun h_eq => h_nge (iso_sub _ _ _ (iso_symm _ _ h_eq) (sub_refl _))⟩
+
 /-- Strict ordering implies non-strict ordering. -/
 theorem grainLe_of_grainLt {R₁ R₂ : D} (h : grainLt R₁ R₂) : grainLe R₁ R₂ :=
   h.1

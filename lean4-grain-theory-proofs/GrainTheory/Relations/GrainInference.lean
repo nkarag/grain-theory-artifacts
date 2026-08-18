@@ -63,49 +63,61 @@ theorem grain_inference' {G R : D}
     grainEq G (grain R) :=
   grain_inference h_sub h_le
 
-/-- **PODS Thm 4.9 (strengthened): Grain Inference → Grain Identity.**
+/-- **arXiv Thm 5.10 (strengthened): Grain Inference → Grain Identity.**
 
-    If (i) G ⊆_typ R, (ii) G ≤_g R, and (iii) G[G] ≅ G, then
-    IsGrainOf G R: G is a grain of R (iso + irreducible).
+    If (i) `G ⊆_typ R`, (ii) `G ≤_g R`, and (iii) `G` is irreducible
+    (`G[G] = G` in the paper's notation), then `IsGrainOf G R`.
 
-    This is strictly stronger than `grain_inference` (which gives ≡_g).
-    Condition (iii) is essential: it provides irreducibility via transfer.
+    Conditions (i) and (ii) run in **opposite** directions and neither
+    implies the other: (i) is a surjection `R ↠ G` (G is *recoverable* from
+    R); (ii) is a surjection `G ↠ R` (G *determines* R). Adding (iii) pins
+    `G[R]` to exactly `G`.
+
+    **Condition (iii) after the structural repair.** It used to read
+    `iso (grain G) G` — G is isomorphic to its own grain — and the proof
+    transported irreducibility from `grain G` to `G` across that
+    isomorphism. That transport is *unsound* under the structural reading:
+    structural irreducibility is not an isomorphism-invariant property (that
+    is exactly the reviewer's point — `CustomerId` and
+    `CustomerId × CustomerName` are isomorphic, yet only the first is
+    irreducible). Condition (iii) is therefore now `IsIrreducible G`
+    directly, which is what the paper's `G[G] = G` asserts: G *is a grain
+    of itself*, not merely isomorphic to one.
+
+    The new hypothesis is strictly stronger — `IsIrreducible G` implies
+    `iso (grain G) G` (`irreducible_iso_grain` below) but not conversely —
+    so every downstream caller now has a real obligation to discharge. That
+    is the intended consequence of the repair: results that *conclude*
+    grain-hood must actually establish irreducibility.
 
     Proof:
-    - ≡_g from `grain_inference` (Steps 1-3)
-    - ≡_g + (iii) + idempotency: G ≅ grain R ≅ R (iso condition)
-    - S ⊆ G, S ≅ R → S ≅ G → grain_irred: grain G ⊆ S
-      → iso_sub + sub_trans: G ⊆ grain G ⊆ S (irred condition) -/
+    - ≡_g from `grain_inference` (conditions (i) and (ii))
+    - the isomorphism clause follows as before
+    - irreducibility is condition (iii), transported to R through
+      `isGrainOf_iff_iso_and_irreducible` -/
 theorem grain_inference_isGrainOf {G R : D}
-    (h_sub : sub G R) (h_le : grainLe G R) (h_idem : iso (grain G) G) :
+    (h_sub : sub G R) (h_le : grainLe G R) (h_irred : Foundations.IsIrreducible G) :
     Foundations.IsGrainOf G R := by
-  -- Step 1-3: grain equivalence (from existing proof)
+  -- Condition (iii) gives G ≅ G[G], which is what the isomorphism step needs.
+  have h_idem : iso (grain G) G :=
+    Foundations.multiple_grains_iso (Foundations.grain_isGrainOf G) h_irred.self_grain
+  -- Conditions (i)+(ii): grain equivalence
   have h_eqg : grainEq G (grain R) := grain_inference h_sub h_le
-  -- h_eqg : iso (grain G) (grain (grain R))
-  -- Step 4: G ≅ R (isomorphism)
+  -- G ≅ R (isomorphism clause)
   have h_grainG_iso_grainR : iso (grain G) (grain R) :=
     iso_trans _ _ _ h_eqg (Foundations.grain_idempotent R)
   have h_G_iso_grainR : iso G (grain R) :=
     iso_trans _ _ _ (iso_symm _ _ h_idem) h_grainG_iso_grainR
   have h_G_iso_R : iso G R :=
     iso_trans _ _ _ h_G_iso_grainR (grain_iso R)
-  -- Step 5: Irreducibility — for any S ⊆ G with S ≅ R, show G ⊆ S
-  have h_irred : ∀ S : D, sub S G → iso S R → sub G S := by
-    intro S h_s_sub_G h_s_iso_R
-    -- S ≅ G (by transitivity: S ≅ R ≅ G⁻¹)
-    have h_s_iso_G : iso S G :=
-      iso_trans _ _ _ h_s_iso_R (iso_symm _ _ h_G_iso_R)
-    -- Transfer S ⊆ G to S ⊆ grain G (via iso_sub: grain G ≅ G → S ⊆ G → S ⊆ grain G)
-    have h_s_sub_grainG : sub S (grain G) :=
-      iso_sub _ _ _ h_idem h_s_sub_G
-    -- grain_irred G S: S ⊆ grain G and S ≅ G → grain G ⊆ S
-    have h_grainG_sub_S : sub (grain G) S :=
-      grain_irred G S h_s_sub_grainG h_s_iso_G
-    -- Key: G ⊆ grain G (from iso_sub: grain G ≅ G → G ⊆ G → G ⊆ grain G)
-    have h_G_sub_grainG : sub G (grain G) :=
-      iso_sub _ _ _ h_idem (sub_refl G)
-    -- Chain: G ⊆ grain G ⊆ S
-    exact sub_trans _ _ _ h_G_sub_grainG h_grainG_sub_S
-  exact ⟨h_G_iso_R, h_irred⟩
+  -- Grain-hood factors: isomorphism + irreducibility
+  exact Foundations.IsGrainOf.mk' h_G_iso_R h_irred
+
+/-- Irreducibility implies the old condition (iii), `G[G] ≅ G`, but not
+    conversely — the converse would require transporting a structural
+    property across an isomorphism. -/
+theorem irreducible_iso_grain {G : D} (h : Foundations.IsIrreducible G) :
+    iso (grain G) G :=
+  Foundations.multiple_grains_iso (Foundations.grain_isGrainOf G) h.self_grain
 
 end GrainTheory.Relations

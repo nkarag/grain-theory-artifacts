@@ -24,7 +24,7 @@ namespace GrainTheory.Inference
 
 variable {D : Type*} [GrainStructure D]
 
-open GrainStructure (iso grain sub prod iso_symm iso_trans
+open GrainStructure (iso grain sub ssub ssub_sub prod indep iso_symm iso_trans
   grain_iso iso_sub sub_antisymm)
 open GrainTheory.Relations (grainEq grainEq_of_iso)
 open GrainTheory.Foundations (grain_product IsGrainOf grain_isGrainOf
@@ -73,26 +73,46 @@ theorem grain_antijoin (R₁ Res : D) (h : iso Res R₁) :
 
 /-! ## Tier 2: Theta Join (via grain product) -/
 
-/-- PODS Table 1: Theta join ⋈_θ.
+/-- arXiv Table 2: Theta join ⋈_θ.
     Res = R₁ × R₂ (full product; θ filters but creates no equality
-    constraints). G[Res] = G[R₁] × G[R₂] by Theorem grain-product.
-    (Appendix proof, line 581) -/
-theorem grain_theta_join (R₁ R₂ : D) :
+    constraints). If the inputs are **independent** — no determination
+    declared across them — then G[Res] = G[R₁] × G[R₂] by Thm 3.8.
+
+    The `indep` hypothesis is inherited from the Grain of Product Types
+    theorem. It is not a formality: if a determination holds between the two
+    inputs (say R₂'s grain is functionally determined by R₁'s), the product
+    of grains is reducible and the rule as stated over-reports the grain. In
+    that case the operation is an equi-join in disguise and its grain is
+    given by Thm 7.2 instead. -/
+theorem grain_theta_join (R₁ R₂ : D) (h_indep : indep R₁ R₂) :
     iso (grain (prod R₁ R₂)) (prod (grain R₁) (grain R₂)) :=
-  grain_product R₁ R₂
+  grain_product R₁ R₂ h_indep
 
-/-! ## Tier 3: Projection (conditional) -/
+/-! ## Tier 3: Projection (conditional)
 
-/-- PODS Table 1: Projection π_S.
-    Res = S where S ⊆_typ R. If G[R] ⊆_typ S (grain fields survive),
-    then G[S] = G[R].
+  arXiv Table 2 states the projection rule with the **structural** test
+  `G[R] ⊑ S`, and the note following §10 Prop 10.2 explains why:
+
+  > The structural test `G[R] ⊑ S` is the schema-decidable form of the exact
+  > requirement that `S` *determine* the grain (`G[R] ⊆typ S`); the two differ
+  > only when `S` drops the grain yet retains an alternative key that still
+  > determines it — a grain-preserving case the structural test conservatively
+  > flags.
+
+  Both are mechanized below, together with the implication that makes the
+  structural test **sound but not complete**: it never accepts a projection
+  that loses the grain, but it may reject one that keeps it via an
+  alternative key. -/
+
+/-- **Projection, exact condition.** `Res = S` where `S ⊆_typ R`. If `S`
+    *determines* the grain (`G[R] ⊆_typ S`, the general surjection-based
+    relation), then `G[S] = G[R]`.
 
     Proof:
-    1. iso_sub: G[R] ≅ R and S ⊆ R → S ⊆ G[R]
-    2. sub_antisymm: S ⊆ G[R] and G[R] ⊆ S → S ≅ G[R]
-    3. Transitivity: S ≅ G[R] ≅ R → S ≅ R
-    4. Theorem 4.2: S ≅ R → G[S] ≅ G[R]
-    (Appendix proof, line 543) -/
+    1. `iso_sub`: `G[R] ≅ R` and `S ⊆ R` → `S ⊆ G[R]`
+    2. `sub_antisymm`: `S ⊆ G[R]` and `G[R] ⊆ S` → `S ≅ G[R]`
+    3. transitivity: `S ≅ G[R] ≅ R`
+    4. arXiv Thm 5.2: `S ≅ R` → `G[S] ≅ G[R]` -/
 theorem grain_projection (R S : D) (hSR : sub S R) (hGS : sub (grain R) S) :
     iso (grain S) (grain R) :=
   -- S ⊆ G[R] (from iso_sub: G[R] ≅ R and S ⊆ R)
@@ -101,8 +121,34 @@ theorem grain_projection (R S : D) (hSR : sub S R) (hGS : sub (grain R) S) :
   have h2 : iso S (grain R) := sub_antisymm _ _ h1 hGS
   -- S ≅ R (transitivity: S ≅ G[R] ≅ R)
   have h3 : iso S R := iso_trans _ _ _ h2 (grain_iso R)
-  -- G[S] ≅ G[R] (Theorem 4.2)
+  -- G[S] ≅ G[R] (Thm 5.2)
   grainEq_of_iso h3
+
+/-- **The structural projection test is sound.** If every component of the
+    grain survives the projection (`G[R] ⊑ S`), then `S` determines the grain
+    (`G[R] ⊆_typ S`), so the exact condition holds.
+
+    This is `ssub_sub` — a canonical projection is a surjection — named here
+    because it is what licenses Table 2's schema-decidable rule. -/
+theorem projection_test_sound (R S : D) (h : ssub (grain R) S) :
+    sub (grain R) S :=
+  ssub_sub _ _ h
+
+/-- **arXiv Table 2: Projection π_S**, as stated — with the schema-decidable
+    structural test. `G[Res] = G[R]` whenever the grain's components survive.
+
+    Both premises are structural, matching the appendix ("`Res = S` where
+    `S ⊑ R`; if `G[R] ⊑ S`, all grain fields survive").
+
+    Sound by `projection_test_sound`, and **conservative**: the converse of
+    that lemma does not hold, so a projection that drops a grain component but
+    retains an alternative key still determining it is grain-preserving yet
+    fails this test. CalcG therefore under-reports rather than over-reports —
+    the safe direction. -/
+theorem grain_projection_structural (R S : D)
+    (hSR : ssub S R) (hGS : ssub (grain R) S) :
+    iso (grain S) (grain R) :=
+  grain_projection R S (ssub_sub _ _ hSR) (projection_test_sound R S hGS)
 
 /-! ## Tier 4: Rename (grain equality ≡_g) -/
 

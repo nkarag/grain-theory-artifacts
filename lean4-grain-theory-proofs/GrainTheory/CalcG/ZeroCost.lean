@@ -41,7 +41,7 @@ namespace GrainTheory.CalcG
 
 variable {D : Type*} [EquiJoinStructure D]
 
-open GrainStructure (sub iso grain union inter diff prod sum
+open GrainStructure (sub ssub iso grain union inter diff prod sum
   sub_refl sub_trans iso_refl iso_symm iso_trans iso_sub
   grain_sub grain_iso grain_irred
   sub_union_left sub_union_right union_sub
@@ -50,7 +50,8 @@ open GrainStructure (sub iso grain union inter diff prod sum
 
 open GrainTheory.Relations (grainEq grainEq_of_iso iso_of_grainEq)
 
-open GrainTheory.Foundations (IsGrainOf grain_isGrainOf multiple_grains_iso)
+open GrainTheory.Foundations (IsGrainOf IsIrreducible grain_isGrainOf
+  multiple_grains_iso)
 
 /-! ## Zero-Cost Verification — Schema-Only Grain Correctness
 
@@ -176,50 +177,57 @@ theorem pipeline_end_to_end (e : RAExpr D) (G_target : D)
     grainCorrect e G_target :=
   zero_cost_verification e G_target h_target
 
-/-- **Grain-correctness implies the declared grain is a valid grain.**
+/-- **Grain-correctness plus irreducibility certifies the declared grain.**
 
-    If `grainCorrect e declared` holds and `calcG e` is a grain of
-    `outType e` (which it always is by `calcG_isGrainOf`), then
-    `declared` is also a grain of `outType e`.
+    If `grainCorrect e declared` holds *and* `declared` is itself
+    structurally irreducible, then `declared` is a grain of `outType e`.
 
-    This shows the converse direction: grain-correctness is not just
-    a type comparison — it certifies that the declared grain is valid.
-    Still zero-cost: the certificate is `calcG_isGrainOf` (type-level). -/
+    **The irreducibility hypothesis is new, and it is not removable.**
+    The earlier version concluded grain-hood from `grainCorrect` alone, by
+    transporting irreducibility from `calcG e` to `declared` across the
+    isomorphism between them. Under the structural reading of Definition 3.1
+    that step is unsound, and the counterexample is the reviewer's own:
+    `CustomerId` and `CustomerId × CustomerName` are isomorphic, so a
+    pipeline whose CalcG output is `CustomerId` is "grain-correct" against a
+    declared grain of `CustomerId × CustomerName` — yet the padded
+    declaration is *not* a grain.
+
+    Both conjuncts remain schema-only, so verification stays zero-cost:
+    matching `calcG e` against `declared` is a type comparison, and
+    irreducibility of `declared` is a comparison of its own component
+    subsets. What changes is that the declaration must be checked, not
+    merely matched. -/
 theorem grainCorrect_implies_isGrainOf (e : RAExpr D) (declared : D)
-    (h_correct : grainCorrect e declared) :
-    IsGrainOf declared (RAExpr.outType e) := by
-  have h_calc := calcG_isGrainOf e
-  -- declared ≅ outType(e): from calcG(e) ≅ declared and calcG(e) ≅ outType(e)
-  have h_iso_out : iso declared (RAExpr.outType e) :=
-    iso_trans _ _ _ (iso_symm _ _ h_correct) h_calc.1
-  -- Irreducibility: for any S ⊆ declared with S ≅ outType(e), declared ⊆ S
-  constructor
-  · exact h_iso_out
-  · intro S h_S_sub h_S_iso
-    -- S ⊆ declared, declared ≅ calcG(e), so S ⊆ calcG(e)
-    have h_S_sub_calc : sub S (calcG e) :=
-      iso_sub _ _ _ (iso_symm _ _ (iso_symm _ _ h_correct)) h_S_sub
-    -- calcG(e) is a grain, so S ⊆ calcG(e) and S ≅ outType(e) → calcG(e) ⊆ S
-    have h_calc_sub_S : sub (calcG e) S := h_calc.2 S h_S_sub_calc h_S_iso
-    -- declared ≅ calcG(e) → declared ⊆ calcG(e)
-    have h_decl_sub_calc : sub declared (calcG e) :=
-      iso_sub _ _ _ (iso_symm _ _ (iso_symm _ _ h_correct)) (sub_refl declared)
-    -- calcG(e) ⊆ S and declared ⊆ calcG(e) → declared ⊆ S
-    exact sub_trans _ _ _ h_decl_sub_calc h_calc_sub_S
+    (h_correct : grainCorrect e declared)
+    (h_irred : IsIrreducible declared) :
+    IsGrainOf declared (RAExpr.outType e) :=
+  Foundations.IsGrainOf.mk'
+    (iso_trans _ _ _ (iso_symm _ _ h_correct) (calcG_isGrainOf e).1)
+    h_irred
+
+/-- Grain-correctness alone certifies the declared grain when the declaration
+    is **structurally equal** to CalcG's output (same components), rather than
+    merely isomorphic to it. -/
+theorem grainCorrect_isGrainOf_of_ssub (e : RAExpr D) (declared : D)
+    (h₁ : ssub (calcG e) declared) (h₂ : ssub declared (calcG e)) :
+    IsGrainOf declared (RAExpr.outType e) :=
+  (calcG_isGrainOf e).of_ssub_antisymm h₁ h₂
 
 /-- **Grain-correctness biconditional.**
 
-    Grain-correctness (`iso (calcG e) declared`) is equivalent to
-    `declared` being a valid grain of `outType e`.
+    `declared` is a valid grain of the pipeline's output type **iff** it
+    matches CalcG's inferred grain and is itself irreducible.
 
-    This is the complete zero-cost characterization: checking
-    `grainCorrect e declared` is both necessary and sufficient for
-    `declared` to be a valid grain of the pipeline's output type.
-    Both directions are schema-only operations. -/
+    This is the complete zero-cost characterization. Both conjuncts on the
+    left are schema-only checks, so the whole certificate is computed from
+    type information without touching data — but the characterization now
+    names *two* obligations rather than one, which is what the structural
+    reading of irreducibility forces. -/
 theorem grainCorrect_iff_isGrainOf (e : RAExpr D) (declared : D) :
-    grainCorrect e declared ↔ IsGrainOf declared (RAExpr.outType e) :=
-  ⟨grainCorrect_implies_isGrainOf e declared,
-   grainCorrect_of_declared_grain e declared⟩
+    (grainCorrect e declared ∧ IsIrreducible declared)
+      ↔ IsGrainOf declared (RAExpr.outType e) :=
+  ⟨fun h => grainCorrect_implies_isGrainOf e declared h.1 h.2,
+   fun h => ⟨grainCorrect_of_declared_grain e declared h, h.toIrreducible⟩⟩
 
 /-! ### Schema-Only Decidability Note
 

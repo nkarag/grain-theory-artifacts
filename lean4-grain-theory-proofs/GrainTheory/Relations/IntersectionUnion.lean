@@ -76,7 +76,7 @@ theorem intersection_grain {R₁ R₂ : D}
     G[R₁] is a grain of (R₁ ∩ R₂) — not just grain-equivalent, but
     satisfying both isomorphism and irreducibility.
 
-    Condition (iii): G[G[R₁]] ≅ G[R₁] by grain idempotency. -/
+    Condition (iii): G[R₁] is irreducible (`grain_irreducible`). -/
 theorem intersection_grain_isGrainOf {R₁ R₂ : D}
     (h : sub (grain R₁) (grain R₂)) :
     Foundations.IsGrainOf (grain R₁) (inter R₁ R₂) := by
@@ -87,9 +87,11 @@ theorem intersection_grain_isGrainOf {R₁ R₂ : D}
     sub_inter _ _ _ h_sub_R₁ h_sub_R₂
   have h_le : grainLe (grain R₁) (inter R₁ R₂) :=
     grain_determines_subsets (inter_sub_left R₁ R₂)
-  have h_idem : iso (grain (grain R₁)) (grain R₁) :=
-    Foundations.grain_idempotent R₁
-  exact grain_inference_isGrainOf h_sub_inter h_le h_idem
+  -- Condition (iii): G[R₁] is structurally irreducible — directly from the
+  -- grain axioms, no transport across an isomorphism required.
+  have h_irred : Foundations.IsIrreducible (grain R₁) :=
+    Foundations.grain_irreducible R₁
+  exact grain_inference_isGrainOf h_sub_inter h_le h_irred
 
 /-! ## PODS Theorem: Union with Grain -/
 
@@ -136,7 +138,7 @@ theorem union_grain {R₁ R₂ : D}
     If G[R₁] ⊆_typ G[R₂], then IsGrainOf (grain R₂) (R₁ ∪ R₂):
     G[R₂] is a grain of (R₁ ∪ R₂).
 
-    Condition (iii): G[G[R₂]] ≅ G[R₂] by grain idempotency. -/
+    Condition (iii): G[R₂] is irreducible (`grain_irreducible`). -/
 theorem union_grain_isGrainOf {R₁ R₂ : D}
     (h : sub (grain R₁) (grain R₂)) :
     Foundations.IsGrainOf (grain R₂) (union R₁ R₂) := by
@@ -148,9 +150,10 @@ theorem union_grain_isGrainOf {R₁ R₂ : D}
     iso_sub _ _ _ (Foundations.grain_idempotent R₂) h
   have h_le : grainLe (grain R₂) (union R₁ R₂) :=
     armstrong_A5 h_le_R₁ h_le_R₂
-  have h_idem : iso (grain (grain R₂)) (grain R₂) :=
-    Foundations.grain_idempotent R₂
-  exact grain_inference_isGrainOf h_sub_union h_le h_idem
+  -- Condition (iii): G[R₂] is structurally irreducible.
+  have h_irred : Foundations.IsIrreducible (grain R₂) :=
+    Foundations.grain_irreducible R₂
+  exact grain_inference_isGrainOf h_sub_union h_le h_irred
 
 /-! ## PODS Theorem: Lattice Absorption (combined) -/
 

@@ -148,10 +148,13 @@ theorem derivable_A6 {R₁ R₂ R₃ : D}
     (h : ArmstrongDerivable R₁ (union R₂ R₃)) :
     ArmstrongDerivable R₁ R₂ ∧ ArmstrongDerivable R₁ R₃ := by
   -- (R₂∪R₃) ≤_g R₂: G[R₂] ⊆ G[R₂∪R₃]
+  -- G[R₂] ⊆ R₂ ⊆ (R₂ ∪ R₃), then transport into the grain via iso_sub.
   have h_sub_left : sub (grain R₂) (grain (union R₂ R₃)) :=
-    iso_sub _ _ _ (grain_iso (union R₂ R₃)) (sub_union_left R₂ R₃)
+    iso_sub _ _ _ (grain_iso (union R₂ R₃))
+      (sub_trans _ _ _ (grain_sub R₂) (GrainStructure.sub_union_left R₂ R₃))
   have h_sub_right : sub (grain R₃) (grain (union R₂ R₃)) :=
-    iso_sub _ _ _ (grain_iso (union R₂ R₃)) (sub_union_right R₂ R₃)
+    iso_sub _ _ _ (grain_iso (union R₂ R₃))
+      (sub_trans _ _ _ (grain_sub R₃) (GrainStructure.sub_union_right R₂ R₃))
   exact ⟨ArmstrongDerivable.trans h (ArmstrongDerivable.refl h_sub_left),
          ArmstrongDerivable.trans h (ArmstrongDerivable.refl h_sub_right)⟩
 

@@ -27,15 +27,48 @@ open GrainStructure
 open GrainTheory.Foundations
 open GrainTheory.Relations
 
-/-! ## Definition 7: Entity (PODS §5)
+/-! ## Definition 6.1: Entity (arXiv §6)
 
   Given a data type R, an *entity* of R is a type E such that there
-  exists a surjective function entity : R → E extracting the subject of
-  information. By Definition 2.1 (type-level subset), a surjection
-  R ↠ E is exactly E ⊆_typ R.
+  exists a surjective function entity : R ↠ E returning, for each element,
+  the *subject of the information* it conveys. By Definition 2.1 (type-level
+  subset), a surjection R ↠ E is exactly E ⊆_typ R.
 
   In the abstract axiomatization, we capture this as `sub E R`.
+
+  **The uniqueness clause, corrected.** The pre-revision definition said
+  "for a given grain G[R], the entity is unique" — which reviewer R2 correctly
+  rejected, since E is *declared* by domain analysis and is not determined by
+  R's structure at all, let alone by its grain. The revised definition
+  withdraws that clause and states the position precisely:
+
+  * the **entity** is unique because it is *declared* — a data type has a
+    single subject of information, fixed by the declaration, with no
+    alternatives;
+  * the **entity key** `EK[R] = G[E]` is unique only *up to isomorphism*,
+    being a grain (Theorem 3.4, Multiple Grains).
+
+  The encoding below reflects this: `IsEntityOf` is a relation that a
+  declaration witnesses, and nothing in the development derives E from R.
+  Grain and entity answer different questions — *at what level of detail* is
+  each element recorded, versus *who or what* it is about — and the two are
+  orthogonal: a current-state customer table (grain `CustomerId`) and an SCD2
+  customer dimension (grain `CustomerId × EffectiveFrom`) differ in grain yet
+  share the entity `Customer`.
+
+  See `GrainTheory.Entity.EntityPreservation` for the `=_ek` collection
+  relation this orthogonality makes available.
 -/
+
+/-- Uniqueness, correctly located: what is unique *up to isomorphism* is the
+    entity **key**, not the entity. Any two entity keys of the same declared
+    entity are isomorphic, because both are grains of E.
+
+    There is deliberately no companion theorem deriving E from R — that is the
+    clause the revision withdraws. -/
+theorem entityKey_unique_up_to_iso {E EK₁ EK₂ : D}
+    (h₁ : IsGrainOf EK₁ E) (h₂ : IsGrainOf EK₂ E) : iso EK₁ EK₂ :=
+  multiple_grains_iso h₁ h₂
 
 /-- `IsEntityOf E R` holds when E serves as the entity type for R.
 

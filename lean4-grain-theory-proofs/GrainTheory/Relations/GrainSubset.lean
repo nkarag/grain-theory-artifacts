@@ -44,10 +44,12 @@ theorem grain_determines_subsets {R R' : D} (h : sub R' R) :
   -- Step 2: G[R'] ⊆_typ G[R] (via G[R'] ⊆ R' ⊆ G[R])
   have h_GR'_sub_GR : sub (grain R') (grain R) :=
     sub_trans _ _ _ (grain_sub R') h_R'_sub_GR
-  -- Step 3: G[R] ⊆_typ G[G[R]] (from idempotency proof)
+  -- Step 3: G[R] ⊆_typ G[G[R]] — directly from idempotency.
+  -- (Previously derived from irreducibility; since irreducibility is now
+  -- structural it no longer yields a ⊆_typ fact, but `grain_idempotent`
+  -- gives the isomorphism, and `iso_sub` transports reflexivity across it.)
   have h_GR_sub_GGR : sub (grain R) (grain (grain R)) :=
-    grain_irred R (grain (grain R)) (grain_sub (grain R))
-      (iso_trans _ _ _ (grain_iso (grain R)) (grain_iso R))
+    iso_sub _ _ _ (Foundations.grain_idempotent R) (sub_refl (grain R))
   -- Step 4: G[R'] ⊆_typ G[G[R]] by transitivity
   exact sub_trans _ _ _ h_GR'_sub_GR h_GR_sub_GGR
 

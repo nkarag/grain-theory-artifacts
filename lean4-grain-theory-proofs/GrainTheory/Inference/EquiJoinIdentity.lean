@@ -1,46 +1,80 @@
 /-
   GrainTheory.Inference.EquiJoinIdentity — Condition (iii) for equi-join grain identity
 
-  PODS 2027, §6, Theorem (Equi-Join Grain Inference) — grain identity via GIT:
+  arXiv extended version, §7, Theorem 7.2 (Grain of an Equi-Join):
 
     For an equi-join of R₁ and R₂ on Jk:
 
       G[Res] = G[R₁] ∪_typ (G[R₂] -_typ Jk)
 
   This file:
-  1. Defines `InformationallyIndependent` (PODS Definition 6.2):
-     sub-types of a join result are informationally independent when
-     their union is irreducible (a grain fixpoint): G[T₁ ∪ ··· ∪ Tₖ] ≅ T₁ ∪ ··· ∪ Tₖ.
+  1. Defines `InformationallyIndependent` (arXiv Def 6.2 / Remark on
+     Informational Independence): the equi-join candidate's components carry
+     no cross-dependency, so none is recoverable from the others — which is
+     exactly structural irreducibility of their union.
 
-  2. Proves GIT condition (iii): the equi-join candidate F₁ = G[R₁] ∪ (G[R₂] \ Jk)
-     is informationally independent.
+  2. Proves GIT condition (iii): under the admissible labeling, the candidate
+     F₁ = G[R₁] ∪ (G[R₂] \ Jk) is irreducible.
 
-  **Proof of condition (iii):**
-  1. grain_union: G[F₁] ≅ G[G[R₁]] ∪ G[G[R₂]\Jk]
-  2. grain_idempotent: G[G[R₁]] ≅ G[R₁]
-  3. grain_diff_idempotent: G[G[R₂]\Jk] ≅ G[R₂]\Jk
-     (since G[R₂] is a grain fixpoint by idempotency)
-  4. Lift component isos to union: G[F₁] ≅ G[R₁] ∪ (G[R₂]\Jk) = F₁
+  **What changed with the structural repair.**
 
-  Combined with conditions (i) and (ii) (Lemmas A and B), the
-  strengthened GIT (grain_inference_isGrainOf) gives IsGrainOf F₁ Res.
+  The previous version stated condition (iii) as the *isomorphism*
+  `G[F₁] ≅ F₁` and discharged it unconditionally, from grain distribution
+  over union plus two idempotency facts. That was sound only because
+  irreducibility was then read semantically — and, as reviewer R2 observed,
+  that reading is vacuous: `G[F₁] ≅ F₁` holds for *every* F₁, since the grain
+  is always isomorphic to its type. The condition had no content, which is
+  why no labeling hypothesis appeared to be needed.
 
-  Reference: PODS 2027, §6, Definition 6.2 + Appendix proof (Condition iii paragraph).
+  Under the structural reading the condition has real content, and the
+  labeling hypothesis returns — matching the paper's Theorem 7.2, which
+  gates on comparing the two inputs' join-key grain portions. The reverse
+  labeling, when strictly larger on the Jk side, carries a redundant Jk-field
+  and is genuinely reducible.
+
+  Reference: arXiv extended version, §7 Thm 7.2; Appendix Remark
+  (Informational Independence).
 -/
 
 import GrainTheory.Inference.EquiJoinAxioms
 import GrainTheory.Foundations.Idempotency
+import GrainTheory.Relations.GrainInference
 
 namespace GrainTheory.Inference
 
 variable {D : Type*} [EquiJoinStructure D]
 
-open GrainStructure (sub iso grain union inter diff prod
-  sub_refl sub_trans sub_antisymm
+open GrainStructure (sub ssub iso grain union inter diff prod
+  sub_refl sub_trans sub_antisymm ssub_refl ssub_trans ssub_antisymm ssub_sub
   iso_refl iso_symm iso_trans iso_sub
   grain_sub grain_iso grain_union
-  grain_diff_idempotent
   sub_union_left sub_union_right union_sub)
+
+/-- The **admissible labeling** condition of arXiv Theorem 7.2.
+
+    Writing `Gᵢ^Jk = G[Rᵢ] ∩ Jk`, the labeling `(1,2)` is admissible when
+    `¬ (G₂^Jk ⊏ G₁^Jk)` — the appendix's reducibility criterion, negated. Two cases satisfy
+    it — the canonical labeling `G₁^Jk ⊑ G₂^Jk`, and the incomparable case —
+    and these are exactly the two cases Theorem 7.2 admits.
+
+    Failing it means the candidate carries a Jk-field the join recovers from
+    the opposite input, so the candidate is reducible and is not the grain. -/
+def AdmissibleLabeling (R₁ R₂ Jk : D) : Prop :=
+  ¬ Foundations.properSsub (inter (grain R₂) Jk) (inter (grain R₁) Jk)
+
+/-- The canonical labeling `G₁^Jk ⊑ G₂^Jk` is admissible. -/
+theorem admissible_of_canonical {R₁ R₂ Jk : D}
+    (h : ssub (inter (grain R₁) Jk) (inter (grain R₂) Jk)) :
+    AdmissibleLabeling R₁ R₂ Jk :=
+  fun hc => hc.2 h
+
+/-- Incomparable join-key grain portions are admissible **in both
+    labelings** — the second bullet of arXiv Theorem 7.2. -/
+theorem admissible_of_incomparable {R₁ R₂ Jk : D}
+    (h₁ : ¬ ssub (inter (grain R₁) Jk) (inter (grain R₂) Jk))
+    (h₂ : ¬ ssub (inter (grain R₂) Jk) (inter (grain R₁) Jk)) :
+    AdmissibleLabeling R₁ R₂ Jk ∧ AdmissibleLabeling R₂ R₁ Jk :=
+  ⟨fun hc => h₂ hc.1, fun hc => h₁ hc.1⟩
 
 /-- Lift component isomorphisms to union:
     if A ≅ A' and B ≅ B', then A ∪ B ≅ A' ∪ B'.
@@ -65,67 +99,50 @@ private theorem union_iso (A A' B B' : D) (hA : iso A A') (hB : iso B B') :
         (sub_union_right A B)
   exact sub_antisymm _ _ h_fwd h_bwd
 
-/-- **Informational Independence (PODS Definition 6.2).**
+/-- **Informational Independence (arXiv Def 6.2).**
 
-    A type G is *informationally independent* (or *irreducible*) if its grain
-    is isomorphic to itself: G[G] ≅ G.
+    A type G is *informationally independent* when none of its components is
+    recoverable from the others — equivalently, when G is structurally
+    irreducible.
 
-    In the context of equi-join grain inference, pairwise disjoint sub-types
-    T₁, ..., Tₖ of a join result are informationally independent within the
-    result if no field of Tⱼ is determined by the fields of Tᵢ (for i ≠ j)
-    through the combination of grain determination (G[Rₘ] determines all
-    fields of Rₘ) and join equality (r₁.Jk = r₂.Jk).
+    In the equi-join setting, the sub-types `G[R₁]` and `G[R₂] \ Jk` making up
+    the candidate are informationally independent within the result when no
+    field of one is determined by the other through the combination of grain
+    determination (`G[Rₘ]` determines all fields of `Rₘ`) and join equality
+    (`r₁.Jk = r₂.Jk`).
 
-    Equivalently, their union is irreducible:
-      G[T₁ ∪ ··· ∪ Tₖ] ≅ T₁ ∪ ··· ∪ Tₖ
-
-    This is GIT condition (iii): the candidate grain is a grain fixpoint.
-    Without this condition, only grain equivalence (≡_g) holds — the
-    strengthened GIT requires it for grain identity (IsGrainOf). -/
+    **This definition changed with the structural repair.** It previously read
+    `iso (grain G) G`, which is a theorem for every `G` and so asserted
+    nothing. It now unfolds to genuine irreducibility. -/
 def InformationallyIndependent (G : D) : Prop :=
-  iso (grain G) G
+  Foundations.IsIrreducible G
 
-/-- **GIT Condition (iii): G[F₁] ≅ F₁.**
+/-- **GIT Condition (iii): the equi-join candidate is irreducible.**
 
-    The candidate grain F₁ = G[R₁] ∪ (G[R₂] \ Jk) is informationally
-    independent (PODS Definition 6.2): its grain is isomorphic to itself.
+    Under an admissible labeling, `F₁ = G[R₁] ∪ (G[R₂] \ Jk)` is structurally
+    irreducible (arXiv Thm 7.2, irreducibility step). -/
+theorem equijoin_candidate_irreducible (R₁ R₂ Jk : D)
+    (h_adm : AdmissibleLabeling R₁ R₂ Jk) :
+    Foundations.IsIrreducible (union (grain R₁) (diff (grain R₂) Jk)) :=
+  fun S h_ssub h_iso =>
+    EquiJoinStructure.equijoin_candidate_irred R₁ R₂ Jk S h_adm h_ssub h_iso
 
-    Proof:
-    - grain_union: G[A ∪ B] ≅ G[A] ∪ G[B]
-    - grain_idempotent: G[G[R₁]] ≅ G[R₁]
-    - grain_diff_idempotent: G[G[R₂] \ Jk] ≅ G[R₂] \ Jk
-      (G[R₂] is a fixpoint by idempotency)
-    - union_iso lifts both to: G[F₁] ≅ F₁ -/
-theorem equijoin_candidate_idempotent (R₁ R₂ Jk : D) :
-    iso (grain (union (grain R₁) (diff (grain R₂) Jk)))
-        (union (grain R₁) (diff (grain R₂) Jk)) := by
-  set A := grain R₁
-  set B := diff (grain R₂) Jk
-  -- Step 1: G[A ∪ B] ≅ G[A] ∪ G[B]  (grain distributes over union)
-  have h_dist : iso (grain (union A B)) (union (grain A) (grain B)) :=
-    grain_union A B
-  -- Step 2: G[A] = G[G[R₁]] ≅ G[R₁] = A  (idempotency)
-  have h_idem_A : iso (grain A) A :=
-    Foundations.grain_idempotent R₁
-  -- Step 3: G[B] = G[G[R₂] \ Jk] ≅ G[R₂] \ Jk = B  (grain_diff_idempotent)
-  --   G[R₂] is a fixpoint: G[G[R₂]] ≅ G[R₂]
-  have h_fixpoint : iso (grain (grain R₂)) (grain R₂) :=
-    Foundations.grain_idempotent R₂
-  have h_idem_B : iso (grain B) B :=
-    grain_diff_idempotent (grain R₂) Jk h_fixpoint
-  -- Step 4: G[A] ∪ G[B] ≅ A ∪ B  (lift component isos)
-  have h_union : iso (union (grain A) (grain B)) (union A B) :=
-    union_iso (grain A) A (grain B) B h_idem_A h_idem_B
-  -- Compose: G[A ∪ B] ≅ G[A] ∪ G[B] ≅ A ∪ B
-  exact iso_trans _ _ _ h_dist h_union
-
-/-- The equi-join candidate F₁ = G[R₁] ∪ (G[R₂] \ Jk) is informationally
-    independent (PODS Definition 6.2).
-
-    This is a named wrapper around `equijoin_candidate_idempotent`,
-    stating the result in terms of `InformationallyIndependent`. -/
-theorem equijoin_candidate_informationally_independent (R₁ R₂ Jk : D) :
+/-- The equi-join candidate `F₁ = G[R₁] ∪ (G[R₂] \ Jk)` is informationally
+    independent (arXiv Def 6.2) under an admissible labeling. -/
+theorem equijoin_candidate_informationally_independent (R₁ R₂ Jk : D)
+    (h_adm : AdmissibleLabeling R₁ R₂ Jk) :
     InformationallyIndependent (union (grain R₁) (diff (grain R₂) Jk)) :=
-  equijoin_candidate_idempotent R₁ R₂ Jk
+  equijoin_candidate_irreducible R₁ R₂ Jk h_adm
+
+/-- **G[F₁] ≅ F₁** — the candidate is its own grain up to isomorphism.
+
+    Now a *consequence* of irreducibility rather than the statement of
+    condition (iii): an irreducible type is a grain of itself, and any two
+    grains of a type are isomorphic. -/
+theorem equijoin_candidate_idempotent (R₁ R₂ Jk : D)
+    (h_adm : AdmissibleLabeling R₁ R₂ Jk) :
+    iso (grain (union (grain R₁) (diff (grain R₂) Jk)))
+        (union (grain R₁) (diff (grain R₂) Jk)) :=
+  Relations.irreducible_iso_grain (equijoin_candidate_irreducible R₁ R₂ Jk h_adm)
 
 end GrainTheory.Inference

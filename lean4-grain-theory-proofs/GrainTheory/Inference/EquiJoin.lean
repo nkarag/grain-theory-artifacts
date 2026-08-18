@@ -38,7 +38,7 @@ namespace GrainTheory.Inference
 
 variable {D : Type*} [EquiJoinStructure D]
 
-open GrainStructure (sub iso grain union inter diff prod
+open GrainStructure (sub ssub ssub_sub iso grain union inter diff prod
   sub_refl iso_trans iso_symm iso_sub grain_iso)
 
 open EquiJoinStructure (determines determines_iso_of_sub)
@@ -55,8 +55,9 @@ open GrainTheory.Relations (grainEq grainLe grainEq_of_iso)
     (i.e., R₁ is the side with the smaller Jk-portion of the grain).
 
     **Hypotheses:**
-    - `h_convention`: G[R₁] ∩ Jk ⊆_typ G[R₂] ∩ Jk  (naming convention)
-    - `h_jk_r1`, `h_jk_r2`: Jk ⊆_typ R₁, Jk ⊆_typ R₂
+    - `h_convention`: G[R₁] ∩ Jk ⊑ G[R₂] ∩ Jk  (naming convention, structural)
+    - `h_jk_r1`, `h_jk_r2`: Jk ⊑ R₁, Jk ⊑ R₂ (*structural* — the join columns
+      must physically be columns of each input; arXiv §7 Scope)
     - `h_res_sub`: Res ⊆_typ (R₁ \ Jk) × (R₂ \ Jk) × Jk
     - `h_res_sup`: (R₁ \ Jk) × (R₂ \ Jk) × Jk ⊆_typ Res
 
@@ -69,18 +70,23 @@ open GrainTheory.Relations (grainEq grainLe grainEq_of_iso)
     This is grainEq F₁ (grain Res) by definition. -/
 theorem equijoin_grain
     (R₁ R₂ Jk Res : D)
-    (_h_convention : sub (inter (grain R₁) Jk) (inter (grain R₂) Jk))
-    (h_jk_r1 : sub Jk R₁) (h_jk_r2 : sub Jk R₂)
+    (_h_convention : ssub (inter (grain R₁) Jk) (inter (grain R₂) Jk))
+    (h_jk_r1 : ssub Jk R₁) (h_jk_r2 : ssub Jk R₂)
     (h_res_sub : sub Res (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk))
     (h_res_sup : sub (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk) Res)
     : grainEq (union (grain R₁) (diff (grain R₂) Jk)) (grain Res) := by
   set F₁ := union (grain R₁) (diff (grain R₂) Jk)
+  -- The join-key premises are *structural* (arXiv §7 Scope): the join columns
+  -- must physically be columns of each input. The inner lemmas need only the
+  -- semantic containment, obtained by `ssub_sub`.
+  have h_jk_r1' : sub Jk R₁ := ssub_sub _ _ h_jk_r1
+  have h_jk_r2' : sub Jk R₂ := ssub_sub _ _ h_jk_r2
   -- Step 1: F₁ ⊆ Res (Lemma A)
   have h_sub : sub F₁ Res :=
-    equijoin_candidate_sub R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sup
+    equijoin_candidate_sub R₁ R₂ Jk Res h_jk_r1' h_jk_r2' h_res_sup
   -- Step 2: F₁ determines Res (Lemma B)
   have h_det : determines F₁ Res :=
-    equijoin_candidate_determines R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sub
+    equijoin_candidate_determines R₁ R₂ Jk Res h_jk_r1' h_jk_r2' h_res_sub
   -- Step 3: F₁ ≅ Res (determines + sub → iso)
   have h_iso : iso F₁ Res :=
     determines_iso_of_sub F₁ Res h_det h_sub
@@ -118,8 +124,8 @@ theorem equijoin_grain
     - Conjunct 3: Decompose G[R₁] into Jk/non-Jk parts; convention routes Jk-part -/
 theorem equijoin_grain_complete
     (R₁ R₂ Jk Res : D)
-    (h_convention : sub (inter (grain R₁) Jk) (inter (grain R₂) Jk))
-    (h_jk_r1 : sub Jk R₁) (h_jk_r2 : sub Jk R₂)
+    (h_convention : ssub (inter (grain R₁) Jk) (inter (grain R₂) Jk))
+    (h_jk_r1 : ssub Jk R₁) (h_jk_r2 : ssub Jk R₂)
     (h_res_sub : sub Res (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk))
     (h_res_sup : sub (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk) Res)
     : grainEq (union (grain R₁) (diff (grain R₂) Jk)) (grain Res)
@@ -127,8 +133,9 @@ theorem equijoin_grain_complete
     ∧ sub (union (grain R₁) (diff (grain R₂) Jk))
           (union (grain R₂) (diff (grain R₁) Jk)) :=
   ⟨equijoin_grain R₁ R₂ Jk Res h_convention h_jk_r1 h_jk_r2 h_res_sub h_res_sup,
-   equijoin_grain_contains R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sub h_res_sup,
-   equijoin_convention_sub R₁ R₂ Jk h_convention⟩
+   equijoin_grain_contains R₁ R₂ Jk Res
+     (ssub_sub _ _ h_jk_r1) (ssub_sub _ _ h_jk_r2) h_res_sub h_res_sup,
+   equijoin_convention_sub R₁ R₂ Jk (ssub_sub _ _ h_convention)⟩
 
 /-- **Equi-Join Grain Identity (PODS §6, Theorem 6.1 — via strengthened GIT).**
 
@@ -139,27 +146,41 @@ theorem equijoin_grain_complete
 
     **Proof via Grain Inference Theorem (grain_inference_isGrainOf):**
     Verify the three GIT conditions for G = F₁ and R = Res:
-    (i)   F₁ ⊆ Res           — Lemma A (equijoin_candidate_sub)
+    (i)   F₁ ⊆ Res            — Lemma A (equijoin_candidate_sub)
     (ii)  F₁ ≤_g Res          — derived: Lemmas A+B → F₁ ≅ Res → grainLe
-    (iii) G[F₁] ≅ F₁          — equijoin_candidate_idempotent
-          This is informational independence (PODS Definition 6.2):
-          the components of F₁ carry no cross-dependencies through
-          grain determination and join equality.
+    (iii) F₁ irreducible      — equijoin_candidate_irreducible
+          This is informational independence (arXiv Def 6.2): the components
+          of F₁ carry no cross-dependencies through grain determination and
+          join equality.
 
-    **No naming convention or disjointness hypothesis needed.** -/
+    **The labeling hypothesis.** `h_adm` requires that `G[R₂] ∩ Jk` is not a
+    proper structural subtype of `G[R₁] ∩ Jk` — i.e. the labeling is either
+    canonical or incomparable, the two cases arXiv Thm 7.2 admits.
+
+    The earlier version of this theorem claimed no labeling hypothesis was
+    needed. That claim was an artifact of the vacuous irreducibility reading:
+    condition (iii) then said only `G[F₁] ≅ F₁`, which is true of every type,
+    so nothing constrained the labeling. With irreducibility read
+    structurally, the strict reverse labeling really does carry a redundant
+    Jk-field, and the hypothesis is necessary — restoring exactly the gating
+    condition the paper states. See `admissible_of_canonical` and
+    `admissible_of_incomparable` for the two ways to discharge it. -/
 theorem equijoin_grain_identity
     (R₁ R₂ Jk Res : D)
-    (h_jk_r1 : sub Jk R₁) (h_jk_r2 : sub Jk R₂)
+    (h_jk_r1 : ssub Jk R₁) (h_jk_r2 : ssub Jk R₂)
     (h_res_sub : sub Res (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk))
     (h_res_sup : sub (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk) Res)
+    (h_adm : AdmissibleLabeling R₁ R₂ Jk)
     : Foundations.IsGrainOf (union (grain R₁) (diff (grain R₂) Jk)) Res := by
   set F₁ := union (grain R₁) (diff (grain R₂) Jk)
+  have h_jk_r1' : sub Jk R₁ := ssub_sub _ _ h_jk_r1
+  have h_jk_r2' : sub Jk R₂ := ssub_sub _ _ h_jk_r2
   -- GIT condition (i): F₁ ⊆ Res (Lemma A)
   have h_sub : sub F₁ Res :=
-    equijoin_candidate_sub R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sup
+    equijoin_candidate_sub R₁ R₂ Jk Res h_jk_r1' h_jk_r2' h_res_sup
   -- F₁ determines Res (Lemma B)
   have h_det : determines F₁ Res :=
-    equijoin_candidate_determines R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sub
+    equijoin_candidate_determines R₁ R₂ Jk Res h_jk_r1' h_jk_r2' h_res_sub
   -- F₁ ≅ Res (determines + sub → iso)
   have h_iso : iso F₁ Res :=
     determines_iso_of_sub F₁ Res h_det h_sub
@@ -168,10 +189,10 @@ theorem equijoin_grain_identity
     grainEq_of_iso h_iso
   have h_le : grainLe F₁ Res :=
     iso_sub _ _ _ h_grain_iso (sub_refl (grain Res))
-  -- GIT condition (iii): G[F₁] ≅ F₁
-  have h_idem : iso (grain F₁) F₁ :=
-    equijoin_candidate_idempotent R₁ R₂ Jk
+  -- GIT condition (iii): F₁ is structurally irreducible
+  have h_irred : Foundations.IsIrreducible F₁ :=
+    equijoin_candidate_irreducible R₁ R₂ Jk h_adm
   -- Apply strengthened GIT → IsGrainOf F₁ Res
-  exact Relations.grain_inference_isGrainOf h_sub h_le h_idem
+  exact Relations.grain_inference_isGrainOf h_sub h_le h_irred
 
 end GrainTheory.Inference

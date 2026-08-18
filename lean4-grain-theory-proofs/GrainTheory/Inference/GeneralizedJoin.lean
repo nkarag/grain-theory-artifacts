@@ -30,7 +30,7 @@ namespace GrainTheory.Inference
 
 variable {D : Type*} [EquiJoinStructure D]
 
-open GrainStructure (sub iso grain union inter diff prod
+open GrainStructure (sub ssub ssub_sub iso grain union inter diff prod
   sub_refl sub_trans sub_antisymm
   iso_refl iso_symm iso_trans iso_sub
   grain_sub grain_iso grain_irred
@@ -74,7 +74,7 @@ private lemma gen_diff_sub_res (R₁ R₂ Jk₁ Jk₂ Res : D)
     G[R₁] ⊆ R₁. R₁ decomposes as Jk₁ ∪ (R₁ \ Jk₁), and both
     components appear in the product Res. -/
 private lemma gen_grain_r1_sub_res (R₁ R₂ Jk₁ Jk₂ Res : D)
-    (h_jk1_r1 : sub Jk₁ R₁)
+    (_h_jk1_r1 : sub Jk₁ R₁)
     (h_res_sup : sub (prod (prod (diff R₁ Jk₁) (diff R₂ Jk₂)) Jk₁) Res)
     : sub (grain R₁) Res := by
   set P := prod (prod (diff R₁ Jk₁) (diff R₂ Jk₂)) Jk₁
@@ -204,7 +204,8 @@ theorem generalized_candidate_determines
     **Hypotheses:**
     - `h_jk_iso`: Jk₁ ≅ Jk₂  (join key types are isomorphic)
     - `h_det_jk`: Jk₁ → Jk₂  (join condition bridges key spaces)
-    - `h_jk1_r1`, `h_jk2_r2`: join keys are sub-types of their relations
+    - `h_jk1_r1`, `h_jk2_r2`: join keys are *structural* subtypes of their
+      relations (arXiv Thm 7.4 "physical-presence premises", stated with ⊑)
     - `h_res_sub`, `h_res_sup`: result schema mutual containment
 
     **Proof (5 steps, as in standard equi-join):**
@@ -217,17 +218,17 @@ theorem generalized_equijoin_grain
     (R₁ R₂ Jk₁ Jk₂ Res : D)
     (_h_jk_iso : iso Jk₁ Jk₂)
     (h_det_jk : determines Jk₁ Jk₂)
-    (h_jk1_r1 : sub Jk₁ R₁) (_h_jk2_r2 : sub Jk₂ R₂)
+    (h_jk1_r1 : ssub Jk₁ R₁) (_h_jk2_r2 : ssub Jk₂ R₂)
     (h_res_sub : sub Res (prod (prod (diff R₁ Jk₁) (diff R₂ Jk₂)) Jk₁))
     (h_res_sup : sub (prod (prod (diff R₁ Jk₁) (diff R₂ Jk₂)) Jk₁) Res)
     : grainEq (union (grain R₁) (diff (grain R₂) Jk₂)) (grain Res) := by
   set F₁ := union (grain R₁) (diff (grain R₂) Jk₂)
   -- Step 1: F₁ ⊆ Res
   have h_sub : sub F₁ Res :=
-    generalized_candidate_sub R₁ R₂ Jk₁ Jk₂ Res h_jk1_r1 h_res_sup
+    generalized_candidate_sub R₁ R₂ Jk₁ Jk₂ Res (ssub_sub _ _ h_jk1_r1) h_res_sup
   -- Step 2: F₁ determines Res
   have h_det : determines F₁ Res :=
-    generalized_candidate_determines R₁ R₂ Jk₁ Jk₂ Res h_jk1_r1 h_det_jk h_res_sub
+    generalized_candidate_determines R₁ R₂ Jk₁ Jk₂ Res (ssub_sub _ _ h_jk1_r1) h_det_jk h_res_sub
   -- Step 3: F₁ ≅ Res
   have h_iso : iso F₁ Res :=
     determines_iso_of_sub F₁ Res h_det h_sub
@@ -257,17 +258,18 @@ theorem generalized_equijoin_grain_identity
     (R₁ R₂ Jk₁ Jk₂ Res : D)
     (_h_jk_iso : iso Jk₁ Jk₂)
     (h_det_jk : determines Jk₁ Jk₂)
-    (h_jk1_r1 : sub Jk₁ R₁) (_h_jk2_r2 : sub Jk₂ R₂)
+    (h_jk1_r1 : ssub Jk₁ R₁) (_h_jk2_r2 : ssub Jk₂ R₂)
     (h_res_sub : sub Res (prod (prod (diff R₁ Jk₁) (diff R₂ Jk₂)) Jk₁))
     (h_res_sup : sub (prod (prod (diff R₁ Jk₁) (diff R₂ Jk₂)) Jk₁) Res)
+    (h_adm : AdmissibleLabeling R₁ R₂ Jk₂)
     : Foundations.IsGrainOf (union (grain R₁) (diff (grain R₂) Jk₂)) Res := by
   set F₁ := union (grain R₁) (diff (grain R₂) Jk₂)
   -- GIT condition (i): F₁ ⊆ Res
   have h_sub : sub F₁ Res :=
-    generalized_candidate_sub R₁ R₂ Jk₁ Jk₂ Res h_jk1_r1 h_res_sup
+    generalized_candidate_sub R₁ R₂ Jk₁ Jk₂ Res (ssub_sub _ _ h_jk1_r1) h_res_sup
   -- F₁ determines Res (Lemma B, generalized)
   have h_det : determines F₁ Res :=
-    generalized_candidate_determines R₁ R₂ Jk₁ Jk₂ Res h_jk1_r1 h_det_jk h_res_sub
+    generalized_candidate_determines R₁ R₂ Jk₁ Jk₂ Res (ssub_sub _ _ h_jk1_r1) h_det_jk h_res_sub
   -- F₁ ≅ Res
   have h_iso : iso F₁ Res :=
     determines_iso_of_sub F₁ Res h_det h_sub
@@ -276,12 +278,14 @@ theorem generalized_equijoin_grain_identity
     grainEq_of_iso h_iso
   have h_le : grainLe F₁ Res :=
     iso_sub _ _ _ h_grain_iso (sub_refl (grain Res))
-  -- GIT condition (iii): G[F₁] ≅ F₁
-  -- Reuse standard equi-join idempotency with Jk₂ as the difference key
-  have h_idem : iso (grain F₁) F₁ :=
-    equijoin_candidate_idempotent R₁ R₂ Jk₂
+  -- GIT condition (iii): F₁ is structurally irreducible.
+  -- Reuse the standard equi-join candidate irreducibility with Jk₂ as the
+  -- difference key; the admissible-labeling hypothesis is likewise stated
+  -- on Jk₂, since that is the key the candidate's difference removes.
+  have h_irred : Foundations.IsIrreducible F₁ :=
+    equijoin_candidate_irreducible R₁ R₂ Jk₂ h_adm
   -- Apply strengthened GIT → IsGrainOf F₁ Res
-  exact Relations.grain_inference_isGrainOf h_sub h_le h_idem
+  exact Relations.grain_inference_isGrainOf h_sub h_le h_irred
 
 /-- **Generalized equi-join specializes to standard equi-join.**
 
@@ -290,11 +294,12 @@ theorem generalized_equijoin_grain_identity
     verification: instantiate Jk₁ = Jk₂ = Jk and the formula matches. -/
 theorem generalized_specializes_to_standard
     (R₁ R₂ Jk Res : D)
-    (h_jk_r1 : sub Jk R₁) (h_jk_r2 : sub Jk R₂)
+    (h_jk_r1 : ssub Jk R₁) (h_jk_r2 : ssub Jk R₂)
     (h_res_sub : sub Res (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk))
     (h_res_sup : sub (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk) Res)
+    (h_adm : AdmissibleLabeling R₁ R₂ Jk)
     : Foundations.IsGrainOf (union (grain R₁) (diff (grain R₂) Jk)) Res :=
   generalized_equijoin_grain_identity R₁ R₂ Jk Jk Res
-    (iso_refl Jk) (determines_self Jk) h_jk_r1 h_jk_r2 h_res_sub h_res_sup
+    (iso_refl Jk) (determines_self Jk) h_jk_r1 h_jk_r2 h_res_sub h_res_sup h_adm
 
 end GrainTheory.Inference

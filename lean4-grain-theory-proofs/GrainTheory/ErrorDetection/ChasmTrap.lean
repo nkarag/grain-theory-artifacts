@@ -23,6 +23,7 @@
 -/
 
 import GrainTheory.Relations.GrainOrdering
+import GrainTheory.ErrorDetection.FanTrap
 
 namespace GrainTheory.ErrorDetection
 
@@ -31,14 +32,15 @@ variable {D : Type*} [GrainStructure D]
 open GrainStructure
 open GrainTheory.Relations (grainLe grainLe_trans grainEq)
 
-/-! ## Strict Grain Ordering -/
+/-! ## Strict Grain Ordering
 
-/-- Strict grain ordering: R₁ <_g R₂ iff R₁ ≤_g R₂ but not R₂ ≤_g R₁.
-    "R₁ has strictly finer grain than R₂."
-    PODS notation: R₁ <_g R₂ (or R_res <_g R_i in fan trap context). -/
-def grainLt (R₁ R₂ : D) : Prop := grainLe R₁ R₂ ∧ ¬grainLe R₂ R₁
-
-scoped infixl:50 " <_g " => grainLt
+  `grainLt` (`<_g`) is defined once, in `ErrorDetection.FanTrap`, as
+  `R₁ ≤_g R₂ ∧ ¬ (R₁ ≡_g R₂)`. This module previously carried a second,
+  independent copy defined as `R₁ ≤_g R₂ ∧ ¬ (R₂ ≤_g R₁)`, under the same
+  name and the same `<_g` notation in the same namespace — which made the two
+  error-detection modules mutually un-importable. The duplicate is removed and
+  the shared definition imported; `grainLt_iff_not_grainLe` in `FanTrap`
+  records that the two formulations agree. -/
 
 /-! ## Partial Grain Ordering (Nullable FK Model)
 

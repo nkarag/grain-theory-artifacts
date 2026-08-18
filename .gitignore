@@ -54,3 +54,9 @@ experiment_results.log
 *.tmp
 *.bak
 *.backup
+
+# Development-repo documents. These live ONLY in the GrainPDL Lean repo
+# (dbfunctor_revamp-Lean4) and must never be published with the artifacts.
+# lean4-grain-theory-proofs/ publishes the proofs plus its own README.md.
+lean4-grain-theory-proofs/*.md
+!lean4-grain-theory-proofs/README.md
