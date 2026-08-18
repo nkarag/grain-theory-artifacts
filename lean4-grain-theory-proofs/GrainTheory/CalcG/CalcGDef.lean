@@ -117,6 +117,7 @@ inductive RAExpr (D : Type*) [EquiJoinStructure D] : Type _ where
       (h_jk_r1 : ssub Jk R₁) (h_jk_r2 : ssub Jk R₂)
       (h_res_sub : sub Res (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk))
       (h_res_sup : sub (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk) Res)
+      (h_indep : indep (grain R₁) (diff (grain R₂) Jk))
       (h_adm : Inference.AdmissibleLabeling R₁ R₂ Jk) : RAExpr D
 
 /-! ## Output Type Function
@@ -136,7 +137,7 @@ def RAExpr.outType {D : Type*} [EquiJoinStructure D] : RAExpr D → D
   | .ThetaJoin _ _ R₁ R₂ _ => prod R₁ R₂
   | .SemiJoin _ _ _ _ Res _ => Res
   | .AntiJoin _ _ _ _ Res _ => Res
-  | .EquiJoin _ _ _ _ _ Res _ _ _ _ _ => Res
+  | .EquiJoin _ _ _ _ _ Res _ _ _ _ _ _ => Res
 
 /-! ## CalcG Function
 
@@ -179,7 +180,7 @@ def calcG {D : Type*} [EquiJoinStructure D] : RAExpr D → D
   | .SemiJoin _ _ R₁ _ _ _ => grain R₁
   | .AntiJoin _ _ R₁ _ _ _ => grain R₁
   -- Equi-join: CalcG formula
-  | .EquiJoin _ _ R₁ R₂ Jk _ _ _ _ _ _ =>
+  | .EquiJoin _ _ R₁ R₂ Jk _ _ _ _ _ _ _ =>
       union (grain R₁) (diff (grain R₂) Jk)
 
 /-! ## CalcG Correctness Theorem
@@ -251,10 +252,11 @@ theorem calcG_iso_grain : ∀ (e : RAExpr D), iso (calcG e) (grain (RAExpr.outTy
   -- Then F₁ ≅ Res → G[F₁] ≅ G[Res] (grainEq_of_iso)
   -- And F₁ has G[F₁] ≅ F₁ (from equijoin_candidate_idempotent)
   -- So F₁ ≅ G[F₁] ≅ G[Res]
-  | .EquiJoin _ _ R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sub h_res_sup h_adm => by
+  | .EquiJoin _ _ R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sub h_res_sup h_indep h_adm => by
     set F₁ := union (grain R₁) (diff (grain R₂) Jk)
     have h_identity : IsGrainOf F₁ Res :=
-      Inference.equijoin_grain_identity R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sub h_res_sup h_adm
+      Inference.equijoin_grain_identity R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sub h_res_sup
+        h_indep h_adm
     -- F₁ ≅ Res
     have h_F1_Res : iso F₁ Res := h_identity.1
     -- G[F₁] ≅ G[Res] (PODS Thm 4.2)
@@ -262,7 +264,7 @@ theorem calcG_iso_grain : ∀ (e : RAExpr D), iso (calcG e) (grain (RAExpr.outTy
       grainEq_of_iso h_F1_Res
     -- G[F₁] ≅ F₁ (equi-join candidate idempotent)
     have h_idem : iso (grain F₁) F₁ :=
-      Inference.equijoin_candidate_idempotent R₁ R₂ Jk h_adm
+      Inference.equijoin_candidate_idempotent R₁ R₂ Jk h_indep h_adm
     -- F₁ ≅ G[F₁] ≅ G[Res]
     exact iso_trans _ _ _ (iso_symm _ _ h_idem) h_gF1_gRes
 
@@ -303,8 +305,8 @@ theorem calcG_irreducible : ∀ (e : RAExpr D), IsIrreducible (calcG e)
     (Foundations.prod_grain_isGrainOf R₁ R₂ h_indep).toIrreducible
   -- Equi-join: the candidate is irreducible under an admissible labeling
   -- (Thm 7.2). This is informational independence (Def 6.2).
-  | .EquiJoin _ _ R₁ R₂ Jk _ _ _ _ _ h_adm =>
-    Inference.equijoin_candidate_irreducible R₁ R₂ Jk h_adm
+  | .EquiJoin _ _ R₁ R₂ Jk _ _ _ _ _ h_indep h_adm =>
+    Inference.equijoin_candidate_irreducible R₁ R₂ Jk h_indep h_adm
 
 /-- **CalcG Correctness — Grain Identity (arXiv Theorem 9.2, strong form).**
 

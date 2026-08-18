@@ -153,6 +153,12 @@ theorem equijoin_grain_complete
           of F₁ carry no cross-dependencies through grain determination and
           join equality.
 
+    **Two side conditions, not one.** `h_indep` is arXiv Def 6.2 — the two
+    components carry no cross-determination — and it is **not** implied by the
+    labeling: the concrete model exhibits an admissible labeling whose candidate
+    is still reducible (`Model/EquiJoinCheck.lean`). It is the same independence
+    condition Thm 3.8 carries for products, and the θ-join rule inherits.
+
     **The labeling hypothesis.** `h_adm` requires that `G[R₂] ∩ Jk` is not a
     proper structural subtype of `G[R₁] ∩ Jk` — i.e. the labeling is either
     canonical or incomparable, the two cases arXiv Thm 7.2 admits.
@@ -170,6 +176,7 @@ theorem equijoin_grain_identity
     (h_jk_r1 : ssub Jk R₁) (h_jk_r2 : ssub Jk R₂)
     (h_res_sub : sub Res (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk))
     (h_res_sup : sub (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk) Res)
+    (h_indep : InformationallyIndependent (grain R₁) (diff (grain R₂) Jk))
     (h_adm : AdmissibleLabeling R₁ R₂ Jk)
     : Foundations.IsGrainOf (union (grain R₁) (diff (grain R₂) Jk)) Res := by
   set F₁ := union (grain R₁) (diff (grain R₂) Jk)
@@ -191,7 +198,7 @@ theorem equijoin_grain_identity
     iso_sub _ _ _ h_grain_iso (sub_refl (grain Res))
   -- GIT condition (iii): F₁ is structurally irreducible
   have h_irred : Foundations.IsIrreducible F₁ :=
-    equijoin_candidate_irreducible R₁ R₂ Jk h_adm
+    equijoin_candidate_irreducible R₁ R₂ Jk h_indep h_adm
   -- Apply strengthened GIT → IsGrainOf F₁ Res
   exact Relations.grain_inference_isGrainOf h_sub h_le h_irred
 

@@ -111,28 +111,35 @@ private theorem union_iso (A A' B B' : D) (hA : iso A A') (hB : iso B B') :
     determination (`G[Rₘ]` determines all fields of `Rₘ`) and join equality
     (`r₁.Jk = r₂.Jk`).
 
-    **This definition changed with the structural repair.** It previously read
-    `iso (grain G) G`, which is a theorem for every `G` and so asserted
-    nothing. It now unfolds to genuine irreducibility. -/
-def InformationallyIndependent (G : D) : Prop :=
-  Foundations.IsIrreducible G
+    **This definition has been corrected twice.** It first read
+    `iso (grain G) G`, which is a theorem for every `G` and so asserted nothing.
+    It was then restated as irreducibility of the *union* — but that is the
+    theorem's **conclusion**, not the hypothesis Def 6.2 describes. It is now a
+    relation on the two components, as the paper states it: no field of one is
+    determined by the fields of the other. The concrete model shows the
+    hypothesis is not derivable from the labeling
+    (`Model/EquiJoinCheck.lean`). -/
+def InformationallyIndependent (A B : D) : Prop :=
+  GrainStructure.indep A B
 
 /-- **GIT Condition (iii): the equi-join candidate is irreducible.**
 
     Under an admissible labeling, `F₁ = G[R₁] ∪ (G[R₂] \ Jk)` is structurally
     irreducible (arXiv Thm 7.2, irreducibility step). -/
 theorem equijoin_candidate_irreducible (R₁ R₂ Jk : D)
+    (h_indep : InformationallyIndependent (grain R₁) (diff (grain R₂) Jk))
     (h_adm : AdmissibleLabeling R₁ R₂ Jk) :
     Foundations.IsIrreducible (union (grain R₁) (diff (grain R₂) Jk)) :=
   fun S h_ssub h_iso =>
-    EquiJoinStructure.equijoin_candidate_irred R₁ R₂ Jk S h_adm h_ssub h_iso
+    EquiJoinStructure.equijoin_candidate_irred R₁ R₂ Jk S h_indep h_adm h_ssub h_iso
 
 /-- The equi-join candidate `F₁ = G[R₁] ∪ (G[R₂] \ Jk)` is informationally
     independent (arXiv Def 6.2) under an admissible labeling. -/
-theorem equijoin_candidate_informationally_independent (R₁ R₂ Jk : D)
+theorem equijoin_candidate_irreducible_of_indep (R₁ R₂ Jk : D)
+    (h_indep : InformationallyIndependent (grain R₁) (diff (grain R₂) Jk))
     (h_adm : AdmissibleLabeling R₁ R₂ Jk) :
-    InformationallyIndependent (union (grain R₁) (diff (grain R₂) Jk)) :=
-  equijoin_candidate_irreducible R₁ R₂ Jk h_adm
+    Foundations.IsIrreducible (union (grain R₁) (diff (grain R₂) Jk)) :=
+  equijoin_candidate_irreducible R₁ R₂ Jk h_indep h_adm
 
 /-- **G[F₁] ≅ F₁** — the candidate is its own grain up to isomorphism.
 
@@ -140,9 +147,10 @@ theorem equijoin_candidate_informationally_independent (R₁ R₂ Jk : D)
     condition (iii): an irreducible type is a grain of itself, and any two
     grains of a type are isomorphic. -/
 theorem equijoin_candidate_idempotent (R₁ R₂ Jk : D)
+    (h_indep : InformationallyIndependent (grain R₁) (diff (grain R₂) Jk))
     (h_adm : AdmissibleLabeling R₁ R₂ Jk) :
     iso (grain (union (grain R₁) (diff (grain R₂) Jk)))
         (union (grain R₁) (diff (grain R₂) Jk)) :=
-  Relations.irreducible_iso_grain (equijoin_candidate_irreducible R₁ R₂ Jk h_adm)
+  Relations.irreducible_iso_grain (equijoin_candidate_irreducible R₁ R₂ Jk h_indep h_adm)
 
 end GrainTheory.Inference

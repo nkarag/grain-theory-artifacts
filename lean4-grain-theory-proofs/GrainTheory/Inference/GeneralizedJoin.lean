@@ -266,6 +266,7 @@ theorem generalized_equijoin_grain_identity
     (h_int₂ : ssub (grain R₂) R₂)
     (h_res_sub : sub Res (prod (prod (diff R₁ Jk₁) (diff R₂ Jk₂)) Jk₁))
     (h_res_sup : sub (prod (prod (diff R₁ Jk₁) (diff R₂ Jk₂)) Jk₁) Res)
+    (h_indep : InformationallyIndependent (grain R₁) (diff (grain R₂) Jk₂))
     (h_adm : AdmissibleLabeling R₁ R₂ Jk₂)
     : Foundations.IsGrainOf (union (grain R₁) (diff (grain R₂) Jk₂)) Res := by
   set F₁ := union (grain R₁) (diff (grain R₂) Jk₂)
@@ -288,7 +289,7 @@ theorem generalized_equijoin_grain_identity
   -- difference key; the admissible-labeling hypothesis is likewise stated
   -- on Jk₂, since that is the key the candidate's difference removes.
   have h_irred : Foundations.IsIrreducible F₁ :=
-    equijoin_candidate_irreducible R₁ R₂ Jk₂ h_adm
+    equijoin_candidate_irreducible R₁ R₂ Jk₂ h_indep h_adm
   -- Apply strengthened GIT → IsGrainOf F₁ Res
   exact Relations.grain_inference_isGrainOf h_sub h_le h_irred
 
@@ -303,9 +304,11 @@ theorem generalized_specializes_to_standard
     (h_int₂ : ssub (grain R₂) R₂)
     (h_res_sub : sub Res (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk))
     (h_res_sup : sub (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk) Res)
+    (h_indep : InformationallyIndependent (grain R₁) (diff (grain R₂) Jk))
     (h_adm : AdmissibleLabeling R₁ R₂ Jk)
     : Foundations.IsGrainOf (union (grain R₁) (diff (grain R₂) Jk)) Res :=
   generalized_equijoin_grain_identity R₁ R₂ Jk Jk Res
-    (iso_refl Jk) (determines_self Jk) h_jk_r1 h_jk_r2 h_int₂ h_res_sub h_res_sup h_adm
+    (iso_refl Jk) (determines_self Jk) h_jk_r1 h_jk_r2 h_int₂ h_res_sub h_res_sup
+    h_indep h_adm
 
 end GrainTheory.Inference

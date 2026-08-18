@@ -38,3 +38,4 @@ import GrainTheory.ErrorDetection.GrainErrors
 import GrainTheory.Model.Schema
 import GrainTheory.Model.AxiomCheck
 import GrainTheory.Model.TheoremCheck
+import GrainTheory.Model.EquiJoinCheck

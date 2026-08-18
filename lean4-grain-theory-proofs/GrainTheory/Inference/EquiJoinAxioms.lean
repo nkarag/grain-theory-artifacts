@@ -121,9 +121,21 @@ class EquiJoinStructure (D : Type u) extends GrainStructure D where
       **Relation routing.** Both the gate and the reducibility criterion are
       structural: `⊑` for the canonical labeling, `⊏` for the strict
       comparison. The paper agrees as of the §7/appendix notation sweep
-      (`6963ec1`, `4ae23dd`), which converted the six `⊊` sites to `⊏` and the
-      labeling comparisons to `⊑`. -/
+      (`6963ec1`, `4ae23dd`).
+
+      **The independence hypothesis is required, and the labeling does not
+      supply it.** The appendix argues that a field of `G₁^rest` or `G₂^rest`
+      is "recovered neither from the rest of that grain nor, lying outside Jk,
+      through the join" — which assumes the *only* cross-input route is the
+      join equality on Jk. A determination declared between the inputs outside
+      Jk defeats that. The concrete model exhibits an admissible labeling whose
+      candidate is nonetheless reducible (`Model/EquiJoinCheck.lean`), so
+      `indep` is carried explicitly. This is arXiv Def 6.2 (informational
+      independence) as a *hypothesis* on the components, which is what the
+      appendix Remark describes; the canonical labeling alone does not secure
+      it. Same root cause as the θ-join independence condition of Thm 3.8. -/
   equijoin_candidate_irred : ∀ (R₁ R₂ Jk S : D),
+    indep (grain R₁) (diff (grain R₂) Jk) →
     ¬ GrainTheory.Foundations.properSsub
         (inter (grain R₂) Jk) (inter (grain R₁) Jk) →
     ssub S (union (grain R₁) (diff (grain R₂) Jk)) →

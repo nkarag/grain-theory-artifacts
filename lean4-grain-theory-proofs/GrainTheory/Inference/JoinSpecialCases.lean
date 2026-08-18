@@ -162,6 +162,7 @@ theorem equijoin_equal_grains
     (h_jk_r1 : ssub Jk R₁) (h_jk_r2 : ssub Jk R₂)
     (h_res_sub : sub Res (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk))
     (h_res_sup : sub (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk) Res)
+    (h_indep : InformationallyIndependent (grain R₁) (diff (grain R₂) Jk))
     (h_adm : AdmissibleLabeling R₁ R₂ Jk)
     : grainEq Res R₁ := by
   -- Step 1: G[R₂] ⊆ Jk (from G[R₁] ≡_g G[R₂] and G[R₁] ⊆ Jk)
@@ -177,7 +178,7 @@ theorem equijoin_equal_grains
     union_diff_iso_of_sub (grain R₂) Jk (grain R₁) h_g2_jk
   -- Step 3: IsGrainOf F₁ Res (main theorem)
   have h_main : IsGrainOf (union (grain R₁) (diff (grain R₂) Jk)) Res :=
-    equijoin_grain_identity R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sub h_res_sup h_adm
+    equijoin_grain_identity R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sub h_res_sup h_indep h_adm
   -- Step 4: G[R₁] ≅ Res (transitivity: G[R₁] ≅⁻¹ F₁ ≅ Res)
   have h_gR1_Res : iso (grain R₁) Res :=
     iso_trans _ _ _ (iso_symm _ _ h_F1_iso) h_main.1
@@ -208,6 +209,7 @@ theorem equijoin_ordered_grains
     (h_jk_r1 : ssub Jk R₁) (h_jk_r2 : ssub Jk R₂)
     (h_res_sub : sub Res (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk))
     (h_res_sup : sub (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk) Res)
+    (h_indep : InformationallyIndependent (grain R₁) (diff (grain R₂) Jk))
     (h_adm : AdmissibleLabeling R₁ R₂ Jk)
     : grainEq Res R₁ := by
   -- Step 1: F₁ ≅ G[R₁] (since G[R₂] ⊆ Jk, diff is empty)
@@ -215,7 +217,7 @@ theorem equijoin_ordered_grains
     union_diff_iso_of_sub (grain R₂) Jk (grain R₁) h_g2_jk
   -- Step 2: IsGrainOf F₁ Res (main theorem)
   have h_main : IsGrainOf (union (grain R₁) (diff (grain R₂) Jk)) Res :=
-    equijoin_grain_identity R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sub h_res_sup h_adm
+    equijoin_grain_identity R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sub h_res_sup h_indep h_adm
   -- Step 3: G[R₁] ≅ Res
   have h_gR1_Res : iso (grain R₁) Res :=
     iso_trans _ _ _ (iso_symm _ _ h_F1_iso) h_main.1
@@ -251,12 +253,15 @@ theorem equijoin_incomparable_grains
     (h_jk_r1 : ssub Jk R₁) (h_jk_r2 : ssub Jk R₂)
     (h_res_sub : sub Res (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk))
     (h_res_sup : sub (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk) Res)
+    (h_indep₁₂ : InformationallyIndependent (grain R₁) (diff (grain R₂) Jk))
+    (h_indep₂₁ : InformationallyIndependent (grain R₂) (diff (grain R₁) Jk))
     : IsGrainOf (union (grain R₁) (diff (grain R₂) Jk)) Res
     ∧ IsGrainOf (union (grain R₂) (diff (grain R₁) Jk)) Res := by
   obtain ⟨h_adm₁₂, h_adm₂₁⟩ := admissible_of_incomparable h_inc₁ h_inc₂
   constructor
   -- F₁ = G[R₁] ∪ (G[R₂] \ Jk) is a grain of Res
-  · exact equijoin_grain_identity R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sub h_res_sup h_adm₁₂
+  · exact equijoin_grain_identity R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sub h_res_sup
+      h_indep₁₂ h_adm₁₂
   -- F₂ = G[R₂] ∪ (G[R₁] \ Jk) is a grain of Res
   -- Swap R₁ and R₂: the result schema is symmetric via product commutativity
   · have h_comm : iso (prod (diff R₁ Jk) (diff R₂ Jk)) (prod (diff R₂ Jk) (diff R₁ Jk)) :=
@@ -268,7 +273,8 @@ theorem equijoin_incomparable_grains
       sub_trans _ _ _ h_res_sub (iso_sub _ _ _ (iso_symm _ _ h_prod_comm) (sub_refl _))
     have h_res_sup' : sub (prod (prod (diff R₂ Jk) (diff R₁ Jk)) Jk) Res :=
       sub_trans _ _ _ (iso_sub _ _ _ h_prod_comm (sub_refl _)) h_res_sup
-    exact equijoin_grain_identity R₂ R₁ Jk Res h_jk_r2 h_jk_r1 h_res_sub' h_res_sup' h_adm₂₁
+    exact equijoin_grain_identity R₂ R₁ Jk Res h_jk_r2 h_jk_r1 h_res_sub' h_res_sup'
+      h_indep₂₁ h_adm₂₁
 
 /-! ## Case 4: Natural Join -/
 
@@ -292,6 +298,7 @@ theorem equijoin_natural_join
                   (diff R₂ (inter R₁ R₂)))
             (inter R₁ R₂))
       Res)
+    (h_indep : InformationallyIndependent (grain R₁) (diff (grain R₂) (inter R₁ R₂)))
     (h_adm : AdmissibleLabeling R₁ R₂ (inter R₁ R₂))
     : IsGrainOf
         (union (grain R₁) (diff (grain R₂) (inter R₁ R₂)))
@@ -299,7 +306,7 @@ theorem equijoin_natural_join
   equijoin_grain_identity R₁ R₂ (inter R₁ R₂) Res
     (inter_ssub_left R₁ R₂)
     (inter_ssub_right R₁ R₂)
-    h_res_sub h_res_sup h_adm
+    h_res_sub h_res_sup h_indep h_adm
 
 /-- **PODS simplification: G[R₂] -_typ (R₁ ∩ R₂) ≅ G[R₂] -_typ R₁.**
 
@@ -336,6 +343,7 @@ theorem equijoin_natural_join_simplified
                   (diff R₂ (inter R₁ R₂)))
             (inter R₁ R₂))
       Res)
+    (h_indep : InformationallyIndependent (grain R₁) (diff (grain R₂) (inter R₁ R₂)))
     (h_adm : AdmissibleLabeling R₁ R₂ (inter R₁ R₂))
     (h_g2_internal : ssub (grain R₂) R₂)
     : IsGrainOf
@@ -343,7 +351,7 @@ theorem equijoin_natural_join_simplified
         Res := by
   -- Grain-hood with the unsimplified formula
   have h_main : IsGrainOf (union (grain R₁) (diff (grain R₂) (inter R₁ R₂))) Res :=
-    equijoin_natural_join R₁ R₂ Res h_res_sub h_res_sup h_adm
+    equijoin_natural_join R₁ R₂ Res h_res_sub h_res_sup h_indep h_adm
   set F_u := union (grain R₁) (diff (grain R₂) (inter R₁ R₂))
   set F_s := union (grain R₁) (diff (grain R₂) R₁)
   -- The two formulas have the *same components*, not merely isomorphic
