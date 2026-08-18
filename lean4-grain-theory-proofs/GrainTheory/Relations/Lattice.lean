@@ -60,11 +60,25 @@ theorem grainJoin_ge_right (R₁ R₂ : D) : grainLe R₂ (grainJoin R₁ R₂) 
   exact sub_trans _ _ _ (sub_of_iso (grain_iso (inter (grain R₁) (grain R₂))))
     (inter_sub_right _ _)
 
-/-- Join is the least upper bound: if R₁ ≤_g X and R₂ ≤_g X, then join(R₁,R₂) ≤_g X -/
+/-- Join is the least upper bound — **given structural upper bounds**.
+
+    The hypotheses are `⊑`, not `⊆_typ`. This is not a technicality: with the
+    semantic hypotheses the statement is **false**, refuted in
+    `Model/TheoremCheck.lean`. The reason is arXiv Def 5.3 — a `≤_g` witness may
+    be a *declared* determination rather than a structural projection, and the
+    field-set `∩typ` computes only the structural case. Def 5.12 says the same
+    thing from the other side: the lattice operations are what resolve
+    grain-*incomparable* components, and comparability arising from a declared
+    determination is exactly what the field-set formula cannot see.
+
+    Restricting to grain-incomparable `R₁, R₂` also suffices (both restrictions
+    are checked in the model); the structural form is used here because it is
+    what the abstract axioms can discharge. -/
 theorem grainJoin_universal {R₁ R₂ X : D}
-    (h₁ : grainLe R₁ X) (h₂ : grainLe R₂ X) : grainLe (grainJoin R₁ R₂) X :=
-  -- h₁ : sub (grain X) (grain R₁), h₂ : sub (grain X) (grain R₂)
+    (h₁ : ssub (grain X) (grain R₁)) (h₂ : ssub (grain X) (grain R₂)) :
+    grainLe (grainJoin R₁ R₂) X :=
   -- Goal: sub (grain X) (grain (inter (grain R₁) (grain R₂)))
-  iso_sub _ _ _ (grain_iso (inter (grain R₁) (grain R₂))) (sub_inter _ _ _ h₁ h₂)
+  iso_sub _ _ _ (grain_iso (inter (grain R₁) (grain R₂)))
+    (ssub_sub _ _ (ssub_inter _ _ _ h₁ h₂))
 
 end GrainTheory.Relations

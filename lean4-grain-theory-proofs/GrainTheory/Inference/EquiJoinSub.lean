@@ -27,7 +27,7 @@ open GrainStructure (sub iso grain union inter diff prod
   iso_refl iso_symm iso_trans
   grain_sub grain_iso grain_irred
   sub_union_left sub_union_right union_sub
-  inter_sub_left inter_sub_right sub_inter
+  inter_sub_left inter_sub_right 
   sub_diff sub_union_diff
   sub_prod_left sub_prod_right)
 

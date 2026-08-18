@@ -45,7 +45,7 @@ open GrainStructure (sub ssub iso grain union inter diff prod sum
   sub_refl sub_trans iso_refl iso_symm iso_trans iso_sub
   grain_sub grain_iso grain_irred
   sub_union_left sub_union_right union_sub
-  inter_sub_left inter_sub_right sub_inter
+  inter_sub_left inter_sub_right 
   sub_diff)
 
 open GrainTheory.Relations (grainEq grainEq_of_iso iso_of_grainEq)

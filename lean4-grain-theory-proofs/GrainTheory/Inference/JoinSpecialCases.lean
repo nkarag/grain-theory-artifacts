@@ -32,9 +32,9 @@ open GrainStructure (sub iso grain union inter diff prod
   iso_refl iso_symm iso_trans iso_sub
   grain_sub grain_iso grain_irred
   sub_union_left sub_union_right union_sub
-  inter_sub_left inter_sub_right sub_inter
+  inter_sub_left inter_sub_right 
   sub_diff sub_union_diff sub_inter_union_diff
-  diff_inter_empty diff_sub_left
+  diff_inter_empty 
   ssub ssub_refl ssub_trans ssub_antisymm ssub_sub
   ssub_union_left ssub_union_right union_ssub
   inter_ssub_left inter_ssub_right ssub_inter
@@ -47,136 +47,45 @@ open GrainTheory.Foundations (IsGrainOf grain_idempotent)
 
 /-! ## Helper lemmas for diff simplification -/
 
-/-- When A ⊆_typ B, the difference A -_typ B is empty (a bottom element):
-    it is a sub-type of any T.
+/-- When `A ⊑ B`, the difference `A -_typ B` is empty (a bottom element):
+    it is a structural subtype of any T.
 
-    Proof: A \ B ⊆ A ⊆ B, so A \ B ⊆ (A \ B) ∩ B (by sub_inter),
-    and (A \ B) ∩ B ⊆ T (by diff_inter_empty). -/
-theorem diff_sub_of_sub (A B T : D) (h : sub A B) :
-    sub (diff A B) T := by
-  have h1 : sub (diff A B) B := sub_trans _ _ _ (sub_diff A B) h
-  have h2 : sub (diff A B) (inter (diff A B) B) :=
-    sub_inter _ _ _ (sub_refl (diff A B)) h1
-  exact sub_trans _ _ _ h2 (GrainStructure.sub_diff_inter_empty A B T)
+    **Structural, not semantic.** The `⊆_typ` form is false: `B` can *determine*
+    `A` without containing a single one of `A`'s columns, in which case
+    `A -_typ B = A` is not empty. Refuted in `Model/AxiomCheck.lean`.
+
+    Proof: `A \ B ⊑ A ⊑ B`, so `A \ B ⊑ (A \ B) ∩ B`, which is empty. -/
+theorem diff_ssub_of_ssub (A B T : D) (h : ssub A B) :
+    ssub (diff A B) T := by
+  have h1 : ssub (diff A B) B := ssub_trans _ _ _ (ssub_diff A B) h
+  have h2 : ssub (diff A B) (inter (diff A B) B) :=
+    ssub_inter _ _ _ (ssub_refl (diff A B)) h1
+  exact ssub_trans _ _ _ h2 (diff_inter_empty A B T)
 
 /-- When A ⊆_typ B, the union C ∪_typ (A -_typ B) ≅ C.
 
     Since A \ B is empty (diff_sub_of_sub), it is ⊆ C.
     Then union_sub gives C ∪ (A \ B) ⊆ C, and sub_union_left gives C ⊆ C ∪ (A \ B).
     Antisymmetry yields iso. -/
-theorem union_diff_iso_of_sub (A B C : D) (h : sub A B) :
+theorem union_diff_iso_of_sub (A B C : D) (h : ssub A B) :
     iso (union C (diff A B)) C := by
-  have h1 : sub (diff A B) C := diff_sub_of_sub A B C h
+  have h1 : sub (diff A B) C := ssub_sub _ _ (diff_ssub_of_ssub A B C h)
   have h2 : sub (union C (diff A B)) C := union_sub _ _ _ (sub_refl C) h1
   have h3 : sub C (union C (diff A B)) := sub_union_left C (diff A B)
   exact sub_antisymm _ _ h2 h3
 
-/-- Diff is anti-monotone in the second argument (backward direction):
-    sub (diff A B) (diff A (inter B C)).
+/-! ### Anti-monotonicity of difference in its second argument
 
-    Removing more (B) gives a smaller result than removing less (B ∩ C).
-    No extra hypotheses needed.
+  These are field-set identities and hold **structurally**. Semantic versions
+  were removed: `⊆_typ` means *determines*, and determination does not survive
+  set difference — `diff_sub_left` is refuted in `Model/AxiomCheck.lean`.
 
-    Proof: Decompose A \ B via sub_inter_union_diff into the (B ∩ C)-part
-    and its complement. The (B ∩ C)-part is empty (it intersects B,
-    contradicting diff), so A \ B ⊆ A \ (B ∩ C). -/
-private theorem diff_sub_diff_inter (A B C : D) :
-    sub (diff A B) (diff A (inter B C)) := by
-  -- Decompose: A\B ⊆ ((A\B) ∩ (B∩C)) ∪ ((A\B) \ (B∩C))
-  have h_decomp : sub (diff A B) (union (inter (diff A B) (inter B C))
-                                         (diff (diff A B) (inter B C))) :=
-    sub_inter_union_diff (diff A B) (inter B C)
-  -- Part 1: (A\B) ∩ (B∩C) is empty (⊆ any T)
-  -- (A\B) ∩ (B∩C) ⊆ (B∩C) ⊆ B  and  (A\B) ∩ (B∩C) ⊆ (A\B)
-  -- So (A\B) ∩ (B∩C) ⊆ (A\B) ∩ B ⊆ T
-  have h_inter_bc_sub_b : sub (inter B C) B := inter_sub_left B C
-  have h_part1_sub_b : sub (inter (diff A B) (inter B C)) B :=
-    sub_trans _ _ _ (inter_sub_right (diff A B) (inter B C)) h_inter_bc_sub_b
-  have h_part1_sub_dab : sub (inter (diff A B) (inter B C)) (diff A B) :=
-    inter_sub_left (diff A B) (inter B C)
-  have h_part1_in_dab_b : sub (inter (diff A B) (inter B C)) (inter (diff A B) B) :=
-    sub_inter _ _ _ h_part1_sub_dab h_part1_sub_b
-  have h_part1_empty : sub (inter (diff A B) (inter B C)) (diff A (inter B C)) :=
-    sub_trans _ _ _ h_part1_in_dab_b
-      (GrainStructure.sub_diff_inter_empty A B (diff A (inter B C)))
-  -- Part 2: (A\B) \ (B∩C) ⊆ A \ (B∩C)
-  -- From diff_sub_left: (A\B) ⊆ A → ((A\B) \ (B∩C)) ⊆ (A \ (B∩C))
-  have h_part2 : sub (diff (diff A B) (inter B C)) (diff A (inter B C)) :=
-    diff_sub_left (diff A B) A (inter B C) (sub_diff A B)
-  -- Combine via union_sub
-  have h_union : sub (union (inter (diff A B) (inter B C))
-                            (diff (diff A B) (inter B C)))
-                     (diff A (inter B C)) :=
-    union_sub _ _ _ h_part1_empty h_part2
-  exact sub_trans _ _ _ h_decomp h_union
-
-/-- Diff is anti-monotone in the second argument (forward direction):
-    sub A C → sub (diff A (inter B C)) (diff A B).
-
-    When A ⊆ C, removing B ∩ C is the same as removing B:
-    a field in A \ (B ∩ C) that is not in B is automatically not in B ∩ C.
-    The converse holds because A ⊆ C: any field of A in B is in B ∩ C.
-
-    Proof: Decompose A \ (B∩C) into B-part and non-B-part.
-    The B-part is in B and in C (since A ⊆ C), hence in B ∩ C,
-    contradicting that it's in A \ (B∩C). So it's empty. -/
-private theorem diff_inter_sub_diff_of_sub (A B C : D) (h : sub A C) :
-    sub (diff A (inter B C)) (diff A B) := by
-  -- Decompose: A\(B∩C) ⊆ ((A\(B∩C)) ∩ B) ∪ ((A\(B∩C)) \ B)
-  have h_decomp : sub (diff A (inter B C))
-      (union (inter (diff A (inter B C)) B) (diff (diff A (inter B C)) B)) :=
-    sub_inter_union_diff (diff A (inter B C)) B
-  -- Part 1: (A\(B∩C)) ∩ B is empty (⊆ any T)
-  -- (A\(B∩C)) ⊆ A ⊆ C, so (A\(B∩C)) ∩ B ⊆ C ∩ B = B ∩ C
-  -- Also (A\(B∩C)) ∩ B ⊆ A\(B∩C)
-  -- So (A\(B∩C)) ∩ B ⊆ (A\(B∩C)) ∩ (B∩C) ⊆ T (diff_inter_empty)
-  have h_dab_sub_c : sub (diff A (inter B C)) C :=
-    sub_trans _ _ _ (sub_diff A (inter B C)) h
-  have h_p1_sub_b : sub (inter (diff A (inter B C)) B) B :=
-    inter_sub_right (diff A (inter B C)) B
-  have h_p1_sub_c : sub (inter (diff A (inter B C)) B) C :=
-    sub_trans _ _ _ (inter_sub_left (diff A (inter B C)) B) h_dab_sub_c
-  have h_p1_sub_bc : sub (inter (diff A (inter B C)) B) (inter B C) :=
-    sub_inter _ _ _ h_p1_sub_b h_p1_sub_c
-  have h_p1_sub_dab : sub (inter (diff A (inter B C)) B) (diff A (inter B C)) :=
-    inter_sub_left (diff A (inter B C)) B
-  have h_p1_in_dab_bc : sub (inter (diff A (inter B C)) B)
-      (inter (diff A (inter B C)) (inter B C)) :=
-    sub_inter _ _ _ h_p1_sub_dab h_p1_sub_bc
-  have h_p1_empty : sub (inter (diff A (inter B C)) B) (diff A B) :=
-    sub_trans _ _ _ h_p1_in_dab_bc
-      (GrainStructure.sub_diff_inter_empty A (inter B C) (diff A B))
-  -- Part 2: (A\(B∩C)) \ B ⊆ A \ B
-  -- From diff_sub_left: (A\(B∩C)) ⊆ A → ((A\(B∩C)) \ B) ⊆ (A \ B)
-  have h_p2 : sub (diff (diff A (inter B C)) B) (diff A B) :=
-    diff_sub_left (diff A (inter B C)) A B (sub_diff A (inter B C))
-  -- Combine
-  have h_union : sub (union (inter (diff A (inter B C)) B)
-      (diff (diff A (inter B C)) B)) (diff A B) :=
-    union_sub _ _ _ h_p1_empty h_p2
-  exact sub_trans _ _ _ h_decomp h_union
-
-/-- When A ⊆_typ C, diff commutes with intersection on the second argument:
-    (A -_typ (B ∩_typ C)) ≅ (A -_typ B).
-
-    Set-theoretically: fields of A not in B ∩ C are exactly those not in B,
-    because A ⊆ C makes the C-condition vacuous. -/
-theorem diff_inter_iso_of_sub (A B C : D) (h : sub A C) :
-    iso (diff A (inter B C)) (diff A B) :=
-  sub_antisymm _ _
-    (diff_inter_sub_diff_of_sub A B C h)
-    (diff_sub_diff_inter A B C)
-
-
-/-! ### Structural mirrors
-
-  The two anti-monotonicity lemmas above are field-set identities, so they
-  hold structurally as well as semantically. The structural versions are what
-  the natural-join simplification needs: transferring *grain-hood* requires
-  `⊑`, since irreducibility does not survive a bare isomorphism. -/
+  The structural versions are also what the natural-join simplification needs:
+  transferring *grain-hood* requires `⊑`, since irreducibility does not survive
+  a bare isomorphism. -/
 
 /-- Structural form of `diff_sub_diff_inter`: `(A \ B) ⊑ (A \ (B ∩ C))`. -/
-private theorem diff_ssub_diff_inter (A B C : D) :
+theorem diff_ssub_diff_inter (A B C : D) :
     ssub (diff A B) (diff A (inter B C)) := by
   have h_decomp : ssub (diff A B) (union (inter (diff A B) (inter B C))
                                           (diff (diff A B) (inter B C))) :=
@@ -200,7 +109,7 @@ private theorem diff_ssub_diff_inter (A B C : D) :
     application `A = G[R₂]` and `C = R₂`, so this asks that R₂'s grain be
     **internal** — a real restriction the semantic version hid, since
     `G[R₂] ⊆_typ R₂` holds even for an external grain. -/
-private theorem diff_inter_ssub_diff_of_ssub (A B C : D) (h : ssub A C) :
+theorem diff_inter_ssub_diff_of_ssub (A B C : D) (h : ssub A C) :
     ssub (diff A (inter B C)) (diff A B) := by
   have h_decomp : ssub (diff A (inter B C))
       (union (inter (diff A (inter B C)) B) (diff (diff A (inter B C)) B)) :=
@@ -224,6 +133,19 @@ private theorem diff_inter_ssub_diff_of_ssub (A B C : D) (h : ssub A C) :
     diff_ssub_left (diff A (inter B C)) A B (ssub_diff A (inter B C))
   exact ssub_trans _ _ _ h_decomp (union_ssub _ _ _ h_p1_empty h_p2)
 
+/-- When `A ⊑ C`, difference commutes with intersection on the second argument:
+    `(A -_typ (B ∩_typ C)) ≅ (A -_typ B)`.
+
+    Field-set reading: the components of A outside `B ∩ C` are exactly those
+    outside B, because `A ⊑ C` makes the C-condition vacuous. The hypothesis is
+    structural — `A ⊆_typ C` is too weak, since a *declared* surjection carries
+    no information about which components A has. -/
+theorem diff_inter_iso_of_sub (A B C : D) (h : ssub A C) :
+    iso (diff A (inter B C)) (diff A B) :=
+  ssub_antisymm _ _
+    (diff_inter_ssub_diff_of_ssub A B C h)
+    (diff_ssub_diff_inter A B C)
+
 /-! ## Case 1: Equal Grains -/
 
 /-- **PODS Prop 6.2, Case 1: Equal grains with G[R₁] ⊆_typ Jk.**
@@ -236,7 +158,7 @@ private theorem diff_inter_ssub_diff_of_ssub (A B C : D) (h : ssub A C) :
 theorem equijoin_equal_grains
     (R₁ R₂ Jk Res : D)
     (h_eq : grainEq R₁ R₂)
-    (h_g1_jk : ssub (grain R₁) Jk)
+    (_h_g1_jk : ssub (grain R₁) Jk) (h_g2_jk_struct : ssub (grain R₂) Jk)
     (h_jk_r1 : ssub Jk R₁) (h_jk_r2 : ssub Jk R₂)
     (h_res_sub : sub Res (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk))
     (h_res_sup : sub (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk) Res)
@@ -245,8 +167,11 @@ theorem equijoin_equal_grains
   -- Step 1: G[R₂] ⊆ Jk (from G[R₁] ≡_g G[R₂] and G[R₁] ⊆ Jk)
   have h_g2_sub_g1 : sub (grain R₂) (grain R₁) :=
     iso_sub _ _ _ h_eq (sub_refl (grain R₂))
-  have h_g2_jk : sub (grain R₂) Jk :=
-    sub_trans _ _ _ h_g2_sub_g1 (ssub_sub _ _ h_g1_jk)
+  -- Case 1 assumes the join key covers *both* grains structurally, exactly as
+  -- arXiv Prop 7.3 case 1 states it (`G[R₁] ⊑ Jk` and `G[R₂] ⊑ Jk`). It cannot
+  -- be derived from `h_eq` alone: grain equality is semantic, and a semantic
+  -- containment does not yield the structural one the difference lemma needs.
+  have h_g2_jk : ssub (grain R₂) Jk := h_g2_jk_struct
   -- Step 2: F₁ ≅ G[R₁] (since G[R₂] \ Jk is empty)
   have h_F1_iso : iso (union (grain R₁) (diff (grain R₂) Jk)) (grain R₁) :=
     union_diff_iso_of_sub (grain R₂) Jk (grain R₁) h_g2_jk
@@ -287,7 +212,7 @@ theorem equijoin_ordered_grains
     : grainEq Res R₁ := by
   -- Step 1: F₁ ≅ G[R₁] (since G[R₂] ⊆ Jk, diff is empty)
   have h_F1_iso : iso (union (grain R₁) (diff (grain R₂) Jk)) (grain R₁) :=
-    union_diff_iso_of_sub (grain R₂) Jk (grain R₁) (ssub_sub _ _ h_g2_jk)
+    union_diff_iso_of_sub (grain R₂) Jk (grain R₁) h_g2_jk
   -- Step 2: IsGrainOf F₁ Res (main theorem)
   have h_main : IsGrainOf (union (grain R₁) (diff (grain R₂) Jk)) Res :=
     equijoin_grain_identity R₁ R₂ Jk Res h_jk_r1 h_jk_r2 h_res_sub h_res_sup h_adm
@@ -383,9 +308,9 @@ theorem equijoin_natural_join
     is the same as removing fields in R₁ (the R₂-condition is vacuous).
 
     This gives the final form: G[Res] = G[R₁] ∪_typ (G[R₂] -_typ R₁). -/
-theorem natural_join_diff_simplify (R₁ R₂ : D) :
+theorem natural_join_diff_simplify (R₁ R₂ : D) (h_int : ssub (grain R₂) R₂) :
     iso (diff (grain R₂) (inter R₁ R₂)) (diff (grain R₂) R₁) :=
-  diff_inter_iso_of_sub (grain R₂) R₁ R₂ (grain_sub R₂)
+  diff_inter_iso_of_sub (grain R₂) R₁ R₂ h_int
 
 /-- **PODS Prop 6.2, Case 4 (simplified form): Natural join.**
 

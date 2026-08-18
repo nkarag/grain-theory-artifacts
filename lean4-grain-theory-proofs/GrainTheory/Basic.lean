@@ -135,8 +135,10 @@ class GrainStructure (D : Type u) where
   inter_ssub_right : ∀ (R S : D), ssub (inter R S) S
   /-- If T ⊆_typ R and T ⊆_typ S, then T ⊆_typ (R ∩ S) -/
   ssub_inter : ∀ (R S T : D), ssub T R → ssub T S → ssub T (inter R S)
-  /-- Semantic glb: if T ⊆_typ R and T ⊆_typ S, then T ⊆_typ (R ∩ S). -/
-  sub_inter : ∀ (R S T : D), sub T R → sub T S → sub T (inter R S)
+  -- NOTE: there is deliberately no `sub_inter`. The semantic glb property
+  -- "T ⊆_typ R → T ⊆_typ S → T ⊆_typ (R ∩ S)" is **false**: ⊆_typ means
+  -- *determines*, and two sources can each determine T while the columns they
+  -- share determine nothing. Refuted in `Model/AxiomCheck.lean`.
   -- Structural axioms for diff
   /-- (R \ S) ⊆_typ R -/
   ssub_diff : ∀ (R S : D), ssub (diff R S) R
@@ -154,8 +156,10 @@ class GrainStructure (D : Type u) where
       PODS justification: if A has fewer fields than B, removing the same
       fields from A gives a result no larger than removing them from B. -/
   diff_ssub_left : ∀ (A B C : D), ssub A B → ssub (diff A C) (diff B C)
-  /-- Semantic monotonicity of difference in its first argument. -/
-  diff_sub_left : ∀ (A B C : D), sub A B → sub (diff A C) (diff B C)
+  -- NOTE: there is deliberately no `diff_sub_left`. Its semantic form
+  -- "A ⊆_typ B → (A \ C) ⊆_typ (B \ C)" is **false**: removing columns from a
+  -- determiner can destroy the determination outright. Refuted in
+  -- `Model/AxiomCheck.lean`.
   /-- Intersection distributes over union (left):
       (A ∩ (B ∪ C)) ⊆_typ (A ∩ B) ∪ (A ∩ C).
       PODS justification: field sets form a distributive lattice (standard

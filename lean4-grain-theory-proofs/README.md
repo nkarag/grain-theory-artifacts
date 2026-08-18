@@ -23,11 +23,11 @@ mirrors the paper's proof style.
 
 | | |
 |---|---|
-| Lean modules | 37, all reachable from the root module |
+| Lean modules | 40, all reachable from the root module |
 | Theorems | 236 (plus 45 definitions/structures) |
-| Axioms | 49 — and **every one is used by some proof** |
+| Axioms | 47 — every one used, and every one **verified against a concrete model** |
 | `sorry` obligations | 0 |
-| Build | `lake build`, 3302 jobs, 0 errors, 0 warnings |
+| Build | `lake build`, 3305 jobs, 0 errors, 0 warnings |
 | Toolchain | Lean 4 v4.29.0-rc8 + Mathlib v4.29.0-rc8 |
 
 ## What changed in this revision
@@ -54,7 +54,23 @@ stays zero-cost; it names two obligations instead of one.
 **Coverage was over-reported.** The previous release said "33 modules, zero
 `sorry`". Twelve modules were reachable from no import and therefore never
 compiled — one of them contained a genuine type error. The root module now
-imports all 37, so the build covers what this README claims.
+imports all 40, so the build covers what this README claims.
+
+**Two axioms were false, and are gone.** `GrainTheory/Model/` adds a concrete
+model — three attributes, one declared functional dependency, types as attribute
+sets — in which every axiom is settled by exhaustive check rather than by a hand
+proof. It confirmed 30 axioms and refuted two: the semantic greatest-lower-bound
+law and the semantic monotonicity of difference. Both are false because `⊆typ`
+means *determines*, and determination does not distribute over set operations
+the way containment does. Every use is now routed through the structural
+relation `⊑`, with explicit hypotheses where one is genuinely needed.
+
+The model also supplies two things the abstract axiomatization could not
+establish about itself: that `⊑` and `⊆typ` really do differ (so the degenerate
+reading in which they coincide — which satisfies every other axiom — is ruled
+out), and that grain irreducibility excludes something (a type isomorphic to `R`
+that is *not* a grain of `R`, which was impossible under the earlier
+definition).
 
 ## Building
 
@@ -144,6 +160,10 @@ GrainTheory/
     ChasmTrap.lean                   -- Chasm trap characterization
     GrainErrors.lean                 -- Props 10.2, 10.3, wrong-grain aggregation,
                                      --   behavioral-class violation
+  Model/
+    Schema.lean                      -- a concrete model: 3 attributes, 1 FD
+    AxiomCheck.lean                  -- every axiom checked against it
+    TheoremCheck.lean                -- and the theorems, including the lattice
 ```
 
 ## Axiomatization
@@ -151,7 +171,7 @@ GrainTheory/
 Three type classes plus one standalone axiom — **49 assumptions in total**, each
 carrying a docstring naming the paper statement it encodes:
 
-- **`GrainStructure`** (37 axioms, `Basic.lean`) — the two subtype relations,
+- **`GrainStructure`** (35 axioms, `Basic.lean`) — the two subtype relations,
   isomorphism, the three grain clauses, and the field-set laws for
   `∪typ ∩typ −typ × +`. Ten further fields are *carriers* (the relations and
   operations themselves), not assumptions.
@@ -164,8 +184,9 @@ carrying a docstring naming the paper statement it encodes:
 - **`armstrong_complete`** (standalone) — transfer from Armstrong's 1974
   completeness theorem.
 
-Nine axioms that had become unused were **removed** in this revision. An unused
-axiom is pure liability: it enlarges what must be believed while buying nothing.
+Nine axioms that had become unused were **removed** in this revision, and two
+more were removed because the concrete model showed them **false**. An unused
+axiom is pure liability; a false one is worse.
 
 `#print axioms` confirms the headline results depend on no Lean axioms beyond
 these class fields — they do not silently reach for choice or for

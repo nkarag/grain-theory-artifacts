@@ -51,14 +51,16 @@ open GrainStructure
     grain_inference gives grainEq (grain R₁) (grain (inter R₁ R₂)),
     which is grainEq R₁ (inter R₁ R₂) by idempotency (applied on both sides). -/
 theorem intersection_grain {R₁ R₂ : D}
-    (h : sub (grain R₁) (grain R₂)) :
+    (h_int₁ : ssub (grain R₁) R₁) (h : ssub (grain R₁) (grain R₂))
+    (h_int₂ : ssub (grain R₂) R₂) :
     grainEq R₁ (inter R₁ R₂) := by
   -- Condition (i): G[R₁] ⊆_typ (R₁ ∩ R₂)
-  have h_sub_R₁ : sub (grain R₁) R₁ := grain_sub R₁
-  have h_sub_R₂ : sub (grain R₁) R₂ :=
-    sub_trans _ _ _ h (grain_sub R₂)
+  -- Structural containment throughout: `inter` is the field-set operation, and
+  -- the semantic glb property it would otherwise need is FALSE
+  -- (`Model/AxiomCheck.lean`). See the note on the theorem statement.
+  have h_sub_R₂ : ssub (grain R₁) R₂ := ssub_trans _ _ _ h h_int₂
   have h_sub_inter : sub (grain R₁) (inter R₁ R₂) :=
-    sub_inter _ _ _ h_sub_R₁ h_sub_R₂
+    ssub_sub _ _ (ssub_inter _ _ _ h_int₁ h_sub_R₂)
   -- Condition (ii): G[R₁] ≤_g (R₁ ∩ R₂)
   -- (R₁ ∩ R₂) ⊆_typ R₁, so grain_determines_subsets gives grainLe (grain R₁) (R₁ ∩ R₂)
   have h_le : grainLe (grain R₁) (inter R₁ R₂) :=
@@ -78,13 +80,15 @@ theorem intersection_grain {R₁ R₂ : D}
 
     Condition (iii): G[R₁] is irreducible (`grain_irreducible`). -/
 theorem intersection_grain_isGrainOf {R₁ R₂ : D}
-    (h : sub (grain R₁) (grain R₂)) :
+    (h_int₁ : ssub (grain R₁) R₁) (h : ssub (grain R₁) (grain R₂))
+    (h_int₂ : ssub (grain R₂) R₂) :
     Foundations.IsGrainOf (grain R₁) (inter R₁ R₂) := by
-  have h_sub_R₁ : sub (grain R₁) R₁ := grain_sub R₁
-  have h_sub_R₂ : sub (grain R₁) R₂ :=
-    sub_trans _ _ _ h (grain_sub R₂)
+  -- Structural containment throughout: `inter` is the field-set operation, and
+  -- the semantic glb property it would otherwise need is FALSE
+  -- (`Model/AxiomCheck.lean`). See the note on the theorem statement.
+  have h_sub_R₂ : ssub (grain R₁) R₂ := ssub_trans _ _ _ h h_int₂
   have h_sub_inter : sub (grain R₁) (inter R₁ R₂) :=
-    sub_inter _ _ _ h_sub_R₁ h_sub_R₂
+    ssub_sub _ _ (ssub_inter _ _ _ h_int₁ h_sub_R₂)
   have h_le : grainLe (grain R₁) (inter R₁ R₂) :=
     grain_determines_subsets (inter_sub_left R₁ R₂)
   -- Condition (iii): G[R₁] is structurally irreducible — directly from the
@@ -165,8 +169,9 @@ theorem union_grain_isGrainOf {R₁ R₂ : D}
 
     Direct corollary of intersection_grain and union_grain. -/
 theorem lattice_absorption {R₁ R₂ : D}
-    (h : sub (grain R₁) (grain R₂)) :
+    (h_int₁ : ssub (grain R₁) R₁) (h : ssub (grain R₁) (grain R₂))
+    (h_int₂ : ssub (grain R₂) R₂) :
     grainEq R₁ (inter R₁ R₂) ∧ grainEq R₂ (union R₁ R₂) :=
-  ⟨intersection_grain h, union_grain h⟩
+  ⟨intersection_grain h_int₁ h h_int₂, union_grain (ssub_sub _ _ h)⟩
 
 end GrainTheory.Relations

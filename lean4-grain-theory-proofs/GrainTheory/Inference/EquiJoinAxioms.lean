@@ -140,10 +140,11 @@ open GrainStructure (sub iso grain union inter diff prod
   iso_refl iso_symm iso_trans iso_sub
   grain_sub grain_iso grain_irred ssub ssub_sub ssub_refl ssub_trans ssub_antisymm indep
   sub_union_left sub_union_right union_sub
-  inter_sub_left inter_sub_right sub_inter
+  inter_sub_left inter_sub_right 
   sub_diff sub_union_diff
-  diff_inter_empty diff_sub_left inter_distrib_union
-  sub_prod_left sub_prod_right)
+  diff_inter_empty inter_distrib_union
+  sub_prod_left sub_prod_right
+  inter_ssub_left inter_ssub_right ssub_inter diff_ssub_left)
 
 -- ================================================================
 -- Derived lemmas (sanity checks exercising the new axioms)
@@ -197,26 +198,33 @@ theorem iso_sub_grain (S R : D) (h_iso : iso S R) (h_sub : sub S R) :
   have h_det : determines S R := iso_determines S R h_iso h_sub
   exact determines_grain_sub S R h_det h_sub
 
-/-- Intersection is monotone in the first argument:
-    A ⊆_typ B → (A ∩ C) ⊆_typ (B ∩ C). -/
-theorem inter_mono_left (A B C : D) (h : sub A B) :
-    sub (inter A C) (inter B C) := by
-  have h1 : sub (inter A C) B := sub_trans _ _ _ (inter_sub_left A C) h
-  have h2 : sub (inter A C) C := inter_sub_right A C
-  exact sub_inter B C (inter A C) h1 h2
+/-- Intersection is monotone in the first argument — **structurally**:
+    A ⊑ B → (A ∩ C) ⊑ (B ∩ C).
 
-/-- Intersection is monotone in the second argument:
-    A ⊆_typ B → (C ∩ A) ⊆_typ (C ∩ B). -/
-theorem inter_mono_right (A B C : D) (h : sub A B) :
-    sub (inter C A) (inter C B) := by
-  have h1 : sub (inter C A) C := inter_sub_left C A
-  have h2 : sub (inter C A) B := sub_trans _ _ _ (inter_sub_right C A) h
-  exact sub_inter C B (inter C A) h1 h2
+    The semantic form (`⊆_typ` throughout) is **false**: determination does not
+    survive intersection. Refuted in `Model/AxiomCheck.lean`. -/
+theorem inter_mono_left (A B C : D) (h : ssub A B) :
+    ssub (inter A C) (inter B C) := by
+  have h1 : ssub (inter A C) B := ssub_trans _ _ _ (inter_ssub_left A C) h
+  have h2 : ssub (inter A C) C := inter_ssub_right A C
+  exact ssub_inter B C (inter A C) h1 h2
 
-/-- diff of the grain is sub-type of diff of the type:
-    G[R] ⊆_typ R → (G[R] \ S) ⊆_typ (R \ S). -/
-theorem diff_grain_sub_diff (R S : D) :
-    sub (diff (grain R) S) (diff R S) :=
-  diff_sub_left (grain R) R S (grain_sub R)
+/-- Intersection is monotone in the second argument — **structurally**. -/
+theorem inter_mono_right (A B C : D) (h : ssub A B) :
+    ssub (inter C A) (inter C B) := by
+  have h1 : ssub (inter C A) C := inter_ssub_left C A
+  have h2 : ssub (inter C A) B := ssub_trans _ _ _ (inter_ssub_right C A) h
+  exact ssub_inter C B (inter C A) h1 h2
+
+/-- Difference of the grain is a subtype of the difference of the type:
+    `G[R] ⊑ R → (G[R] \ S) ⊑ (R \ S)`.
+
+    Takes the **internal-grain** hypothesis explicitly. `grain_sub` gives only
+    `G[R] ⊆_typ R`, which is too weak: it also holds of an *external* grain,
+    and removing columns from a determiner can destroy the determination
+    outright (`diff_sub_left` is refuted in `Model/AxiomCheck.lean`). -/
+theorem diff_grain_ssub_diff (R S : D) (h_int : ssub (grain R) R) :
+    ssub (diff (grain R) S) (diff R S) :=
+  diff_ssub_left (grain R) R S h_int
 
 end EquiJoinStructure

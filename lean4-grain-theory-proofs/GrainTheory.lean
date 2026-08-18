@@ -35,3 +35,6 @@ import GrainTheory.CalcG.ZeroCost
 import GrainTheory.ErrorDetection.FanTrap
 import GrainTheory.ErrorDetection.ChasmTrap
 import GrainTheory.ErrorDetection.GrainErrors
+import GrainTheory.Model.Schema
+import GrainTheory.Model.AxiomCheck
+import GrainTheory.Model.TheoremCheck

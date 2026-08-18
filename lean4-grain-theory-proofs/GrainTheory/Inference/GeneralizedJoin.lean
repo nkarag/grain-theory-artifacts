@@ -35,7 +35,7 @@ open GrainStructure (sub ssub ssub_sub iso grain union inter diff prod
   iso_refl iso_symm iso_trans iso_sub
   grain_sub grain_iso grain_irred
   sub_union_left sub_union_right union_sub
-  inter_sub_left inter_sub_right sub_inter
+  inter_sub_left inter_sub_right 
   sub_diff sub_union_diff
   sub_prod_left sub_prod_right)
 
@@ -54,12 +54,15 @@ open GrainTheory.Relations (grainEq grainLe grainEq_of_iso)
     G[R₂] \ Jk₂ ⊆ G[R₂] ⊆ R₂, and G[R₂] \ Jk₂ ⊆ R₂ \ Jk₂ (by diff_sub_left).
     R₂ \ Jk₂ appears as a product component in Res. -/
 private lemma gen_diff_sub_res (R₁ R₂ Jk₁ Jk₂ Res : D)
+    (h_int₂ : ssub (grain R₂) R₂)
     (h_res_sup : sub (prod (prod (diff R₁ Jk₁) (diff R₂ Jk₂)) Jk₁) Res)
     : sub (diff (grain R₂) Jk₂) Res := by
   set P := prod (prod (diff R₁ Jk₁) (diff R₂ Jk₂)) Jk₁
-  -- G[R₂] \ Jk₂ ⊆ R₂ \ Jk₂  (diff_sub_left from grain_sub)
+  -- G[R₂] \ Jk₂ ⊑ R₂ \ Jk₂. The structural hypothesis is required: `grain_sub`
+  -- gives only `G[R₂] ⊆_typ R₂`, and difference does not preserve
+  -- determination (`Model/AxiomCheck.lean`).
   have h1 : sub (diff (grain R₂) Jk₂) (diff R₂ Jk₂) :=
-    GrainStructure.diff_sub_left _ _ _ (grain_sub R₂)
+    GrainStructure.ssub_sub _ _ (GrainStructure.diff_ssub_left _ _ _ h_int₂)
   -- R₂ \ Jk₂ ⊆ (R₁ \ Jk₁) × (R₂ \ Jk₂)
   have h2 : sub (diff R₂ Jk₂) (prod (diff R₁ Jk₁) (diff R₂ Jk₂)) :=
     sub_prod_right (diff R₁ Jk₁) (diff R₂ Jk₂)
@@ -103,16 +106,16 @@ private lemma gen_grain_r1_sub_res (R₁ R₂ Jk₁ Jk₂ Res : D)
 
     **Proof:**
     - G[R₁] ⊆ R₁ ⊆ Res  (grain_sub + R₁ embeds into product)
-    - G[R₂] \ Jk₂ ⊆ R₂ \ Jk₂ ⊆ Res  (diff_sub_left + R₂\Jk₂ is in product)
+    - G[R₂] \ Jk₂ ⊑ R₂ \ Jk₂ ⊆ Res  (needs R₂'s grain to be internal)
     - union_sub combines both -/
 theorem generalized_candidate_sub
     (R₁ R₂ Jk₁ Jk₂ Res : D)
-    (h_jk1_r1 : sub Jk₁ R₁)
+    (h_jk1_r1 : sub Jk₁ R₁) (h_int₂ : ssub (grain R₂) R₂)
     (h_res_sup : sub (prod (prod (diff R₁ Jk₁) (diff R₂ Jk₂)) Jk₁) Res)
     : sub (union (grain R₁) (diff (grain R₂) Jk₂)) Res :=
   union_sub _ _ _
     (gen_grain_r1_sub_res R₁ R₂ Jk₁ Jk₂ Res h_jk1_r1 h_res_sup)
-    (gen_diff_sub_res R₁ R₂ Jk₁ Jk₂ Res h_res_sup)
+    (gen_diff_sub_res R₁ R₂ Jk₁ Jk₂ Res h_int₂ h_res_sup)
 
 -- ════════════════════════════════════════════════════════════════
 -- Lemma B (generalized): F₁ determines Res
@@ -219,13 +222,14 @@ theorem generalized_equijoin_grain
     (_h_jk_iso : iso Jk₁ Jk₂)
     (h_det_jk : determines Jk₁ Jk₂)
     (h_jk1_r1 : ssub Jk₁ R₁) (_h_jk2_r2 : ssub Jk₂ R₂)
+    (h_int₂ : ssub (grain R₂) R₂)
     (h_res_sub : sub Res (prod (prod (diff R₁ Jk₁) (diff R₂ Jk₂)) Jk₁))
     (h_res_sup : sub (prod (prod (diff R₁ Jk₁) (diff R₂ Jk₂)) Jk₁) Res)
     : grainEq (union (grain R₁) (diff (grain R₂) Jk₂)) (grain Res) := by
   set F₁ := union (grain R₁) (diff (grain R₂) Jk₂)
   -- Step 1: F₁ ⊆ Res
   have h_sub : sub F₁ Res :=
-    generalized_candidate_sub R₁ R₂ Jk₁ Jk₂ Res (ssub_sub _ _ h_jk1_r1) h_res_sup
+    generalized_candidate_sub R₁ R₂ Jk₁ Jk₂ Res (ssub_sub _ _ h_jk1_r1) h_int₂ h_res_sup
   -- Step 2: F₁ determines Res
   have h_det : determines F₁ Res :=
     generalized_candidate_determines R₁ R₂ Jk₁ Jk₂ Res (ssub_sub _ _ h_jk1_r1) h_det_jk h_res_sub
@@ -259,6 +263,7 @@ theorem generalized_equijoin_grain_identity
     (_h_jk_iso : iso Jk₁ Jk₂)
     (h_det_jk : determines Jk₁ Jk₂)
     (h_jk1_r1 : ssub Jk₁ R₁) (_h_jk2_r2 : ssub Jk₂ R₂)
+    (h_int₂ : ssub (grain R₂) R₂)
     (h_res_sub : sub Res (prod (prod (diff R₁ Jk₁) (diff R₂ Jk₂)) Jk₁))
     (h_res_sup : sub (prod (prod (diff R₁ Jk₁) (diff R₂ Jk₂)) Jk₁) Res)
     (h_adm : AdmissibleLabeling R₁ R₂ Jk₂)
@@ -266,7 +271,7 @@ theorem generalized_equijoin_grain_identity
   set F₁ := union (grain R₁) (diff (grain R₂) Jk₂)
   -- GIT condition (i): F₁ ⊆ Res
   have h_sub : sub F₁ Res :=
-    generalized_candidate_sub R₁ R₂ Jk₁ Jk₂ Res (ssub_sub _ _ h_jk1_r1) h_res_sup
+    generalized_candidate_sub R₁ R₂ Jk₁ Jk₂ Res (ssub_sub _ _ h_jk1_r1) h_int₂ h_res_sup
   -- F₁ determines Res (Lemma B, generalized)
   have h_det : determines F₁ Res :=
     generalized_candidate_determines R₁ R₂ Jk₁ Jk₂ Res (ssub_sub _ _ h_jk1_r1) h_det_jk h_res_sub
@@ -295,11 +300,12 @@ theorem generalized_equijoin_grain_identity
 theorem generalized_specializes_to_standard
     (R₁ R₂ Jk Res : D)
     (h_jk_r1 : ssub Jk R₁) (h_jk_r2 : ssub Jk R₂)
+    (h_int₂ : ssub (grain R₂) R₂)
     (h_res_sub : sub Res (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk))
     (h_res_sup : sub (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk) Res)
     (h_adm : AdmissibleLabeling R₁ R₂ Jk)
     : Foundations.IsGrainOf (union (grain R₁) (diff (grain R₂) Jk)) Res :=
   generalized_equijoin_grain_identity R₁ R₂ Jk Jk Res
-    (iso_refl Jk) (determines_self Jk) h_jk_r1 h_jk_r2 h_res_sub h_res_sup h_adm
+    (iso_refl Jk) (determines_self Jk) h_jk_r1 h_jk_r2 h_int₂ h_res_sub h_res_sup h_adm
 
 end GrainTheory.Inference
