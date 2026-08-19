@@ -162,9 +162,14 @@ theorem equijoin_equal_grains
     (h_jk_r1 : ssub Jk R₁) (h_jk_r2 : ssub Jk R₂)
     (h_res_sub : sub Res (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk))
     (h_res_sup : sub (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk) Res)
-    (h_indep : InformationallyIndependent (grain R₁) (diff (grain R₂) Jk))
     (h_adm : AdmissibleLabeling R₁ R₂ Jk)
     : grainEq Res R₁ := by
+  -- The independence hypothesis of Thm 7.2 is **vacuous here**: case 1 has
+  -- G[R₂] ⊑ Jk, so G[R₂] -_typ Jk is empty and nothing can be determined
+  -- across the components (arXiv Prop 7.3, "in cases 1--2 the hypothesis is
+  -- vacuous"). It is discharged rather than assumed.
+  have h_indep : InformationallyIndependent (grain R₁) (diff (grain R₂) Jk) :=
+    GrainStructure.indep_bot _ _ (fun T => diff_ssub_of_ssub _ _ T h_g2_jk_struct)
   -- Step 1: G[R₂] ⊆ Jk (from G[R₁] ≡_g G[R₂] and G[R₁] ⊆ Jk)
   have h_g2_sub_g1 : sub (grain R₂) (grain R₁) :=
     iso_sub _ _ _ h_eq (sub_refl (grain R₂))
@@ -209,9 +214,12 @@ theorem equijoin_ordered_grains
     (h_jk_r1 : ssub Jk R₁) (h_jk_r2 : ssub Jk R₂)
     (h_res_sub : sub Res (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk))
     (h_res_sup : sub (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk) Res)
-    (h_indep : InformationallyIndependent (grain R₁) (diff (grain R₂) Jk))
     (h_adm : AdmissibleLabeling R₁ R₂ Jk)
     : grainEq Res R₁ := by
+  -- As in case 1, independence is vacuous: G[R₂] ⊑ Jk makes G[R₂] -_typ Jk
+  -- empty, so it is discharged rather than assumed.
+  have h_indep : InformationallyIndependent (grain R₁) (diff (grain R₂) Jk) :=
+    GrainStructure.indep_bot _ _ (fun T => diff_ssub_of_ssub _ _ T h_g2_jk)
   -- Step 1: F₁ ≅ G[R₁] (since G[R₂] ⊆ Jk, diff is empty)
   have h_F1_iso : iso (union (grain R₁) (diff (grain R₂) Jk)) (grain R₁) :=
     union_diff_iso_of_sub (grain R₂) Jk (grain R₁) h_g2_jk

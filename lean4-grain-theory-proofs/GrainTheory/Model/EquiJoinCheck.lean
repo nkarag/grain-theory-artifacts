@@ -102,28 +102,50 @@ theorem d_equijoin_candidate_irred : ∀ R₁ R₂ Jk S : Ty,
     iso S (grain R₁ ∪ (grain R₂ \ Jk)) →
     ssub (grain R₁ ∪ (grain R₂ \ Jk)) S := by decide
 
-/-- The counterexample to the uncorrected form, spelled out.
+/-- **The counterexample, on a genuine equi-join.**
 
-    `R₁ = {CustomerId}`, `R₂ = {CustomerName}`, `Jk = ∅` (a cross join), with the
-    declared FD `CustomerId → CustomerName`.
+    Schema: `CustomerId → CustomerName, Email`.
 
-    Both join-key grain portions are empty, so the labeling is admissible. But
-    the candidate is `{CustomerId, CustomerName}`, and `{CustomerId}` is a proper
-    structural subtype of it that is still isomorphic to it — so the candidate is
-    *reducible* and is not the grain.
+    * `R₁ = {CustomerId, CustomerName}`, so `G[R₁] = {CustomerId}`;
+    * `R₂ = {CustomerName, Email}`, so `G[R₂] = {CustomerName, Email}`;
+    * `Jk = {CustomerName}` — non-empty and present in both inputs, so this is a
+      real equi-join, not a cross product;
+    * `G₁^Jk = ∅ ⊑ {CustomerName} = G₂^Jk`, so the labeling is **canonical**.
 
-    The appendix argues that a field of `G₂^rest` is "recovered neither from the
-    rest of that grain nor, lying outside Jk, through the join". That assumes the
-    only cross-input route is the join equality on `Jk`. A determination declared
-    between the inputs *outside* `Jk` defeats it — the same root cause as the
-    θ-join independence condition of Thm 3.8. -/
+    The candidate is `{CustomerId} ∪ ({CustomerName, Email} − {CustomerName})`
+    `= {CustomerId, Email}`. But `CustomerId` determines `Email`, so
+    `{CustomerId}` is a proper structural subtype of the candidate that is still
+    isomorphic to it: the candidate is **reducible**, and the grain of the result
+    is `{CustomerId}`.
+
+    The offending determination runs from `R₁`'s grain to `R₂`'s non-join part —
+    across the inputs, *outside* the join key. That is precisely what the
+    appendix argument assumes away when it says a non-`Jk` field is "recovered
+    neither from the remaining fields of that grain nor, lying outside `Jk`,
+    through the join", and it is what the canonical labeling does not exclude. -/
 example :
-    admissible {0} {1} ∅                          -- labeling is admissible
-    ∧ ¬ indepM (grain ({0} : Ty)) (grain ({1} : Ty) \ ∅)   -- but not independent
-    ∧ ssub ({0} : Ty) (grain ({0} : Ty) ∪ (grain ({1} : Ty) \ ∅))
-    ∧ iso ({0} : Ty) (grain ({0} : Ty) ∪ (grain ({1} : Ty) \ ∅))
-    ∧ ¬ ssub (grain ({0} : Ty) ∪ (grain ({1} : Ty) \ ∅)) ({0} : Ty)
+    ({1} : Ty) ≠ ∅                                   -- the join key is non-empty
+    ∧ ssub ({1} : Ty) ({0, 1} : Ty)                  -- Jk ⊑ R₁
+    ∧ ssub ({1} : Ty) ({1, 2} : Ty)                  -- Jk ⊑ R₂
+    ∧ grain ({0, 1} : Ty) = {0}                      -- G[R₁] = {CustomerId}
+    ∧ grain ({1, 2} : Ty) = {1, 2}                   -- G[R₂] = {Name, Email}
+    ∧ admissible {0, 1} {1, 2} {1}                   -- the labeling IS admissible
+    ∧ (grain ({0, 1} : Ty) ∪ (grain ({1, 2} : Ty) \ {1})) = {0, 2}  -- candidate
+    ∧ ssub ({0} : Ty) ({0, 2} : Ty)                  -- {CustomerId} ⊑ candidate
+    ∧ iso ({0} : Ty) ({0, 2} : Ty)                   -- and isomorphic to it
+    ∧ ¬ ssub ({0, 2} : Ty) ({0} : Ty)                -- properly — so REDUCIBLE
+    ∧ ¬ indepM (grain ({0, 1} : Ty)) (grain ({1, 2} : Ty) \ {1})  -- indep fails
     := by decide
+
+/-- The failure is not an artifact of degenerate join keys: it persists when
+    `Jk` is non-empty and structurally present in both inputs. -/
+theorem d_fails_for_genuine_equijoins :
+    ¬ (∀ R₁ R₂ Jk S : Ty,
+        Jk ≠ ∅ → ssub Jk R₁ → ssub Jk R₂ →
+        admissible R₁ R₂ Jk →
+        ssub S (grain R₁ ∪ (grain R₂ \ Jk)) →
+        iso S (grain R₁ ∪ (grain R₂ \ Jk)) →
+        ssub (grain R₁ ∪ (grain R₂ \ Jk)) S) := by decide
 
 /-- The labeling gate is not vacuous: the reverse labeling really can fail it. -/
 theorem d_admissible_is_not_vacuous : ∃ R₁ R₂ Jk : Ty, ¬ admissible R₁ R₂ Jk := by decide
@@ -146,5 +168,38 @@ theorem d_equijoin_grain_identity : ∀ R₁ R₂ Jk : Ty,
     indepM (grain R₁) (grain R₂ \ Jk) →
     admissible R₁ R₂ Jk →
     IsGrainOf (grain R₁ ∪ (grain R₂ \ Jk)) (joinRes R₁ R₂ Jk) := by decide
+
+/-! ## Part 4 — the two axioms added for Grain Reduction
+
+  arXiv §7 Proposition [Grain Reduction under Declared FDs] needs a
+  minimization principle, and Prop 7.3 cases 1–2 need independence to be
+  vacuous against an empty component. Both are checked here. -/
+
+/-- `indep_bot`: independence against the empty type is vacuous. -/
+theorem d_indep_bot : ∀ A B : Ty, (∀ T : Ty, B ⊆ T) → indepM A B := by decide
+
+/-- `ssub_wf`, instantiated at the predicate that matters — "still isomorphic to
+    `Res`". Every type isomorphic to `Res` has a `⊑`-minimal structural subtype
+    that is still isomorphic to it, and that minimal element is exactly a grain.
+
+    This is the superkey-to-candidate-key reduction, and it is what makes the
+    fixpoint of the paper's deletion procedure well-defined. -/
+theorem d_ssub_wf_at_iso : ∀ G Res : Ty, iso G Res →
+    ∃ K : Ty, ssub K G ∧ iso K Res ∧ ∀ T : Ty, ssub T K → iso T Res → ssub K T := by
+  decide
+
+/-- **Grain Reduction, end to end.** Any superkey of `Res` reduces to a grain of
+    `Res` sitting structurally inside it. -/
+theorem d_grain_reduction : ∀ G Res : Ty, iso G Res →
+    ∃ K : Ty, ssub K G ∧ IsGrainOf K Res := by decide
+
+/-- And the reduction is not idle: a superkey that is *not* already a grain
+    really does shrink. Witness: `{CustomerId, CustomerName}` identifies
+    `Customer` but reduces to `{CustomerId}`. -/
+example :
+    iso ({0, 1} : Ty) {0, 1}
+    ∧ ¬ IsGrainOf ({0, 1} : Ty) {0, 1}
+    ∧ ssub ({0} : Ty) ({0, 1} : Ty)
+    ∧ IsGrainOf ({0} : Ty) {0, 1} := by decide
 
 end GrainTheory.Model

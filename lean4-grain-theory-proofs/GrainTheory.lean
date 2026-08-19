@@ -22,6 +22,7 @@ import GrainTheory.Inference.EquiJoinIrred
 import GrainTheory.Inference.EquiJoin
 import GrainTheory.Inference.EquiJoinIdentity
 import GrainTheory.Inference.JoinSpecialCases
+import GrainTheory.Inference.GrainReduction
 import GrainTheory.Inference.GeneralizedJoin
 import GrainTheory.Inference.RAOperations
 import GrainTheory.Entity.EntityDef

@@ -60,7 +60,12 @@ class GrainStructure (D : Type u) where
   ssub : D → D → Prop
   /-- Declared independence: `indep A B` means no determination is declared
       between A and B — neither functionally determines the other
-      (arXiv Thm 3.8 hypothesis, Remark 4.3). -/
+      (arXiv Thm 3.8 hypothesis, Remark 4.3).
+
+      In arXiv Thm 7.2 this is read at the **grain level**: the determinant is
+      a whole grain. A declared FD whose left side is no grain — a composite
+      key spanning both inputs, say — is not seen here, and is applied
+      afterwards by Grain Reduction (`Inference/GrainReduction.lean`). -/
   indep : D → D → Prop
   /-- Type isomorphism: `iso A B` means A ≅ B (two-sided inverse exists) -/
   iso : D → D → Prop
@@ -95,6 +100,23 @@ class GrainStructure (D : Type u) where
       (arXiv Def 2.3). The converse fails — that gap is what makes
       irreducibility non-vacuous. -/
   ssub_sub : ∀ (R S : D), ssub R S → sub R S
+  /-- **Structural subtyping is well-founded on any predicate it can reach.**
+      Given a property `P` holding of `G`, there is a `⊑`-minimal `K ⊑ G` still
+      satisfying `P`.
+
+      arXiv justification: Lemma 3.2's proof is exactly this argument — "the
+      structural subtypes of `R` … form a finite, nonempty set … let `G` be a
+      `⊑`-minimal element". A type has finitely many structural subtypes, one
+      per subset of its components, so minimal elements exist. This is what
+      licenses both grain existence and the key-minimization of Grain
+      Reduction. -/
+  ssub_wf : ∀ (G : D) (P : D → Prop), P G →
+    ∃ K : D, ssub K G ∧ P K ∧ ∀ T : D, ssub T K → P T → ssub K T
+  /-- Nothing is determined by, or determines, an empty type: independence
+      against the bottom element is vacuous. Used to discharge the independence
+      hypothesis in the equi-join special cases where `G[R₂] -_typ Jk` is empty
+      (arXiv Prop 7.3, cases 1–2). -/
+  indep_bot : ∀ (A B : D), (∀ T : D, ssub B T) → indep A B
   -- Structural axioms for iso (equivalence relation)
   /-- ≅ is reflexive -/
   iso_refl : ∀ (R : D), iso R R
