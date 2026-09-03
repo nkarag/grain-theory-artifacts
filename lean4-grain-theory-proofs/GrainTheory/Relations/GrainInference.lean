@@ -94,7 +94,16 @@ theorem grain_inference' {G R : D}
     - ≡_g from `grain_inference` (conditions (i) and (ii))
     - the isomorphism clause follows as before
     - irreducibility is condition (iii), transported to R through
-      `isGrainOf_iff_iso_and_irreducible` -/
+      `isGrainOf_iff_iso_and_irreducible`
+
+    **This matches the appendix argument as corrected upstream.** The paper's
+    Step 4 previously supposed `S ⊆typ G` with `S ≅ R` and concluded
+    `G ⊆typ S` — deriving exactly the vacuity Definition 3.1 warns about, and
+    stopping there. The corrected step is the one mechanized here: if
+    `G' ⊏ G` with `G' ≅ R` then `G' ≅ G` by the isomorphism step, so `G'` is a
+    proper structural subtype of `G` isomorphic to `G`, which is precisely what
+    condition (iii) denies. The theorem always held; only the argument was
+    wrong, and (iii) already carried it. -/
 theorem grain_inference_isGrainOf {G R : D}
     (h_sub : sub G R) (h_le : grainLe G R) (h_irred : Foundations.IsIrreducible G) :
     Foundations.IsGrainOf G R := by

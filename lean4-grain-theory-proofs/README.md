@@ -23,11 +23,11 @@ mirrors the paper's proof style.
 
 | | |
 |---|---|
-| Lean modules | 42, all reachable from the root module |
-| Theorems | 236 (plus 45 definitions/structures) |
-| Axioms | 49 — every one used, and every one **verified against a concrete model** |
+| Lean modules | 46, all reachable from the root module |
+| Theorems | 356 (plus 95 definitions/structures) |
+| Axioms | 55 — every one used, and every one **verified against a concrete model** |
 | `sorry` obligations | 0 |
-| Build | `lake build`, 3307 jobs, 0 errors, 0 warnings |
+| Build | `lake build`, 3311 jobs, 0 errors, 0 warnings |
 | Toolchain | Lean 4 v4.29.0-rc8 + Mathlib v4.29.0-rc8 |
 
 ## What changed in this revision
@@ -125,6 +125,7 @@ GrainTheory/
     Product.lean                     -- Thm 3.8 -- requires component independence
     Sum.lean                         -- Thm 3.9 -- no independence needed
     IdentifyingFamily.lean           -- Sec 4.4: grain as a minimal identifying family
+    CollectionKey.lean               -- type grain vs collection key; superkey bridge
   Relations/
     GrainEquality.lean               -- Def 5.1, Thm 5.2, preservation
     GrainOrdering.lean               -- Def 5.3, partial order, preservation
@@ -147,6 +148,7 @@ GrainTheory/
     EquiJoin.lean                    -- Thm 7.2 (capstone)
     GeneralizedJoin.lean             -- Generalized equi-join
     JoinSpecialCases.lean            -- Equal / ordered / incomparable / natural
+    GrainReduction.lean              -- reduction under declared FDs; grain existence
     RAOperations.lean                -- All RA operations (Table 2)
   DependencyTheory/
     Completeness.lean                -- Armstrong soundness + completeness axiom
@@ -160,27 +162,40 @@ GrainTheory/
     ChasmTrap.lean                   -- Chasm trap characterization
     GrainErrors.lean                 -- Props 10.2, 10.3, wrong-grain aggregation,
                                      --   behavioral-class violation
+  ADT/
+    TypeExpr.lean                    -- ADT grammar + grain type-expression
+                                     --   operator; idempotency, no axioms
+    Correctness.lean                 -- operator correctness (ADTStructure)
+    Partitioned.lean                 -- Coll_K R: grain = K, element split K x V
   Model/
     Schema.lean                      -- a concrete model: 3 attributes, 1 FD
     AxiomCheck.lean                  -- every axiom checked against it
     TheoremCheck.lean                -- and the theorems, including the lattice
+    EquiJoinCheck.lean               -- the equi-join counterexample
 ```
 
 ## Axiomatization
 
-Three type classes plus one standalone axiom — **49 assumptions in total**, each
+Four type classes plus one standalone axiom — **55 assumptions in total**, each
 carrying a docstring naming the paper statement it encodes:
 
-- **`GrainStructure`** (35 axioms, `Basic.lean`) — the two subtype relations,
+- **`GrainStructure`** (38 axioms, `Basic.lean`) — the two subtype relations,
   isomorphism, the three grain clauses, and the field-set laws for
   `∪typ ∩typ −typ × +`. Ten further fields are *carriers* (the relations and
   operations themselves), not assumptions.
 - **`EquiJoinStructure`** (10 axioms, `EquiJoinAxioms.lean`) — functional
   determination and its closure properties, plus `equijoin_candidate_irred`
   (Thm 7.2's irreducibility step).
-- **`SemanticGrainStructure`** (1 axiom, `DependencyTheory/Factorization.lean`) —
-  `isoEquiv`, extracting an actual bijection from abstract `iso`, for the
-  element-level results of §8.
+- **`SemanticGrainStructure`** (2 axioms, `DependencyTheory/Factorization.lean`) —
+  `isoEquiv`, extracting an actual bijection from abstract `iso`, and `equivIso`
+  its converse, for the element-level results of §8.
+- **`ADTStructure`** (4 axioms, `ADT/Correctness.lean`) — the fixed-point
+  constructors: that they respect isomorphism (`mu_congr`, `nu_congr` — the
+  paper's Bird & de Moor citation) and carry irreducibility (`mu_irred`,
+  `nu_irred`). `D` has no morphisms, so *naturality* cannot be stated and these
+  are phrased pointwise, which is stronger than the categorical result they
+  stand for. That is the one place the ADT section is not fully reduced to the
+  axioms above.
 - **`armstrong_complete`** (standalone) — transfer from Armstrong's 1974
   completeness theorem.
 

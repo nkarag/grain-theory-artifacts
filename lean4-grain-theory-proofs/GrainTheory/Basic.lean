@@ -222,6 +222,16 @@ class GrainStructure (D : Type u) where
   /-- Product is commutative up to isomorphism.
       PODS justification: A × B and B × A have the same fields. -/
   prod_comm_iso : ∀ (A B : D), iso (prod A B) (prod B A)
+  /-- **Disjoint decomposition.** When `K ⊑ R`, `R ≅ (R -_typ K) × K`.
+
+      A type is the disjoint union of its `K`-part and its complement, and on
+      disjoint field sets union coincides with product. The hypothesis is
+      structural: a *declared* surjection onto `K` says nothing about which
+      components `R` has, so `⊆typ` would not license the split.
+
+      arXiv justification: the type-difference split used by the partitioned
+      collection proposition, `G[R] = K × V` with `V = G[R] -_typ K`. -/
+  diff_prod_iso : ∀ (R K : D), ssub K R → iso R (prod (diff R K) K)
   -- Structural axioms for sum (coproduct)
   /-- Sum preserves isomorphism: if A ≅ B and C ≅ D, then A + C ≅ B + D.
       PODS justification: component-wise isos compose to a sum iso (see

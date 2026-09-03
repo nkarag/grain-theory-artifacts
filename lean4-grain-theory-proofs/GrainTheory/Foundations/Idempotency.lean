@@ -25,7 +25,19 @@ variable {D : Type*} [GrainStructure D]
 
 open GrainStructure
 
-/-- arXiv Theorem 3.7: Grain operator idempotency. G[G[R]] ≅ G[R].
+/-- arXiv Thm [Grain Idempotency]: `G[G[R]] ≅ G[R]`.
+
+  **Two idempotencies, and this is the first.** §4 states a second, for the
+  grain type-expression *operator*: `G(G(T)) = G(T)`. The paper now names the
+  difference explicitly — "one is about the grain, the other about the syntax
+  that computes it, and the second rests on the first".
+
+  Both are now mechanized, but they are **separate results** — do not read
+  `grain_idempotent` as covering the operator claim. The operator version is
+  `ADT.gop_idempotent`, proved by structural induction over the ADT grammar
+  (`μ` and `ν` included) with no axioms and no semantics; it takes base-type
+  grain idempotency — this theorem — as its base case, which is the sense in
+  which "the second rests on the first".
 
   Proof: G[R] is irreducible (`grain_irreducible`), hence a grain of itself.
   G[G[R]] is a grain of G[R] by the grain axioms. Two grains of the same type

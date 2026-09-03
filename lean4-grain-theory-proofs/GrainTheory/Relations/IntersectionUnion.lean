@@ -159,7 +159,17 @@ theorem union_grain_isGrainOf {R₁ R₂ : D}
     Foundations.grain_irreducible R₂
   exact grain_inference_isGrainOf h_sub_union h_le h_irred
 
-/-! ## PODS Theorem: Lattice Absorption (combined) -/
+/-! ## Lattice Absorption (combined)
+
+  **No longer a theorem of the paper.** It was removed upstream: the fact holds
+  "in any partial order with the bounds defined, straight from the definitions
+  of join and meet, and uses nothing about the grain ordering beyond" the
+  partial-order theorem, so it needed no theorem and no appendix proof.
+
+  The results are kept here because they are true and cheap — with the
+  structural premises that make them so — and because the concrete model uses
+  them as checks. Nothing in the development depends on them; they are leaves.
+  They should not be cited as mechanizing a paper result. -/
 
 /-- PODS Thm (Lattice Absorption): Both absorption laws of the grain
     lattice combined. When G[R₁] ⊆_typ G[R₂] (equivalently R₂ ≤_g R₁

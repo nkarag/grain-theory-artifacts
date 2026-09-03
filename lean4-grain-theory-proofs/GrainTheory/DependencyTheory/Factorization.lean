@@ -39,6 +39,14 @@ class SemanticGrainStructure (D : Type u) extends GrainStructure D where
   den : D → Type v
   /-- Witness: abstract iso produces an actual equivalence -/
   isoEquiv : ∀ (R₁ R₂ : D), iso R₁ R₂ → den R₁ ≃ den R₂
+  /-- …and conversely. Together with `isoEquiv` this says
+      `iso R₁ R₂ ↔ Nonempty (den R₁ ≃ den R₂)`, which is exactly what arXiv
+      Definition 2 means by isomorphism: *a bijection exists*. Without the
+      converse the semantic layer can consume an abstract `iso` but never
+      produce one, so an element-level bijection could not be reported back as
+      a type-level isomorphism — which is what
+      `Foundations/CollectionKey.lean` needs. -/
+  equivIso : ∀ (R₁ R₂ : D), (den R₁ ≃ den R₂) → iso R₁ R₂
 
 namespace SemanticGrainStructure
 
@@ -73,16 +81,50 @@ noncomputable def factorE (R₁ R₂ : D) (h : den R₁ → den R₂) :
 
 /-! ## PODS §7, Proposition 7.2: Grain Factorization -/
 
-/-- **PODS Proposition 7.2 (Grain Factorization):**
-    For any h : R₁ → R₂, h factors through G[R₂]:
-    h = f_{g_{R₂}} ∘ e where e = grain_{R₂} ∘ h.
-    Follows directly from f_{g_{R₂}} being an isomorphism (Def 3.1),
-    independently of the grain lift φ. -/
+/-- **Grain Factorization, existence half.**
+    For any `h : R₁ → R₂`, `h = f_{g_{R₂}} ∘ e` with `e = grain_{R₂} ∘ h`.
+
+    **Existence alone is empty**, and the paper now says so: a witness `e` can
+    be manufactured from `h` for *any* isomorphism into `R₂`, by inserting the
+    isomorphism and its inverse around `h` and calling the result a
+    decomposition. Nothing is factored. The content is **uniqueness**, proved
+    next. -/
 theorem grain_factorization (R₁ R₂ : D) (h : den R₁ → den R₂) :
     h = (grainEquiv R₂) ∘ (factorE R₁ R₂ h) := by
   funext x
   simp only [Function.comp_apply, factorE, grainProj,
     Equiv.apply_symm_apply]
+
+/-- **Grain Factorization, the part with content: the factor is UNIQUE.**
+
+    Any `e` with `h = f_{g_{R₂}} ∘ e` is `grain_{R₂} ∘ h`. Because `f_{g_{R₂}}`
+    is an isomorphism it is injective, so it cancels on the left.
+
+    This is what licenses "every transformation into `R₂` is *determined* by a
+    function into `G[R₂]`" — determination is a uniqueness claim, which
+    existence does not give. -/
+theorem grain_factorization_unique (R₁ R₂ : D) (h : den R₁ → den R₂)
+    (e : den R₁ → den (grain R₂)) (he : h = (grainEquiv R₂) ∘ e) :
+    e = factorE R₁ R₂ h := by
+  funext x
+  have : (grainEquiv R₂) (e x) = (grainEquiv R₂) (factorE R₁ R₂ h x) := by
+    simp only [factorE, grainProj, Function.comp_apply, Equiv.apply_symm_apply]
+    exact congrFun he.symm x
+  exact (grainEquiv R₂).injective this
+
+/-- **Post-composition with the grain function is a bijection**
+    between the functions `R₁ → G[R₂]` and the functions `R₁ → R₂`.
+
+    The two assignments `e ↦ f_{g_{R₂}} ∘ e` and `h ↦ grain_{R₂} ∘ h` are
+    mutually inverse — the packaged form of existence plus uniqueness. -/
+noncomputable def factorEquiv (R₁ R₂ : D) :
+    (den R₁ → den (grain R₂)) ≃ (den R₁ → den R₂) where
+  toFun e := (grainEquiv R₂) ∘ e
+  invFun h := factorE R₁ R₂ h
+  left_inv e := by
+    funext x
+    simp only [factorE, grainProj, Function.comp_apply, Equiv.symm_apply_apply]
+  right_inv h := (grain_factorization R₁ R₂ h).symm
 
 /-- The factoring map decomposes via the grain lift:
     e = φ(h) ∘ grain_{R₁}. Noted after Proposition 7.2. -/
@@ -115,6 +157,49 @@ theorem grain_homomorphism (R₁ R₂ : D) (h : den R₁ → den R₂) :
   funext x
   simp only [Function.comp_apply, grainLift, grainProj,
     Equiv.apply_symm_apply]
+
+/-! ## Faithfulness: the grain lift is a bijection on transformations
+
+  The remark following the proposition: `φ(h)` is the *unique* grain-level map
+  making the full decomposition hold, and `h ↦ φ(h)` is a bijection between the
+  transformations `R₁ → R₂` and the grain-level maps `G[R₁] → G[R₂]`.
+
+  "That is the precise sense in which the denotation is **faithful**: nothing
+  about `h` is lost in passing to `φ(h)`, and every grain-level map is the lift
+  of exactly one transformation." -/
+
+/-- The grain lift is the **unique** map `G[R₁] → G[R₂]` satisfying the full
+    decomposition `h = f_{g_{R₂}} ∘ φ ∘ grain_{R₁}`. Both grain functions are
+    isomorphisms, so composing on either side cancels. -/
+theorem grainLift_unique (R₁ R₂ : D) (h : den R₁ → den R₂)
+    (φ : den (grain R₁) → den (grain R₂))
+    (hφ : h = (grainEquiv R₂) ∘ φ ∘ (grainProj R₁)) :
+    φ = grainLift R₁ R₂ h := by
+  funext y
+  have hy := congrFun hφ ((grainEquiv R₁) y)
+  simp only [Function.comp_apply, grainProj, Equiv.symm_apply_apply] at hy
+  have : (grainEquiv R₂) (φ y) = (grainEquiv R₂) (grainLift R₁ R₂ h y) := by
+    simp only [grainLift, grainProj, Function.comp_apply, Equiv.apply_symm_apply]
+    exact hy.symm
+  exact (grainEquiv R₂).injective this
+
+/-- **Faithfulness.** `h ↦ φ(h)` is a bijection between the transformations
+    `R₁ → R₂` and the grain-level maps `G[R₁] → G[R₂]`.
+
+    Nothing about `h` is lost in passing to `φ(h)`, and every grain-level map is
+    the lift of exactly one transformation. This is the sense in which the
+    denotation is faithful, and it is the claim the empty existence statement
+    was standing in for. -/
+noncomputable def grainLiftEquiv (R₁ R₂ : D) :
+    (den R₁ → den R₂) ≃ (den (grain R₁) → den (grain R₂)) where
+  toFun h := grainLift R₁ R₂ h
+  invFun φ := (grainEquiv R₂) ∘ φ ∘ (grainProj R₁)
+  left_inv h := by
+    funext x
+    simp only [grainLift, grainProj, Function.comp_apply, Equiv.apply_symm_apply]
+  right_inv φ := by
+    funext y
+    simp only [grainLift, grainProj, Function.comp_apply, Equiv.symm_apply_apply]
 
 /-! ## PODS §7, Remark: Surjectivity Characterization -/
 

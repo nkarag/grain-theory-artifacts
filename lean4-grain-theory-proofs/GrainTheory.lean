@@ -7,6 +7,10 @@ import GrainTheory.Foundations.Idempotency
 import GrainTheory.Foundations.Product
 import GrainTheory.Foundations.Sum
 import GrainTheory.Foundations.IdentifyingFamily
+import GrainTheory.Foundations.CollectionKey
+import GrainTheory.ADT.TypeExpr
+import GrainTheory.ADT.Correctness
+import GrainTheory.ADT.Partitioned
 import GrainTheory.Relations.GrainEquality
 import GrainTheory.Relations.GrainOrdering
 import GrainTheory.Relations.GrainSubset
