@@ -23,11 +23,11 @@ mirrors the paper's proof style.
 
 | | |
 |---|---|
-| Lean modules | 46, all reachable from the root module |
-| Theorems | 356 (plus 95 definitions/structures) |
-| Axioms | 55 — every one used, and every one **verified against a concrete model** |
+| Lean modules | 49, all reachable from the root module |
+| Theorems | 408 theorems and lemmas (plus 102 definitions, abbreviations, structures and classes) |
+| Axioms | 55 — every one used, and every one **verified against two concrete models** (one and two declared dependencies) |
 | `sorry` obligations | 0 |
-| Build | `lake build`, 3311 jobs, 0 errors, 0 warnings |
+| Build | `lake build`, 3314 jobs, 0 errors, 0 warnings |
 | Toolchain | Lean 4 v4.29.0-rc8 + Mathlib v4.29.0-rc8 |
 
 ## What changed in this revision
