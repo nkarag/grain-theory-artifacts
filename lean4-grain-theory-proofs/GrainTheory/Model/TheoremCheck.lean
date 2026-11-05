@@ -83,7 +83,7 @@ example :
 theorem t_union_grain :
     ∀ R₁ R₂ : Ty, sub (grain R₁) (grain R₂) → grainEq R₂ (R₁ ∪ R₂) := by decide
 
-/-- Grain Inference (Thm 5.10), the workhorse. -/
+/-- Grain Inference (arXiv Thm. grain-inference-sufficient), the workhorse. -/
 theorem t_grain_inference_isGrainOf :
     ∀ G R : Ty, sub G R → grainLe G R →
       (∀ S : Ty, ssub S G → iso S G → ssub G S) → IsGrainOf G R := by decide
@@ -95,33 +95,37 @@ theorem t_grain_idempotent : ∀ R : Ty, iso (grain (grain R)) (grain R) := by d
 theorem t_multiple_grains :
     ∀ G₁ G₂ R : Ty, IsGrainOf G₁ R → IsGrainOf G₂ R → iso G₁ G₂ := by decide
 
-/-- Grain Subset–Ordering Equivalence (Lemma 5.4). -/
+/-- Grain Subset–Ordering Equivalence (arXiv Lemma grain-subset). -/
 theorem t_grain_subset : ∀ R₁ R₂ : Ty, sub (grain R₁) (grain R₂) → grainLe R₂ R₁ := by decide
 
-/-- The grain determines every subset of its type (Cor 5.5). -/
+/-- The grain determines every subset of its type (arXiv Cor. grain-determines-subsets). -/
 theorem t_grain_determines_subsets :
     ∀ R R' : Ty, sub R' R → grainLe (grain R) R' := by decide
 
-/-! ## The lattice claim — verified
+/-! ## The lattice claim — what this model can and cannot check
 
-  §5 states that `≤_g` forms a bounded lattice whose lub and glb are given by
-  universal properties, and that on product types they coincide with the
-  field-set `∩typ` and `∪typ` operations.
+  The paper (arXiv v3 and later, Proposition "Lattice bounds on product
+  types") states that on product types over a finite attribute universe `≤_g`
+  is a bounded lattice whose least upper bound is the product on the
+  intersection of the two grains' **closures** under the declared
+  determinations, and whose greatest lower bound is the union of the grains;
+  the field-set intersection is the lub exactly when no declaration relates
+  the two grains.
 
-  Two things fix the reading, and both matter:
+  The theorems below check two things in THIS model: that on grain-incomparable
+  pairs the field-set formulas are the bounds, and that on comparable pairs the
+  bounds are the endpoints. The first is a fact of this model, not of the
+  theory. With one declared dependency, two grain-incomparable types cannot
+  both determine a third while sharing no field; with two dependencies they
+  can, and then the field-set intersection is an upper bound but not the least
+  one. `Model2/TheoremCheck.lean` exhibits that failure
+  (`t_incomp_inter_is_lub_FAILS`) and verifies the closure-based bounds of the
+  proposition, item by item. An earlier version of this header read the
+  theorems below as verifying the paper's lattice claim in general; that
+  reading was wrong, and the ICDT 2027 submission carried the same
+  over-reading in its text. -/
 
-  * **Definition 5.3.** The surjection witnessing `≤_g` comes in one of two
-    forms — a *structural* projection from shared product structure, or a
-    *declared* determination such as a foreign key. Both are admissible, so
-    `≤_g` is the semantic relation.
-  * **Definition 5.12.** The lattice operations are what resolve
-    *grain-incomparable* components. For a comparable pair the lub and glb are
-    just the coarser and finer element; no formula is needed, and that is
-    exactly what Lattice Absorption states.
-
-  Checked against that reading, the claim holds. -/
-
-/-- Def 5.12: grain-incomparable — neither `≡_g` nor `≤_g` in either direction. -/
+/-- Grain-incomparable (arXiv Def. grain-incomp): neither `≡_g` nor `≤_g` in either direction. -/
 def incomp (R₁ R₂ : Ty) : Prop :=
   ¬ grainEq R₁ R₂ ∧ ¬ grainLe R₁ R₂ ∧ ¬ grainLe R₂ R₁
 instance (a b : Ty) : Decidable (incomp a b) := inferInstanceAs (Decidable (_ ∧ _))
@@ -135,7 +139,8 @@ def IsGlb (R₁ R₂ X : Ty) : Prop :=
 instance (a b c : Ty) : Decidable (IsLub a b c) := inferInstanceAs (Decidable (_ ∧ _))
 instance (a b c : Ty) : Decidable (IsGlb a b c) := inferInstanceAs (Decidable (_ ∧ _))
 
-/-! ### On grain-incomparable pairs, the field-set formulas ARE the lub and glb -/
+/-! ### On grain-incomparable pairs, in this one-dependency model, the field-set
+  formulas are the lub and glb. Not in general: see `Model2/TheoremCheck.lean`. -/
 
 theorem t_incomp_inter_is_lub :
     ∀ R₁ R₂ : Ty, incomp R₁ R₂ → IsLub R₁ R₂ (R₁ ∩ R₂) := by decide
@@ -152,7 +157,9 @@ theorem t_incomp_grainMeet_is_glb :
 
 /-! ### On comparable pairs the lub and glb are the endpoints
 
-  Which is precisely Lattice Absorption. No field-set computation is involved. -/
+  Item (5) of the lattice proposition; the absorption laws of
+  `Relations/IntersectionUnion.lean` are its structural form. No field-set
+  computation is involved. -/
 
 theorem t_comparable_lub : ∀ R₁ R₂ : Ty, grainLe R₂ R₁ → IsLub R₁ R₂ R₁ := by decide
 theorem t_comparable_glb : ∀ R₁ R₂ : Ty, grainLe R₂ R₁ → IsGlb R₁ R₂ R₂ := by decide

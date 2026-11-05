@@ -1,24 +1,26 @@
 /-
   GrainTheory.Relations.IntersectionUnion — Lattice absorption laws
 
-  PODS Theorem (Lattice Absorption): For any data types R₁, R₂ with
-  R₂ ≤_g R₁ (equivalently G[R₁] ⊆_typ G[R₂] by Thm Grain Subset):
-    G[R₁ ∩ R₂] ≡_g G[R₁]   (lub absorbs to coarser grain)
-    G[R₁ ∪ R₂] ≡_g G[R₂]   (glb absorbs to finer grain)
+  Absorption laws of the grain lattice, **determination-free case**. For
+  product types R₁, R₂ with R₂ ≤_g R₁ witnessed structurally
+  (G[R₁] ⊑ G[R₂]):
+    G[R₁ ∩ R₂] ≡_g G[R₁]   (lub absorbs to the coarser grain)
+    G[R₁ ∪ R₂] ≡_g G[R₂]   (glb absorbs to the finer grain)
 
-  These are the standard lattice absorption laws applied to the grain
-  lattice, with ∩_typ as the lub and ∪_typ as the glb. The lub/glb
-  characterization extends naturally to any algebraic data type
-  (PODS §2 natural-extension paragraph); the field-set formulas
-  realize it on product types.
+  These are the lattice absorption laws with the field-set ∩_typ as lub and
+  ∪_typ as glb, which is the paper's Proposition "Lattice bounds on product
+  types" items (4) and (5) together. The hypotheses are structural on
+  purpose: with a *declared* comparability the field-set intersection is not
+  the lub (two types related by a declared determination may share no field),
+  and the intersection half is then false; `Model/TheoremCheck.lean` records
+  the counterexample. The paper no longer states a separate "Lattice
+  Absorption" theorem; the laws are item (5) of the proposition, taken in the
+  closure lattice, and this module is their structural instance.
 
   Mechanized as two lemmas (intersection_grain, union_grain) plus a
   combined theorem (lattice_absorption). Both lemmas verify the
-  conditions of the Grain Inference Sufficient Condition for the
-  appropriate G and target type.
-
-  Reference: PODS 2027 paper, §4.3, Theorem (Lattice Absorption);
-  Appendix proof.
+  conditions of the Grain Inference theorem for the appropriate G and
+  target type.
 -/
 
 import GrainTheory.Relations.GrainInference

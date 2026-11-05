@@ -131,10 +131,12 @@ GrainTheory/
     GrainOrdering.lean               -- Def 5.3, partial order, preservation
     GrainSubset.lean                 -- Lemma 5.4 (subset-ordering equivalence)
     GrainInference.lean              -- Thm 5.10; condition (iii) = irreducibility
-    IntersectionUnion.lean           -- Lattice absorption
+    IntersectionUnion.lean           -- Absorption laws, determination-free case
     Incomparability.lean             -- Def 5.7, incomparability preservation
     Armstrong.lean                   -- Axioms A1-A9 (soundness)
-    Lattice.lean                     -- Grain lattice structure
+    Lattice.lean                     -- Grain lattice: lub universal only for
+                                     --   structural upper bounds (the
+                                     --   determination-free case); see Model2
   Entity/
     EntityDef.lean                   -- Entity, entity key, behavioral classes
     EKHierarchy.lean                 -- EK subset G[R] subset R
@@ -170,9 +172,23 @@ GrainTheory/
   Model/
     Schema.lean                      -- a concrete model: 3 attributes, 1 FD
     AxiomCheck.lean                  -- every axiom checked against it
-    TheoremCheck.lean                -- and the theorems, including the lattice
+    TheoremCheck.lean                -- and the theorems; the lattice in THIS
+                                     --   model only (one dependency)
     EquiJoinCheck.lean               -- the equi-join counterexample
+  Model2/
+    Schema.lean                      -- a second model: 4 attributes, 2 FDs
+                                     --   (OrderId -> CustomerId, TicketId -> CustomerId)
+    AxiomCheck.lean                  -- every axiom checked against it; sub_antisymm
+                                     --   discharged by decision in both models
+    TheoremCheck.lean                -- the field-set lub REFUTED on incomparable
+                                     --   pairs; the closure-based lub and the
+                                     --   glb VERIFIED (lattice proposition, items 1-5)
 ```
+
+Paper numbering in module docstrings follows the PODS 2027 / arXiv v2
+version except where a label is named (`arXiv Def. type-subset`); the
+lattice-related modules were re-keyed to labels after the ICDT 2027
+reviews.
 
 ## Axiomatization
 

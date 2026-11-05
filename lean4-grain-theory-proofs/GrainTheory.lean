@@ -44,3 +44,6 @@ import GrainTheory.Model.Schema
 import GrainTheory.Model.AxiomCheck
 import GrainTheory.Model.TheoremCheck
 import GrainTheory.Model.EquiJoinCheck
+import GrainTheory.Model2.Schema
+import GrainTheory.Model2.AxiomCheck
+import GrainTheory.Model2.TheoremCheck

@@ -1,9 +1,16 @@
 /-
   GrainTheory.Relations.Lattice — Grain lattice structure
 
-  The grain ordering forms a lattice on grain-equivalence classes:
-  - Meet (GLB) = union of grains (more fields = finer = lower)
-  - Join (LUB) = inter of grains (fewer fields = coarser = higher)
+  The grain ordering forms a lattice on grain-equivalence classes of product
+  types. This module mechanizes the **determination-free case** (arXiv
+  Proposition "Lattice bounds on product types", item 4):
+  - Meet (GLB) = union of grains (more fields = finer = lower); its universal
+    property holds with semantic (`⊆_typ`) hypotheses.
+  - Join (LUB) = inter of grains (fewer fields = coarser = higher); its
+    universal property holds with **structural** (`⊑`) hypotheses only. In
+    general the join is the intersection of the grains' closures under the
+    declared determinations, which the abstract class cannot express; see
+    `Model2/TheoremCheck.lean`.
 
   Direction: ≤_g is "finer ≤ coarser", so lower = finer = more fields.
 -/
@@ -64,16 +71,18 @@ theorem grainJoin_ge_right (R₁ R₂ : D) : grainLe R₂ (grainJoin R₁ R₂) 
 
     The hypotheses are `⊑`, not `⊆_typ`. This is not a technicality: with the
     semantic hypotheses the statement is **false**, refuted in
-    `Model/TheoremCheck.lean`. The reason is arXiv Def 5.3 — a `≤_g` witness may
-    be a *declared* determination rather than a structural projection, and the
-    field-set `∩typ` computes only the structural case. Def 5.12 says the same
-    thing from the other side: the lattice operations are what resolve
-    grain-*incomparable* components, and comparability arising from a declared
-    determination is exactly what the field-set formula cannot see.
+    `Model/TheoremCheck.lean` and `Model2/TheoremCheck.lean`. A `≤_g` witness
+    may be a *declared* determination rather than a structural projection
+    (arXiv Def. type-subset), and the field-set `∩typ` sees only the structural
+    case. This theorem is therefore the determination-free case, item (4) of
+    the paper's Proposition "Lattice bounds on product types"; the general
+    least upper bound is the product on the intersection of the two grains'
+    **closures**, which the abstract class has no closure operator to express
+    and which `Model2/TheoremCheck.lean` checks by decision procedure.
 
-    Restricting to grain-incomparable `R₁, R₂` also suffices (both restrictions
-    are checked in the model); the structural form is used here because it is
-    what the abstract axioms can discharge. -/
+    Grain-incomparability of `R₁, R₂` does **not** suffice as a hypothesis:
+    two incomparable grains sharing no field can both determine a third
+    (`Model2/TheoremCheck.lean`, `t_incomp_inter_is_lub_FAILS`). -/
 theorem grainJoin_universal {R₁ R₂ X : D}
     (h₁ : ssub (grain X) (grain R₁)) (h₂ : ssub (grain X) (grain R₂)) :
     grainLe (grainJoin R₁ R₂) X :=
