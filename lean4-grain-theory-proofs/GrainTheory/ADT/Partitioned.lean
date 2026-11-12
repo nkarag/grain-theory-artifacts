@@ -1,9 +1,9 @@
 /-
   GrainTheory.ADT.Partitioned — grain of a partitioned collection
 
-  arXiv/ICDT §"Grain for Arbitrary Algebraic Data Types":
-  - Definition [Partitioned collection]
-  - Proposition [Grain of a partitioned collection]
+  arXiv v4 `sec:adt` (Grain for Arbitrary Algebraic Data Types):
+  - arXiv v4 `def:partitioned-collection` (Partitioned collection)
+  - arXiv v4 `prop:partitioned-grain` (Grain of a partitioned collection)
 
   "A stream acquires a finite, verifiable grain the moment it is windowed or
   partitioned, the move a stream processor must make to evaluate an unbounded
@@ -29,7 +29,7 @@ open GrainStructure GrainTheory.Foundations
 
 variable {D : Type u} [GrainStructure D]
 
-/-- **Definition [Partitioned collection].**
+/-- **arXiv v4 `def:partitioned-collection` (Partitioned collection).**
 
     `C` is the `K`-partitioned collection of `R` when `K` is a
     grain-irreducible *structural* subtype of `R`'s grain — the partition key —
@@ -47,10 +47,10 @@ structure IsPartitionedCollection (C K R : D) : Prop where
   /-- One inhabitant per key: the collection is isomorphic to the key. -/
   fibers : iso C K
 
-/-- **Proposition [Grain of a partitioned collection], first half.**
+/-- **arXiv v4 `prop:partitioned-grain` (Grain of a partitioned collection), first half.**
     `G[Coll_K R] = K`.
 
-    Immediate from Definition 3.1: the collection is isomorphic to `K` by the
+    Immediate from arXiv v4 `def:grain` (Grain): the collection is isomorphic to `K` by the
     fiber correspondence, and `K` is irreducible by the definition of a
     partition key. Grain-hood factors into exactly those two clauses. -/
 theorem partitioned_grain {C K R : D} (h : IsPartitionedCollection C K R) :
@@ -63,7 +63,7 @@ theorem partitioned_grain_iso {C K R : D} (h : IsPartitionedCollection C K R) :
     iso (grain C) K :=
   multiple_grains_iso (grain_isGrainOf C) (partitioned_grain h)
 
-/-- **Proposition [Grain of a partitioned collection], second half.**
+/-- **arXiv v4 `prop:partitioned-grain` (Grain of a partitioned collection), second half.**
     The element grain decomposes as `G[R] = K × V` with `V = G[R] -_typ K`.
 
     "The key `K` is shared by all elements within one collection inhabitant, and

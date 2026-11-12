@@ -1,16 +1,17 @@
 /-
   GrainTheory.Entity.EntityDef — Entity and Entity Key definitions
 
-  PODS §5, Definitions 7–8 and Theorem 5.3 (EK–Grain Hierarchy).
+  arXiv v4 `def:entity` (Entity), arXiv v4 `def:entity-key` (Entity Key) and arXiv v4
+  `thm:ek-hierarchy` (EK–Grain Hierarchy).
 
   An *entity* of a data type R is a type E together with a surjective
   projection entity : R → E that extracts the "subject of information".
   In the abstract axiomatization, the surjection gives E ⊆_typ R
-  (Definition 2.1), which is the structural content captured here.
+  (arXiv v4 `def:type-subset` (Type-Level Subset)), which is the structural content captured here.
 
   The *entity key* is EK(R) ≡ G[E] — the grain of the entity type.
 
-  Theorem 5.3 (EK–Grain Hierarchy) derives EK(R) ⊆_typ G[R] from
+  arXiv v4 `thm:ek-hierarchy` (EK–Grain Hierarchy) derives EK(R) ⊆_typ G[R] from
   the definitions — it is not assumed.  The proof constructs a surjection
   g_{ek} : G[R] ↠ G[E] = f_{g_E}⁻¹ ∘ entity ∘ f_{g_R}, mirroring the
   PODS appendix proof.
@@ -27,12 +28,12 @@ open GrainStructure
 open GrainTheory.Foundations
 open GrainTheory.Relations
 
-/-! ## Definition 6.1: Entity (arXiv §6)
+/-! ## Entity (arXiv v4 `def:entity` (Entity))
 
   Given a data type R, an *entity* of R is a type E such that there
   exists a surjective function entity : R ↠ E returning, for each element,
-  the *subject of the information* it conveys. By Definition 2.1 (type-level
-  subset), a surjection R ↠ E is exactly E ⊆_typ R.
+  the *subject of the information* it conveys. By arXiv v4 `def:type-subset` (Type-Level Subset), a
+  surjection R ↠ E is exactly E ⊆_typ R.
 
   In the abstract axiomatization, we capture this as `sub E R`.
 
@@ -46,7 +47,7 @@ open GrainTheory.Relations
     single subject of information, fixed by the declaration, with no
     alternatives;
   * the **entity key** `EK[R] = G[E]` is unique only *up to isomorphism*,
-    being a grain (Theorem 3.4, Multiple Grains).
+    being a grain (arXiv v4 `thm:multiple-grains` (Grains are unique up to isomorphism)).
 
   The encoding below reflects this: `IsEntityOf` is a relation that a
   declaration witnesses, and nothing in the development derives E from R.
@@ -73,15 +74,15 @@ theorem entityKey_unique_up_to_iso {E EK₁ EK₂ : D}
 /-- `IsEntityOf E R` holds when E serves as the entity type for R.
 
   Structurally: E ⊆_typ R — there exists a surjection R ↠ E
-  (Definition 2.1), which is the type-level encoding of the entity
+  (arXiv v4 `def:type-subset` (Type-Level Subset)), which is the type-level encoding of the entity
   projection entity : R → E.
 
   The key consequence — EK(R) = G[E] ⊆_typ G[R] — is *derived* as
-  Theorem 5.3 (EK–Grain Hierarchy), not assumed. -/
+  arXiv v4 `thm:ek-hierarchy` (EK–Grain Hierarchy), not assumed. -/
 def IsEntityOf (E R : D) : Prop :=
   sub E R
 
-/-! ## Theorem 5.3: EK–Grain Hierarchy (PODS §5)
+/-! ## EK–Grain Hierarchy (arXiv v4 `thm:ek-hierarchy` (EK–Grain Hierarchy))
 
   If E is an entity of R (i.e., E ⊆_typ R), then G[E] ⊆_typ G[R].
 
@@ -97,7 +98,7 @@ def IsEntityOf (E R : D) : Prop :=
   - Transitivity through the idempotent grain
 -/
 
-/-- **PODS Theorem 5.3 (EK–Grain Hierarchy):**
+/-- **arXiv v4 `thm:ek-hierarchy` (EK–Grain Hierarchy):**
     If E is an entity of R (E ⊆_typ R), then G[E] ⊆_typ G[R].
 
     The entity key is always a type-level subset of the grain.
@@ -115,11 +116,11 @@ theorem IsEntityOf.ek_sub_grain {E R : D} (h : IsEntityOf E R) :
   -- Step 3: transitivity
   exact sub_trans _ _ _ h_det h_idem
 
-/-! ## Definition 8: Entity Key (PODS §5)
+/-! ## Entity Key (arXiv v4 `def:entity-key` (Entity Key))
 
   The entity key of R is EK(R) ≡ G[E], the grain of the entity type.
   The entity key is always a type-level subset of the grain:
-  EK(R) ⊆_typ G[R] (Theorem 5.3).
+  EK(R) ⊆_typ G[R] (arXiv v4 `thm:ek-hierarchy` (EK–Grain Hierarchy)).
 
   In the abstract axiomatization, EK(R) is simply `grain E` where
   E is the entity of R.
@@ -127,12 +128,12 @@ theorem IsEntityOf.ek_sub_grain {E R : D} (h : IsEntityOf E R) :
 
 /-- `EntityKey EK E R` holds when EK is the entity key of R via entity E.
 
-  This packages the full PODS Definition 8:
+  This packages the full arXiv v4 `def:entity-key` (Entity Key):
   - E is the entity of R (IsEntityOf E R)
   - EK is the grain of the entity type E (IsGrainOf EK E)
 
   The hierarchy EK ⊆_typ G[R] is derivable from these two conditions
-  (Theorem 5.3 + transitivity through grain E). -/
+  (arXiv v4 `thm:ek-hierarchy` (EK–Grain Hierarchy) + transitivity through grain E). -/
 structure EntityKey (EK E R : D) : Prop where
   /-- E is the entity of R -/
   entity : IsEntityOf E R
@@ -142,7 +143,8 @@ structure EntityKey (EK E R : D) : Prop where
 /-- The entity key EK ⊆_typ G[R]: derived from entity + ek_grain.
 
     Proof: EK ≅ E (from IsGrainOf) → sub EK (grain E) (via iso_sub) →
-    sub (grain E) (grain R) (Theorem 5.3) → sub EK (grain R) (transitivity). -/
+    sub (grain E) (grain R) (arXiv v4 `thm:ek-hierarchy` (EK–Grain Hierarchy)) → sub EK (grain R)
+    (transitivity). -/
 theorem EntityKey.ek_sub_grain {EK E R : D} (h : EntityKey EK E R) :
     sub EK (grain R) := by
   -- EK ≅ E from IsGrainOf
@@ -159,7 +161,8 @@ theorem EntityKey.ek_sub_grain {EK E R : D} (h : EntityKey EK E R) :
     grain_determines_subsets h_ek_sub_R
   -- iso EK E gives iso (grain EK) (grain E) ... hmm, not directly.
   -- Instead: EK ⊆ grain R, derived from EK ⊆ E ⊆ R and grain properties.
-  -- Simpler path: sub (grain E) (grain R) from Thm 5.3, then relate EK to grain E.
+  -- Simpler path: sub (grain E) (grain R) from arXiv v4 `thm:ek-hierarchy` (EK–Grain Hierarchy),
+  -- then relate EK to grain E.
   have h_grainE_sub_grainR : sub (grain E) (grain R) :=
     h.entity.ek_sub_grain
   -- From iso EK E: iso EK (grain E) by transitivity through E
@@ -194,11 +197,11 @@ theorem IsEntityOf.entity_sub {E R : D} (h : IsEntityOf E R) :
 theorem grain_sub_type (R : D) : sub (grain R) R :=
   grain_sub R
 
-/-- EK–Grain–Type Hierarchy (PODS Theorem 5.3):
+/-- EK–Grain–Type Hierarchy (arXiv v4 `thm:ek-hierarchy` (EK–Grain Hierarchy)):
     If E is an entity of R, then G[E] ⊆_typ G[R] ⊆_typ R.
 
     This combines:
-    - G[E] ⊆_typ G[R] (Theorem 5.3, derived)
+    - G[E] ⊆_typ G[R] (arXiv v4 `thm:ek-hierarchy` (EK–Grain Hierarchy), derived)
     - G[R] ⊆_typ R (from grain_sub axiom)
     So by transitivity: G[E] ⊆_typ R. -/
 theorem ek_grain_type_hierarchy {E R : D} (h : IsEntityOf E R) :
@@ -221,7 +224,7 @@ theorem EntityKey.canonical {E R : D} (h : IsEntityOf E R) :
 /-! ## Grain ordering and entity -/
 
 /-- If E is an entity of R, then R ≤_g E (R has finer grain than E).
-    This follows because G[E] ⊆_typ G[R] (Theorem 5.3),
+    This follows because G[E] ⊆_typ G[R] (arXiv v4 `thm:ek-hierarchy` (EK–Grain Hierarchy)),
     which is exactly the definition of R ≤_g E (grainLe R E). -/
 theorem entity_grainLe {E R : D} (h : IsEntityOf E R) :
     sub (grain E) (grain R) :=

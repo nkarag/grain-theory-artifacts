@@ -1,8 +1,10 @@
 /-
   GrainTheory.Inference.JoinSpecialCases — Join special cases (LP-23)
 
-  PODS Proposition 6.2: Four specializations of the equi-join grain
-  inference theorem (Theorem 6.1 / `equijoin_grain_identity`):
+  arXiv v4 `prop:join-special-cases` (Join Special Cases): Four specializations of the equi-join
+  grain
+  inference theorem (arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join) /
+  `equijoin_grain_identity`):
 
   1. Equal grains (G[R₁] ≡_g G[R₂], G[R₁] ⊆ Jk):
      G[Res] = G[R₁]  (both grains are contained in Jk)
@@ -148,7 +150,8 @@ theorem diff_inter_iso_of_sub (A B C : D) (h : ssub A C) :
 
 /-! ## Case 1: Equal Grains -/
 
-/-- **PODS Prop 6.2, Case 1: Equal grains with G[R₁] ⊆_typ Jk.**
+/-- **arXiv v4 `prop:join-special-cases` (Join Special Cases), Case 1: Equal grains with G[R₁] ⊆_typ
+    Jk.**
 
     When G[R₁] ≡_g G[R₂] and G[R₁] ⊆_typ Jk, the equi-join formula
     simplifies: G[R₂] ⊆ Jk (since G[R₂] ≅ G[R₁] ⊆ Jk), so
@@ -164,9 +167,11 @@ theorem equijoin_equal_grains
     (h_res_sup : sub (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk) Res)
     (h_adm : AdmissibleLabeling R₁ R₂ Jk)
     : grainEq Res R₁ := by
-  -- The independence hypothesis of Thm 7.2 is **vacuous here**: case 1 has
+  -- The independence hypothesis of arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join) is
+  -- **vacuous here**: case 1 has
   -- G[R₂] ⊑ Jk, so G[R₂] -_typ Jk is empty and nothing can be determined
-  -- across the components (arXiv Prop 7.3, "in cases 1--2 the hypothesis is
+  -- across the components (arXiv v4 `prop:join-special-cases` (Join Special Cases), "in cases 1--2
+  -- the hypothesis is
   -- vacuous"). It is discharged rather than assumed.
   have h_indep : InformationallyIndependent (grain R₁) (diff (grain R₂) Jk) :=
     GrainStructure.indep_bot _ _ (fun T => diff_ssub_of_ssub _ _ T h_g2_jk_struct)
@@ -174,7 +179,8 @@ theorem equijoin_equal_grains
   have h_g2_sub_g1 : sub (grain R₂) (grain R₁) :=
     iso_sub _ _ _ h_eq (sub_refl (grain R₂))
   -- Case 1 assumes the join key covers *both* grains structurally, exactly as
-  -- arXiv Prop 7.3 case 1 states it (`G[R₁] ⊑ Jk` and `G[R₂] ⊑ Jk`). It cannot
+  -- arXiv v4 `prop:join-special-cases` (Join Special Cases), case 1, states it (`G[R₁] ⊑ Jk` and
+  -- `G[R₂] ⊑ Jk`). It cannot
   -- be derived from `h_eq` alone: grain equality is semantic, and a semantic
   -- containment does not yield the structural one the difference lemma needs.
   have h_g2_jk : ssub (grain R₂) Jk := h_g2_jk_struct
@@ -200,7 +206,8 @@ theorem equijoin_equal_grains
 
 /-! ## Case 2: Ordered Grains -/
 
-/-- **PODS Prop 6.2, Case 2: Ordered grains (R₁ finer) with G[R₂] ⊆_typ Jk.**
+/-- **arXiv v4 `prop:join-special-cases` (Join Special Cases), Case 2: Ordered grains (R₁ finer)
+    with G[R₂] ⊆_typ Jk.**
 
     When R₁ ≤_g R₂ (G[R₂] ⊆ G[R₁], R₁ has finer grain) and G[R₂] ⊆_typ Jk,
     then G[R₂] -_typ Jk = ∅, so F₁ = G[R₁] ∪ ∅ ≅ G[R₁].
@@ -238,12 +245,14 @@ theorem equijoin_ordered_grains
 
 /-! ## Case 3: Incomparable Grains -/
 
-/-- **PODS Prop 6.2, Case 3: Incomparable grains — both labelings are valid.**
+/-- **arXiv v4 `prop:join-special-cases` (Join Special Cases), Case 3: Incomparable grains — both
+    labelings are valid.**
 
     When G[R₁] #_g G[R₂], the formula G[Res] = G[R₁] ∪_typ (G[R₂] -_typ Jk)
     yields IsGrainOf for **either** labeling.
 
-    This is the second bullet of arXiv Thm 7.2, and it is the one case where
+    This is the second bullet of arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join), and it is
+    the one case where
     the labeling hypothesis is *derived* rather than assumed: when the two
     join-key grain portions are structurally incomparable, neither is a
     proper structural subtype of the other, so `AdmissibleLabeling` holds in
@@ -251,7 +260,8 @@ theorem equijoin_ordered_grains
     grains of Res, and by Multiple Grains they are isomorphic.
 
     Incomparability is stated on the **Jk-portions** `G[Rᵢ] ∩ Jk`, which is
-    what Thm 7.2 gates on; `grainIncomp R₁ R₂` alone (incomparability of the
+    what arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join) gates on; `grainIncomp R₁ R₂` alone
+    (incomparability of the
     full grains) does not settle it. -/
 theorem equijoin_incomparable_grains
     (R₁ R₂ Jk Res : D)
@@ -286,7 +296,8 @@ theorem equijoin_incomparable_grains
 
 /-! ## Case 4: Natural Join -/
 
-/-- **PODS Prop 6.2, Case 4: Natural join (Jk = R₁ ∩ R₂).**
+/-- **arXiv v4 `prop:join-special-cases` (Join Special Cases), Case 4: Natural join (Jk = R₁ ∩
+    R₂).**
 
     When the join key is the full intersection of the input schemas,
     the equi-join formula specializes to:
@@ -316,7 +327,8 @@ theorem equijoin_natural_join
     (inter_ssub_right R₁ R₂)
     h_res_sub h_res_sup h_indep h_adm
 
-/-- **PODS simplification: G[R₂] -_typ (R₁ ∩ R₂) ≅ G[R₂] -_typ R₁.**
+/-- **Simplification for arXiv v4 `prop:join-special-cases` (Join Special Cases), case 4: G[R₂]
+    -_typ (R₁ ∩ R₂) ≅ G[R₂] -_typ R₁.**
 
     In the natural join case, the diff in the formula simplifies:
     since G[R₂] ⊆_typ R₂ (grain_sub), removing fields in R₁ ∩ R₂
@@ -327,7 +339,8 @@ theorem natural_join_diff_simplify (R₁ R₂ : D) (h_int : ssub (grain R₂) R�
     iso (diff (grain R₂) (inter R₁ R₂)) (diff (grain R₂) R₁) :=
   diff_inter_iso_of_sub (grain R₂) R₁ R₂ h_int
 
-/-- **PODS Prop 6.2, Case 4 (simplified form): Natural join.**
+/-- **arXiv v4 `prop:join-special-cases` (Join Special Cases), Case 4 (simplified form): Natural
+    join.**
 
     G[Res] = G[R₁] ∪_typ (G[R₂] -_typ R₁)
 

@@ -1,7 +1,8 @@
 /-
-  GrainTheory.Foundations.Uniqueness — Grain uniqueness (PODS §3)
+  GrainTheory.Foundations.Uniqueness — Grain uniqueness (arXiv v4 `sec:foundations` (Grain:
+  Definition and Fundamental Results))
 
-  PODS Theorem (Grain Uniqueness):
+  arXiv v4 `thm:grain-uniqueness` (The grain projection is injective):
   The grain projection is injective — if grain(r₁) = grain(r₂) then r₁ = r₂.
 
   This is an instance-level property. In our type-level axiomatization, we
@@ -27,7 +28,7 @@ variable {D : Type*} [GrainStructure D]
 
 open GrainStructure (iso grain iso_symm iso_trans grain_iso)
 
-/-- PODS Theorem (Grain Uniqueness — type-level):
+/-- arXiv v4 `thm:grain-uniqueness` (The grain projection is injective) — type-level:
     Any grain of R is isomorphic to the canonical grain G[R].
 
     This combines `grain_isGrainOf` (G[R] satisfies IsGrainOf) with

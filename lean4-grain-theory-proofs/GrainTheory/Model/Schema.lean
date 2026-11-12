@@ -21,10 +21,12 @@
 
   | Abstract | Concrete | Paper |
   |---|---|---|
-  | `ssub A B` (`⊑`) | `A ⊆ B` | component containment (Def 2.3) |
-  | `sub A B` (`⊆typ`) | `A ⊆ cl B` | B *determines* A (Def 2.1) |
+  | `ssub A B` (`⊑`) | `A ⊆ B` | component containment (arXiv v4 `def:structural-subtype`
+  (Structural subtype)) |
+  | `sub A B` (`⊆typ`) | `A ⊆ cl B` | B *determines* A (arXiv v4 `def:type-subset` (Type-Level
+  Subset)) |
   | `iso A B` (`≅`) | mutual determination | bijection between inhabitants |
-  | `grain R` | the minimal key of R | Def 3.1 |
+  | `grain R` | the minimal key of R | arXiv v4 `def:grain` (Grain) |
 
   `cl` is the FD closure: adding CustomerId to a set brings its dependents.
 -/

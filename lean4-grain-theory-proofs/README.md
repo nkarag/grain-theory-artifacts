@@ -115,24 +115,24 @@ isomorphism-invariant notion of minimality must fail
 GrainTheory/
   Basic.lean                         -- Core axioms; ⊆typ vs ⊑
   Foundations/
-    GrainDef.lean                    -- Def 2.2/2.3, Def 3.1, IsGrainOf,
-                                     --   IsIrreducible, grain-hood factorization,
-                                     --   Lemma 3.2 (grain existence)
+    GrainDef.lean                    -- arXiv v4 `def:type-proper-subset`, `def:structural-subtype`,
+                                     --   `def:grain`; IsGrainOf, IsIrreducible, grain-hood factorization,
+                                     --   arXiv v4 `lem:grain-existence` (grain existence)
     Factorization.lean               -- Universal factorization
-    MultipleGrains.lean              -- Multiple grains isomorphism (Thm 3.4)
-    Uniqueness.lean                  -- Grain uniqueness (Thm 3.5)
+    MultipleGrains.lean              -- Multiple grains isomorphism (arXiv v4 `thm:multiple-grains`)
+    Uniqueness.lean                  -- Grain uniqueness (arXiv v4 `thm:grain-uniqueness`)
     Idempotency.lean                 -- G[G[R]] = G[R]  (one line after the repair)
-    Product.lean                     -- Thm 3.8 -- requires component independence
-    Sum.lean                         -- Thm 3.9 -- no independence needed
-    IdentifyingFamily.lean           -- Sec 4.4: grain as a minimal identifying family
+    Product.lean                     -- arXiv v4 `thm:grain-product`, products -- requires component independence
+    Sum.lean                         -- arXiv v4 `thm:grain-product`, sums -- no independence needed
+    IdentifyingFamily.lean           -- arXiv v4 `subsec:identifying-family`: grain as a minimal identifying family
     CollectionKey.lean               -- type grain vs collection key; superkey bridge
   Relations/
-    GrainEquality.lean               -- Def 5.1, Thm 5.2, preservation
-    GrainOrdering.lean               -- Def 5.3, partial order, preservation
-    GrainSubset.lean                 -- Lemma 5.4 (subset-ordering equivalence)
-    GrainInference.lean              -- Thm 5.10; condition (iii) = irreducibility
+    GrainEquality.lean               -- arXiv v4 `def:grain-eq`, `thm:grain-equality`, preservation
+    GrainOrdering.lean               -- arXiv v4 `def:grain-ord`, partial order, preservation
+    GrainSubset.lean                 -- arXiv v4 `thm:grain-subset` (subset-ordering equivalence)
+    GrainInference.lean              -- arXiv v4 `thm:grain-inference-sufficient`; condition (iii) = irreducibility
     IntersectionUnion.lean           -- Absorption laws, determination-free case
-    Incomparability.lean             -- Def 5.7, incomparability preservation
+    Incomparability.lean             -- arXiv v4 `def:grain-inc`, incomparability preservation
     Armstrong.lean                   -- Axioms A1-A9 (soundness)
     Lattice.lean                     -- Grain lattice: lub universal only for
                                      --   structural upper bounds (the
@@ -147,11 +147,11 @@ GrainTheory/
     EquiJoinBootstrap.lean           -- F1 <=_g Res              (condition ii)
     EquiJoinIrred.lean               -- Convention minimality
     EquiJoinIdentity.lean            -- AdmissibleLabeling + condition (iii)
-    EquiJoin.lean                    -- Thm 7.2 (capstone)
+    EquiJoin.lean                    -- arXiv v4 `thm:equijoin-grain` (capstone)
     GeneralizedJoin.lean             -- Generalized equi-join
     JoinSpecialCases.lean            -- Equal / ordered / incomparable / natural
     GrainReduction.lean              -- reduction under declared FDs; grain existence
-    RAOperations.lean                -- All RA operations (Table 2)
+    RAOperations.lean                -- All RA operations (arXiv v4 `tab:ra-inference`)
   DependencyTheory/
     Completeness.lean                -- Armstrong soundness + completeness axiom
     Determination.lean               -- Determination problem
@@ -162,8 +162,8 @@ GrainTheory/
   ErrorDetection/
     FanTrap.lean                     -- Fan trap characterization
     ChasmTrap.lean                   -- Chasm trap characterization
-    GrainErrors.lean                 -- Props 10.2, 10.3, wrong-grain aggregation,
-                                     --   behavioral-class violation
+    GrainErrors.lean                 -- arXiv v4 `prop:projection-dup`, `prop:mv-read`,
+                                     --   `prop:wrong-grain-agg`, `prop:bc-violation`
   ADT/
     TypeExpr.lean                    -- ADT grammar + grain type-expression
                                      --   operator; idempotency, no axioms
@@ -185,10 +185,10 @@ GrainTheory/
                                      --   glb VERIFIED (lattice proposition, items 1-5)
 ```
 
-Paper numbering in module docstrings follows the PODS 2027 / arXiv v2
-version except where a label is named (`arXiv Def. type-subset`); the
-lattice-related modules were re-keyed to labels after the ICDT 2027
-reviews.
+Module docstrings cite the paper by arXiv v4 label keys, in the form
+``arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join)``. A label names
+the same statement in every later revision of the paper, so these
+citations survive renumbering; statement numbers do not.
 
 ## Axiomatization
 

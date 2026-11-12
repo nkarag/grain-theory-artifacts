@@ -1,12 +1,14 @@
 /-
-  GrainTheory.Relations.Incomparability — Grain incomparability (PODS §4.3)
+  GrainTheory.Relations.Incomparability — Grain incomparability (arXiv v4
+  `subsec:incomparability-lattice` (Grain Incomparability and the Grain Lattice))
 
-  PODS Definition 6: R₁ #_g R₂ iff ¬(R₁ ≤_g R₂) ∧ ¬(R₂ ≤_g R₁).
+  arXiv v4 `def:grain-inc` (Grain Incomparability): R₁ #_g R₂ iff ¬(R₁ ≤_g R₂) ∧ ¬(R₂ ≤_g R₁).
 
   Results:
   - Definition: grainIncomp R₁ R₂
   - Theorem (Incomparability Preservation): R₁ #_g R₂ ⟺ G[R₁] #_g G[R₂]
-  - Corollary: grainIncomp implies ¬grainEq (the ¬≡_g condition in PODS Def 6
+  - Corollary: grainIncomp implies ¬grainEq (the ¬≡_g condition in arXiv v4 `def:grain-inc` (Grain
+    Incomparability)
     is redundant given ¬≤_g in both directions)
   - Irreflexivity and symmetry (not transitive)
 
@@ -21,9 +23,9 @@ variable {D : Type*} [GrainStructure D]
 
 open GrainStructure
 
-/-! ## Grain Incomparability (PODS Def 6) -/
+/-! ## Grain Incomparability (arXiv v4 `def:grain-inc` (Grain Incomparability)) -/
 
-/-- PODS Definition 6: Grain incomparability.
+/-- arXiv v4 `def:grain-inc` (Grain Incomparability): Grain incomparability.
     R₁ #_g R₂ iff neither R₁ ≤_g R₂ nor R₂ ≤_g R₁.
 
     The PODS paper also includes ¬(R₁ ≡_g R₂), but this is redundant:
@@ -57,7 +59,8 @@ theorem grainLe_of_grainEq {R₁ R₂ : D} (h : grainEq R₁ R₂) : grainLe R�
 theorem grainLe_of_grainEq' {R₁ R₂ : D} (h : grainEq R₁ R₂) : grainLe R₂ R₁ :=
   iso_sub _ _ _ (iso_symm _ _ h) (sub_refl (grain R₁))
 
-/-- PODS Def 6 redundancy: grain incomparability implies ¬grainEq.
+/-- arXiv v4 `def:grain-inc` (Grain Incomparability) redundancy: grain incomparability implies
+    ¬grainEq.
     The ¬(R₁ ≡_g R₂) condition in the PODS definition is redundant,
     because grain equality implies ≤_g in both directions. -/
 theorem grainIncomp_not_eq {R₁ R₂ : D} (h : grainIncomp R₁ R₂) : ¬grainEq R₁ R₂ := by
@@ -66,7 +69,8 @@ theorem grainIncomp_not_eq {R₁ R₂ : D} (h : grainIncomp R₁ R₂) : ¬grain
 
 /-! ## Incomparability Preservation -/
 
-/-- PODS Theorem (Grain Incomparability Preservation):
+/-- Grain Incomparability Preservation (corollary of arXiv v4 `thm:grain-idempotent` (Grain of a
+    Grain, Idempotency)):
     R₁ #_g R₂ ⟺ G[R₁] #_g G[R₂].
 
     Both directions follow from grainLe_preservation:

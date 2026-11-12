@@ -33,9 +33,11 @@ variable {D : Type*} [GrainStructure D]
 
 open GrainStructure
 
-/-! ## PODS Theorem: Intersection with Grain -/
+/-! ## Intersection with Grain — arXiv v4 `prop:grain-lattice-products` (Lattice bounds on product
+    types), item (1) -/
 
-/-- PODS Thm (Intersection with Grain):
+/-- Intersection with Grain (arXiv v4 `prop:grain-lattice-products` (Lattice bounds on product
+    types), item (1)):
     If G[R₁] ⊆_typ G[R₂], then R₁ ≡_g (R₁ ∩ R₂).
     Equivalently: G[R₁] ≡_g G[R₁ ∩ R₂] (grain equivalence of grains).
 
@@ -75,7 +77,8 @@ theorem intersection_grain {R₁ R₂ : D}
   exact iso_trans _ _ _ (iso_symm _ _ (Foundations.grain_idempotent R₁))
     (iso_trans _ _ _ h_eqg (Foundations.grain_idempotent (inter R₁ R₂)))
 
-/-- PODS Thm (Intersection with Grain, strengthened to IsGrainOf):
+/-- Intersection with Grain (arXiv v4 `prop:grain-lattice-products` (Lattice bounds on product
+    types), item (1)), strengthened to IsGrainOf:
     If G[R₁] ⊆_typ G[R₂], then IsGrainOf (grain R₁) (R₁ ∩ R₂):
     G[R₁] is a grain of (R₁ ∩ R₂) — not just grain-equivalent, but
     satisfying both isomorphism and irreducibility.
@@ -99,9 +102,11 @@ theorem intersection_grain_isGrainOf {R₁ R₂ : D}
     Foundations.grain_irreducible R₁
   exact grain_inference_isGrainOf h_sub_inter h_le h_irred
 
-/-! ## PODS Theorem: Union with Grain -/
+/-! ## Union with Grain — arXiv v4 `prop:grain-lattice-products` (Lattice bounds on product types),
+    item (2) -/
 
-/-- PODS Thm (Union with Grain):
+/-- Union with Grain (arXiv v4 `prop:grain-lattice-products` (Lattice bounds on product types), item
+    (2)):
     If G[R₁] ⊆_typ G[R₂], then R₂ ≡_g (R₁ ∪ R₂).
     Equivalently: G[R₂] ≡_g G[R₁ ∪ R₂] (grain equivalence of grains).
 
@@ -140,7 +145,8 @@ theorem union_grain {R₁ R₂ : D}
   exact iso_trans _ _ _ (iso_symm _ _ (Foundations.grain_idempotent R₂))
     (iso_trans _ _ _ h_eqg (Foundations.grain_idempotent (union R₁ R₂)))
 
-/-- PODS Thm (Union with Grain, strengthened to IsGrainOf):
+/-- Union with Grain (arXiv v4 `prop:grain-lattice-products` (Lattice bounds on product types), item
+    (2)), strengthened to IsGrainOf:
     If G[R₁] ⊆_typ G[R₂], then IsGrainOf (grain R₂) (R₁ ∪ R₂):
     G[R₂] is a grain of (R₁ ∪ R₂).
 
@@ -173,7 +179,8 @@ theorem union_grain_isGrainOf {R₁ R₂ : D}
   them as checks. Nothing in the development depends on them; they are leaves.
   They should not be cited as mechanizing a paper result. -/
 
-/-- PODS Thm (Lattice Absorption): Both absorption laws of the grain
+/-- Lattice Absorption (arXiv v4 `prop:grain-lattice-products` (Lattice bounds on product types),
+    items (1)–(2)): Both absorption laws of the grain
     lattice combined. When G[R₁] ⊆_typ G[R₂] (equivalently R₂ ≤_g R₁
     by the Grain Subset Theorem):
       - G[R₁ ∩ R₂] ≡_g G[R₁]   (lub absorbs to coarser grain)

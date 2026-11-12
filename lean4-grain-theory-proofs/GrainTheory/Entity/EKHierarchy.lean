@@ -1,7 +1,7 @@
 /-
   GrainTheory.Entity.EKHierarchy — EK-Grain-Type Hierarchy
 
-  PODS §5, Theorem 5.3 (EK–Grain–Type Hierarchy):
+  arXiv v4 `thm:ek-hierarchy` (EK–Grain Hierarchy):
     For any data type R with entity E, EK(R) ⊆_typ G[R] ⊆_typ R.
 
   The core hierarchy theorem is proved in EntityDef.lean (IsEntityOf.ek_sub_grain).
@@ -20,7 +20,7 @@ open GrainStructure
 open GrainTheory.Foundations
 open GrainTheory.Relations
 
-/-! ## EK–Grain–Type Hierarchy (PODS Theorem 5.3)
+/-! ## EK–Grain–Type Hierarchy (arXiv v4 `thm:ek-hierarchy` (EK–Grain Hierarchy))
 
   The hierarchy EK(R) ⊆_typ G[R] ⊆_typ R is proved in EntityDef.lean.
   We re-export the key results here for a focused interface.
@@ -45,12 +45,14 @@ open GrainTheory.Relations
 -/
 
 /-- If E is an entity of R, then R ≤_g E: R has finer grain than its entity.
-    This is the grain-ordering reading of EK(R) ⊆_typ G[R] (Theorem 5.3). -/
+    This is the grain-ordering reading of EK(R) ⊆_typ G[R] (arXiv v4 `thm:ek-hierarchy` (EK–Grain
+    Hierarchy)). -/
 theorem entity_implies_grainLe {E R : D} (h : IsEntityOf E R) :
     grainLe R E :=
   h.ek_sub_grain
 
-/-! ## Data Integration at the Entity Level (PODS Remark)
+/-! ## Data Integration at the Entity Level (arXiv v4 `rem:data-integration` (Data Integration and
+    Reconciliation at the Entity Level))
 
   When two data types R₁ and R₂ share the same entity E, both have
   grains that sit above the entity key in the grain ordering:
@@ -63,7 +65,8 @@ theorem entity_implies_grainLe {E R : D} (h : IsEntityOf E R) :
 
 /-- Data integration: if R₁ and R₂ share entity E, both R₁ ≤_g E and R₂ ≤_g E.
     Their grains converge on the shared entity key G[E].
-    PODS Remark: enables integration even when G[R₁] and G[R₂] are incomparable. -/
+    arXiv v4 `rem:data-integration` (Data Integration and Reconciliation at the Entity Level):
+    enables integration even when G[R₁] and G[R₂] are incomparable. -/
 theorem shared_entity_grainLe {E R₁ R₂ : D}
     (h₁ : IsEntityOf E R₁) (h₂ : IsEntityOf E R₂) :
     grainLe R₁ E ∧ grainLe R₂ E :=

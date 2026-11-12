@@ -1,9 +1,9 @@
 /-
   GrainTheory.ADT.TypeExpr — the grain type-expression operator, syntactically
 
-  arXiv/ICDT §"Grain for Arbitrary Algebraic Data Types":
-  - Definition [Grain type-expression operator]
-  - Theorem [Correctness of the grain type-expression operator]
+  arXiv v4 `sec:adt` (Grain for Arbitrary Algebraic Data Types):
+  - arXiv v4 `def:compositional-grain` (Grain type-expression operator)
+  - arXiv v4 `thm:grain-adt` (Correctness of the grain type-expression operator)
 
   The paper states three things about the operator `G(·)`:
 
@@ -71,7 +71,7 @@ variable {D : Type u}
 
     The correctness theorem is stated for closed types — `Order` or
     `List OrderLine`, not the body `1 + OrderLine × X` they are built from —
-    because Definition 3.1 has nothing to say about an open expression. -/
+    because arXiv v4 `def:grain` (Grain) has nothing to say about an open expression. -/
 def closedUnder : List ℕ → TyExpr D → Prop
   | _, base _ => True
   | bs, var n => n ∈ bs
@@ -127,13 +127,13 @@ variable {D : Type u} (pc : ProdClause D) [GrainStructure D]
 
 open TyExpr
 
-/-- **Definition [Grain type-expression operator].**
+/-- **arXiv v4 `def:compositional-grain` (Grain type-expression operator).**
 
     `G(B) = grain B`, `G(X) = X`, `G(A + B) = G(A) + G(B)`,
     `G(μX.F) = μX.G(F)`, `G(νX.F) = νX.G(F)`, and at a product the minimal
     sub-product of the reduced components.
 
-    The base clause defers to Definition 3.1 rather than asserting an answer.
+    The base clause defers to arXiv v4 `def:grain` (Grain) rather than asserting an answer.
     The variable clause is the one that carries the whole extension: there is
     nothing at `X` to reduce, since `X` is not a component but the mark of where
     the type refers back to itself — it holds no fields and carries no

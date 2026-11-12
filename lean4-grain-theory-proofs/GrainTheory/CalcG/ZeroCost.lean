@@ -1,7 +1,7 @@
 /-
   GrainTheory.CalcG.ZeroCost — Zero-cost verification corollary (LP-28)
 
-  PODS 2027, §8, Corollary 8.3:
+  arXiv v4 `cor:data-independent` (Data-Independent Verification):
 
     A pipeline from source type R_S to target type R_T is grain-correct
     if CalcG[P](G[R_S]) = G[R_T]. This check requires no data access —
@@ -55,7 +55,8 @@ open GrainTheory.Foundations (IsGrainOf IsIrreducible grain_isGrainOf
 
 /-! ## Zero-Cost Verification — Schema-Only Grain Correctness
 
-  PODS Corollary 8.3: Grain verification operates entirely at the type level.
+  arXiv v4 `cor:data-independent` (Data-Independent Verification): Grain verification operates
+  entirely at the type level.
 
   The key insight: `calcG` is a function `RAExpr D → D` that maps RA expressions
   to types. It never inspects data — only the type structure (schema) of the
@@ -114,7 +115,8 @@ theorem grainCorrect_canonical (e : RAExpr D) :
 
 /-! ### The Zero-Cost Verification Corollary
 
-  PODS Corollary 8.3: Pipeline grain-correctness can be checked at the
+  arXiv v4 `cor:data-independent` (Data-Independent Verification): Pipeline grain-correctness can be
+  checked at the
   schema level with no data access.
 
   We formalize this as: CalcG produces a valid grain (IsGrainOf), so
@@ -126,7 +128,7 @@ theorem grainCorrect_canonical (e : RAExpr D) :
   - Comparing calcG(e) with the declared grain via iso: a type-level check.
   No data materialization, no row counting, no uniqueness verification. -/
 
-/-- **Zero-Cost Verification (PODS Corollary 8.3).**
+/-- **Zero-Cost Verification (arXiv v4 `cor:data-independent` (Data-Independent Verification)).**
 
     For any RA expression E:
     1. CalcG(E) is a valid grain of outType(E) — proved by `calcG_isGrainOf`.
@@ -185,7 +187,7 @@ theorem pipeline_end_to_end (e : RAExpr D) (G_target : D)
     **The irreducibility hypothesis is new, and it is not removable.**
     The earlier version concluded grain-hood from `grainCorrect` alone, by
     transporting irreducibility from `calcG e` to `declared` across the
-    isomorphism between them. Under the structural reading of Definition 3.1
+    isomorphism between them. Under the structural reading of arXiv v4 `def:grain` (Grain)
     that step is unsound, and the counterexample is the reviewer's own:
     `CustomerId` and `CustomerId × CustomerName` are isomorphic, so a
     pipeline whose CalcG output is `CustomerId` is "grain-correct" against a
@@ -231,7 +233,8 @@ theorem grainCorrect_iff_isGrainOf (e : RAExpr D) (declared : D) :
 
 /-! ### Schema-Only Decidability Note
 
-  PODS §8 notes that grain verification is decidable because every
+  arXiv v4 `sec:calcg` (The CalcG Verification Algorithm) notes that grain verification is decidable
+  because every
   inference rule involves only finite type-level set operations
   (⊆_typ, ∪_typ, -_typ) and decidable predicates on field sets.
 

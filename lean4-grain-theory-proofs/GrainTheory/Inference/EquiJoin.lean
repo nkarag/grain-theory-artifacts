@@ -1,7 +1,7 @@
 /-
   GrainTheory.Inference.EquiJoin — Main equi-join grain inference theorem (LP-21)
 
-  PODS 2027, §6, Theorem 6.1:
+  arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join):
 
     For any equi-join of R₁ and R₂ on Jk, with join result schema
       Res ↔ (R₁ \ Jk) × (R₂ \ Jk) × Jk    (mutual containment)
@@ -45,7 +45,8 @@ open EquiJoinStructure (determines determines_iso_of_sub)
 
 open GrainTheory.Relations (grainEq grainLe grainEq_of_iso)
 
-/-- **Equi-Join Grain Inference Theorem (LP-21, PODS Thm 6.1 corrected).**
+/-- **Equi-Join Grain Inference Theorem (LP-21, arXiv v4 `thm:equijoin-grain` (Grain of an
+    Equi-Join), corrected).**
 
     For an equi-join of R₁ and R₂ on join key Jk:
 
@@ -57,7 +58,8 @@ open GrainTheory.Relations (grainEq grainLe grainEq_of_iso)
     **Hypotheses:**
     - `h_convention`: G[R₁] ∩ Jk ⊑ G[R₂] ∩ Jk  (naming convention, structural)
     - `h_jk_r1`, `h_jk_r2`: Jk ⊑ R₁, Jk ⊑ R₂ (*structural* — the join columns
-      must physically be columns of each input; arXiv §7 Scope)
+      must physically be columns of each input; the Scope paragraph of arXiv v4 `sec:inference`
+      (Grain Inference for Relational Operations))
     - `h_res_sub`: Res ⊆_typ (R₁ \ Jk) × (R₂ \ Jk) × Jk
     - `h_res_sup`: (R₁ \ Jk) × (R₂ \ Jk) × Jk ⊆_typ Res
 
@@ -65,8 +67,10 @@ open GrainTheory.Relations (grainEq grainLe grainEq_of_iso)
     1. F₁ ⊆ Res                  (Lemma A — sub_trans through product)
     2. F₁ determines Res          (Lemma B — bootstrapping chain)
     3. F₁ ≅ Res                   (determines_iso_of_sub from 1+2)
-    4. G[F₁] ≅ G[Res]            (PODS Thm 4.2: grainEq_of_iso)
-    5. G[F₁] ≅ G[G[Res]]        (compose with PODS Thm 3.7: grain_idempotent)
+    4. G[F₁] ≅ G[Res]            (arXiv v4 `thm:grain-equality` (Grain equality is type
+       isomorphism): grainEq_of_iso)
+    5. G[F₁] ≅ G[G[Res]]        (compose with arXiv v4 `thm:grain-idempotent` (Grain of a Grain,
+       Idempotency): grain_idempotent)
     This is grainEq F₁ (grain Res) by definition. -/
 theorem equijoin_grain
     (R₁ R₂ Jk Res : D)
@@ -76,7 +80,8 @@ theorem equijoin_grain
     (h_res_sup : sub (prod (prod (diff R₁ Jk) (diff R₂ Jk)) Jk) Res)
     : grainEq (union (grain R₁) (diff (grain R₂) Jk)) (grain Res) := by
   set F₁ := union (grain R₁) (diff (grain R₂) Jk)
-  -- The join-key premises are *structural* (arXiv §7 Scope): the join columns
+  -- The join-key premises are *structural* (the Scope paragraph of arXiv v4 `sec:inference` (Grain
+  -- Inference for Relational Operations)): the join columns
   -- must physically be columns of each input. The inner lemmas need only the
   -- semantic containment, obtained by `ssub_sub`.
   have h_jk_r1' : sub Jk R₁ := ssub_sub _ _ h_jk_r1
@@ -90,14 +95,17 @@ theorem equijoin_grain
   -- Step 3: F₁ ≅ Res (determines + sub → iso)
   have h_iso : iso F₁ Res :=
     determines_iso_of_sub F₁ Res h_det h_sub
-  -- Step 4: G[F₁] ≅ G[Res] (PODS Theorem 4.2: grainEq_of_iso)
+  -- Step 4: G[F₁] ≅ G[Res] (arXiv v4 `thm:grain-equality` (Grain equality is type isomorphism):
+  -- grainEq_of_iso)
   have h_grain_compat : iso (grain F₁) (grain Res) :=
     grainEq_of_iso h_iso
-  -- Step 5: G[F₁] ≅ G[G[Res]] (compose with grain idempotency, PODS Thm 3.7)
+  -- Step 5: G[F₁] ≅ G[G[Res]] (compose with grain idempotency, arXiv v4 `thm:grain-idempotent`
+  -- (Grain of a Grain, Idempotency))
   exact iso_trans _ _ _ h_grain_compat
     (iso_symm _ _ (Foundations.grain_idempotent Res))
 
-/-- **Complete Equi-Join Grain Inference Theorem (LP-21, PODS Thm 6.1).**
+/-- **Complete Equi-Join Grain Inference Theorem (LP-21, arXiv v4 `thm:equijoin-grain` (Grain of an
+    Equi-Join)).**
 
     The full theorem establishes three properties of the candidate grain
     $F_1 = G[R_1] \cup_{typ} (G[R_2] -_{typ} J_k)$:
@@ -119,7 +127,8 @@ theorem equijoin_grain
     candidate (see THEORY_GAP_CASE_B_v2.md §4, Example 3).
 
     **Proof sketch:**
-    - Conjunct 1: Lemma A + B → F₁ ≅ Res → PODS Thm 4.2 → grain idempotency
+    - Conjunct 1: Lemma A + B → F₁ ≅ Res → arXiv v4 `thm:grain-equality` (Grain equality is type
+      isomorphism) → grain idempotency
     - Conjunct 2: Lemma A + B → F₁ is a superkey → determines_grain_sub
     - Conjunct 3: Decompose G[R₁] into Jk/non-Jk parts; convention routes Jk-part -/
 theorem equijoin_grain_complete
@@ -137,7 +146,8 @@ theorem equijoin_grain_complete
      (ssub_sub _ _ h_jk_r1) (ssub_sub _ _ h_jk_r2) h_res_sub h_res_sup,
    equijoin_convention_sub R₁ R₂ Jk (ssub_sub _ _ h_convention)⟩
 
-/-- **Equi-Join Grain Identity (PODS §6, Theorem 6.1 — via strengthened GIT).**
+/-- **Equi-Join Grain Identity (arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join) — via
+    strengthened GIT).**
 
     $G[\text{Res}] = G[R_1] \cup_{typ} (G[R_2] -_{typ} J_k)$
 
@@ -149,19 +159,23 @@ theorem equijoin_grain_complete
     (i)   F₁ ⊆ Res            — Lemma A (equijoin_candidate_sub)
     (ii)  F₁ ≤_g Res          — derived: Lemmas A+B → F₁ ≅ Res → grainLe
     (iii) F₁ irreducible      — equijoin_candidate_irreducible
-          This is informational independence (arXiv Def 6.2): the components
+          This is informational independence (arXiv v4 `rem:info-independence` (Informational
+          Independence)): the components
           of F₁ carry no cross-dependencies through grain determination and
           join equality.
 
-    **Two side conditions, not one.** `h_indep` is arXiv Def 6.2 — the two
+    **Two side conditions, not one.** `h_indep` is arXiv v4 `rem:info-independence` (Informational
+    Independence) — the two
     components carry no cross-determination — and it is **not** implied by the
     labeling: the concrete model exhibits an admissible labeling whose candidate
     is still reducible (`Model/EquiJoinCheck.lean`). It is the same independence
-    condition Thm 3.8 carries for products, and the θ-join rule inherits.
+    condition arXiv v4 `thm:grain-product` (Grain of products and sums), item (1) carries for
+    products, and the θ-join rule inherits.
 
     **The labeling hypothesis.** `h_adm` requires that `G[R₂] ∩ Jk` is not a
     proper structural subtype of `G[R₁] ∩ Jk` — i.e. the labeling is either
-    canonical or incomparable, the two cases arXiv Thm 7.2 admits.
+    canonical or incomparable, the two cases arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join)
+    admits.
 
     The earlier version of this theorem claimed no labeling hypothesis was
     needed. That claim was an artifact of the vacuous irreducibility reading:

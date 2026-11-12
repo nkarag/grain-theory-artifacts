@@ -1,9 +1,9 @@
 /-
   GrainTheory.Foundations.IdentifyingFamily — Grain as a Minimal Identifying Family
 
-  arXiv extended version, §4.4 (Grain as a Minimal Identifying Family):
-  - Definition 4.4 (Identifying family)
-  - Proposition 4.5 (Identifying families on product types)
+  arXiv v4 `subsec:identifying-family` (Grain as a Minimal Identifying Family):
+  - arXiv v4 `def:identifying-family` (Identifying family)
+  - arXiv v4 `prop:identifying-product` (Identifying families on product types)
 
   Grain generalizes the relational *candidate key*. On a flat relation a
   candidate key is a minimal set of attributes whose values jointly identify
@@ -38,7 +38,7 @@ open GrainStructure SemanticGrainStructure
 
 variable {D : Type u} [SemanticGrainStructure.{u, v} D]
 
-/-! ## Definition 4.4: Identifying family -/
+/-! ## arXiv v4 `def:identifying-family` (Identifying family) -/
 
 /-- An **observation family** on `R`: an index set `I` together with, for
     each index, a target type and a projection out of `R`.
@@ -55,7 +55,7 @@ structure ObsFamily (D : Type u) [SemanticGrainStructure.{u, v} D]
   /-- The observation itself: a projection out of `R`. -/
   proj : ∀ i : I, den R → den (target i)
 
-/-- **Definition 4.4 (Identifying family).** A subfamily `S ⊆ I` is
+/-- **arXiv v4 `def:identifying-family` (Identifying family).** A subfamily `S ⊆ I` is
     *identifying* when agreeing on every observation in `S` forces equality:
     `(∀ i ∈ S, pᵢ r = pᵢ r') → r = r'`.
 
@@ -109,7 +109,7 @@ def ObsFamily.combined {R : D} {I : Type v}
 
 /-- **Identification is injectivity of the combined map.**
 
-    This is the step that makes the isomorphism clause of Definition 3.1
+    This is the step that makes the isomorphism clause of arXiv v4 `def:grain` (Grain)
     *free* under the family reading: an injective map is a bijection onto its
     image, so `G[R] ≅ R` falls out and index-set minimality is left as the
     only real content. -/
@@ -129,13 +129,13 @@ noncomputable def ObsFamily.imageEquiv {R : D} {I : Type v}
     den R ≃ Set.range (F.combined S) :=
   Equiv.ofInjective _ ((F.identifying_iff_injective S).mp h)
 
-/-! ## Proposition 4.5: Identifying families on product types
+/-! ## arXiv v4 `prop:identifying-product` (Identifying families on product types)
 
   On a product type whose observations are its fields, a family is
   identifying iff it is a superkey, and a *minimal* one is a candidate key
-  whose combined-map image is the grain of Definition 3.1.
+  whose combined-map image is the grain of arXiv v4 `def:grain` (Grain).
 
-  The two halves of Definition 3.1 land as follows.
+  The two halves of arXiv v4 `def:grain` (Grain) land as follows.
 
   * **Isomorphism.** Free: `imageEquiv` above.
   * **Irreducibility.** This is where the reading is chosen. Index-set
@@ -150,7 +150,7 @@ noncomputable def ObsFamily.imageEquiv {R : D} {I : Type v}
   an index set of observations to the component structure of `D` requires a
   concrete model of `D` — which the abstract axiomatization deliberately does
   not fix (see the "no concrete model" limitation). What is mechanized is
-  that *given* the correspondence, the family view and Definition 3.1 select
+  that *given* the correspondence, the family view and arXiv v4 `def:grain` (Grain) select
   the same grain. -/
 
 /-- The bridge between the two readings of minimality on a product type:
@@ -174,10 +174,10 @@ structure FieldPresentation {R : D} {I : Type v}
   realizes : ∀ S' : I → Prop, (∀ i, S' i → S i) → (∃ i, S i ∧ ¬ S' i) →
     ∃ T : D, ssub T G ∧ ¬ ssub G T ∧ (F.Identifying S' → iso T R)
 
-/-- **Proposition 4.5 (Identifying families on product types).**
+/-- **arXiv v4 `prop:identifying-product` (Identifying families on product types).**
 
     If `S` is a *minimal* identifying family and `G` presents it, then `G`
-    satisfies Definition 3.1 for `R`: `G` is a grain of `R`.
+    satisfies arXiv v4 `def:grain` (Grain) for `R`: `G` is a grain of `R`.
 
     In words: a candidate key, presented as the image of its combined map,
     *is* the grain. -/
@@ -198,7 +198,8 @@ theorem minimalIdentifying_isGrainOf {R : D} {I : Type v}
     `S`, then `S` is minimal identifying: no proper sub-family identifies.
 
     Together with `minimalIdentifying_isGrainOf`, this is the equivalence
-    Proposition 4.5 asserts — the two definitions of grain, structural and
+    arXiv v4 `prop:identifying-product` (Identifying families on product types) asserts — the two
+    definitions of grain, structural and
     family-theoretic, pick out the same object. -/
 theorem isGrainOf_minimalIdentifying {R : D} {I : Type v}
     {F : ObsFamily D R I} {S : I → Prop} {G : D}

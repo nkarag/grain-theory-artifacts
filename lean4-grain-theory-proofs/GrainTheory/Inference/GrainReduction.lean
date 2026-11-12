@@ -1,9 +1,10 @@
 /-
   GrainTheory.Inference.GrainReduction — Grain Reduction under Declared FDs
 
-  arXiv extended version, §7, Proposition [Grain Reduction under Declared FDs].
+  arXiv v4 `prop:grain-reduction-fd` (Grain Reduction under Declared FDs).
 
-  Theorem 7.2 computes the grain of an equi-join from the **grains** of its
+  arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join) computes the grain of an equi-join from the
+  **grains** of its
   inputs — determinations whose left side is a whole grain. A schema may also
   declare a functional dependency whose left side is an *arbitrary* attribute
   set, possibly spanning both inputs and matching no grain. Such a dependency is
@@ -11,7 +12,8 @@
 
   The paper's example: joining `RegionId × StoreId` with
   `RegionId × Season × Discount` on `RegionId` gives
-  `RegionId × StoreId × Season × Discount` by Thm 7.2 — correct at the grain
+  `RegionId × StoreId × Season × Discount` by arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join)
+  — correct at the grain
   level, since no whole grain determines a field of the other. But a declared
   `{StoreId, Season} → Discount` is neither input's grain, so no grain-level
   rule sees it, and `Discount` is in fact redundant. The true grain is
@@ -19,13 +21,15 @@
 
   This module mechanizes the two-layer structure:
 
-  1. what Thm 7.2 returns is a **superkey** of the result;
+  1. what arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join) returns is a **superkey** of the
+     result;
   2. minimizing that superkey — deleting determined attributes to a fixpoint —
      yields a **grain**, unique up to isomorphism.
 
   Step 2 is classical superkey-to-candidate-key reduction. Abstractly it is
   minimization over structural subtypes, which is `ssub_wf` — the same principle
-  the paper's own Lemma 3.2 uses to establish grain existence.
+  the paper's own arXiv v4 `lem:grain-existence` (Existence of a grain) uses to establish grain
+  existence.
 
   The polynomial-time claim is a meta-property of the algorithm, not a Lean
   theorem; `Model/` carries the computational content.
@@ -42,7 +46,7 @@ open GrainStructure (sub ssub ssub_sub ssub_refl ssub_trans ssub_wf iso grain
   union diff inter prod iso_refl iso_symm iso_trans)
 open GrainTheory.Foundations (IsGrainOf IsIrreducible multiple_grains_iso)
 
-/-! ## Step 1 — what Theorem 7.2 returns is a superkey -/
+/-! ## Step 1 — what arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join) returns is a superkey -/
 
 /-- A grain of `Res` **determines** `Res`: the grain projection restricted to it
     identifies every element. This is the paper's first step — "so `G[Res]` is a
@@ -70,11 +74,12 @@ theorem superkey_stable {G Res : D}
 
   Abstractly, "drop a component and keep identifying `Res`" is exactly
   minimization over structural subtypes under the predicate `· ≅ Res`, so the
-  fixpoint is a `⊑`-minimal type isomorphic to `Res` — which is Definition 3.1. -/
+  fixpoint is a `⊑`-minimal type isomorphic to `Res` — which is arXiv v4 `def:grain` (Grain). -/
 
-/-- **Proposition [Grain Reduction under Declared FDs].**
+/-- **arXiv v4 `prop:grain-reduction-fd` (Grain Reduction under Declared FDs).**
 
-    Any type isomorphic to `Res` — in particular the superkey Theorem 7.2
+    Any type isomorphic to `Res` — in particular the superkey arXiv v4 `thm:equijoin-grain` (Grain
+    of an Equi-Join)
     returns — reduces to a **grain** of `Res` sitting structurally inside it.
 
     The reduction is the paper's: delete a component that the rest still
@@ -89,26 +94,30 @@ theorem grain_reduction (G Res : D) (h_iso : iso G Res) :
     order**: any two results are isomorphic.
 
     "Any two candidate keys are grains of `Res` and therefore isomorphic
-    (Theorem 3.4), so the fixpoint is well-defined up to isomorphism regardless
+    (arXiv v4 `thm:multiple-grains` (Grains are unique up to isomorphism)), so the fixpoint is
+    well-defined up to isomorphism regardless
     of deletion order." -/
 theorem grain_reduction_unique {K₁ K₂ Res : D}
     (h₁ : IsGrainOf K₁ Res) (h₂ : IsGrainOf K₂ Res) : iso K₁ K₂ :=
   multiple_grains_iso h₁ h₂
 
 /-- Grain existence is the same argument with `G = Res`: `Res ≅ Res`, so the
-    reduction applies and returns a grain. This is arXiv Lemma 3.2, now derived
+    reduction applies and returns a grain. This is arXiv v4 `lem:grain-existence` (Existence of a
+    grain), now derived
     from the minimization principle rather than supplied by the operator. -/
 theorem grain_exists_by_reduction (Res : D) : ∃ K : D, ssub K Res ∧ IsGrainOf K Res :=
   grain_reduction Res Res (iso_refl Res)
 
 /-! ## The two layers, composed
 
-  The equi-join instance: Theorem 7.2's candidate is a superkey of the result,
+  The equi-join instance: the candidate of arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join) is
+  a superkey of the result,
   and reducing it under the declared dependencies gives the grain. -/
 
 /-- **The equi-join candidate reduces to the grain.**
 
-    Thm 7.2 returns `F₁ = G[R₁] ∪typ (G[R₂] -typ Jk)` under its grain-level
+    arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join) returns `F₁ = G[R₁] ∪typ (G[R₂] -typ Jk)`
+    under its grain-level
     hypotheses. That candidate is a superkey of `Res`; Grain Reduction then
     removes any component determined by the rest through a declared FD whose
     left side is no grain — the composite cross-input case the grain-level rule
@@ -129,7 +138,8 @@ theorem equijoin_grain_reduction
       h_indep h_adm).1
 
 /-- When no declared dependency reduces it, the candidate **is** the grain —
-    the reduction is the identity, and Thm 7.2's answer stands unrefined. -/
+    the reduction is the identity, and the answer of arXiv v4 `thm:equijoin-grain` (Grain of an
+    Equi-Join) stands unrefined. -/
 theorem equijoin_reduction_trivial_of_irreducible
     {R₁ R₂ Jk Res : D}
     (h_grain : IsGrainOf (union (grain R₁) (diff (grain R₂) Jk)) Res)

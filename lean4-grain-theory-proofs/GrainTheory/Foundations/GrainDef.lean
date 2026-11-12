@@ -1,10 +1,11 @@
 /-
-  GrainTheory.Foundations.GrainDef — PODS Definitions 1-3
+  GrainTheory.Foundations.GrainDef — type subset, proper type subset and grain
 
   Formalizes type subset, proper type subset, and grain as derived
   concepts from the GrainStructure axioms.
 
-  Reference: PODS 2027 paper, §3, Definitions 1-3.
+  Reference: arXiv v4 `def:type-subset` (Type-Level Subset), arXiv v4 `def:type-proper-subset`
+  (Type-Level Proper Subset) and arXiv v4 `def:grain` (Grain).
 -/
 
 import GrainTheory.Basic
@@ -15,30 +16,32 @@ variable {D : Type*} [GrainStructure D]
 
 open GrainStructure
 
-/-! ## Definition 1: Type Subset (⊆_typ)
+/-! ## Type Subset (⊆_typ) — arXiv v4 `def:type-subset` (Type-Level Subset)
 
   Given types A and B, A ⊆_typ B if every field of A is also a field of B.
   This is captured directly by `GrainStructure.sub`.
 -/
 
-/-! ## Definition 2: Proper Type Subset (⊂_typ)
+/-! ## Proper Type Subset (⊂_typ) — arXiv v4 `def:type-proper-subset` (Type-Level Proper Subset)
 
   A ⊂_typ B iff A ⊆_typ B and ¬(B ⊆_typ A).
 -/
 
-/-- Proper type subset: A ⊂_typ B ≡ A ⊆_typ B ∧ ¬(B ⊆_typ A) (arXiv Def 2.2) -/
+/-- Proper type subset: A ⊂_typ B ≡ A ⊆_typ B ∧ ¬(B ⊆_typ A) (arXiv v4 `def:type-proper-subset`
+    (Type-Level Proper Subset)) -/
 def properSub (A B : D) : Prop :=
   sub A B ∧ ¬ sub B A
 
 scoped infixl:50 " ⊂_typ " => properSub
 
-/-! ## Definition 2.3: Proper Structural Subtype (⊏)
+/-! ## Proper Structural Subtype (⊏) — arXiv v4 `def:structural-subtype` (Structural subtype)
 
   A ⊏ B iff A ⊑ B and ¬(B ⊑ A) — i.e. B has a component not in A.
   This is the relation grain irreducibility quantifies over.
 -/
 
-/-- Proper structural subtype: A ⊏ B ≡ A ⊑ B ∧ ¬(B ⊑ A) (arXiv Def 2.3).
+/-- Proper structural subtype: A ⊏ B ≡ A ⊑ B ∧ ¬(B ⊑ A) (arXiv v4 `def:structural-subtype`
+    (Structural subtype)).
     Unfolding component containment, `¬(B ⊑ A)` says exactly that B has a
     component not occurring in A. -/
 def properSsub (A B : D) : Prop :=
@@ -77,7 +80,7 @@ theorem properSub_irrefl (A : D) : ¬ properSub A A :=
 theorem properSub_asymm {A B : D} (h : properSub A B) : ¬ properSub B A :=
   fun ⟨hba, _⟩ => h.2 hba
 
-/-! ## Definition 3.1: Grain
+/-! ## Grain — arXiv v4 `def:grain` (Grain)
 
   Given a data type R, a type G is a grain of R when:
   1. G ≅ R (isomorphism)
@@ -101,18 +104,19 @@ theorem properSub_asymm {A B : D} (h : properSub A B) : ¬ properSub B A :=
   stated with `sub`, never `ssub`, precisely so external grains survive.
 -/
 
-/-- **Structural irreducibility** (arXiv Def 3.1, clause 2, self-applied).
+/-- **Structural irreducibility** (arXiv v4 `def:grain` (Grain), clause 2, self-applied).
     `IsIrreducible G` holds when no proper structural subtype of G is
     isomorphic to G itself. Contrapositive form: `S ⊑ G` and `S ≅ G` force
     `G ⊑ S`.
 
     This is the paper's condition "`G[G] = G`" — G is a grain of itself —
-    and it is what Grain Inference (Thm 5.10) takes as condition (iii). -/
+    and it is what arXiv v4 `thm:grain-inference-sufficient` (Grain Inference) takes as condition
+    (iii). -/
 def IsIrreducible (G : D) : Prop :=
   ∀ S : D, ssub S G → iso S G → ssub G S
 
 /-- `IsGrainOf G R` holds when G satisfies the grain definition w.r.t. R
-    (arXiv Def 3.1): isomorphism + *structural* irreducibility.
+    (arXiv v4 `def:grain` (Grain)): isomorphism + *structural* irreducibility.
     No subset requirement — the grain may be external. -/
 def IsGrainOf (G R : D) : Prop :=
   iso G R ∧
@@ -121,12 +125,14 @@ def IsGrainOf (G R : D) : Prop :=
 /-- The canonical grain `G[R]` satisfies `IsGrainOf` — immediate from the axioms.
 
     This is also the mechanized form of the **Grain Existence Lemma**
-    (arXiv Lemma 3.2, "every data type has a grain"): the operator `grain`
+    (arXiv v4 `lem:grain-existence` (Existence of a grain), "every data type has a grain"): the
+    operator `grain`
     supplies the witness, and this theorem discharges both clauses. -/
 theorem grain_isGrainOf (R : D) : IsGrainOf (grain R) R :=
   ⟨grain_iso R, fun S => grain_irred R S⟩
 
-/-- **Grain existence** (arXiv Lemma 3.2). Every data type has a grain. -/
+/-- **Grain existence** (arXiv v4 `lem:grain-existence` (Existence of a grain)). Every data type has
+    a grain. -/
 theorem grain_exists (R : D) : ∃ G : D, IsGrainOf G R :=
   ⟨grain R, grain_isGrainOf R⟩
 

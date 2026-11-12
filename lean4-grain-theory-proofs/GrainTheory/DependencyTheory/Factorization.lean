@@ -1,9 +1,9 @@
 /-
   GrainTheory.DependencyTheory.Factorization — Grain Projection as a Homomorphism
 
-  PODS 2027, §7 "Grain Projection as a Homomorphism":
-  - Definition 7.1 (Grain Lift): φ(h) = grain_{R₂} ∘ h ∘ f_{g_{R₁}}
-  - Proposition 7.2 (Grain Factorization): h factors through G[R₂]
+  arXiv v4 `subsec:grain-factorization` (The Grain Homomorphism):
+  - arXiv v4 `def:grain-lift` (Grain Lift): φ(h) = grain_{R₂} ∘ h ∘ f_{g_{R₁}}
+  - arXiv v4 `prop:grain-factorization-codomain` (Grain Factorization): h factors through G[R₂]
   - Theorem (Grain Homomorphism): grain_{R₂} ∘ h = φ(h) ∘ grain_{R₁}
   - Corollary (Grain Compositionality): φ(h₂ ∘ h₁) = φ(h₂) ∘ φ(h₁)
 
@@ -14,8 +14,10 @@
   New axioms: 2 (den, isoEquiv). Total with GrainStructure: 38.
 
   Key results:
-  - grainLift:                φ(h) = grain_{R₂} ∘ h ∘ f_{g_{R₁}}  [Def 7.1]
-  - grain_factorization:      h = f_{g_{R₂}} ∘ e                   [Prop 7.2]
+  - grainLift:                φ(h) = grain_{R₂} ∘ h ∘ f_{g_{R₁}}  [arXiv v4 `def:grain-lift` (Grain
+    Lift)]
+  - grain_factorization:      h = f_{g_{R₂}} ∘ e                   [arXiv v4
+    `prop:grain-factorization-codomain` (Grain Factorization)]
   - grain_factorization_full: h = f_{g_{R₂}} ∘ φ(h) ∘ grain_{R₁}  [derived]
   - grain_homomorphism:       grain_{R₂} ∘ h = φ(h) ∘ grain_{R₁}  [Theorem]
   - grain_compositionality:   φ(h₂ ∘ h₁) = φ(h₂) ∘ φ(h₁)         [Corollary]
@@ -40,8 +42,9 @@ class SemanticGrainStructure (D : Type u) extends GrainStructure D where
   /-- Witness: abstract iso produces an actual equivalence -/
   isoEquiv : ∀ (R₁ R₂ : D), iso R₁ R₂ → den R₁ ≃ den R₂
   /-- …and conversely. Together with `isoEquiv` this says
-      `iso R₁ R₂ ↔ Nonempty (den R₁ ≃ den R₂)`, which is exactly what arXiv
-      Definition 2 means by isomorphism: *a bijection exists*. Without the
+      `iso R₁ R₂ ↔ Nonempty (den R₁ ≃ den R₂)`, which is exactly what the paper's
+      type isomorphism (arXiv v4 `def:structure-map` (Structure map)) amounts to at the semantic
+      layer: *a bijection exists*. Without the
       converse the semantic layer can consume an abstract `iso` but never
       produce one, so an element-level bijection could not be reported back as
       a type-level isomorphism — which is what
@@ -56,7 +59,7 @@ open GrainStructure (grain grain_iso)
 
 /-! ## Core Definitions -/
 
-/-- The grain function: G[R] ≃ R. PODS: f_{g_R} (Definition 3.1). -/
+/-- The grain function: G[R] ≃ R. Paper notation: f_{g_R} (arXiv v4 `def:grain` (Grain)). -/
 noncomputable def grainEquiv (R : D) : den (grain R) ≃ den R :=
   isoEquiv (grain R) R (grain_iso R)
 
@@ -64,9 +67,9 @@ noncomputable def grainEquiv (R : D) : den (grain R) ≃ den R :=
 noncomputable def grainProj (R : D) : den R → den (grain R) :=
   (grainEquiv R).symm
 
-/-! ## PODS §7, Definition 7.1: Grain Lift -/
+/-! ## arXiv v4 `def:grain-lift` (Grain Lift) -/
 
-/-- **PODS Definition 7.1 (Grain Lift):**
+/-- **arXiv v4 `def:grain-lift` (Grain Lift):**
     φ(h) = grain_{R₂} ∘ h ∘ f_{g_{R₁}} : G[R₁] → G[R₂].
     The grain lift of h captures the essential grain-to-grain content,
     discarding all payload attributes and implementation details. -/
@@ -79,7 +82,7 @@ noncomputable def factorE (R₁ R₂ : D) (h : den R₁ → den R₂) :
     den R₁ → den (grain R₂) :=
   grainProj R₂ ∘ h
 
-/-! ## PODS §7, Proposition 7.2: Grain Factorization -/
+/-! ## arXiv v4 `prop:grain-factorization-codomain` (Grain Factorization) -/
 
 /-- **Grain Factorization, existence half.**
     For any `h : R₁ → R₂`, `h = f_{g_{R₂}} ∘ e` with `e = grain_{R₂} ∘ h`.
@@ -127,7 +130,8 @@ noncomputable def factorEquiv (R₁ R₂ : D) :
   right_inv h := (grain_factorization R₁ R₂ h).symm
 
 /-- The factoring map decomposes via the grain lift:
-    e = φ(h) ∘ grain_{R₁}. Noted after Proposition 7.2. -/
+    e = φ(h) ∘ grain_{R₁}. Noted after arXiv v4 `prop:grain-factorization-codomain` (Grain
+    Factorization). -/
 theorem grain_factorization_decomposition
     (R₁ R₂ : D) (h : den R₁ → den R₂) :
     factorE R₁ R₂ h = (grainLift R₁ R₂ h) ∘ (grainProj R₁) := by
@@ -136,16 +140,17 @@ theorem grain_factorization_decomposition
     Equiv.apply_symm_apply]
 
 /-- Full decomposition: h = f_{g_{R₂}} ∘ φ(h) ∘ grain_{R₁}.
-    Derived from Proposition 7.2 and the decomposition of e. -/
+    Derived from arXiv v4 `prop:grain-factorization-codomain` (Grain Factorization) and the
+    decomposition of e. -/
 theorem grain_factorization_full (R₁ R₂ : D) (h : den R₁ → den R₂) :
     h = (grainEquiv R₂) ∘ (grainLift R₁ R₂ h) ∘ (grainProj R₁) := by
   funext x
   simp only [Function.comp_apply, grainLift, grainProj,
     Equiv.apply_symm_apply]
 
-/-! ## PODS §7, Theorem: Grain Homomorphism -/
+/-! ## arXiv v4 `thm:grain-factorization` (Grain projection commutes with transformation) -/
 
-/-- **PODS Theorem (Grain Homomorphism):**
+/-- **arXiv v4 `thm:grain-factorization` (Grain projection commutes with transformation):**
     grain_{R₂} ∘ h = φ(h) ∘ grain_{R₁}.
     Grain projection commutes with transformation: transforming and then
     projecting to grain yields the same result as projecting to grain
@@ -201,9 +206,9 @@ noncomputable def grainLiftEquiv (R₁ R₂ : D) :
     funext y
     simp only [grainLift, grainProj, Function.comp_apply, Equiv.symm_apply_apply]
 
-/-! ## PODS §7, Remark: Surjectivity Characterization -/
+/-! ## arXiv v4 `rem:factorization-ordering` (Connection to Grain Ordering) -/
 
-/-- **PODS Remark (Connection to Grain Ordering):**
+/-- **arXiv v4 `rem:factorization-ordering` (Connection to Grain Ordering):**
     h surjective ⟺ φ(h) surjective (grain projection and grain function
     are bijections). R₁ ≤_g R₂ precisely when the grain lift is a
     surjection. -/
@@ -225,9 +230,9 @@ theorem grain_lift_surj_iff (R₁ R₂ : D) (h : den R₁ → den R₂) :
         using hw
     exact (grainEquiv R₂).symm.injective this
 
-/-! ## PODS §7, Corollary: Grain Compositionality -/
+/-! ## arXiv v4 `cor:grain-compositionality` (Grain Compositionality) -/
 
-/-- **PODS Corollary (Grain Compositionality):**
+/-- **arXiv v4 `cor:grain-compositionality` (Grain Compositionality):**
     φ(h₂ ∘ h₁) = φ(h₂) ∘ φ(h₁).
     The grain lift of a composed transformation equals the composition
     of the individual grain lifts. This is the algebraic homomorphism

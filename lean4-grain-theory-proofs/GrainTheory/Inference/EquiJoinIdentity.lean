@@ -1,15 +1,16 @@
 /-
   GrainTheory.Inference.EquiJoinIdentity — Condition (iii) for equi-join grain identity
 
-  arXiv extended version, §7, Theorem 7.2 (Grain of an Equi-Join):
+  arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join):
 
     For an equi-join of R₁ and R₂ on Jk:
 
       G[Res] = G[R₁] ∪_typ (G[R₂] -_typ Jk)
 
   This file:
-  1. Defines `InformationallyIndependent` (arXiv Def 6.2 / Remark on
-     Informational Independence): the equi-join candidate's components carry
+  1. Defines `InformationallyIndependent` (arXiv v4 `rem:info-independence` (Informational
+     Independence),
+     in the appendix): the equi-join candidate's components carry
      no cross-dependency, so none is recoverable from the others — which is
      exactly structural irreducibility of their union.
 
@@ -27,13 +28,15 @@
   why no labeling hypothesis appeared to be needed.
 
   Under the structural reading the condition has real content, and the
-  labeling hypothesis returns — matching the paper's Theorem 7.2, which
+  labeling hypothesis returns — matching the paper's arXiv v4 `thm:equijoin-grain` (Grain of an
+  Equi-Join), which
   gates on comparing the two inputs' join-key grain portions. The reverse
   labeling, when strictly larger on the Jk side, carries a redundant Jk-field
   and is genuinely reducible.
 
-  Reference: arXiv extended version, §7 Thm 7.2; Appendix Remark
-  (Informational Independence).
+  Reference: arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join); arXiv v4 `rem:info-independence`
+  (Informational Independence),
+  in the appendix.
 -/
 
 import GrainTheory.Inference.EquiJoinAxioms
@@ -50,12 +53,13 @@ open GrainStructure (sub ssub iso grain union inter diff prod
   grain_sub grain_iso grain_union
   sub_union_left sub_union_right union_sub)
 
-/-- The **admissible labeling** condition of arXiv Theorem 7.2.
+/-- The **admissible labeling** condition of arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join).
 
     Writing `Gᵢ^Jk = G[Rᵢ] ∩ Jk`, the labeling `(1,2)` is admissible when
     `¬ (G₂^Jk ⊏ G₁^Jk)` — the appendix's reducibility criterion, negated. Two cases satisfy
     it — the canonical labeling `G₁^Jk ⊑ G₂^Jk`, and the incomparable case —
-    and these are exactly the two cases Theorem 7.2 admits.
+    and these are exactly the two cases arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join)
+    admits.
 
     Failing it means the candidate carries a Jk-field the join recovers from
     the opposite input, so the candidate is reducible and is not the grain. -/
@@ -69,7 +73,7 @@ theorem admissible_of_canonical {R₁ R₂ Jk : D}
   fun hc => hc.2 h
 
 /-- Incomparable join-key grain portions are admissible **in both
-    labelings** — the second bullet of arXiv Theorem 7.2. -/
+    labelings** — the second bullet of arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join). -/
 theorem admissible_of_incomparable {R₁ R₂ Jk : D}
     (h₁ : ¬ ssub (inter (grain R₁) Jk) (inter (grain R₂) Jk))
     (h₂ : ¬ ssub (inter (grain R₂) Jk) (inter (grain R₁) Jk)) :
@@ -99,7 +103,7 @@ private theorem union_iso (A A' B B' : D) (hA : iso A A') (hB : iso B B') :
         (sub_union_right A B)
   exact sub_antisymm _ _ h_fwd h_bwd
 
-/-- **Informational Independence (arXiv Def 6.2).**
+/-- **arXiv v4 `rem:info-independence` (Informational Independence).**
 
     A type G is *informationally independent* when none of its components is
     recoverable from the others — equivalently, when G is structurally
@@ -114,7 +118,8 @@ private theorem union_iso (A A' B B' : D) (hA : iso A A') (hB : iso B B') :
     **This definition has been corrected twice.** It first read
     `iso (grain G) G`, which is a theorem for every `G` and so asserted nothing.
     It was then restated as irreducibility of the *union* — but that is the
-    theorem's **conclusion**, not the hypothesis Def 6.2 describes. It is now a
+    theorem's **conclusion**, not the hypothesis arXiv v4 `rem:info-independence` (Informational
+    Independence) describes. It is now a
     relation on the two components, as the paper states it: no field of one is
     determined by the fields of the other. The concrete model shows the
     hypothesis is not derivable from the labeling
@@ -125,7 +130,7 @@ def InformationallyIndependent (A B : D) : Prop :=
 /-- **GIT Condition (iii): the equi-join candidate is irreducible.**
 
     Under an admissible labeling, `F₁ = G[R₁] ∪ (G[R₂] \ Jk)` is structurally
-    irreducible (arXiv Thm 7.2, irreducibility step). -/
+    irreducible (arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join), irreducibility step). -/
 theorem equijoin_candidate_irreducible (R₁ R₂ Jk : D)
     (h_indep : InformationallyIndependent (grain R₁) (diff (grain R₂) Jk))
     (h_adm : AdmissibleLabeling R₁ R₂ Jk) :
@@ -134,7 +139,8 @@ theorem equijoin_candidate_irreducible (R₁ R₂ Jk : D)
     EquiJoinStructure.equijoin_candidate_irred R₁ R₂ Jk S h_indep h_adm h_ssub h_iso
 
 /-- The equi-join candidate `F₁ = G[R₁] ∪ (G[R₂] \ Jk)` is informationally
-    independent (arXiv Def 6.2) under an admissible labeling. -/
+    independent (arXiv v4 `rem:info-independence` (Informational Independence)) under an admissible
+    labeling. -/
 theorem equijoin_candidate_irreducible_of_indep (R₁ R₂ Jk : D)
     (h_indep : InformationallyIndependent (grain R₁) (diff (grain R₂) Jk))
     (h_adm : AdmissibleLabeling R₁ R₂ Jk) :

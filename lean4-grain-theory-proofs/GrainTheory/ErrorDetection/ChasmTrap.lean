@@ -1,7 +1,7 @@
 /-
   GrainTheory.ErrorDetection.ChasmTrap — Chasm trap characterization
 
-  PODS §9, Proposition (Chasm Trap Characterization):
+  arXiv v4 `rem:chasm-trap` (Chasm Trap Vulnerability):
   A chasm trap occurs in a join chain R₁ → R_mid → R_end when the grain
   ordering function f : G[R_mid] → G[R_end] is partial (nullable FK).
   The partial function breaks transitivity of ≤_g (Armstrong A4):
@@ -81,7 +81,7 @@ theorem partialGrainLe_refl (R : D) : partialGrainLe R R :=
 
 /-! ## Chasm Trap Characterization
 
-  PODS Proposition (Chasm Trap):
+  arXiv v4 `rem:chasm-trap` (Chasm Trap Vulnerability):
   Consider a join chain R₁ → R_mid → R_end where:
   - R₁ ≤_g R_mid (total grain ordering, via non-nullable FK)
   - R_mid ≤_g(partial) R_end (partial grain ordering, via nullable FK)
@@ -110,7 +110,7 @@ structure ChasmTrapConfig (R₁ R_mid R_end : D) : Prop where
   /-- The partial link is genuinely partial (not total) -/
   not_total : ¬grainLe R_mid R_end
 
-/-- PODS Proposition (Chasm Trap Characterization):
+/-- arXiv v4 `rem:chasm-trap` (Chasm Trap Vulnerability):
     In a chasm trap configuration, the transitive conclusion R₁ ≤_g R_end
     is NOT guaranteed.
 

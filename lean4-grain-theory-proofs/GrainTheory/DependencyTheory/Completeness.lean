@@ -1,7 +1,8 @@
 /-
   GrainTheory.DependencyTheory.Completeness — Completeness of grain axioms
 
-  PODS §7, Proposition grain-completeness:
+  arXiv v4 `prop:grain-completeness` (Soundness and completeness of the grain axioms on product
+  types):
   The grain axioms A1–A9 are complete for grain ordering: every grain
   ordering valid in all models is derivable.
 
@@ -216,7 +217,8 @@ theorem derivable_A9 {R₁ R₂ R₃ R₄ : D}
   We state completeness as an axiom justified by this classical result.
 -/
 
-/-- **PODS Proposition 7.1 (Completeness of Grain Axioms).**
+/-- **arXiv v4 `prop:grain-completeness` (Soundness and completeness of the grain axioms on product
+    types).**
 
     Every semantically valid grain ordering is derivable from A1–A4.
 

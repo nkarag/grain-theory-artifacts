@@ -16,7 +16,8 @@
   without the naming convention, both F₁ and F₂ are grain-equivalent to Res,
   but only the convention-compliant direction is guaranteed minimal.
 
-  Reference: PODS 2027 paper, §6; THEORY_GAP_CASE_B_v2.md §§4–6.
+  Reference: arXiv v4 `subsec:equijoin-inference` (Grain Inference for Equi-Joins);
+  THEORY_GAP_CASE_B_v2.md §§4–6.
 -/
 
 import GrainTheory.Inference.EquiJoinSub
@@ -34,7 +35,8 @@ open GrainStructure (sub iso grain union inter diff prod
 
 open EquiJoinStructure (determines determines_grain_sub)
 
-/-- **Lemma C (Naming Convention Sub).** PODS §6, Gap 2 resolution.
+/-- **Lemma C (Naming Convention Sub).** arXiv v4 `subsec:equijoin-inference` (Grain Inference for
+    Equi-Joins), Gap 2 resolution.
 
     With the naming convention $G_1^{J_k} \subseteq_{typ} G_2^{J_k}$, the "forward"
     candidate $F_1 = G[R_1] \cup_{typ} (G[R_2] \setminus J_k)$ is a sub-type of

@@ -1,7 +1,7 @@
 /-
   GrainTheory.Entity.EntityPreservation — Entity-key equality and preservation
 
-  arXiv extended version, §6, Definition (Entity preservation):
+  arXiv v4 `def:entity-preservation` (Entity preservation):
 
     ekset(c) = { ek e | e ∈ c }
     c₁ =_ek c₂   ⟺   ekset(c₁) = ekset(c₂)
@@ -50,7 +50,7 @@ abbrev Coll (R : D) : Type v := Set (den R)
 
 /-- The entity-key projection of `R` via a chosen entity key type `EK` and a
     projection `ek : R → EK`. In the paper this is `ek` — the composite
-    `f_{g_E}⁻¹ ∘ entity` (Definition 6.3). -/
+    `f_{g_E}⁻¹ ∘ entity` (arXiv v4 `def:entity-key` (Entity Key)). -/
 structure EKProj (R EK : D) : Type v where
   /-- The entity-key projection itself. -/
   ek : den R → den EK

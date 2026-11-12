@@ -1,7 +1,7 @@
 /-
   GrainTheory.Foundations.Sum — Grain of sum (coproduct) types
 
-  PODS Theorem 3.9: G[R₁ + R₂] ≅ G[R₁] + G[R₂].
+  arXiv v4 `thm:grain-product` (Grain of products and sums), item (2): G[R₁ + R₂] ≅ G[R₁] + G[R₂].
 
   The sum of grains is itself a grain of the sum type.
   The proof establishes that sum (grain R₁) (grain R₂) satisfies the
@@ -13,7 +13,7 @@
   - sum_iso: sum preserves isomorphism
   - sum_irred: sums of irreducible types are irreducible
 
-  Reference: PODS 2027 paper, §3, Theorem grain-sum.
+  Reference: arXiv v4 `thm:grain-product` (Grain of products and sums), item (2).
 -/
 
 import GrainTheory.Foundations.GrainDef
@@ -31,9 +31,11 @@ open GrainStructure
     - Irreducibility: each `grain Rᵢ` is structurally irreducible, and the
       sum of irreducible types is irreducible (`sum_irred`).
 
-    **No independence hypothesis** — unlike the product case (Thm 3.8), the
+    **No independence hypothesis** — unlike the product case (arXiv v4 `thm:grain-product` (Grain of
+    products and sums), item (1)), the
     summands of a coproduct are disjoint alternatives, so no determination can
-    hold across them (arXiv Remark 4.3). -/
+    hold across them (arXiv v4 `rem:compositional-independence` (Where declared determinations
+    enter)). -/
 theorem sum_grain_isGrainOf (R₁ R₂ : D) :
     IsGrainOf (sum (grain R₁) (grain R₂)) (sum R₁ R₂) :=
   ⟨sum_iso _ _ _ _ (grain_iso R₁) (grain_iso R₂),
@@ -42,7 +44,7 @@ theorem sum_grain_isGrainOf (R₁ R₂ : D) :
        (fun T => grain_irred R₁ T) (fun T => grain_irred R₂ T)
        h_ssub h_iso⟩
 
-/-- arXiv Theorem 3.9: Grain of sum types.
+/-- arXiv v4 `thm:grain-product` (Grain of products and sums), item (2): Grain of sum types.
     G[R₁ + R₂] ≅ G[R₁] + G[R₂].
 
     Both `sum (grain R₁) (grain R₂)` and the canonical `grain (sum R₁ R₂)` are

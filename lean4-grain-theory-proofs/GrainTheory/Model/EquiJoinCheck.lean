@@ -3,7 +3,8 @@
 
   `EquiJoinStructure` extends `GrainStructure` with a determination relation and
   ten axioms, one of which — `equijoin_candidate_irred` — carries the entire
-  irreducibility step of arXiv Thm 7.2. That axiom is the least-scrutinized part
+  irreducibility step of arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join). That axiom is the
+  least-scrutinized part
   of the development: it is stated, justified in prose from the appendix
   argument, and then relied on by the centerpiece theorem.
 
@@ -60,7 +61,8 @@ theorem d_iso_determines :
 
 /-! ## Part 2 — `equijoin_candidate_irred`
 
-  The axiom carrying arXiv Thm 7.2's irreducibility step. Writing
+  The axiom carrying the irreducibility step of arXiv v4 `thm:equijoin-grain` (Grain of an
+  Equi-Join). Writing
   `Gᵢ^Jk = G[Rᵢ] ∩ Jk`, it asserts that the candidate
   `G[R₁] ∪ (G[R₂] − Jk)` is structurally irreducible whenever
   `¬ (G₂^Jk ⊏ G₁^Jk)`. -/
@@ -71,7 +73,8 @@ def admissible (R₁ R₂ Jk : Ty) : Prop :=
 
 instance (a b c : Ty) : Decidable (admissible a b c) := inferInstanceAs (Decidable (¬ _))
 
-/-- Informational independence (arXiv Def 6.2) as a relation on the two
+/-- Informational independence (arXiv v4 `rem:info-independence` (Informational Independence)) as a
+    relation on the two
     candidate components: neither determines a component of the other that it
     does not already carry. -/
 def indepM (A B : Ty) : Prop := cl A ∩ B ⊆ A ∧ cl B ∩ A ⊆ B
@@ -171,8 +174,9 @@ theorem d_equijoin_grain_identity : ∀ R₁ R₂ Jk : Ty,
 
 /-! ## Part 4 — the two axioms added for Grain Reduction
 
-  arXiv §7 Proposition [Grain Reduction under Declared FDs] needs a
-  minimization principle, and Prop 7.3 cases 1–2 need independence to be
+  arXiv v4 `prop:grain-reduction-fd` (Grain Reduction under Declared FDs) needs a
+  minimization principle, and arXiv v4 `prop:join-special-cases` (Join Special Cases), cases 1–2,
+  need independence to be
   vacuous against an empty component. Both are checked here. -/
 
 /-- `indep_bot`: independence against the empty type is vacuous. -/

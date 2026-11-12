@@ -1,7 +1,7 @@
 /-
   GrainTheory.ErrorDetection.FanTrap — Fan trap characterization (LP-29)
 
-  PODS 2027, §9, Proposition fan-trap:
+  arXiv v4 `prop:fan-trap` (Fan Trap Characterization):
 
     Given collections C R₁ and C R₂ joined on Jk producing C Res,
     a *fan trap* occurs when G[Res] <_g G[R_i] for some i:
@@ -38,7 +38,8 @@ open GrainTheory.Relations (grainEq grainLe grainIncomp
 /-- Strict grain ordering: R₁ <_g R₂ iff R₁ ≤_g R₂ and ¬(R₁ ≡_g R₂).
     "R₁ has strictly finer granularity than R₂."
 
-    Equivalently (by PODS Def 5): G[R₂] ⊆_typ G[R₁] and ¬(G[R₁] ≅ G[R₂]).
+    Equivalently (by arXiv v4 `def:grain-ord` (Grain Ordering)): G[R₂] ⊆_typ G[R₁] and ¬(G[R₁] ≅
+    G[R₂]).
 
     Example: OrderDetail <_g Order, since G[Order] ⊂_typ G[OrderDetail]. -/
 def grainLt (R₁ R₂ : D) : Prop := grainLe R₁ R₂ ∧ ¬ grainEq R₁ R₂
@@ -102,12 +103,13 @@ theorem grainLt_not_incomp {R₁ R₂ : D} (h : grainLt R₁ R₂) : ¬ grainInc
   intro ⟨hle, _⟩
   exact hle h.1
 
-/-! ## Fan Trap Definition (PODS §9, Proposition fan-trap) -/
+/-! ## Fan Trap Definition (arXiv v4 `prop:fan-trap` (Fan Trap Characterization)) -/
 
 /-- A fan trap occurs in the equi-join producing Res from R₁ and R₂ when
     the result grain is strictly finer than at least one input grain.
 
-    PODS §9: "a fan trap occurs when G[Res] <_g G[R_i] for some i."
+    arXiv v4 `prop:fan-trap` (Fan Trap Characterization): "a fan trap occurs when G[Res] <_g G[R_i]
+    for some i."
 
     We express this as: the result is strictly finer-grained than R₁ or R₂
     (i.e., Res <_g R₁ or Res <_g R₂, since grain ordering is preserved
@@ -115,9 +117,9 @@ theorem grainLt_not_incomp {R₁ R₂ : D} (h : grainLt R₁ R₂) : ¬ grainInc
 def isFanTrap (R₁ R₂ Res : D) : Prop :=
   grainLt Res R₁ ∨ grainLt Res R₂
 
-/-! ## Fan Trap Detection (PODS §9)
+/-! ## Fan Trap Detection (arXiv v4 `subsec:fan-traps` (Fan Traps))
 
-    The equi-join grain formula (Theorem 6.1) gives:
+    The equi-join grain formula (arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join)) gives:
       F₁ ≡_g Res  where  F₁ = G[R₁] ∪_typ (G[R₂] -_typ Jk)
 
     A fan trap on the R_i side occurs when Res <_g R_i. By grain
@@ -200,7 +202,8 @@ theorem fan_trap_detection_both
     : isFanTrap R₁ R₂ Res := by
   exact fan_trap_detection_r1 R₁ R₂ Res F₁ hF₁_eq hF₁_le₁ hF₁_ne₁
 
-/-! ## Fan Trap from Incomparable Grains (PODS §6 Case 3)
+/-! ## Fan Trap from Incomparable Grains (arXiv v4 `prop:join-special-cases` (Join Special Cases),
+    case 3)
 
     When G[R₁] #_g G[R₂] (incomparable grains), the equi-join result
     has F₁ = G[R₁] ∪ (G[R₂] \ Jk) which is strictly finer than both
@@ -219,7 +222,7 @@ theorem isFanTrapBoth_implies_isFanTrap {R₁ R₂ Res : D}
     (h : isFanTrapBoth R₁ R₂ Res) : isFanTrap R₁ R₂ Res :=
   Or.inl h.1
 
-/-! ## Fan Trap Prevention (PODS §9)
+/-! ## Fan Trap Prevention (arXiv v4 `subsec:fan-traps` (Fan Traps))
 
     "Pre-aggregate each input to the target grain before joining:
      if G[R_i'] ≡_g G[Target], then G[Res] ≱_g G[R_i']."
@@ -263,7 +266,7 @@ theorem fan_trap_prevention_both
 /-- Fan trap occurs iff the result grain is strictly ordered below
     at least one input grain.
 
-    This is the formal statement of PODS Proposition fan-trap:
+    This is the formal statement of arXiv v4 `prop:fan-trap` (Fan Trap Characterization):
     the condition G[Res] <_g G[R_i] (expressed at the type level
     as Res <_g R_i, since grain ordering is preserved by the corollary
     in GrainOrdering.lean) means row duplication occurs. -/

@@ -1,7 +1,7 @@
 /-
   GrainTheory.Inference.RAOperations — Grain inference for RA operations
 
-  PODS §6, Table 1: Grain inference rules for all standard relational
+  arXiv v4 `tab:ra-inference`: Grain inference rules for all standard relational
   algebra operations. Proofs match PODS appendix (lines 536–593).
 
   Operations covered:
@@ -36,35 +36,35 @@ open GrainTheory.Foundations (grain_product IsGrainOf grain_isGrainOf
     Base lemma for selection, set ops, semi-join, and anti-join.
 
     PODS justification: grain is a type-level property; iso types have
-    isomorphic grains (Theorem 4.2). -/
+    isomorphic grains (arXiv v4 `thm:grain-equality` (Grain equality is type isomorphism)). -/
 theorem grain_type_unchanged (R Res : D) (h : iso Res R) :
     iso (grain Res) (grain R) :=
   grainEq_of_iso h
 
 /-! ## Tier 1: Type-Unchanged Operations (Res = R) -/
 
-/-- PODS Table 1: Selection σ_θ.
+/-- arXiv v4 `tab:ra-inference`: Selection σ_θ.
     Selection filters rows without changing the type: Res = R.
     G[Res] = G[R]. (Appendix proof, line 536) -/
 theorem grain_selection (R Res : D) (h : iso Res R) :
     iso (grain Res) (grain R) :=
   grain_type_unchanged R Res h
 
-/-- PODS Table 1: Set operations ∪, ∩, −.
+/-- arXiv v4 `tab:ra-inference`: Set operations ∪, ∩, −.
     Union-compatible types (R₁ = R₂ = R), so Res = R.
     G[Res] = G[R]. (Appendix proof, line 575) -/
 theorem grain_set_ops (R Res : D) (h : iso Res R) :
     iso (grain Res) (grain R) :=
   grain_type_unchanged R Res h
 
-/-- PODS Table 1: Semi-join ⋉.
+/-- arXiv v4 `tab:ra-inference`: Semi-join ⋉.
     Returns rows from R₁ only: Res = R₁.
     G[Res] = G[R₁]. (Appendix proof, line 588) -/
 theorem grain_semijoin (R₁ Res : D) (h : iso Res R₁) :
     iso (grain Res) (grain R₁) :=
   grain_type_unchanged R₁ Res h
 
-/-- PODS Table 1: Anti-join ▷.
+/-- arXiv v4 `tab:ra-inference`: Anti-join ▷.
     Returns rows from R₁ only: Res = R₁.
     G[Res] = G[R₁]. (Appendix proof, line 588) -/
 theorem grain_antijoin (R₁ Res : D) (h : iso Res R₁) :
@@ -73,25 +73,27 @@ theorem grain_antijoin (R₁ Res : D) (h : iso Res R₁) :
 
 /-! ## Tier 2: Theta Join (via grain product) -/
 
-/-- arXiv Table 2: Theta join ⋈_θ.
+/-- arXiv v4 `tab:ra-inference`: Theta join ⋈_θ.
     Res = R₁ × R₂ (full product; θ filters but creates no equality
     constraints). If the inputs are **independent** — no determination
-    declared across them — then G[Res] = G[R₁] × G[R₂] by Thm 3.8.
+    declared across them — then G[Res] = G[R₁] × G[R₂] by arXiv v4 `thm:grain-product` (Grain of
+    products and sums), item (1).
 
     The `indep` hypothesis is inherited from the Grain of Product Types
     theorem. It is not a formality: if a determination holds between the two
     inputs (say R₂'s grain is functionally determined by R₁'s), the product
     of grains is reducible and the rule as stated over-reports the grain. In
     that case the operation is an equi-join in disguise and its grain is
-    given by Thm 7.2 instead. -/
+    given by arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join) instead. -/
 theorem grain_theta_join (R₁ R₂ : D) (h_indep : indep R₁ R₂) :
     iso (grain (prod R₁ R₂)) (prod (grain R₁) (grain R₂)) :=
   grain_product R₁ R₂ h_indep
 
 /-! ## Tier 3: Projection (conditional)
 
-  arXiv Table 2 states the projection rule with the **structural** test
-  `G[R] ⊑ S`, and the note following §10 Prop 10.2 explains why:
+  arXiv v4 `tab:ra-inference` states the projection rule with the **structural** test
+  `G[R] ⊑ S`, and the note following arXiv v4 `prop:projection-dup` (Projection Breaks Grain
+  Uniqueness) explains why:
 
   > The structural test `G[R] ⊑ S` is the schema-decidable form of the exact
   > requirement that `S` *determine* the grain (`G[R] ⊆typ S`); the two differ
@@ -112,7 +114,8 @@ theorem grain_theta_join (R₁ R₂ : D) (h_indep : indep R₁ R₂) :
     1. `iso_sub`: `G[R] ≅ R` and `S ⊆ R` → `S ⊆ G[R]`
     2. `sub_antisymm`: `S ⊆ G[R]` and `G[R] ⊆ S` → `S ≅ G[R]`
     3. transitivity: `S ≅ G[R] ≅ R`
-    4. arXiv Thm 5.2: `S ≅ R` → `G[S] ≅ G[R]` -/
+    4. arXiv v4 `thm:grain-equality` (Grain equality is type isomorphism):
+       `S ≅ R` → `G[S] ≅ G[R]` -/
 theorem grain_projection (R S : D) (hSR : sub S R) (hGS : sub (grain R) S) :
     iso (grain S) (grain R) :=
   -- S ⊆ G[R] (from iso_sub: G[R] ≅ R and S ⊆ R)
@@ -121,7 +124,7 @@ theorem grain_projection (R S : D) (hSR : sub S R) (hGS : sub (grain R) S) :
   have h2 : iso S (grain R) := sub_antisymm _ _ h1 hGS
   -- S ≅ R (transitivity: S ≅ G[R] ≅ R)
   have h3 : iso S R := iso_trans _ _ _ h2 (grain_iso R)
-  -- G[S] ≅ G[R] (Thm 5.2)
+  -- G[S] ≅ G[R] (arXiv v4 `thm:grain-equality` (Grain equality is type isomorphism))
   grainEq_of_iso h3
 
 /-- **The structural projection test is sound.** If every component of the
@@ -129,12 +132,12 @@ theorem grain_projection (R S : D) (hSR : sub S R) (hGS : sub (grain R) S) :
     (`G[R] ⊆_typ S`), so the exact condition holds.
 
     This is `ssub_sub` — a canonical projection is a surjection — named here
-    because it is what licenses Table 2's schema-decidable rule. -/
+    because it is what licenses the schema-decidable rule of arXiv v4 `tab:ra-inference`. -/
 theorem projection_test_sound (R S : D) (h : ssub (grain R) S) :
     sub (grain R) S :=
   ssub_sub _ _ h
 
-/-- **arXiv Table 2: Projection π_S**, as stated — with the schema-decidable
+/-- **arXiv v4 `tab:ra-inference`: Projection π_S**, as stated — with the schema-decidable
     structural test. `G[Res] = G[R]` whenever the grain's components survive.
 
     Both premises are structural, matching the appendix ("`Res = S` where
@@ -152,7 +155,7 @@ theorem grain_projection_structural (R S : D)
 
 /-! ## Tier 4: Rename (grain equality ≡_g) -/
 
-/-- PODS Table 1: Rename ρ_{a→b}.
+/-- arXiv v4 `tab:ra-inference`: Rename ρ_{a→b}.
     Renaming changes attribute names but preserves structure: Res ≅ R.
     G[Res] ≡_g G[R] (PODS uses ≡_g because types have different field
     names but are isomorphic).
@@ -164,7 +167,7 @@ theorem grain_rename (R Res : D) (h : iso Res R) : grainEq Res R :=
 
 /-! ## Tier 5: Extension (functionally determined column) -/
 
-/-- PODS Table 1: Extension by D = f(R).
+/-- arXiv v4 `tab:ra-inference`: Extension by D = f(R).
     Res = R × D where D is functionally determined by R.
 
     Encoding: functional determination means R × D ≅ R (adding a
@@ -178,7 +181,7 @@ theorem grain_extension (R D_ext Res : D)
 
 /-! ## Tier 6: Grouping (G_c is a grain by construction) -/
 
-/-- PODS Table 1: Grouping γ_{G_c, agg}.
+/-- arXiv v4 `tab:ra-inference`: Grouping γ_{G_c, agg}.
     Res = G_c × Agg. Grouping produces one row per unique G_c-value,
     so G_c is by construction a grain of Res.
 

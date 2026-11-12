@@ -2,8 +2,9 @@
   GrainTheory.Relations.Lattice — Grain lattice structure
 
   The grain ordering forms a lattice on grain-equivalence classes of product
-  types. This module mechanizes the **determination-free case** (arXiv
-  Proposition "Lattice bounds on product types", item 4):
+  types. This module mechanizes the **determination-free case** (arXiv v4
+  `prop:grain-lattice-products` (Lattice bounds on product types),
+  item 4):
   - Meet (GLB) = union of grains (more fields = finer = lower); its universal
     property holds with semantic (`⊆_typ`) hypotheses.
   - Join (LUB) = inter of grains (fewer fields = coarser = higher); its
@@ -73,9 +74,10 @@ theorem grainJoin_ge_right (R₁ R₂ : D) : grainLe R₂ (grainJoin R₁ R₂) 
     semantic hypotheses the statement is **false**, refuted in
     `Model/TheoremCheck.lean` and `Model2/TheoremCheck.lean`. A `≤_g` witness
     may be a *declared* determination rather than a structural projection
-    (arXiv Def. type-subset), and the field-set `∩typ` sees only the structural
+    (arXiv v4 `def:type-subset` (Type-Level Subset)), and the field-set `∩typ` sees only the
+    structural
     case. This theorem is therefore the determination-free case, item (4) of
-    the paper's Proposition "Lattice bounds on product types"; the general
+    arXiv v4 `prop:grain-lattice-products` (Lattice bounds on product types); the general
     least upper bound is the product on the intersection of the two grains'
     **closures**, which the abstract class has no closure operator to express
     and which `Model2/TheoremCheck.lean` checks by decision procedure.

@@ -1,7 +1,7 @@
 /-
   GrainTheory.Inference.GeneralizedJoin — Generalized equi-join grain inference (LP-22)
 
-  PODS 2027, §6, Theorem (Generalized Grain Inference for Equi-Joins):
+  arXiv v4 `thm:generalized-equijoin` (Generalized Grain Inference for Equi-Joins):
 
     When join key types are isomorphic (Jk₁ ≅ Jk₂) rather than identical,
     the equi-join grain inference theorem generalizes:
@@ -194,7 +194,8 @@ theorem generalized_candidate_determines
 -- Main theorems
 -- ════════════════════════════════════════════════════════════════
 
-/-- **Generalized Equi-Join Grain Inference (LP-22, PODS §6).**
+/-- **Generalized Equi-Join Grain Inference (LP-22, arXiv v4 `thm:generalized-equijoin` (Generalized
+    Grain Inference for Equi-Joins)).**
 
     For a generalized equi-join of R₁ and R₂ with isomorphic join keys
     Jk₁ ≅ Jk₂ (Jk₁ ⊆ R₁, Jk₂ ⊆ R₂):
@@ -208,7 +209,8 @@ theorem generalized_candidate_determines
     - `h_jk_iso`: Jk₁ ≅ Jk₂  (join key types are isomorphic)
     - `h_det_jk`: Jk₁ → Jk₂  (join condition bridges key spaces)
     - `h_jk1_r1`, `h_jk2_r2`: join keys are *structural* subtypes of their
-      relations (arXiv Thm 7.4 "physical-presence premises", stated with ⊑)
+      relations (arXiv v4 `thm:generalized-equijoin` (Generalized Grain Inference for Equi-Joins),
+      "physical-presence premises", stated with ⊑)
     - `h_res_sub`, `h_res_sup`: result schema mutual containment
 
     **Proof (5 steps, as in standard equi-join):**
@@ -243,7 +245,8 @@ theorem generalized_equijoin_grain
   exact iso_trans _ _ _ h_grain_compat
     (iso_symm _ _ (Foundations.grain_idempotent Res))
 
-/-- **Generalized Equi-Join Grain Identity (LP-22, PODS §6 — via strengthened GIT).**
+/-- **Generalized Equi-Join Grain Identity (LP-22, arXiv v4 `thm:generalized-equijoin` (Generalized
+    Grain Inference for Equi-Joins) — via strengthened GIT).**
 
     $G[\text{Res}] = G[R_1] \cup_{typ} (G[R_2] -_{typ} J_{k2})$
 

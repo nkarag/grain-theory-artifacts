@@ -1,7 +1,8 @@
 /-
   GrainTheory.Foundations.Idempotency — Grain operator idempotency
 
-  arXiv Theorem 3.7: G[G[R]] ≅ G[R] for all data types R.
+  arXiv v4 `thm:grain-idempotent` (Grain of a Grain, Idempotency): G[G[R]] ≅ G[R] for all data types
+  R.
 
   **Simplified by the structural repair.** The earlier proof ran the paper's
   contradiction argument by hand: G[G[R]] ⊆_typ G[R], G[G[R]] ≅ R, then
@@ -25,9 +26,10 @@ variable {D : Type*} [GrainStructure D]
 
 open GrainStructure
 
-/-- arXiv Thm [Grain Idempotency]: `G[G[R]] ≅ G[R]`.
+/-- arXiv v4 `thm:grain-idempotent` (Grain of a Grain, Idempotency): `G[G[R]] ≅ G[R]`.
 
-  **Two idempotencies, and this is the first.** §4 states a second, for the
+  **Two idempotencies, and this is the first.** arXiv v4 `cor:grain-op-laws` (Laws of the operator)
+  states a second, for the
   grain type-expression *operator*: `G(G(T)) = G(T)`. The paper now names the
   difference explicitly — "one is about the grain, the other about the syntax
   that computes it, and the second rests on the first".

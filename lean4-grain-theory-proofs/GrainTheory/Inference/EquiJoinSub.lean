@@ -12,7 +12,8 @@
     sub (prod ...) Res  (product embeds into Res)
     sub Res (prod ...)  (Res embeds into product)
 
-  Reference: PODS 2027 paper, §6, Equi-join grain inference proof;
+  Reference: arXiv v4 `subsec:equijoin-inference` (Grain Inference for Equi-Joins), equi-join grain
+  inference proof;
   THEORY_GAP_CASE_B.md §6 (sub-product step).
 -/
 
@@ -94,7 +95,8 @@ private lemma input_sub_res₂ (R₁ R₂ Jk Res : D)
   -- R₂ ⊆ Res via sub_trans (P ⊆ Res)
   exact sub_trans _ _ _ h7 h_res_sup
 
-/-- **Lemma A (Equi-Join Candidate ⊆ Res).** PODS §6, sub-product step.
+/-- **Lemma A (Equi-Join Candidate ⊆ Res).** arXiv v4 `subsec:equijoin-inference` (Grain Inference
+    for Equi-Joins), sub-product step.
 
     The candidate grain F₁ = G[R₁] ∪_typ (G[R₂] \_typ Jk) is a
     type-subset of the join result Res.

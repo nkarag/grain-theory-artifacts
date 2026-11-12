@@ -15,7 +15,8 @@
   three product components, then `determines_sub` to transfer since
   Res ⊆_typ P (from the first containment direction).
 
-  Reference: PODS 2027 paper, §6, Equi-join grain inference proof;
+  Reference: arXiv v4 `subsec:equijoin-inference` (Grain Inference for Equi-Joins), equi-join grain
+  inference proof;
   THEORY_GAP_CASE_B.md §6 (bootstrapping argument).
 -/
 
@@ -38,7 +39,8 @@ open EquiJoinStructure (determines grain_determines determines_mono
   determines_sub determines_iso_of_sub determines_union determines_prod
   determines_trans determines_self determines_of_sub)
 
-/-- **Lemma B (Equi-Join Candidate Determines Res).** PODS §6, bootstrapping.
+/-- **Lemma B (Equi-Join Candidate Determines Res).** arXiv v4 `subsec:equijoin-inference` (Grain
+    Inference for Equi-Joins), bootstrapping.
 
     The candidate grain F₁ = G[R₁] ∪_typ (G[R₂] \_typ Jk) determines
     the join result Res.

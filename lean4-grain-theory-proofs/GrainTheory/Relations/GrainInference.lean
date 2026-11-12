@@ -1,7 +1,8 @@
 /-
   GrainTheory.Relations.GrainInference — Grain inference sufficient condition
 
-  PODS Theorem 4.9 (strengthened): If G ⊆_typ R, G ≤_g R, and G[G] ≅ G,
+  arXiv v4 `thm:grain-inference-sufficient` (Grain Inference) (strengthened): If G ⊆_typ R, G ≤_g R,
+  and G[G] ≅ G,
   then G is a grain of R (IsGrainOf G R):
     - G ≅ R (isomorphism)
     - G is irreducible w.r.t. R
@@ -24,7 +25,8 @@ variable {D : Type*} [GrainStructure D]
 
 open GrainStructure
 
-/-- PODS Thm 4.9: Grain inference sufficient condition.
+/-- arXiv v4 `thm:grain-inference-sufficient` (Grain Inference): Grain inference sufficient
+    condition.
     If G ⊆_typ R and G ≤_g R, then G ≡_g G[R].
 
     The paper states three conditions (G ⊆_typ R, G ≤_g R, G[G] = G),
@@ -63,7 +65,8 @@ theorem grain_inference' {G R : D}
     grainEq G (grain R) :=
   grain_inference h_sub h_le
 
-/-- **arXiv Thm 5.10 (strengthened): Grain Inference → Grain Identity.**
+/-- **arXiv v4 `thm:grain-inference-sufficient` (Grain Inference) (strengthened): Grain Inference →
+    Grain Identity.**
 
     If (i) `G ⊆_typ R`, (ii) `G ≤_g R`, and (iii) `G` is irreducible
     (`G[G] = G` in the paper's notation), then `IsGrainOf G R`.
@@ -98,7 +101,7 @@ theorem grain_inference' {G R : D}
 
     **This matches the appendix argument as corrected upstream.** The paper's
     Step 4 previously supposed `S ⊆typ G` with `S ≅ R` and concluded
-    `G ⊆typ S` — deriving exactly the vacuity Definition 3.1 warns about, and
+    `G ⊆typ S` — deriving exactly the vacuity arXiv v4 `def:grain` (Grain) warns about, and
     stopping there. The corrected step is the one mechanized here: if
     `G' ⊏ G` with `G' ≅ R` then `G' ≅ G` by the isomorphism step, so `G'` is a
     proper structural subtype of `G` isomorphic to `G`, which is precisely what

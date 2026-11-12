@@ -1,12 +1,13 @@
 /-
-  GrainTheory.ErrorDetection.GrainErrors — Further grain errors (arXiv §10.2)
+  GrainTheory.ErrorDetection.GrainErrors — Further grain errors (arXiv v4 `subsec:more-errors`
+  (Further Grain Errors))
 
   The fan trap is one case of a single principle: a grain-changing operation
   is an error when the grain it produces differs from the one intended. This
   file mechanizes the further error classes the post-review revision adds:
 
-  - Proposition 10.2  Projection Breaks Grain Uniqueness
-  - Proposition 10.3  Ungrounded Multi-Version Read
+  - arXiv v4 `prop:projection-dup` (Projection Breaks Grain Uniqueness)
+  - arXiv v4 `prop:mv-read` (Ungrounded Multi-Version Read)
   - Wrong-grain aggregation        (needs a declared target grain)
   - Behavioral-class violation     (needs a declared class)
 
@@ -14,10 +15,11 @@
   are *structural*: the check is a comparison of component sets with no
   declaration beyond the input grains. The last two are *declaration-relative*:
   they compare a computed grain against something a human asserted, and are
-  instances of the general check (Cor 9.3). The tiering is mechanized here by
+  instances of the general check (arXiv v4 `cor:data-independent` (Data-Independent Verification)).
+  The tiering is mechanized here by
   which hypotheses each result takes.
 
-  Reference: arXiv extended version, §10.2 (Further Grain Errors).
+  Reference: arXiv v4 `subsec:more-errors` (Further Grain Errors).
 -/
 
 import GrainTheory.ErrorDetection.FanTrap
@@ -33,7 +35,7 @@ open GrainStructure
 open GrainTheory.Relations
 open GrainTheory.Foundations
 
-/-! ## Proposition 10.2: Projection Breaks Grain Uniqueness
+/-! ## arXiv v4 `prop:projection-dup` (Projection Breaks Grain Uniqueness)
 
   A projection of `C R` onto a field set `S` preserves the grain **iff**
   `G[R] ⊑ S`. If a grain component is dropped, the projection is not
@@ -55,12 +57,14 @@ def PreservesGrain (R S : D) : Prop :=
   ssub (grain R) S
 
 /-- The **exact** requirement behind the structural test: `S` *determines* the
-    grain. This is the general surjection-based relation of §5, and it is what
+    grain. This is the general surjection-based relation of arXiv v4 `def:type-subset` (Type-Level
+    Subset), and it is what
     actually preserves the grain. -/
 def DeterminesGrain (R S : D) : Prop :=
   sub (grain R) S
 
-/-- **The structural test is sound** (arXiv §10, note after Prop 10.2):
+/-- **The structural test is sound** (the note after arXiv v4 `prop:projection-dup` (Projection
+    Breaks Grain Uniqueness)):
     `G[R] ⊑ S` implies `G[R] ⊆typ S`, so a projection passing the schema check
     really does preserve the grain. -/
 theorem preservesGrain_determinesGrain {R S : D} (h : PreservesGrain R S) :
@@ -81,7 +85,8 @@ theorem preservesGrain_or_drops (R S : D) :
 
     When the grain components survive, `S` still determines `R`'s grain, so
     the projection's grain is `G[R]` and the uniqueness invariant of
-    Theorem 3.5 continues to hold on the result. -/
+    arXiv v4 `thm:grain-uniqueness` (The grain projection is injective) continues to hold on the
+    result. -/
 theorem projection_preserves_grain {R S : D}
     (h_SR : sub S R) (h : PreservesGrain R S) :
     grainEq S R := by
@@ -105,14 +110,15 @@ theorem projection_test_never_unsafe {R S : D}
     (h : PreservesGrain R S) (hSR : sub S R) : grainEq S R :=
   projection_preserves_grain hSR h
 
-/-- **Proposition 10.2 (Projection Breaks Grain Uniqueness).**
+/-- **arXiv v4 `prop:projection-dup` (Projection Breaks Grain Uniqueness).**
 
     If the projection drops a grain component, then the projected type `S`
     is *not* a grain of `R`: the nominal grain no longer identifies each
     element, so the result carries several rows per grain value.
 
     Stated as the failure of grain-hood, which is the type-level shadow of
-    "the grain projection is no longer injective" (Thm 3.5). The result
+    "the grain projection is no longer injective" (arXiv v4 `thm:grain-uniqueness` (The grain
+    projection is injective)). The result
     becomes superkey-carrying again only once the duplicates are removed —
     by DISTINCT or re-aggregation. -/
 theorem projection_breaks_grain_uniqueness {R S : D}
@@ -149,7 +155,7 @@ theorem projection_error_invisible_downstream {R S Res : D}
     ¬ isFanTrap S Res Res ∨ grainEq Res S :=
   Or.inr h_join_ok
 
-/-! ## Proposition 10.3: Ungrounded Multi-Version Read
+/-! ## arXiv v4 `prop:mv-read` (Ungrounded Multi-Version Read)
 
   Let `C R` be **IsMultiVersion** with `G[R] = EK[R] × FromDtm`, joined on
   `EK[R]` to a collection of grain `EK[R]`. Since `G[R] <_g EK[R]`, the join
@@ -160,7 +166,8 @@ theorem projection_error_invisible_downstream {R S Res : D}
   Omitting it is a behavioral-class violation caught at the type level. -/
 
 /-- A type is **multi-version at entity key `EK` with version component
-    `Dtm`** when its grain is `EK × Dtm` (arXiv Def 6.5, IsMultiVersion). -/
+    `Dtm`** when its grain is `EK × Dtm`
+    (arXiv v4 `def:core-class` (Core classes), IsMultiVersion). -/
 def IsMultiVersionAt (EK Dtm R : D) : Prop :=
   IsGrainOf (prod EK Dtm) R
 
@@ -177,7 +184,7 @@ theorem multiVersion_grainLe_ek {EK Dtm R : D}
   -- G[EK] ⊆ EK ⊆ G[R]
   exact sub_trans _ _ _ (grain_sub EK) h_ek_sub_grainR
 
-/-- **Proposition 10.3 (Ungrounded Multi-Version Read).**
+/-- **arXiv v4 `prop:mv-read` (Ungrounded Multi-Version Read).**
 
     Joining a multi-version collection on its entity key to a collection of
     grain `EK` is a fan trap whenever the multi-version side is *strictly*
@@ -208,7 +215,7 @@ theorem point_in_time_read_prevents_fan_trap {EK R_pit : D}
     ¬ grainLt R_pit EK :=
   not_grainLt_of_grainEq h_pit
 
-/-! ## Proposition 10.4: Wrong-Grain Aggregation (declaration-relative)
+/-! ## arXiv v4 `prop:wrong-grain-agg` (Wrong-Grain Aggregation) (declaration-relative)
 
   Let `C R` be grain-unique, let `γ_{G_c}` group it by columns `G_c` with
   aggregation, producing `Res` with `G[Res] = G[G_c]`, and let `Target` be the
@@ -218,16 +225,18 @@ theorem point_in_time_read_prevents_fan_trap {EK R_pit : D}
   Unlike the two structural characterizations above, this needs a **declared**
   target grain — the `Target` argument below is exactly that declaration. -/
 
-/-- Grouping by key `K` yields grain `K` — the RA rule for `γ` (Table 2).
+/-- Grouping by key `K` yields grain `K` — the RA rule for `γ` (arXiv v4 `tab:ra-inference`).
 
-    Prop 10.4 states the grouping columns as `G_c ⊑ R`: they are columns of
+    arXiv v4 `prop:wrong-grain-agg` (Wrong-Grain Aggregation) states the grouping columns as `G_c ⊑
+    R`: they are columns of
     the input, a structural premise (the `⊑` here comes from the notation
     sweep of `2e24e22`). `GroupsWithin` bundles that presence requirement with
     the resulting grain. -/
 def GroupsTo (K Res : D) : Prop :=
   IsGrainOf K Res
 
-/-- Prop 10.4's full grouping premise: the grouping columns are columns of the
+/-- The full grouping premise of arXiv v4 `prop:wrong-grain-agg` (Wrong-Grain Aggregation): the
+    grouping columns are columns of the
     input (`G_c ⊑ R`), and the result has grain `G_c`. -/
 structure GroupsWithin (K R Res : D) : Prop where
   /-- The grouping columns are present in the input: `G_c ⊑ R`. -/
@@ -247,13 +256,15 @@ theorem aggregation_correct_iff {K Res Target : D} (h_group : GroupsTo K Res) :
   have h_K_Res : grainEq K Res := grainEq_of_iso h_group.1
   exact ⟨fun h => grainEq_trans h_K_Res h, fun h => grainEq_trans (grainEq_symm h_K_Res) h⟩
 
-/-- **Prop 10.4, case 1 — under-aggregation.** The grouping columns are
+/-- **arXiv v4 `prop:wrong-grain-agg` (Wrong-Grain Aggregation), case 1 — under-aggregation.** The
+    grouping columns are
     strictly finer than the target, so the result holds several rows per
     target grain value and each aggregate covers only part of its intended
     group.
 
     Joining that result at the target grain is then a fan trap
-    (Prop 10.1): any downstream collection preserving the result's grain is
+    (arXiv v4 `prop:fan-trap` (Fan Trap Characterization)): any downstream collection preserving the
+    result's grain is
     strictly finer than the target side. -/
 theorem under_aggregation_is_fan_trap {Res Target Res' : D}
     (h_finer : grainLt Res Target) (h_join : grainEq Res' Res) :
@@ -264,7 +275,8 @@ theorem under_aggregation_is_fan_trap {Res Target Res' : D}
   · intro h_eq
     exact h_finer.2 (grainEq_trans (grainEq_symm h_join) h_eq)
 
-/-- **Prop 10.4, case 2 — over-aggregation.** The grouping columns are strictly
+/-- **arXiv v4 `prop:wrong-grain-agg` (Wrong-Grain Aggregation), case 2 — over-aggregation.** The
+    grouping columns are strictly
     coarser than the target, so rows the target distinguishes are merged into a
     single group.
 
@@ -288,7 +300,8 @@ theorem not_both_under_and_over {Res Target : D}
 /-- **The grain-uniqueness hypothesis is load-bearing.**
 
     If it is violated upstream — by a fan trap, or by a projection that drops a
-    grain component (Prop 10.2) — then additive aggregates are inflated by the
+    grain component (arXiv v4 `prop:projection-dup` (Projection Breaks Grain Uniqueness)) — then
+    additive aggregates are inflated by the
     duplication multiplicity *even when the grain check passes*. Formally: the
     grain check `Res ≡_g Target` is consistent with the input having dropped a
     grain component, so it cannot detect the upstream violation.
@@ -299,16 +312,18 @@ theorem grain_check_misses_upstream_duplication {R S Res Target : D}
     grainEq Res Target ∧ DropsGrainComponent R S :=
   ⟨h_check_passes, _h_drop⟩
 
-/-! ## Proposition 10.5: Behavioral-Class Violation (declaration-relative)
+/-! ## arXiv v4 `prop:bc-violation` (Behavioral-Class Violation) (declaration-relative)
 
   A behavioral class `B` fixes `G[R]` as an equation in `EK[R]` and a temporal
-  component (Def 6.5), and its canonical read and write are derived from that
+  component (arXiv v4 `def:behavioral-class` (Behavioral class)), and its canonical read and write
+  are derived from that
   equation. The declaration is sound only if the **computed** grain satisfies
   the equation; when it does not, the canonical operations do not apply. -/
 
 /-- A **grain condition** `γ_B`: the equation a behavioral class imposes,
-    determining the required grain from the entity key (arXiv Def 6.5,
-    Table 3). -/
+    determining the required grain from the entity key (arXiv v4 `def:behavioral-class` (Behavioral
+    class),
+    arXiv v4 `tab:bc-formal`). -/
 structure GrainCondition (D : Type*) [GrainStructure D] where
   /-- `γ_B : EK ↦ required grain`. -/
   γ : D → D
@@ -325,7 +340,7 @@ def temporalCond (Dtm : D) : GrainCondition D := ⟨fun EK => prod EK Dtm⟩
 def ClassSound (c : GrainCondition D) (EK R : D) : Prop :=
   IsGrainOf (c.γ EK) R
 
-/-- **Prop 10.5 (Behavioral-Class Violation), general form.**
+/-- **arXiv v4 `prop:bc-violation` (Behavioral-Class Violation), general form.**
 
     If `R` genuinely satisfies one class equation, it cannot satisfy another
     that is not grain-equal to it. The comparison is between the CalcG-computed
@@ -360,7 +375,7 @@ theorem isMultiVersion_violated_by_no_versions {EK Dtm R : D}
     ¬ ClassSound (temporalCond Dtm) EK R :=
   behavioral_class_violation_general h_entity h_strict
 
-/-- Prop 10.3 (Ungrounded Multi-Version Read) is the special case in which the
+/-- arXiv v4 `prop:mv-read` (Ungrounded Multi-Version Read) is the special case in which the
     class is **correct but declared at the wrong level**: the collection really
     is multi-version, but at a coarser entity key than declared. -/
 theorem mv_read_is_wrong_level {EK Dtm R : D}
@@ -369,13 +384,13 @@ theorem mv_read_is_wrong_level {EK Dtm R : D}
 
 /-! ## Summary: which checks need a declaration
 
-  | Error class                        | Needs a declared target? |
-  |------------------------------------|--------------------------|
-  | Fan trap (Prop 10.1)               | no  — structural         |
-  | Projection duplication (Prop 10.2) | no  — structural         |
-  | Ungrounded MV read (Prop 10.3)     | no  — structural         |
-  | Wrong-grain aggregation (Prop 10.4)| yes — target grain       |
-  | Behavioral-class violation (10.5)  | yes — declared class     |
+  | Error class                                            | Needs a declared target? |
+  |--------------------------------------------------------|--------------------------|
+  | Fan trap (arXiv v4 `prop:fan-trap`)                    | no  — structural         |
+  | Projection duplication (arXiv v4 `prop:projection-dup`)| no  — structural         |
+  | Ungrounded MV read (arXiv v4 `prop:mv-read`)           | no  — structural         |
+  | Wrong-grain aggregation (arXiv v4 `prop:wrong-grain-agg`)| yes — target grain     |
+  | Behavioral-class violation (arXiv v4 `prop:bc-violation`)| yes — declared class   |
 
   The distinction is visible in the signatures above: the structural results
   mention only `ssub`, `grainLt` and the input grains; the declaration-

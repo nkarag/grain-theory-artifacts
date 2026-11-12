@@ -1,7 +1,8 @@
 /-
   GrainTheory.Relations.Armstrong — Armstrong axioms A1-A9
 
-  PODS §4: Soundness of grain axioms for the grain ordering.
+  arXiv v4 `subsec:armstrong` (Armstrong Axioms for Grain Ordering): Soundness of grain axioms for
+  the grain ordering.
   A1 (self-determination), A2 (reflexivity), A4 (transitivity) are
   re-exports of prior results. A3 (augmentation) is the key new axiom,
   requiring grain_union. A5-A9 derive from A1-A4 + structural axioms.

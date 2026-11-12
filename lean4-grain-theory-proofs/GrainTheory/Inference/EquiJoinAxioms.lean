@@ -4,7 +4,7 @@
   Extends GrainStructure with functional dependency (`determines`) and
   related axioms needed for LP-21 (equi-join grain inference theorem).
 
-  Reference: PODS 2027 paper, §6 (Grain Inference for Equi-Join);
+  Reference: arXiv v4 `subsec:equijoin-inference` (Grain Inference for Equi-Joins);
   BULLETPROOF_EQUIJOIN_PLAN.md §2.3 (axiomatization extensions).
 -/
 
@@ -91,17 +91,20 @@ class EquiJoinStructure (D : Type u) extends GrainStructure D where
   iso_determines : ∀ (S R : D), iso S R → sub S R → determines S R
 
   -- ================================================================
-  -- Structural irreducibility of the equi-join candidate (arXiv Thm 7.2)
+  -- Structural irreducibility of the equi-join candidate (arXiv v4 `thm:equijoin-grain` (Grain of
+  -- an Equi-Join))
   -- ================================================================
 
-  /-- **Equi-join candidate irreducibility (arXiv Thm 7.2, irreducibility
+  /-- **Equi-join candidate irreducibility (arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join),
+      irreducibility
       step).**
 
       Writing `Gᵢ^Jk = G[Rᵢ] ∩ Jk` for each input's join-key grain portion,
       the candidate `G[R₁] ∪ (G[R₂] \ Jk)` is structurally irreducible
       exactly when `G₂^Jk` is *not* a proper structural subtype of `G₁^Jk`.
 
-      arXiv justification (Thm 7.2 proof, "A field of G₁^rest or G₂^rest is
+      arXiv justification (proof of arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join), "A field
+      of G₁^rest or G₂^rest is
       never redundant…"): the candidate's fields are those of `G[R₁]` — split
       into `G₁^rest` and `G₁^Jk` — together with `G₂^rest = G[R₂] \ Jk`. A
       field of `G₁^rest` or `G₂^rest` is never redundant: it is a non-Jk field
@@ -113,14 +116,16 @@ class EquiJoinStructure (D : Type u) extends GrainStructure D where
       `G₁^Jk`, such an `f` exists iff `G₂^Jk ⊏ G₁^Jk`. Hence the candidate is
       reducible iff `G₂^Jk ⊏ G₁^Jk`, which is the hypothesis negated here.
 
-      This covers both admissible cases of Thm 7.2: the *canonical* labeling
+      This covers both admissible cases of arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join):
+      the *canonical* labeling
       (`G₁^Jk ⊑ G₂^Jk`) and the *incomparable* case both satisfy
       `¬ (G₂^Jk ⊏ G₁^Jk)`; only the strict reverse labeling fails it, and
       there the candidate genuinely is reducible.
 
       **Relation routing.** Both the gate and the reducibility criterion are
       structural: `⊑` for the canonical labeling, `⊏` for the strict
-      comparison. The paper agrees as of the §7/appendix notation sweep
+      comparison. The paper agrees as of the arXiv v4 `sec:inference` (Grain Inference for
+      Relational Operations)/appendix notation sweep
       (`6963ec1`, `4ae23dd`).
 
       **The independence hypothesis is required, and the labeling does not
@@ -130,10 +135,12 @@ class EquiJoinStructure (D : Type u) extends GrainStructure D where
       join equality on Jk. A determination declared between the inputs outside
       Jk defeats that. The concrete model exhibits an admissible labeling whose
       candidate is nonetheless reducible (`Model/EquiJoinCheck.lean`), so
-      `indep` is carried explicitly. This is arXiv Def 6.2 (informational
-      independence) as a *hypothesis* on the components, which is what the
+      `indep` is carried explicitly. This is arXiv v4 `rem:info-independence` (Informational
+      Independence)
+      as a *hypothesis* on the components, which is what the
       appendix Remark describes; the canonical labeling alone does not secure
-      it. Same root cause as the θ-join independence condition of Thm 3.8. -/
+      it. Same root cause as the θ-join independence condition of arXiv v4 `thm:grain-product`
+      (Grain of products and sums), item (1). -/
   equijoin_candidate_irred : ∀ (R₁ R₂ Jk S : D),
     indep (grain R₁) (diff (grain R₂) Jk) →
     ¬ GrainTheory.Foundations.properSsub

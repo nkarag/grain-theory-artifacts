@@ -1,14 +1,14 @@
 /-
   GrainTheory.ADT.Correctness — the operator computes the grain
 
-  arXiv/ICDT §"Grain for Arbitrary Algebraic Data Types",
-  Theorem [Correctness of the grain type-expression operator]:
+  arXiv v4 `sec:adt` (Grain for Arbitrary Algebraic Data Types),
+  arXiv v4 `thm:grain-adt` (Correctness of the grain type-expression operator):
 
   > For every closed algebraic data type `T`, `G(T)` is a grain of `T` in the
-  > sense of Definition 3.1: it is isomorphic to `T` and irreducible.
+  > sense of arXiv v4 `def:grain` (Grain): it is isomorphic to `T` and irreducible.
 
   The paper proves this by structural induction, "and the induction passes under
-  binders, where the body is an open expression and Definition 3.1 has nothing
+  binders, where the body is an open expression and arXiv v4 `def:grain` (Grain) has nothing
   to say". This file mechanizes that induction.
 
   ## What the induction rests on
@@ -30,13 +30,14 @@
 
   2. **`mu_irred` / `nu_irred`** — that `μ` and `ν` carry the *irreducibility*
      clause through, not only the isomorphism clause. The paper asserts both
-     ("the constructors `μ` and `ν` carry both clauses of Definition 3.1 through
+     ("the constructors `μ` and `ν` carry both clauses of arXiv v4 `def:grain` (Grain) through
      unchanged") on the same grounds.
 
   3. **`choose_sound`** — that the product clause returns a grain of the
-     product. The paper discharges this by citing Theorem [Grain of products
-     and sums] and, where a determination holds, the Grain Inference theorem:
-     *"That clause is Theorem [Grain of products and sums] placed where the
+     product. The paper discharges this by citing arXiv v4 `thm:grain-product` (Grain of products
+     and sums)
+     and, where a determination holds, the Grain Inference theorem:
+     *"That clause is arXiv v4 `thm:grain-product` (Grain of products and sums) placed where the
      recursion can reach it."* Both are mechanized elsewhere in this
      development, so this is a hypothesis of the clause rather than a new
      assumption about the world.
@@ -106,7 +107,7 @@ def interp (pc : ProdClause D) : TyExpr D → Env D → D
   | TyExpr.nu n F, ρ => nuD (fun Y => interp pc F (ρ.update n Y))
 
 /-- The product clause is **sound**: what it keeps is a grain of what it was
-    given. Discharged in the paper by Theorem [Grain of products and sums] and,
+    given. Discharged in the paper by arXiv v4 `thm:grain-product` (Grain of products and sums) and,
     where a determination holds, by Grain Inference. -/
 def ProdClause.Sound (pc : ProdClause D) : Prop :=
   ∀ (A B : TyExpr D) (ρ : Env D),
@@ -190,12 +191,12 @@ theorem interp_gop_irred (pc : ProdClause D) (h_sound : pc.Sound) :
 
 /-! ## The theorem -/
 
-/-- **Theorem [Correctness of the grain type-expression operator].**
+/-- **arXiv v4 `thm:grain-adt` (Correctness of the grain type-expression operator).**
 
     For every algebraic data type `T`, `G(T)` is a grain of `T` in the sense of
-    Definition 3.1: isomorphic to `T`, and irreducible.
+    arXiv v4 `def:grain` (Grain): isomorphic to `T`, and irreducible.
 
-    The operator therefore *computes* what Definition 3.1 only specifies: from
+    The operator therefore *computes* what arXiv v4 `def:grain` (Grain) only specifies: from
     the type expression and the declared determinations it produces a grain of
     `T`, and by Multiple Grains it does not matter which one. -/
 theorem gop_isGrainOf (pc : ProdClause D) (h_sound : pc.Sound)

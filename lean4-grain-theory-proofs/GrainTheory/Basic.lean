@@ -2,7 +2,7 @@
   GrainTheory.Basic — Core axioms for grain theory
 
   Abstract axiomatization of data types and the grain operator.
-  Reference: PODS 2027 paper, §3 (Foundations).
+  Reference: arXiv v4 `sec:foundations` (Grain: Definition and Fundamental Results).
 
   `D` is an opaque universe of data types. We axiomatize:
   - Type subset relation (⊆_typ) — *semantic*: a surjection exists
@@ -11,7 +11,8 @@
   - Grain operator G[·]
   - Type-level operations (product, sum, intersection, union, difference)
 
-  **The notation split (arXiv Definitions 2.1 and 2.3).**
+  **The notation split (arXiv v4 `def:type-subset` (Type-Level Subset) and `def:structural-subtype`
+  (Structural subtype)).**
   `sub` (⊆_typ) holds when *some* surjection `B ↠ A` exists — the witness
   may be a *declared* determination (a foreign key, a functional
   dependency). `ssub` (⊑) holds only when every component of `A` occurs
@@ -40,36 +41,40 @@ universe u
 
 /-- The core axiomatization of grain theory over an abstract universe of data types `D`.
 
-  `sub R S` means R is a type-level subset of S (PODS Def 1: every field of R is a field of S).
+  `sub R S` means R is a type-level subset of S (arXiv v4 `def:type-subset` (Type-Level Subset):
+  every field of R is a field of S).
   `iso R S` means R and S are isomorphic (there exists a two-sided inverse between them).
   `grain R` is the grain of R — the irreducible core that is isomorphic to R.
 
-  The three grain axioms (arXiv Def 3.1):
+  The three grain axioms (arXiv v4 `def:grain` (Grain)):
   1. `grain_sub`: G[R] ⊆_typ R
   2. `grain_iso`: G[R] ≅ R
   3. `grain_irred`: if S ⊑ G[R] and S ≅ R, then G[R] ⊑ S (*structural*
      irreducibility)
 -/
 class GrainStructure (D : Type u) where
-  /-- Type-level subset: `sub A B` means A ⊆_typ B (arXiv Def 2.1).
+  /-- Type-level subset: `sub A B` means A ⊆_typ B (arXiv v4 `def:type-subset` (Type-Level Subset)).
       Semantic: *some* surjection `B ↠ A` exists, possibly a declared one. -/
   sub : D → D → Prop
-  /-- Structural subtype: `ssub A B` means A ⊑ B (arXiv Def 2.3).
+  /-- Structural subtype: `ssub A B` means A ⊑ B (arXiv v4 `def:structural-subtype` (Structural
+      subtype)).
       Every component of A occurs among the components of B; the witness is
       the canonical projection. Decidable from the schema alone. -/
   ssub : D → D → Prop
   /-- Declared independence: `indep A B` means no determination is declared
       between A and B — neither functionally determines the other
-      (arXiv Thm 3.8 hypothesis, Remark 4.3).
+      (the hypothesis of arXiv v4 `thm:grain-product` (Grain of products and sums); see arXiv v4
+      `rem:compositional-independence` (Where declared determinations enter)).
 
-      In arXiv Thm 7.2 this is read at the **grain level**: the determinant is
+      In arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join) this is read at the **grain level**:
+      the determinant is
       a whole grain. A declared FD whose left side is no grain — a composite
       key spanning both inputs, say — is not seen here, and is applied
       afterwards by Grain Reduction (`Inference/GrainReduction.lean`). -/
   indep : D → D → Prop
   /-- Type isomorphism: `iso A B` means A ≅ B (two-sided inverse exists) -/
   iso : D → D → Prop
-  /-- Grain operator: `grain R` is G[R], the grain of R (PODS Def 3) -/
+  /-- Grain operator: `grain R` is G[R], the grain of R (arXiv v4 `def:grain` (Grain)) -/
   grain : D → D
   /-- Type-level product -/
   prod : D → D → D
@@ -97,14 +102,16 @@ class GrainStructure (D : Type u) where
       means the same component set, hence isomorphic types -/
   ssub_antisymm : ∀ (R S : D), ssub R S → ssub S R → iso R S
   /-- ⊑ **refines** ⊆_typ: a canonical projection is a surjection
-      (arXiv Def 2.3). The converse fails — that gap is what makes
+      (arXiv v4 `def:structural-subtype` (Structural subtype)). The converse fails — that gap is
+      what makes
       irreducibility non-vacuous. -/
   ssub_sub : ∀ (R S : D), ssub R S → sub R S
   /-- **Structural subtyping is well-founded on any predicate it can reach.**
       Given a property `P` holding of `G`, there is a `⊑`-minimal `K ⊑ G` still
       satisfying `P`.
 
-      arXiv justification: Lemma 3.2's proof is exactly this argument — "the
+      arXiv justification: the proof of arXiv v4 `lem:grain-existence` (Existence of a grain) is
+      exactly this argument — "the
       structural subtypes of `R` … form a finite, nonempty set … let `G` be a
       `⊑`-minimal element". A type has finitely many structural subtypes, one
       per subset of its components, so minimal elements exist. This is what
@@ -115,7 +122,7 @@ class GrainStructure (D : Type u) where
   /-- Nothing is determined by, or determines, an empty type: independence
       against the bottom element is vacuous. Used to discharge the independence
       hypothesis in the equi-join special cases where `G[R₂] -_typ Jk` is empty
-      (arXiv Prop 7.3, cases 1–2). -/
+      (arXiv v4 `prop:join-special-cases` (Join Special Cases), cases 1–2). -/
   indep_bot : ∀ (A B : D), (∀ T : D, ssub B T) → indep A B
   -- Structural axioms for iso (equivalence relation)
   /-- ≅ is reflexive -/
@@ -126,12 +133,12 @@ class GrainStructure (D : Type u) where
   iso_trans : ∀ (R S T : D), iso R S → iso S T → iso R T
   /-- Isomorphic types have the same subsets: if A ≅ B and C ⊆_typ B, then C ⊆_typ A -/
   iso_sub : ∀ (A B C : D), iso A B → sub C B → sub C A
-  -- Grain axioms (PODS Definition 3)
+  -- Grain axioms (arXiv v4 `def:grain` (Grain))
   /-- G[R] ⊆_typ R: the grain is a type-level subset of R -/
   grain_sub : ∀ (R : D), sub (grain R) R
   /-- G[R] ≅ R: the grain is isomorphic to R -/
   grain_iso : ∀ (R : D), iso (grain R) R
-  /-- **Structural irreducibility** (arXiv Def 3.1, clause 2): no proper
+  /-- **Structural irreducibility** (arXiv v4 `def:grain` (Grain), clause 2): no proper
       *structural* subtype of G[R] is isomorphic to R.
       Contrapositive form: if S ⊑ G[R] and S ≅ R, then G[R] ⊑ S.
 
@@ -200,7 +207,7 @@ class GrainStructure (D : Type u) where
   ssub_prod_right : ∀ (A B : D), ssub B (prod A B)
   /-- Product preserves isomorphism: if A ≅ B and C ≅ D, then A × C ≅ B × D.
       PODS justification: component-wise isos compose to a product iso (see
-      Theorem grain-product, Isomorphism step). -/
+      arXiv v4 `thm:grain-product` (Grain of products and sums), isomorphism step). -/
   prod_iso : ∀ (A B C E : D), iso A B → iso C E → iso (prod A C) (prod B E)
   /-- Products of irreducible types are irreducible — **given independence**.
       If C and E are independent (no determination declared across the
@@ -208,12 +215,14 @@ class GrainStructure (D : Type u) where
       A × B is irreducible for C × E: any S ⊑ A × B with S ≅ C × E forces
       A × B ⊑ S.
 
-      arXiv justification: Thm 3.8 (Grain of Product Types), irreducibility
+      arXiv justification: arXiv v4 `thm:grain-product` (Grain of products and sums), item (1),
+      irreducibility
       step — a proper structural sub-product omits a component or restricts
       it, contradicting that component's irreducibility. The `indep`
       hypothesis is the side condition added in the post-review revision:
       when a determination holds across components the product is reducible
-      and its grain is computed by Grain Inference (Thm 5.10) instead. -/
+      and its grain is computed by arXiv v4 `thm:grain-inference-sufficient` (Grain Inference)
+      instead. -/
   prod_irred : ∀ (A B C E S : D),
     indep C E →
     (∀ T : D, ssub T A → iso T C → ssub A T) →
@@ -229,24 +238,27 @@ class GrainStructure (D : Type u) where
       structural: a *declared* surjection onto `K` says nothing about which
       components `R` has, so `⊆typ` would not license the split.
 
-      arXiv justification: the type-difference split used by the partitioned
-      collection proposition, `G[R] = K × V` with `V = G[R] -_typ K`. -/
+      arXiv justification: the type-difference split used by arXiv v4 `prop:partitioned-grain`
+      (Grain of a partitioned collection),
+      `G[R] = K × V` with `V = G[R] -_typ K`. -/
   diff_prod_iso : ∀ (R K : D), ssub K R → iso R (prod (diff R K) K)
   -- Structural axioms for sum (coproduct)
   /-- Sum preserves isomorphism: if A ≅ B and C ≅ D, then A + C ≅ B + D.
       PODS justification: component-wise isos compose to a sum iso (see
-      Theorem grain-sum, Isomorphism step). -/
+      arXiv v4 `thm:grain-product` (Grain of products and sums), item (2), isomorphism step). -/
   sum_iso : ∀ (A B C E : D), iso A B → iso C E → iso (sum A C) (sum B E)
   /-- Sums of irreducible types are irreducible.
       If A is irreducible for C and B is irreducible for E, then A + B is
       irreducible for C + E: any S ⊑ A + B with S ≅ C + E forces A + B ⊑ S.
-      arXiv justification: Thm 3.9 (Grain of Sum Types), irreducibility step —
+      arXiv justification: arXiv v4 `thm:grain-product` (Grain of products and sums), item (2),
+      irreducibility step —
       a proper structural sub-sum restricts to a proper subtype of some
       summand, contradicting that summand's irreducibility.
 
       **No independence hypothesis is needed** (unlike `prod_irred`): the
       summands of a coproduct are disjoint alternatives, so no determination
-      can hold across them (arXiv Remark 4.3). -/
+      can hold across them (arXiv v4 `rem:compositional-independence` (Where declared determinations
+      enter)). -/
   sum_irred : ∀ (A B C E S : D),
     (∀ T : D, ssub T A → iso T C → ssub A T) →
     (∀ T : D, ssub T B → iso T E → ssub B T) →
@@ -259,7 +271,8 @@ variable {D : Type u} [GrainStructure D]
 /-! ## Semantic shadows of the structural lattice laws
 
   The type-level operations `∪_typ`, `∩_typ`, `-_typ`, `×` and `+` are
-  defined on *component sets* (arXiv §2), so every law governing them is a
+  defined on *component sets* (arXiv v4 `sec:prelim` (Preliminaries)), so every law governing them
+  is a
   structural fact and is axiomatized over `⊑` above. Each has a `⊆_typ`
   shadow, obtained by composing with `ssub_sub` — a canonical projection is a
   surjection.

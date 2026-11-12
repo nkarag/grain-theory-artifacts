@@ -1,7 +1,7 @@
 /-
   GrainTheory.DependencyTheory.Determination — Determination problem (LP-26)
 
-  PODS 2027, §7, Proposition (Determination):
+  arXiv v4 `prop:grain-factorization-codomain` (Grain Factorization):
 
     For any function h : R₁ → R₂, h factors through G[R₂]:
     there exists e : R₁ → G[R₂] such that h = f_{g_{R₂}} ∘ e,
@@ -43,7 +43,8 @@ open GrainTheory.Foundations (IsGrainOf grain_isGrainOf grain_idempotent)
 
 /-! ## Target-Grain Factorization -/
 
-/-- PODS Determination (type-level encoding, sub case):
+/-- arXiv v4 `prop:grain-factorization-codomain` (Grain Factorization) (type-level encoding, sub
+    case):
     If R₁ ⊆_typ R₂, then R₁ ⊆_typ G[R₂].
 
     Any type-subset relationship with R₂ factors through the grain of R₂.
@@ -53,7 +54,8 @@ open GrainTheory.Foundations (IsGrainOf grain_isGrainOf grain_idempotent)
 theorem determination_sub {R₁ R₂ : D} (h : sub R₁ R₂) : sub R₁ (grain R₂) :=
   iso_sub _ _ _ (grain_iso R₂) h
 
-/-- PODS Determination (type-level encoding, iso case):
+/-- arXiv v4 `prop:grain-factorization-codomain` (Grain Factorization) (type-level encoding, iso
+    case):
     If R₁ ≅ R₂, then R₁ ≅ G[R₂].
 
     Any isomorphism with R₂ factors through the grain of R₂.
@@ -63,7 +65,7 @@ theorem determination_iso {R₁ R₂ : D} (h : iso R₁ R₂) : iso R₁ (grain 
 
 /-! ## Determination Square (Commutative Diagram)
 
-    PODS Figure 7: The determination square.
+    arXiv v4 `fig:grain-homomorphism` (The grain homomorphism): the determination square.
 
     Given R₁ ≤_g R₂ (grain ordering), the following commutative square holds:
 

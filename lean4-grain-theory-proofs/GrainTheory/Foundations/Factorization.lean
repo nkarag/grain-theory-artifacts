@@ -1,7 +1,8 @@
 /-
-  GrainTheory.Foundations.Factorization — Universal factorization (PODS §3.3)
+  GrainTheory.Foundations.Factorization — Universal factorization (arXiv v4
+  `prop:grain-factorization-codomain` (Grain Factorization))
 
-  PODS Proposition (Universal Factorization):
+  arXiv v4 `prop:grain-factorization-codomain` (Grain Factorization) (universal factorization):
   For any type R₁ ≅ R, the isomorphism factors through the grain:
   R₁ ≅ G[R] ≅ R.
 
@@ -18,7 +19,7 @@ variable {D : Type*} [GrainStructure D]
 
 open GrainStructure (iso grain iso_trans iso_symm grain_iso)
 
-/-- PODS Proposition (Universal Factorization):
+/-- arXiv v4 `prop:grain-factorization-codomain` (Grain Factorization) (universal factorization):
     Every isomorphism R₁ ≅ R factors through the grain G[R].
 
     If R₁ ≅ R, then R₁ ≅ G[R].

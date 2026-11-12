@@ -1,7 +1,8 @@
 /-
-  GrainTheory.Foundations.MultipleGrains — Multiple grains isomorphism (PODS §3)
+  GrainTheory.Foundations.MultipleGrains — Multiple grains isomorphism (arXiv v4 `sec:foundations`
+  (Grain: Definition and Fundamental Results))
 
-  PODS Theorem (Multiple Grains Isomorphism):
+  arXiv v4 `thm:multiple-grains` (Grains are unique up to isomorphism):
   If G₁ and G₂ are both grains of R, then G₁ ≅ G₂.
 
   Proof: G₁ ≅ R ≅⁻¹ G₂ by composing the two grain isomorphisms.
@@ -15,7 +16,7 @@ variable {D : Type*} [GrainStructure D]
 
 open GrainStructure (iso iso_trans iso_symm)
 
-/-- PODS Theorem (Multiple Grains Isomorphism):
+/-- arXiv v4 `thm:multiple-grains` (Grains are unique up to isomorphism):
     If G₁ and G₂ are both grains of R, then G₁ ≅ G₂.
 
     Proof: G₁ ≅ R (from h₁) composed with R ≅⁻¹ G₂ (from h₂). -/

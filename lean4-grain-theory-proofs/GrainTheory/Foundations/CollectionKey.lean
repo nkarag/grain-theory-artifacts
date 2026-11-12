@@ -1,9 +1,10 @@
 /-
   GrainTheory.Foundations.CollectionKey — Type grain versus collection key
 
-  arXiv extended version, §3, Theorem [Type grain versus collection key].
+  arXiv v4 `thm:type-grain-vs-collection-key` (Type grain versus collection key).
 
-  Remark [Grain and keys] claims the grain differs from a declared key in three
+  arXiv v4 `rem:grain-vs-pk` (Grain and keys: the base case) claims the grain differs from a
+  declared key in three
   respects, the first being that a key is a property of a catalogued base table
   while a pipeline continually produces intermediate results and in-memory
   frames that live in no catalogue and carry no declared key. The grain, fixed
@@ -104,7 +105,7 @@ theorem grainEq_of_superkeyOfEvery {R K : D} {k : den R → den K}
     (iso_of_bijective ⟨injective_of_superkeyOfEvery h, hs⟩)
 
 /-- **`K` is a grain of `R`** when, in addition, no proper sub-projection
-    satisfies the conditions — Definition 3.1's irreducibility clause read
+    satisfies the conditions — the irreducibility clause of arXiv v4 `def:grain` (Grain) read
     on `K`. -/
 theorem isGrainOf_of_superkeyOfEvery {R K : D} {k : den R → den K}
     (hs : Function.Surjective k) (h : SuperkeyOfEvery k)

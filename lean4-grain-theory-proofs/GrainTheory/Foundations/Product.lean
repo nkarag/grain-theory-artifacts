@@ -1,7 +1,8 @@
 /-
   GrainTheory.Foundations.Product — Grain of product types
 
-  arXiv Theorem 3.8: **If no determination is declared among the components**,
+  arXiv v4 `thm:grain-product` (Grain of products and sums), item (1): **If no determination is
+  declared among the components**,
   G[R₁ × R₂] ≅ G[R₁] × G[R₂].
 
   The product of grains is itself a grain of the product type.
@@ -12,7 +13,7 @@
   fails: with `CustomerId` determining `CustomerName`,
   `G[CustomerId × CustomerName] = CustomerId`, not
   `G[CustomerId] × G[CustomerName]`. In that case the grain is computed by
-  Grain Inference (Thm 5.10) instead.
+  arXiv v4 `thm:grain-inference-sufficient` (Grain Inference) instead.
 
   Both theorems below therefore take `indep R₁ R₂` as an explicit hypothesis.
   The isomorphism step does not need it; only irreducibility does.
@@ -22,7 +23,7 @@
   - prod_iso: product preserves isomorphism
   - prod_irred: products of independent irreducible types are irreducible
 
-  Reference: arXiv extended version, §3, Theorem 3.8 (Grain of Product Types).
+  Reference: arXiv v4 `thm:grain-product` (Grain of products and sums), item (1).
 -/
 
 import GrainTheory.Foundations.GrainDef
@@ -41,7 +42,7 @@ open GrainStructure
     - Irreducibility: each `grain Rᵢ` is structurally irreducible, and the
       product of independent irreducible types is irreducible (`prod_irred`).
 
-    arXiv Theorem 3.8 (Grain of Product Types). -/
+    arXiv v4 `thm:grain-product` (Grain of products and sums), item (1). -/
 theorem prod_grain_isGrainOf (R₁ R₂ : D) (h_indep : indep R₁ R₂) :
     IsGrainOf (prod (grain R₁) (grain R₂)) (prod R₁ R₂) :=
   ⟨prod_iso _ _ _ _ (grain_iso R₁) (grain_iso R₂),
@@ -50,7 +51,7 @@ theorem prod_grain_isGrainOf (R₁ R₂ : D) (h_indep : indep R₁ R₂) :
        (fun T => grain_irred R₁ T) (fun T => grain_irred R₂ T)
        h_ssub h_iso⟩
 
-/-- arXiv Theorem 3.8: Grain of product types.
+/-- arXiv v4 `thm:grain-product` (Grain of products and sums), item (1): Grain of product types.
     If no determination is declared among the components,
     G[R₁ × R₂] ≅ G[R₁] × G[R₂].
 

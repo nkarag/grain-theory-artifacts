@@ -1,7 +1,8 @@
 /-
   GrainTheory.CalcG.CalcGDef — CalcG definition and correctness (LP-27)
 
-  PODS 2027, §8, Definition 8.1 and Theorem 8.2:
+  arXiv v4 `def:calcg` (CalcG) and arXiv v4 `thm:calcg-correctness` (CalcG Correctness and
+  Complexity):
 
     CalcG is the grain inference algorithm that traverses a pipeline DAG
     in topological order, applying the corresponding RA inference rule at
@@ -79,7 +80,7 @@ inductive RAExpr (D : Type*) [EquiJoinStructure D] : Type _ where
       the projection keeps a sub-set of R's columns, and every grain
       *component* is among those kept.
       The structural test is the schema-decidable one CalcG performs
-      (arXiv Table 2); it is sound but conservative, so a projection that
+      (arXiv v4 `tab:ra-inference`); it is sound but conservative, so a projection that
       keeps the grain only via an alternative key is not constructible here
       (`grain_projection` covers that case with the exact condition). -/
   | Projection (e : RAExpr D) (R S : D)
@@ -101,7 +102,8 @@ inductive RAExpr (D : Type*) [EquiJoinStructure D] : Type _ where
   /-- Theta join ⋈_θ: cross product filtered by θ.
       Res type is R₁ × R₂. Requires the inputs to be **independent** — no
       determination declared across them — which is the hypothesis of the
-      Grain of Product Types theorem (arXiv Thm 3.8). Without it the product
+      product clause of arXiv v4 `thm:grain-product` (Grain of products and sums). Without it the
+      product
       of grains is reducible and the rule over-reports. -/
   | ThetaJoin (e₁ e₂ : RAExpr D) (R₁ R₂ : D) (h_indep : indep R₁ R₂) : RAExpr D
   /-- Semi-join ⋉: returns rows from R₁ matching R₂.
@@ -145,11 +147,11 @@ def RAExpr.outType {D : Type*} [EquiJoinStructure D] : RAExpr D → D
   At each node, CalcG applies the formula from the corresponding RA
   inference rule to the grain(s) of its input(s).
 
-  This mirrors PODS Definition 8.1: CalcG traverses the expression tree
+  This mirrors arXiv v4 `def:calcg` (CalcG): CalcG traverses the expression tree
   (the DAG's topological order corresponds to structural recursion),
   applying the inference rule at each vertex. -/
 
-/-- **CalcG (PODS Definition 8.1).**
+/-- **CalcG (arXiv v4 `def:calcg` (CalcG)).**
 
     Computes the inferred grain of an RA expression by structural recursion.
     Each case applies the grain formula from the corresponding inference rule:
@@ -185,7 +187,8 @@ def calcG {D : Type*} [EquiJoinStructure D] : RAExpr D → D
 
 /-! ## CalcG Correctness Theorem
 
-  **PODS Theorem 8.2:** CalcG correctly computes the grain of the result
+  **arXiv v4 `thm:calcg-correctness` (CalcG Correctness and Complexity):** CalcG correctly computes
+  the grain of the result
   of any RA expression.
 
   We prove this in two forms:
@@ -198,7 +201,8 @@ def calcG {D : Type*} [EquiJoinStructure D] : RAExpr D → D
   reduces to the corresponding inference rule theorem from LP-24 or LP-21.
 -/
 
-/-- **CalcG Correctness — Grain Isomorphism (PODS Theorem 8.2, weak form).**
+/-- **CalcG Correctness — Grain Isomorphism (arXiv v4 `thm:calcg-correctness` (CalcG Correctness and
+    Complexity), weak form).**
 
     For any RA expression E:
       calcG(E) ≅ G[outType(E)]
@@ -259,7 +263,7 @@ theorem calcG_iso_grain : ∀ (e : RAExpr D), iso (calcG e) (grain (RAExpr.outTy
         h_indep h_adm
     -- F₁ ≅ Res
     have h_F1_Res : iso F₁ Res := h_identity.1
-    -- G[F₁] ≅ G[Res] (PODS Thm 4.2)
+    -- G[F₁] ≅ G[Res] (arXiv v4 `thm:grain-equality` (Grain equality is type isomorphism))
     have h_gF1_gRes : iso (grain F₁) (grain Res) :=
       grainEq_of_iso h_F1_Res
     -- G[F₁] ≅ F₁ (equi-join candidate idempotent)
@@ -280,8 +284,10 @@ theorem calcG_iso_grain : ∀ (e : RAExpr D), iso (calcG e) (grain (RAExpr.outTy
     The obligation therefore has to be discharged node by node, and two nodes
     genuinely need a side condition to discharge it:
 
-    - **ThetaJoin** needs the inputs to be independent (arXiv Thm 3.8);
-    - **EquiJoin** needs an admissible labeling (arXiv Thm 7.2).
+    - **ThetaJoin** needs the inputs to be independent (arXiv v4 `thm:grain-product` (Grain of
+      products and sums), item (1));
+    - **EquiJoin** needs an admissible labeling (arXiv v4 `thm:equijoin-grain` (Grain of an
+      Equi-Join)).
 
     Both are now carried by the corresponding `RAExpr` constructors, so an
     ill-conditioned pipeline is not constructible. This is the mechanized
@@ -300,15 +306,18 @@ theorem calcG_irreducible : ∀ (e : RAExpr D), IsIrreducible (calcG e)
   | .AntiJoin _ _ R₁ _ _ _ => grain_irreducible R₁
   -- Grouping: the grouping key is a grain of the result by construction.
   | .Grouping _ _ _ _ h_grain => h_grain.toIrreducible
-  -- Theta join: product of independent irreducible grains (Thm 3.8).
+  -- Theta join: product of independent irreducible grains (arXiv v4 `thm:grain-product` (Grain of
+  -- products and sums), item (1)).
   | .ThetaJoin _ _ R₁ R₂ h_indep =>
     (Foundations.prod_grain_isGrainOf R₁ R₂ h_indep).toIrreducible
   -- Equi-join: the candidate is irreducible under an admissible labeling
-  -- (Thm 7.2). This is informational independence (Def 6.2).
+  -- (arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join)). This is informational independence
+  -- (arXiv v4 `rem:info-independence` (Informational Independence)).
   | .EquiJoin _ _ R₁ R₂ Jk _ _ _ _ _ h_indep h_adm =>
     Inference.equijoin_candidate_irreducible R₁ R₂ Jk h_indep h_adm
 
-/-- **CalcG Correctness — Grain Identity (arXiv Theorem 9.2, strong form).**
+/-- **CalcG Correctness — Grain Identity (arXiv v4 `thm:calcg-correctness` (CalcG Correctness and
+    Complexity), strong form).**
 
     For any RA expression E:
       IsGrainOf (calcG E) (outType E)
@@ -328,7 +337,8 @@ theorem calcG_isGrainOf (e : RAExpr D) :
 
 /-! ## Sequential Composition
 
-  PODS §8 states that for sequential composition, CalcG is function composition:
+  arXiv v4 `sec:calcg` (The CalcG Verification Algorithm) states that for sequential composition,
+  CalcG is function composition:
     CalcG[op₁ ; op₂](G_in) = CalcG[op₂](CalcG[op₁](G_in))
 
   In our structural recursion encoding, this is built into the definition:
@@ -372,7 +382,7 @@ def grainCorrect (e : RAExpr D) (declared : D) : Prop :=
     then grain-correctness is equivalent to the two grains being isomorphic.
 
     PODS justification: two grains of the same type are always isomorphic
-    (Theorem 3.3 — multiple_grains_iso). -/
+    (arXiv v4 `thm:multiple-grains` (Grains are unique up to isomorphism) — multiple_grains_iso). -/
 theorem grainCorrect_of_declared_grain (e : RAExpr D) (declared : D)
     (h_decl : IsGrainOf declared (RAExpr.outType e)) :
     grainCorrect e declared := by

@@ -83,7 +83,7 @@ example :
 theorem t_union_grain :
     ∀ R₁ R₂ : Ty, sub (grain R₁) (grain R₂) → grainEq R₂ (R₁ ∪ R₂) := by decide
 
-/-- Grain Inference (arXiv Thm. grain-inference-sufficient), the workhorse. -/
+/-- arXiv v4 `thm:grain-inference-sufficient` (Grain Inference), the workhorse. -/
 theorem t_grain_inference_isGrainOf :
     ∀ G R : Ty, sub G R → grainLe G R →
       (∀ S : Ty, ssub S G → iso S G → ssub G S) → IsGrainOf G R := by decide
@@ -95,17 +95,18 @@ theorem t_grain_idempotent : ∀ R : Ty, iso (grain (grain R)) (grain R) := by d
 theorem t_multiple_grains :
     ∀ G₁ G₂ R : Ty, IsGrainOf G₁ R → IsGrainOf G₂ R → iso G₁ G₂ := by decide
 
-/-- Grain Subset–Ordering Equivalence (arXiv Lemma grain-subset). -/
+/-- arXiv v4 `thm:grain-subset` (Grain Subset–Ordering Equivalence). -/
 theorem t_grain_subset : ∀ R₁ R₂ : Ty, sub (grain R₁) (grain R₂) → grainLe R₂ R₁ := by decide
 
-/-- The grain determines every subset of its type (arXiv Cor. grain-determines-subsets). -/
+/-- The grain determines every subset of its type (arXiv v4 `cor:grain-all-subsets` (Grain
+    Determines All Type Subsets)). -/
 theorem t_grain_determines_subsets :
     ∀ R R' : Ty, sub R' R → grainLe (grain R) R' := by decide
 
 /-! ## The lattice claim — what this model can and cannot check
 
-  The paper (arXiv v3 and later, Proposition "Lattice bounds on product
-  types") states that on product types over a finite attribute universe `≤_g`
+  The paper (arXiv v4 `prop:grain-lattice-products` (Lattice bounds on product types)) states that
+  on product types over a finite attribute universe `≤_g`
   is a bounded lattice whose least upper bound is the product on the
   intersection of the two grains' **closures** under the declared
   determinations, and whose greatest lower bound is the union of the grains;
@@ -125,7 +126,8 @@ theorem t_grain_determines_subsets :
   reading was wrong, and the ICDT 2027 submission carried the same
   over-reading in its text. -/
 
-/-- Grain-incomparable (arXiv Def. grain-incomp): neither `≡_g` nor `≤_g` in either direction. -/
+/-- Grain-incomparable (arXiv v4 `def:grain-inc` (Grain Incomparability)): neither `≡_g` nor `≤_g`
+    in either direction. -/
 def incomp (R₁ R₂ : Ty) : Prop :=
   ¬ grainEq R₁ R₂ ∧ ¬ grainLe R₁ R₂ ∧ ¬ grainLe R₂ R₁
 instance (a b : Ty) : Decidable (incomp a b) := inferInstanceAs (Decidable (_ ∧ _))
