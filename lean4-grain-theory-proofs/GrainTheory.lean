@@ -19,6 +19,7 @@ import GrainTheory.Relations.Armstrong
 import GrainTheory.Relations.IntersectionUnion
 import GrainTheory.Relations.Incomparability
 import GrainTheory.Relations.Lattice
+import GrainTheory.Relations.ClosureLattice
 import GrainTheory.Inference.EquiJoinAxioms
 import GrainTheory.Inference.EquiJoinSub
 import GrainTheory.Inference.EquiJoinBootstrap

@@ -108,6 +108,19 @@ theorem m_diff_sub_of_sub_FAILS :
 theorem m_inter_mono_left_FAILS :
     ¬ (∀ A B C : Ty, sub A B → sub (A ∩ C) (B ∩ C)) := by decide
 
+/-! ## The closure axioms of `ClosureStructure`
+
+  `Relations/ClosureLattice.lean` extends the class with the closure operator
+  and four axioms, and proves the closure-based lattice bounds of arXiv v4
+  `prop:grain-lattice-products` from them. All four hold here: the first three
+  were checked in `Schema.lean`, and the fourth is the model's definition of
+  `sub`. -/
+
+theorem m_cl_extensive : ∀ A : Ty, ssub A (cl A) := by decide
+theorem m_cl_monotone : ∀ A B : Ty, ssub A B → ssub (cl A) (cl B) := by decide
+theorem m_cl_idempotent : ∀ A : Ty, ssub (cl (cl A)) (cl A) := by decide
+theorem m_sub_iff_ssub_cl : ∀ A B : Ty, sub A B ↔ ssub A (cl B) := fun _ _ => Iff.rfl
+
 /-! ## Part 3 — what the model was built to witness
 
   These are the facts the abstract axiomatization cannot establish about

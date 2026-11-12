@@ -72,6 +72,16 @@ example : sub {2} {0} ∧ sub {2} {1} ∧ ¬ sub {2} (({0} : Ty) ∩ {1}) := by 
 theorem m_diff_sub_left_FAILS :
     ¬ (∀ A B C : Ty, sub A B → sub (A \ C) (B \ C)) := by decide
 
+/-! ## The closure axioms of `ClosureStructure`, in the two-dependency model
+
+  Here the closure has content on incomparable pairs (see `TheoremCheck`), and
+  the four axioms of `Relations/ClosureLattice.lean` still hold. -/
+
+theorem m_cl_extensive : ∀ A : Ty, ssub A (cl A) := by decide
+theorem m_cl_monotone : ∀ A B : Ty, ssub A B → ssub (cl A) (cl B) := by decide
+theorem m_cl_idempotent : ∀ A : Ty, ssub (cl (cl A)) (cl A) := by decide
+theorem m_sub_iff_ssub_cl : ∀ A B : Ty, sub A B ↔ ssub A (cl B) := fun _ _ => Iff.rfl
+
 /-! ## Separation and non-vacuity, again -/
 
 theorem separation : ∃ A B : Ty, sub A B ∧ ¬ ssub A B :=
