@@ -24,7 +24,7 @@ mirrors the paper's proof style.
 | | |
 |---|---|
 | Lean modules | 49, all reachable from the root module |
-| Theorems | 408 theorems and lemmas (plus 102 definitions, abbreviations, structures and classes) |
+| Theorems | 426 theorems and lemmas (plus 106 definitions, abbreviations, structures, classes and inductives) |
 | Axioms | 55 — every one used, and every one **verified against two concrete models** (one and two declared dependencies) |
 | `sorry` obligations | 0 |
 | Build | `lake build`, 3314 jobs, 0 errors, 0 warnings |
@@ -192,7 +192,7 @@ citations survive renumbering; statement numbers do not.
 
 ## Axiomatization
 
-Four type classes plus one standalone axiom — **55 assumptions in total**, each
+Five type classes plus one standalone axiom — **59 assumptions in total**, each
 carrying a docstring naming the paper statement it encodes:
 
 - **`GrainStructure`** (38 axioms, `Basic.lean`) — the two subtype relations,
@@ -201,10 +201,10 @@ carrying a docstring naming the paper statement it encodes:
   operations themselves), not assumptions.
 - **`EquiJoinStructure`** (10 axioms, `EquiJoinAxioms.lean`) — functional
   determination and its closure properties, plus `equijoin_candidate_irred`
-  (Thm 7.2's irreducibility step).
+  (the irreducibility step of arXiv v4 `thm:equijoin-grain`).
 - **`SemanticGrainStructure`** (2 axioms, `DependencyTheory/Factorization.lean`) —
   `isoEquiv`, extracting an actual bijection from abstract `iso`, and `equivIso`
-  its converse, for the element-level results of §8.
+  its converse, for the element-level results of arXiv v4 `sec:grain-factorization`.
 - **`ADTStructure`** (4 axioms, `ADT/Correctness.lean`) — the fixed-point
   constructors: that they respect isomorphism (`mu_congr`, `nu_congr` — the
   paper's Bird & de Moor citation) and carry irreducibility (`mu_irred`,
@@ -212,6 +212,12 @@ carrying a docstring naming the paper statement it encodes:
   are phrased pointwise, which is stronger than the categorical result they
   stand for. That is the one place the ADT section is not fully reduced to the
   axioms above.
+- **`ClosureStructure`** (4 axioms, `Relations/ClosureLattice.lean`) — the
+  closure operator of the declared determinations: extensive, monotone,
+  idempotent, and `⊆typ` is `⊑` into the closure. From these the module proves
+  the closure-based lattice bounds of arXiv v4 `prop:grain-lattice-products`,
+  items (1), (2), (4) and (5); both finite models discharge the four axioms by
+  decision.
 - **`armstrong_complete`** (standalone) — transfer from Armstrong's 1974
   completeness theorem.
 
