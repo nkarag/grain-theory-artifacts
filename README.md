@@ -12,7 +12,7 @@ This repository contains all artifacts supporting the grain theory papers:
 This repository provides comprehensive artifacts demonstrating grain theory's implementation, formal verification, and empirical validation:
 
 1. **Lean 4 Grain Theory Proofs** - Mechanized verification of the extended arXiv version, §§3--10 and appendix (50 modules, 426 theorems and lemmas, 59 axioms, zero `sorry`)
-2. **PBT Equi-Join Validation** - Property-based testing of the equi-join theorem against PostgreSQL (22,303 configs, zero violations)
+2. **PBT Equi-Join Validation** - Property-based testing of the equi-join theorem against PostgreSQL (22,303 configs in modes A–C; 10,309 configuration–dependency pairs in mode D, which declares a functional dependency inside the candidate and checks the closure reduction; zero violations)
 3. **Lean 4 Pipeline Formalization** - Machine-checkable formal proofs of pipeline correctness
 4. **Type System Encodings** - Grain encoding implementations across three type systems (Python/mypy, Lean 4, Agda)
 5. **SQL Validation** - 100 equi-join examples validating the grain inference formulas
@@ -34,6 +34,7 @@ grain-theory-artifacts/
 ├── pbt-equijoin/              # PBT validation of equi-join theorem
 │   ├── run_mode_a.py          # Exhaustive (12,271 configs)
 │   ├── run_mode_b.py          # Random PBT (10,000 configs)
+│   ├── run_mode_d.py          # Declared FDs within/across inputs (10,309 pairs)
 │   ├── run_mode_c.py          # Edge cases (16 × 2)
 │   └── PBT_RESULTS.md         # Full results report
 │

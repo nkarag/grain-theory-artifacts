@@ -1,6 +1,6 @@
 # PBT Verification Report: Equi-Join Grain Inference
 
-**Date:** 2026-04-03
+**Date:** 2026-04-03 (modes A–C); 2026-11-14 (mode D added)
 **Artifact:** `pbt-equijoin/` in `grain-theory-artifacts`
 **Verdict:** ALL PROPERTIES PASSED -- zero violations across all three modes.
 
@@ -15,9 +15,10 @@ Property-based testing (PBT) of the corrected equi-join grain inference theorem 
 | A | Exhaustive small-model | 12,271 | 5 cols | 0 | PASS |
 | B | Random PBT (Hypothesis) | 10,000 | ~22 cols | 0 | PASS |
 | C | Hand-crafted edge cases | 16 x 2 | varies | 0 | PASS |
+| D | Declared FDs inside and across the inputs (exhaustive to 4 cols + random) | 10,309 | ~16 cols | 0 | PASS |
 
-**Total configurations tested:** 22,303
-**Total individual property checks:** 73,818 (73,626 + 60,000 + 192)
+**Total configurations tested:** 32,612 (22,303 in modes A–C; 10,309 configuration–dependency pairs in mode D)
+**Total individual property checks:** 135,672 (73,818 in modes A–C; 61,854 in mode D)
 **Failures:** 0
 
 No counterexample was found in any mode, for any property, under any configuration class.
@@ -215,6 +216,47 @@ All 192 property checks passed (0 failures, 0 inconclusive).
 
 ---
 
+## 7b. Mode D: Declared Dependencies Inside and Across the Inputs (added 2026-11-14)
+
+**Why.** Modes A–C generate configurations whose only declarations are the two input grains, so the second hypothesis of the equi-join theorem (arXiv v4 `thm:equijoin-grain`: no declared determination other than the two grains acts among the candidate's fields) holds by construction, and the reduction of `prop:grain-reduction-fd` has nothing to do. Mode D declares one further functional dependency $U \to v$ per configuration, enforces it in the data, and checks that the theorem's candidate $K = G[R_1] \cup (G[R_2] \setminus J_k)$ is then a superkey but not the grain, and that the closure reduction returns a key.
+
+**Dependencies generated** (`fd_config.admissible_fds`): the target $v$ is a non-join-key grain field of one input (so it lies in the candidate); the determinant $U$ is a nonempty set of at most three other candidate fields that is not a subset of the target's own grain (a grain is irreducible, so no part of it determines another part). $U$ is *within* when all its fields belong to the target's input (its determinant then contains a join-key field of the other grain), and *cross* when it spans both inputs, the paper's `{StoreId, Season} -> Discount`; for a cross dependency the $R_1$-side fields of $U$ must be grain fields of $R_1$ outside the join key.
+
+**Data** (`data_gen_fd`): both grains stay keys of their inputs and the join is non-empty, as in modes A–C. A within dependency is enforced by computing $v$ from the row's $U$ values. A cross dependency is realized through the join key: $R_1$ is generated with one row per join-key tuple and one value per row in the $R_1$-side fields of $U$, so that the join key determines them, and $v$ in $R_2$ is computed from those fields (looked up by the row's join key) and the $R_2$-side fields of $U$; on the join result $U \to v$ then holds. When the dependency leaves no free field in a grain, that input is generated with one row per join-key tuple, which keeps the grain a key.
+
+**Properties** (`properties_fd`):
+
+| ID | Property | Description |
+|----|----------|-------------|
+| D1 | Dependency holds | $U \to v$ holds on the join result (data sanity) |
+| D2 | Candidate superkey | $K$ is unique on the result (first claim of `prop:grain-reduction-fd`) |
+| D3 | Candidate reducible | $K \setminus \{v\}$ is still unique: $K$ is not the grain once the dependency is declared |
+| D4 | Reduction is a key | the reduction $K'$ (delete every attribute determined by the rest through the closure, to a fixpoint) is unique on the result |
+| D5 | Reduction drops $v$ | structural: $v \in K$, $v \notin K'$ |
+| D6 | Reduction minimal | $K'$ is irreducible on the result; non-minimality is reported as inconclusive, as for P2 |
+
+**Runs** (`run_mode_d.py --max-type-size 4 --random-examples 5000 --n-rows 30`):
+
+| Sub-run | Configuration–dependency pairs | within / cross | $|U|$ = 1 / 2 / 3 | Elapsed |
+|---------|------:|------|------|------:|
+| Exhaustive, $|R_i| \le 4$, every admissible dependency | 5,309 | 170 / 5,139 | 1,744 / 2,319 / 1,246 | 18.2 s |
+| Random (Hypothesis, max_jk=6, max_r_only=5), one admissible dependency each | 5,000 | 1,080 / 3,920 | 3,241 / 1,116 / 643 | 26.1 s |
+
+| Property | Exhaustive passed / inconclusive / failed | Random passed / inconclusive / failed |
+|----------|------|------|
+| D1 Dependency holds | 5,309 / 0 / 0 | 5,000 / 0 / 0 |
+| D2 Candidate superkey | 5,309 / 0 / 0 | 5,000 / 0 / 0 |
+| D3 Candidate reducible | 5,309 / 0 / 0 | 5,000 / 0 / 0 |
+| D4 Reduction is a key | 5,309 / 0 / 0 | 5,000 / 0 / 0 |
+| D5 Reduction drops $v$ | 5,309 / 0 / 0 | 5,000 / 0 / 0 |
+| D6 Reduction minimal | 678 / 4,631 / 0 | 1,705 / 3,295 / 0 |
+
+**Reading.** D2–D4 are the content of `prop:grain-reduction-fd` and held in every pair: the theorem's candidate is always a superkey, it is never the grain once a dependency acts inside it (D3), and the reduction is always a key (D4). D6's inconclusive share is larger than P2's for a structural reason: a cross dependency is realizable on a join only when the join key determines the $R_1$ side of its determinant, so in the generated data the join key determines every $R_1$ field, an undeclared dependency that makes $R_1$ fields outside the join key accidentally removable from $K'$; whenever the data admits a conclusion, $K'$ is minimal.
+
+Results are in `mode_d_results.json`; `pytest test_mode_d.py` runs the pure-Python checks and a sample of the SQL checks.
+
+---
+
 ## 8. Data-Sufficiency Notes
 
 Properties P2 (Minimality) and P4 (Both-minimal for incomparable) frequently report **inconclusive** rather than passed. This is NOT a failure -- it reflects a fundamental limitation of finite random data generation:
@@ -250,9 +292,12 @@ python run_mode_b.py
 
 # Mode C: Edge cases (requires <1s)
 python run_mode_c.py
+
+# Mode D: Declared dependencies (requires ~45s)
+python run_mode_d.py --max-type-size 4 --random-examples 5000 --n-rows 30
 ```
 
-Results are written to `mode_a_results.json`, `mode_b_results.json`, and `mode_c_results.json` respectively.
+Results are written to `mode_a_results.json`, `mode_b_results.json`, `mode_c_results.json` and `mode_d_results.json` respectively.
 
 ---
 
@@ -263,13 +308,14 @@ Results are written to `mode_a_results.json`, `mode_b_results.json`, and `mode_c
 | A | Exhaustive | 12,271 | 5 cols | 6 | 0 | **PASS** |
 | B | Random PBT | 10,000 | ~22 cols | 6 | 0 | **PASS** |
 | C | Edge cases | 16 x 2 | varies | 6 | 0 | **PASS** |
-| **Total** | | **22,303** | | | **0** | **PASS** |
+| D | Declared FDs within/across inputs | 10,309 | ~16 cols | 6 | 0 | **PASS** |
+| **Total** | | **32,612** | | | **0** | **PASS** |
 
 ---
 
 ## 11. Conclusion
 
-Across 22,303 configurations -- spanning exhaustive enumeration of small models, randomized testing at larger scales, and hand-crafted boundary conditions -- all four core theorem properties hold without exception:
+Across 22,303 configurations -- spanning exhaustive enumeration of small models, randomized testing at larger scales, and hand-crafted boundary conditions -- all four core theorem properties hold without exception, and across 10,309 further configuration–dependency pairs (mode D) the candidate is a superkey, is reducible, and its closure reduction is a key, without exception:
 
 1. **Uniqueness (P1):** Both candidate formulas $F_1$ and $F_2$ always produce unique identifiers on the join result. Confirmed in 100% of configs across all modes.
 
