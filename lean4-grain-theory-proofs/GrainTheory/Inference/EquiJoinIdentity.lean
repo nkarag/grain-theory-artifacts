@@ -37,6 +37,16 @@
   Reference: arXiv v4 `thm:equijoin-grain` (Grain of an Equi-Join); arXiv v4 `rem:info-independence`
   (Informational Independence),
   in the appendix.
+
+  **The theorem's second hypothesis (arXiv v4, 14 Nov 2026).** The paper's statement
+  assumes, besides informational independence, that no declared determination other
+  than the two input grains acts among the candidate's fields (arXiv v4
+  `rem:grain-level-determination`). In this development that hypothesis holds by
+  construction: `EquiJoinStructure` carries the grain-level relations only, and no
+  within-input determination such as `{StoreId, Season} → Discount` is expressible
+  here. The general case, where such a determination leaves the candidate a superkey,
+  is `GrainTheory.Inference.GrainReduction` (arXiv v4 `prop:grain-reduction-fd`), which
+  Algorithm 1 of the paper applies at every vertex.
 -/
 
 import GrainTheory.Inference.EquiJoinAxioms

@@ -37,8 +37,13 @@ variable {D : Type u} [GrainStructure D]
     `k : K`.
 
     "Each inhabitant is determined by, and unique to, its key", which at the
-    type level is exactly `C ≅ K`. The fiber content does not appear: that is
-    the point, and it is why an unbounded fiber costs nothing. -/
+    type level is exactly `C ≅ K`. In arXiv v4 (14 Nov 2026) the paper says
+    where this isomorphism comes from: declaring the partition declares the
+    determination `K → Coll_K R`, a declared determination with a compound
+    target (arXiv v4 `def:type-denotation`), and its inverse reads the shared
+    key off a group; both are structure maps. Here that is the field `fibers`.
+    The fiber content does not appear: that is the point, and it is why an
+    unbounded fiber costs nothing. -/
 structure IsPartitionedCollection (C K R : D) : Prop where
   /-- The partition key is a structural subtype of the element grain. -/
   key_ssub : ssub K (grain R)
