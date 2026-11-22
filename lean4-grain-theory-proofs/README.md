@@ -25,7 +25,7 @@ mirrors the paper's proof style.
 |---|---|
 | Lean modules | 51, all reachable from the root module |
 | Theorems | 449 theorems and lemmas (plus 128 definitions, abbreviations, structures, classes and inductives) |
-| Axioms | 58 — every one used, and every one **verified against two concrete models** (one and two declared dependencies) |
+| Axioms | 58 — every one used. Those of `GrainStructure`, `EquiJoinStructure` and `ClosureStructure` are **checked against concrete finite models** (one and two declared dependencies); the remaining six — `isoEquiv`, the four `ADTStructure` fixed-point axioms and `armstrong_complete` — are not model-checked (see Axiomatization) |
 | `sorry` obligations | 0 |
 | Build | `lake build`, 3316 jobs, 0 errors, 0 warnings |
 | Toolchain | Lean 4 v4.29.0-rc8 + Mathlib v4.29.0-rc8 |
