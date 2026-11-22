@@ -11,7 +11,7 @@ This repository contains all artifacts supporting the grain theory papers:
 
 This repository provides comprehensive artifacts demonstrating grain theory's implementation, formal verification, and empirical validation:
 
-1. **Lean 4 Grain Theory Proofs** - Mechanized verification of the extended arXiv version, §§3--10 and appendix (50 modules, 426 theorems and lemmas, 59 axioms, zero `sorry`)
+1. **Lean 4 Grain Theory Proofs** - Mechanized verification of the extended arXiv version, §§3--10 and appendix (51 modules, 449 theorems and lemmas, 58 axioms, zero `sorry`)
 2. **PBT Equi-Join Validation** - Property-based testing of the equi-join theorem against PostgreSQL (22,303 configs in modes A–C; 10,309 configuration–dependency pairs in mode D, which declares a functional dependency inside the candidate and checks the closure reduction; zero violations)
 3. **Lean 4 Pipeline Formalization** - Machine-checkable formal proofs of pipeline correctness
 4. **Type System Encodings** - Grain encoding implementations across three type systems (Python/mypy, Lean 4, Agda)
@@ -25,7 +25,7 @@ All artifacts are fully functional and demonstrate that grain theory enables sys
 ```
 grain-theory-artifacts/
 ├── lean4-grain-theory-proofs/ # Mechanized proofs (Lean 4 + Mathlib)
-│   ├── GrainTheory/           # 50 proof modules
+│   ├── GrainTheory/           # 51 proof modules
 │   ├── GrainTheory.lean       # Root import
 │   ├── lakefile.toml          # Build configuration
 │   ├── lean-toolchain         # Lean 4 v4.29.0-rc8

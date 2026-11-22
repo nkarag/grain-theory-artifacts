@@ -167,7 +167,10 @@ theorem projection_error_invisible_downstream {R S Res : D}
 
 /-- A type is **multi-version at entity key `EK` with version component
     `Dtm`** when its grain is `EK × Dtm`
-    (arXiv v4 `def:core-class` (Core classes), IsMultiVersion). -/
+    (arXiv v4 `def:core-class` (Core classes), IsMultiVersion). Only the grain
+    is modelled. The class's further invariant, that consecutive versions
+    differ in payload (`rem:bc-mv-constraint`), is quantified over the elements
+    of one collection, not over the type, and is not formalized here. -/
 def IsMultiVersionAt (EK Dtm R : D) : Prop :=
   IsGrainOf (prod EK Dtm) R
 

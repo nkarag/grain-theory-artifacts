@@ -23,11 +23,11 @@ mirrors the paper's proof style.
 
 | | |
 |---|---|
-| Lean modules | 49, all reachable from the root module |
-| Theorems | 426 theorems and lemmas (plus 106 definitions, abbreviations, structures, classes and inductives) |
-| Axioms | 55 — every one used, and every one **verified against two concrete models** (one and two declared dependencies) |
+| Lean modules | 51, all reachable from the root module |
+| Theorems | 449 theorems and lemmas (plus 128 definitions, abbreviations, structures, classes and inductives) |
+| Axioms | 58 — every one used, and every one **verified against two concrete models** (one and two declared dependencies) |
 | `sorry` obligations | 0 |
-| Build | `lake build`, 3314 jobs, 0 errors, 0 warnings |
+| Build | `lake build`, 3316 jobs, 0 errors, 0 warnings |
 | Toolchain | Lean 4 v4.29.0-rc8 + Mathlib v4.29.0-rc8 |
 
 ## What changed in this revision
@@ -125,7 +125,8 @@ GrainTheory/
     Product.lean                     -- arXiv v4 `thm:grain-product`, products -- requires component independence
     Sum.lean                         -- arXiv v4 `thm:grain-product`, sums -- no independence needed
     IdentifyingFamily.lean           -- arXiv v4 `subsec:identifying-family`: grain as a minimal identifying family
-    CollectionKey.lean               -- type grain vs collection key; superkey bridge
+    CollectionKey.lean               -- type grain vs collection key, per realization
+    Realization.lean                 -- records, declarations, realizations; structure maps <=> closure
   Relations/
     GrainEquality.lean               -- arXiv v4 `def:grain-eq`, `thm:grain-equality`, preservation
     GrainOrdering.lean               -- arXiv v4 `def:grain-ord`, partial order, preservation
@@ -192,7 +193,7 @@ citations survive renumbering; statement numbers do not.
 
 ## Axiomatization
 
-Five type classes plus one standalone axiom — **59 assumptions in total**, each
+Five type classes plus one standalone axiom — **58 assumptions in total**, each
 carrying a docstring naming the paper statement it encodes:
 
 - **`GrainStructure`** (38 axioms, `Basic.lean`) — the two subtype relations,
@@ -202,9 +203,14 @@ carrying a docstring naming the paper statement it encodes:
 - **`EquiJoinStructure`** (10 axioms, `EquiJoinAxioms.lean`) — functional
   determination and its closure properties, plus `equijoin_candidate_irred`
   (the irreducibility step of arXiv v4 `thm:equijoin-grain`).
-- **`SemanticGrainStructure`** (2 axioms, `DependencyTheory/Factorization.lean`) —
-  `isoEquiv`, extracting an actual bijection from abstract `iso`, and `equivIso`
-  its converse, for the element-level results of arXiv v4 `sec:grain-factorization`.
+- **`SemanticGrainStructure`** (1 axiom, `DependencyTheory/Factorization.lean`) —
+  `isoEquiv`, extracting an actual bijection from abstract `iso`, for the
+  element-level results of arXiv v4 `sec:grain-factorization`. One instance is
+  one realization (arXiv v4 `rem:realization-and-change`). The converse,
+  `equivIso`, was removed: a bijection in one realization is no isomorphism.
+  `Foundations/Realization.lean` refutes it on a concrete model and proves
+  `thm:type-grain-vs-collection-key` over all realizations with no project
+  axiom.
 - **`ADTStructure`** (4 axioms, `ADT/Correctness.lean`) — the fixed-point
   constructors: that they respect isomorphism (`mu_congr`, `nu_congr` — the
   paper's Bird & de Moor citation) and carry irreducibility (`mu_irred`,

@@ -8,6 +8,7 @@ import GrainTheory.Foundations.Product
 import GrainTheory.Foundations.Sum
 import GrainTheory.Foundations.IdentifyingFamily
 import GrainTheory.Foundations.CollectionKey
+import GrainTheory.Foundations.Realization
 import GrainTheory.ADT.TypeExpr
 import GrainTheory.ADT.Correctness
 import GrainTheory.ADT.Partitioned

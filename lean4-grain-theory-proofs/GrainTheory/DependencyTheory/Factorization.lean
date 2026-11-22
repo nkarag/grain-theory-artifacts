@@ -34,22 +34,20 @@ universe u v
     - `den : D → Type` — maps abstract type names to actual Lean types
     - `isoEquiv` — witnesses that abstract `iso` produces actual `Equiv`
 
-    PODS justification: `iso` was always intended as "bijection exists";
-    `isoEquiv` makes this computational content explicit. -/
+    One instance is one realization (arXiv v4 `rem:realization-and-change`):
+    `den R` is the denotation of `R` under one admissible choice of carriers
+    and functions, and a theorem proved for every instance holds in every
+    realization. `isoEquiv` is sound for that reading: an isomorphism by
+    structure maps is a bijection in every realization. Its converse is not:
+    a bijection of denotations in one realization is no isomorphism, and the
+    former axiom `equivIso` that asserted it was removed (21 Nov 2026).
+    `Foundations/Realization.lean` proves the step it stood for on a concrete
+    model and refutes the converse there (`Employee.equivIso_unsound`). -/
 class SemanticGrainStructure (D : Type u) extends GrainStructure D where
   /-- Denotation: maps an abstract type name to an actual Lean type -/
   den : D → Type v
   /-- Witness: abstract iso produces an actual equivalence -/
   isoEquiv : ∀ (R₁ R₂ : D), iso R₁ R₂ → den R₁ ≃ den R₂
-  /-- …and conversely. Together with `isoEquiv` this says
-      `iso R₁ R₂ ↔ Nonempty (den R₁ ≃ den R₂)`, which is exactly what the paper's
-      type isomorphism (arXiv v4 `def:structure-map` (Structure map)) amounts to at the semantic
-      layer: *a bijection exists*. Without the
-      converse the semantic layer can consume an abstract `iso` but never
-      produce one, so an element-level bijection could not be reported back as
-      a type-level isomorphism — which is what
-      `Foundations/CollectionKey.lean` needs. -/
-  equivIso : ∀ (R₁ R₂ : D), (den R₁ ≃ den R₂) → iso R₁ R₂
 
 namespace SemanticGrainStructure
 
